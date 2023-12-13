@@ -1,0 +1,195 @@
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, deprecated_member_use
+import 'package:Tanmeyah/Models/user_model.dart';
+import 'package:Tanmeyah/Modules/Account/account_controller.dart';
+import 'package:Tanmeyah/Modules/Account/widget/user_data.dart';
+import 'package:Tanmeyah/Modules/Account/widget/user_data_withedit.dart';
+import 'package:Tanmeyah/Shared/shared_prefirences.dart';
+import 'package:Tanmeyah/Utilities/helper.dart';
+import 'package:Tanmeyah/Widgets/base_appbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../Models/government_model.dart';
+import '../../Theme/app_assets.dart';
+import '../../Theme/themeclass.dart';
+import '../../Utilities/loading_screen.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+import '../../Widgets/animated_alert.dart';
+import '../../Widgets/custom_button_widget.dart';
+import '../../Widgets/custom_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import '../Authentication/Login/login_screen.dart';
+import '../More/main_more/widget/logout_alert.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+
+class AccountScreen extends StatefulWidget {
+  static const String routeName = "/accountScreen";
+
+  const AccountScreen({Key? key}) : super(key: key);
+
+  @override
+  _AccountScreenState createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends StateMVC<AccountScreen> {
+  _AccountScreenState() : super(AccountController()) {
+    con = AccountController();
+  }
+
+  late AccountController con;
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          backgroundColor: ThemeClass.whiteColor,
+          appBar: BaseAppBar.main(
+              title: "account".tr, isBackButtonVisible: false),
+          body: SafeArea(
+              child: LoadingScreen(
+                loading: con.loading,
+                child: GestureDetector(
+                    onTap: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    child: SharedPref.getUserObg() != null
+                    ? Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10.w),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: ThemeClass.whiteColor),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: Column(children: [
+                              SizedBox(height: 10.h),
+                              FadeIn(
+                                  delay: 1,
+                                  from: SlideFrom.LEFT,
+                                  child: UserDataWidget(
+                                      title: "full_name".tr,
+                                      data: con.userModel?.fullName ?? "")),
+                              FadeIn(
+                                  delay: 1.2,
+                                  from: SlideFrom.LEFT,
+                                  child: UserDataWidget(
+                                      title: "id_num".tr,
+                                      data: con.userModel?.nationalId ?? "")),
+                              FadeIn(
+                                  delay: 1.5,
+                                  from: SlideFrom.LEFT,
+                                  child: UserDataWidget(
+                                      title: "birthday".tr,
+                                      data: con.userModel?.birthDate
+                                              .substring(0, 11) ??
+                                          "")),
+                              FadeIn(
+                                  delay: 1.8,
+                                  from: SlideFrom.LEFT,
+                                  child: UserDataWidget(
+                                      title: "phone_number".tr,
+                                      data:
+                                          con.userModel?.mobileNumber ?? "")),
+                              con.userModel?.email != null ?
+                              FadeIn(
+                                delay: 2,
+                                from: SlideFrom.LEFT,
+                                child: UserDataWithEdit(
+                                    title: "email".tr,
+                                    data: con.userModel?.email != null
+                                        ? con.userModel!.email!
+                                        : "example@example.com"),
+                              ) : Container(),
+                              FadeIn(
+                                  delay: 2.2,
+                                  from: SlideFrom.LEFT,
+                                  child: UserDataWithEdit(
+                                      title: "government".tr,
+                                      data:  con.city != null ? con.city! : "القاهره")),
+                              FadeIn(
+                                  delay: 2.4,
+                                  from: SlideFrom.LEFT,
+                                  child: UserDataWithEdit(
+                                      title: "password".tr,
+                                      data: "*************")),
+                              SizedBox(height: 16.h,),
+                              !con.guestMood?
+                              CustomButton(
+                                width: 216,
+                                title: "deactivate".tr,
+                                backgroundColor: ThemeClass.whiteColor,
+                                textColor: ThemeClass.primaryColor,
+                                borderColor: ThemeClass.primaryColor,
+                                onTap: () {
+                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                  _analytics.logEvent(
+                                      name: 'request_deactivate_account',
+                                      parameters: <String,dynamic>{
+                                        "title" :"request_deactivate_account"
+                                      }
+                                  );
+                                  AnimatedAlertDialog(context,
+                                      LogoutAlertWidget(message : "deactivate_message".tr ,onOkPressed: () {
+                                        con.logout(context,con.userModel?.mobileNumber??"",con.userModel?.nationalId??"");
+                                      }));
+                                },
+
+                              ) : Container(),
+                              SizedBox(height: 100.h,),
+
+                            ]),
+                          ),
+                        ))
+                    : Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(height: 10.h),
+                          FadeIn(
+                            delay: 2,
+                            from: SlideFrom.TOP,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Image.asset(AppAssets.IMG_EMPTY_ACCOUNT,
+                                  width: double.infinity,
+                                  height: 357.h,
+                                  fit: BoxFit.fill),
+                            ),
+                          ),
+                          SizedBox(height: 16.h),
+                          FadeIn(
+                              delay: 2,
+                              from: SlideFrom.TOP,
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.w),
+                                  child: AppTextBold(
+                                      title: "guest_des".tr))),
+                           SizedBox(
+                             height: 121.h,
+                           ),
+                          FadeIn(
+                              delay: 2,
+                              from: SlideFrom.BOTTOM,
+                              child: CustomButton(
+                                  width: 216,
+                                  title: "login".tr,
+                                  onTap: () async {
+                                    Navigator.of(context,
+                                            rootNavigator: true)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen(
+                                                  phoneNumber: "",
+                                                ),
+                                            maintainState:
+                                                false)); // await con.register(context);
+                                  })),
+                        ])),
+              ))),
+    );
+  }
+}
