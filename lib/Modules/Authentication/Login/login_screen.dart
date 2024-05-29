@@ -60,14 +60,22 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   checkAvailable() async {
     final biometrics = await LocalAuthApi.getBiometric();
     con.hasFaceId = biometrics.contains(BiometricType.face);
-    con.hasFingerPrint = biometrics.contains(BiometricType.fingerprint);
-    setState(() {
-      con.hasFaceId;
-      con.hasFingerPrint;
+    con.hasFingerPrint = biometrics.contains(BiometricType.strong);
+    con.hasOldFaceVersion = biometrics.contains(BiometricType.weak);
+    con.hasFingerPrintForIOS = biometrics.contains(BiometricType.fingerprint);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        con.hasFaceId;
+        con.hasFingerPrint;
+        con.hasOldFaceVersion;
+        con.hasFingerPrintForIOS;
+      });
     });
 
-    print("<<<<<<<<" + con.hasFaceId.toString());
-    print("<<<<<<<<" + con.hasFingerPrint.toString());
+    print("<<<<<<<<!!!!" + con.hasFaceId.toString());
+    print("<<<<<<<<!!!!" + con.hasFingerPrint.toString());
+    print("<<<<<<<<!!!!" + con.hasFingerPrintForIOS.toString());
 
 
     if (widget.phoneNumber != "") {
@@ -156,7 +164,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                     SizedBox(height: 26.h),
                                     Row(
                                       mainAxisAlignment:
-                                          (con.hasFingerPrint || con.hasFaceId)
+                                          (con.hasFingerPrint || con.hasFaceId || con.hasFingerPrintForIOS)
                                               ? MainAxisAlignment.center
                                               : MainAxisAlignment.center,
                                       children: [
@@ -180,7 +188,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
         delay: 2,
         from: SlideFrom.TOP,
         child: Image.asset(AppAssets.IMG_LOGIN,
-            height: 250.h, width: 300.w, fit: BoxFit.fill));
+            height: 250.h, width: 300.w, fit: BoxFit.cover));
   }
 
   Widget phoneTxtField() {
@@ -295,11 +303,11 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
         delay: 2,
         from: SlideFrom.BOTTOM,
         child: Row(
-            mainAxisAlignment: (con.hasFaceId || con.hasFingerPrint)
+            mainAxisAlignment: (con.hasFaceId || con.hasFingerPrint || con.hasFingerPrintForIOS)
                 ? MainAxisAlignment.spaceAround
                 : MainAxisAlignment.center,
             children: [
-              con.hasFingerPrint
+              (con.hasFingerPrint || con.hasFingerPrintForIOS)
                   ? GestureDetector(
                       onTap: () async {
                         final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -348,8 +356,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                           width: 30.w,
                           height: 30.h,
                         ),
-                      )) : Container() ,
-                  con.hasFaceId ? GestureDetector(
+                      )):
+              (con.hasFaceId || con.hasOldFaceVersion) ? GestureDetector(
                       onTap: () async {
                         final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                         _analytics.logEvent(
@@ -396,7 +404,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                           width: 20.w,
                           height: 20.h,
                         ),
-                      )) : Container(),
+                      )):SizedBox.shrink(),
             ]));
   }
 

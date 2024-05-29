@@ -11,7 +11,6 @@ import 'package:Tanmeyah/Models/terms_response.dart';
 import 'package:Tanmeyah/Models/validate_user_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../Models/header_response.dart';
 import '../Models/session_token_model.dart';
 import '../Models/user_model.dart';
 import '../Models/verify_otp_model.dart';
@@ -74,6 +73,9 @@ class UserApi {
       Map<String, String> headers = response.headers;
       UserModel? userModel;
       String headerValue = headers['authorization'] ?? '';
+      print("NEEEEEEEE===>>>   ${headerValue}");
+      print("NEEEEEEEE===>>>   ${result["user"]["token"]}");
+
       userModel = UserModel.fromJson(result["user"]);
       userModel..token = "Bearer $headerValue";
       SharedPref.saveUserObj(userModel: userModel);

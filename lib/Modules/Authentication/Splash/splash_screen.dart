@@ -74,7 +74,7 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
     Future.delayed(Duration.zero,() {
        con.getCurrentPosition(context);
       con.getAppVersion().then((value) async {
-        if(value != true) {
+        if(value == false) {
           Navigator.pushNamed(context, AppVersionScreen.routeName);
         }
         else {

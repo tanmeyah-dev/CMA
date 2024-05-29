@@ -22,6 +22,8 @@ class LoginController extends ControllerMVC {
   bool loading = false, autoValidate = false, showPassword = true;
   bool hasFaceId = false;
   bool hasFingerPrint = false;
+  bool hasOldFaceVersion = false;
+  bool hasFingerPrintForIOS = false;
   String? encryptedPhone, encryptedPassword,phoneNumber;
 
   late TextEditingController phoneController, passwordController;

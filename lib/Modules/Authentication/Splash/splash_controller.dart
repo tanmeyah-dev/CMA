@@ -20,7 +20,7 @@ class SplashController extends ControllerMVC {
 
   SplashController._();
 
-  String? appVersion;
+  bool? isUpToDate;
 
   Future<bool> handleLocationPermission(BuildContext context) async {
     bool serviceEnabled;
@@ -72,16 +72,14 @@ class SplashController extends ControllerMVC {
   }
 
   Future<bool> getAppVersion() async {
-    appVersion = await SplashApi.getAppVersion();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = await packageInfo.version;
-    print("MMMMMM$appVersion");
-    print("MMMMMM$version");
-    if (version == appVersion) {
-      return true;
-    } else {
-      print("555555" + version.toString());
+    isUpToDate = await SplashApi.sendVersion(version);
+    print("MMMMMM$isUpToDate");
+    if (isUpToDate == true) {
       return false;
+    } else {
+      return true;
     }
   }
 }

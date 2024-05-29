@@ -1,7 +1,7 @@
 class API{
 
 
-         static const String baseServerURL = "https://gateway.tanmeyah.com";
+         static const String baseServerURL = "https://gateway.tanmeyah.com:8443";
          static const String baseURL = "$baseServerURL/api/v1/";
 
   //=========================== api parameters ====================================
@@ -28,5 +28,6 @@ class API{
   static const String previousLoan = "Loan/GetHistoricalData";
   static const String dueInstallment = "Loan/due-Installment";
   static const String version = "Version";
+  static const String checkVersion = "Version/checkversion";
   static const String contactUs = "identity/Contact";
 }

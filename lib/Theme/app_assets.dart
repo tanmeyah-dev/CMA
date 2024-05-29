@@ -61,8 +61,8 @@ class AppAssets {
   static const IMG_SUCCESS_LOAN = "assets/images/home/success_loan.png";
 
   static const IMG_ALERT = "assets/images/home/alert.png";
-  static const IMG_LOAN_LOGIN = "assets/images/home/loan_alert.png";
-  static const IMG_REQUEST_LOAN = "assets/images/home/loan_alert.png";
+  static const IMG_LOAN_LOGIN = "assets/images/home/loan_alert.gif";
+  static const IMG_REQUEST_LOAN = "assets/images/home/loan_alert.gif";
 
   static const IMG_NO_SERVICES = "assets/images/home/no_services.png";
   static const IMG_MAP = "assets/images/map.png";

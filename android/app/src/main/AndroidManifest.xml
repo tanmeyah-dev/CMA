@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
         <!-- If your app checks for SMS support -->
@@ -29,7 +29,7 @@
     </queries>
     <application
         android:label="تنميه"
-        android:name="${applicationName}"
+        android:name=".MyApp"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -50,6 +50,8 @@
 <!--            <meta-data android:name="com.facebook.sdk.com.tanmeyah.app" android:value="@string/142136432254883"/>-->
             <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
             <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+            <meta-data android:name="com.facebook.sdk.AutoInitEnabled"
+                android:value="true"/>
             <meta-data
                 android:name="firebase_analytics_collection_enabled"
                 android:value="true" />
