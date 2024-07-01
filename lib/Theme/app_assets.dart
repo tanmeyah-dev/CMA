@@ -51,6 +51,7 @@ class AppAssets {
 
   static const IMG_LOAN = "assets/images/home/loan.png";
   static const IMG_CLOCK = "assets/images/home/clock.png";
+  static const IMG_CALL = "assets/images/home/call.png";
 
   static const IMG_TERMS1 = "assets/images/home/terms1.png";
   static const IMG_TERMS2 = "assets/images/home/terms2.png";

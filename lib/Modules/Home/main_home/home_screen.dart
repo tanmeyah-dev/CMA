@@ -20,8 +20,10 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'home_status/active_loan.dart';
+import 'home_status/bill_widget.dart';
 import 'home_status/offers_widget.dart';
 import 'home_status/products_widget.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -327,6 +329,26 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         : ActiveLoanWidget(con: con,),
                     SizedBox(
                       height: 16.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppTextMedium(title: "خدمات الدفع",color: ThemeClass.blackColor,fontWeight: FontWeight.w400,fontSize: 24.sp,),
+                              Row(
+                                children: [
+                                  AppTextMedium(title: "كل الخدمات",color: ThemeClass.yellowColor,fontSize: 14.sp,),
+                                  Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,)
+                                ],
+                                  // BillWidget(),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     (con.homeResponse?.offers != null &&
                         con.homeResponse!.offers.length != 0) ? OffersWidget(con: con) : Container(),
