@@ -4,10 +4,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../../Theme/app_assets.dart';
+import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../More/services_detail/services_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:iconsax/iconsax.dart';
 
 
 class ProductsWidget extends StatelessWidget {
@@ -23,13 +25,24 @@ class ProductsWidget extends StatelessWidget {
           from: SlideFrom.BOTTOM,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: AppTextRegular(
-                  title: "services".tr,
-                  fontSize: 20.sp,
-                )),
-          ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: AppTextRegular(
+                      title: "all_services_project".tr,
+                      fontSize: 20.sp,
+                    )),
+                Row(
+                  children: [
+                    AppTextMedium(title: "all_services".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
+                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,size: 16.sp,)
+                  ],
+                ),
+              ],
+            ),
+          )
         ),
         SizedBox(
           height: 16.h,

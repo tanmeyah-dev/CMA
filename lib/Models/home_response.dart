@@ -23,6 +23,7 @@ class HomeResponse {
     required this.isSuccess,
     this.code,
     this.message,
+    this.serviceTypes,
     required this.canRequestLoan,
     this.branches,
     this.waitingMessage,
@@ -33,6 +34,7 @@ class HomeResponse {
   List<ServiceDetailModel> products;
   List<BranchModel>? branches;
   String? waitingMessage;
+  List<ServiceType>? serviceTypes;
   bool activeCustomer;
   bool isSuccess;
   bool canRequestLoan;
@@ -45,6 +47,7 @@ class HomeResponse {
         products: List<ServiceDetailModel>.from(
             json["products"].map((x) => ServiceDetailModel.fromJson(x))),
         branches: List<BranchModel>.from(json["branches"].map((x) => BranchModel.fromJson(x))),
+        serviceTypes: List<ServiceType>.from(json["serviceTypes"].map((x) => ServiceType.fromJson(x))),
         activeCustomer: json["activeCustomer"],
         isSuccess: json["isSuccess"],
         code: json["code"],
@@ -168,5 +171,25 @@ class Branch {
     this.governorateName,
      this.distance,
   });
+}
 
+class ServiceType {
+  int? id;
+  String? serviceTypeName;
+  String? serviceTypeShortName;
+  String? logoUrl;
+
+  ServiceType({
+    this.id,
+    this.serviceTypeName,
+    this.serviceTypeShortName,
+    this.logoUrl,
+  });
+
+  factory ServiceType.fromJson(Map<String, dynamic> json) => ServiceType(
+    id: json["id"],
+    serviceTypeName: json["serviceTypeName"],
+    serviceTypeShortName: json["serviceTypeShortName"],
+    logoUrl: json["logoUrl"],
+  );
 }

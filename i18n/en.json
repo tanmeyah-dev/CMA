@@ -95,6 +95,8 @@
   "best_offers" : "Best Offers",
   "more_dot" : "More...",
   "login_alert_des" : "Please login to be able to request financing",
+  "billing_services" : "Billing Services",
+  "all_services" : "All Services",
   "///////////////////// End Home": "////////////////////////// End Home",
   "///////////////////// Start Loan Terms": "////////////////////////// Start Loan Terms",
   "loan_terms" : "Loan Application Terms and Conditions",
@@ -173,5 +175,8 @@
   "done_paid" : "Paid :",
   "wanted" : "Wanted : ",
   "logout" : "Logout",
-  "logout_alert" : "Do you want to Logout..?"
+  "logout_alert" : "Do you want to Logout..?",
+  "previous_number" : "Previous Numbers",
+  "follow" : "Follow"
+
 }

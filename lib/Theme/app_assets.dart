@@ -38,6 +38,7 @@ class AppAssets {
       "assets/images/home/service_placeholder.png";
 
   static const IMG_HOME = "assets/images/home/home.png";
+  static const IMG_HOME_BACKGROUND = "assets/images/home/home_background.png";
   static const IMG_ACTIVE_LOAN = "assets/images/home/active_loan.png";
 
   static const IMG_AMOUNT = "assets/images/home/amount.gif";
@@ -82,4 +83,5 @@ class AppAssets {
   static const IMG_MORE_TERMS = "assets/images/more/more_item/terms.png";
   static const IMG_MORE_PRIVACY = "assets/images/more/more_item/privacy.png";
   static const IMG_MORE_ABOUT = "assets/images/more/more_item/info.png";
+  static const IMG_CONTACT = "assets/images/contact.png";
 }

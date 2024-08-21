@@ -58,5 +58,6 @@ class ThemeClass {
   static Color lightYellowColor = const Color(0xffF4E06D);
   static Color textFieldBackgroundColor = const Color(0xFFEDF8EC);
   static Color containerWBackground = const Color(0xFFFAF7EF);
+  static Color greyBackgroundColor = const Color(0xFFE9E7E2);
   static Color backgroundAppBar = Colors.transparent;
 }

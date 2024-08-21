@@ -49,15 +49,6 @@ class HomeController extends ControllerMVC {
   }
 
   Future<String> fetchDataWithRetry() async {
-    //
-    // if(SharedPref.getUserLatitude() == null && SharedPref.getUserLongitude() == null) {
-    //   isLocationAvailable = false;
-    //   setState(() { });
-    // } else {
-    //   isLocationAvailable = true;
-    //   setState(() { });
-    // }
-
     try {
       final String result = await _retryOptions.retry(
             () async {
@@ -80,7 +71,6 @@ class HomeController extends ControllerMVC {
     homeResponse = await HomeApi.getHomeData(nationalId: userModel?.nationalId ?? "");
     if(SharedPref.getUserObg() != null) {isLogin = true;} else
       {isLogin = false;}
-
     loading = false;
     setState(() {});
 }
@@ -97,56 +87,4 @@ class HomeController extends ControllerMVC {
         "/loginScreen", (Route<dynamic> route) => false,
         arguments: "");
   }
-  //
-  // Future<bool> handleLocationPermission(BuildContext context) async {
-  //   bool serviceEnabled;
-  //   LocationPermission permission;
-  //
-  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //   if (!serviceEnabled) {
-  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         content: Text('Location services are disabled. Please enable the services')));
-  //     return false;
-  //   }
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //           const SnackBar(content: Text('Location permissions are denied')));
-  //       return false;
-  //     }
-  //   }
-  //   if (permission == LocationPermission.deniedForever) {
-  //     Geolocator.openLocationSettings();
-  //     ToastHelper.showError(context, message: "يرجى تفعيل خاصية تحديد الموقع لتتمكن من طلب تمويل.");
-  //     return false;
-  //   }
-  //   return true;
-  // }
-  //
-  //
-  //
-  // Future<bool> getCurrentPosition(BuildContext context) async {
-  //   bool result = false;
-  //   final hasPermission = await handleLocationPermission(context);
-  //   if (!hasPermission) {
-  //     handleLocationPermission(context);
-  //   }
-  //   await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high)
-  //       .then((Position position) {
-  //     setState(() {
-  //       currentPosition = position;
-  //       SharedPref.setUserLatitude(lat: currentPosition!.latitude.toString());
-  //       SharedPref.setUserLongitude(long: currentPosition!.longitude.toString());
-  //     });
-  //     return result = true;
-  //   }).catchError((e) {
-  //     debugPrint(e.toString());
-  //     return result = false;
-  //   });
-  //   return result;
-  // }
-
 }

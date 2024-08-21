@@ -3,6 +3,8 @@ import 'package:Tanmeyah/Modules/Account/account_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/AppVersion/app_version_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Conditions/conditions_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Register/registeration_error.dart';
+import 'package:Tanmeyah/Modules/Billers/all_billers/all_billers_screen.dart';
+import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
@@ -28,6 +30,8 @@ import '../Modules/Authentication/Register/register_screen.dart';
 import '../Modules/Authentication/Splash/splash_screen.dart';
 import '../Modules/Authentication/Terms/terms_screen.dart';
 import '../Modules/Authentication/ValidateUser/validate_user_screen.dart';
+import '../Modules/Billers/get_bill_inquiry/get_bill_inquiry_screen.dart';
+import '../Modules/Billers/mobile_billers/mobile_biller_screen.dart';
 import '../Modules/Home/main_home/home_screen.dart';
 import '../Modules/Home/offers/main_offers/main_offers_screen.dart';
 import '../Modules/Home/request_loan/loan_request_success/loan_request_success_screen.dart';
@@ -61,7 +65,6 @@ class AppModule extends Module {
         routeName: ForgetPasswordScreen.routeName,
         child: const ForgetPasswordScreen()),
     defaultRoute(routeName: TermsScreen.routeName, child: const TermsScreen()),
-    // defaultRoute(routeName: MainScreen.routeName, child:  MainScreen()),
     defaultRoute(routeName: HomeScreen.routeName, child: const HomeScreen()),
     defaultRoute(routeName: PreviousLoanScreen.routeName, child: const PreviousLoanScreen()),
     defaultRoute(routeName: NoInternetScreen.routeName, child: const NoInternetScreen()),
@@ -78,16 +81,11 @@ class AppModule extends Module {
         child: const LoanRequestAmountScreen()),
     defaultRoute(
         routeName: MainOffersScreen.routeName, child: const MainOffersScreen()),
-    // defaultRoute(
-    //     routeName: EmptyServicesScreen.routeName,
-    //     child: const EmptyServicesScreen()),
     defaultRoute(
         routeName: MainServicesScreen.routeName,
         child: const MainServicesScreen()),
     defaultRoute(
         routeName: ContactUsScreen.routeName, child: const ContactUsScreen()),
-    // defaultRoute(
-    //     routeName: AboutUsScreen.routeName, child: const AboutUsScreen()),
     ChildRoute(AboutUsScreen.routeName,
         child: (_, args) => const AboutUsScreen(),
         transition: TransitionType.downToUp,
@@ -99,6 +97,22 @@ class AppModule extends Module {
     ChildRoute(LoanRequestOutOfCairoScreen.routeName,
         child: (_, args) => LoanRequestOutOfCairoScreen(branches: args.data,),
         transition: TransitionType.downToUp,
+        duration: const Duration(milliseconds: 300)),
+    ChildRoute(AllBillersScreen.routeName,
+        child: (_, args) => AllBillersScreen(serviceList: args.data,),
+        transition: TransitionType.fadeIn,
+        duration: const Duration(milliseconds: 300)),
+    ChildRoute(MobileBillersScreen.routeName,
+        child: (_, args) => MobileBillersScreen(title : args.data[0],billerId: args.data[1],),
+        transition: TransitionType.fadeIn,
+        duration: const Duration(milliseconds: 300)),
+    ChildRoute(BillersServicesScreen.routeName,
+        child: (_, args) => BillersServicesScreen(billers : args.data),
+        transition: TransitionType.fadeIn,
+        duration: const Duration(milliseconds: 300)),
+    ChildRoute(GetBillInquiryScreen.routeName,
+        child: (_, args) => GetBillInquiryScreen(billers : args.data[0],serviceName: args.data[1],),
+        transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
     defaultRoute(
         routeName: BranchesScreen.routeName, child: const BranchesScreen()),

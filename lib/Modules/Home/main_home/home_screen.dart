@@ -1,5 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously
 import 'dart:math';
+import 'package:Tanmeyah/Modules/Billers/all_billers/all_billers_screen.dart';
+import 'package:Tanmeyah/Modules/Billers/mobile_billers/mobile_biller_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
@@ -9,6 +11,7 @@ import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:Tanmeyah/Widgets/login_alert_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/loading_screen.dart';
@@ -58,21 +61,6 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
     super.initState();
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   if(state == AppLifecycleState.resumed)  {
-  //    await Geolocator.getCurrentPosition(
-  //        desiredAccuracy: LocationAccuracy.high)
-  //        .then((Position position) {
-  //      setState(() {
-  //        currentPosition = position;
-  //        SharedPref.setUserLatitude(lat: currentPosition!.latitude.toString());
-  //        SharedPref.setUserLongitude(
-  //            long: currentPosition!.longitude.toString());
-  //      });
-  //    });}
-  //
-  // }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -86,15 +74,13 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
             actions: [
               Expanded(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Image(
-                          image: const AssetImage(AppAssets.IMG_LOGO),
-                          width: 100.w,
-                          height: 40.h,
-                        )),
+                    Image(
+                      image: const AssetImage(AppAssets.IMG_LOGO),
+                      width: 100.w,
+                      height: 40.h,
+                    ),
                   ],
                 ),
               )
@@ -147,7 +133,12 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         decoration: BoxDecoration(
                           borderRadius:
                           BorderRadius.circular(24.w),
-                          color: ThemeClass.primaryColor,
+                          image: const DecorationImage(
+                              image: AssetImage(
+                                AppAssets
+                                    .IMG_HOME_BACKGROUND,
+                              ),
+                              fit: BoxFit.fill),
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 16.h),
@@ -176,7 +167,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 ),
                                 CustomButton(
                                     width : 135,
-                                    fontSize: 16.sp,
+                                    fontSize: 20.sp,
                                     backgroundColor:
                                     ThemeClass.whiteColor,
                                     textColor:
@@ -223,7 +214,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         decoration: BoxDecoration(
                           borderRadius:
                           BorderRadius.circular(24.w),
-                          color: ThemeClass.primaryColor,
+                          // color: ThemeClass.primaryColor,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.w, vertical: 16.h),
@@ -259,7 +250,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         decoration: BoxDecoration(
                           borderRadius:
                           BorderRadius.circular(24.w),
-                          color: ThemeClass.primaryColor,
+                          // color: ThemeClass.primaryColor,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 16.h),
@@ -293,7 +284,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     EdgeInsets.symmetric(
                                         vertical: 6.h,
                                         horizontal: 17.w),
-                                    fontSize: 16.sp,
+                                    fontSize: 20.sp,
                                     backgroundColor:
                                     ThemeClass.whiteColor,
                                     textColor:
@@ -337,16 +328,50 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppTextMedium(title: "خدمات الدفع",color: ThemeClass.blackColor,fontWeight: FontWeight.w400,fontSize: 24.sp,),
-                              Row(
-                                children: [
-                                  AppTextMedium(title: "كل الخدمات",color: ThemeClass.yellowColor,fontSize: 14.sp,),
-                                  Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,)
-                                ],
-                                  // BillWidget(),
+                              AppTextMedium(title: "billing_services".tr,color: ThemeClass.blackColor,fontWeight: FontWeight.w400,fontSize: 24.sp,),
+                              GestureDetector(
+                                onTap:(){
+                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                              _analytics.logEvent(
+                              name: 'request_view_all_offers',
+                              parameters: <String,dynamic>{
+                              "title" :"request_view_all_offers"
+                              }
+                              );
+                              Navigator.pushNamed(context, AllBillersScreen.routeName,arguments: con.homeResponse?.serviceTypes);
+                                },
+                                child:   Row(
+                                  children: [
+                                    AppTextMedium(title: "all_services".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
+                                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,size: 16.sp,)
+                                  ],
+                                ),
                               )
                             ],
                           ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          (con.homeResponse?.serviceTypes != null &&
+                              con.homeResponse!.serviceTypes?.length != 0) ?
+                          SizedBox(
+                          height: 120.h,
+                          child:  ListView.separated(itemBuilder:(_,index){
+                            return GestureDetector(
+                              onTap: (){
+                                Navigator.pushNamed(context, MobileBillersScreen.routeName,
+                                    arguments: [con.homeResponse?.serviceTypes?[index].serviceTypeName,con.homeResponse?.serviceTypes?[index].id]);
+                              },
+                              child:  BillWidget(imageURL: con.homeResponse!.serviceTypes![index].logoUrl!, title: con.homeResponse!.serviceTypes![index].serviceTypeName!),
+                            );
+                          } ,
+                            itemCount: con.homeResponse!.serviceTypes!.length,
+                            scrollDirection: Axis.horizontal, separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(width: 16.w,);
+                            } ,
+
+                          ),
+                        ) : Container()
                         ],
                       ),
                     ),
