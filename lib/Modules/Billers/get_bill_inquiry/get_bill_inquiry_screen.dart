@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
-import 'dart:html';
 
 import 'package:Tanmeyah/Modules/Billers/get_bill_inquiry/get_bill_inquiry_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
@@ -20,6 +19,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/custom_textfield_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 class GetBillInquiryScreen extends StatefulWidget {
@@ -52,20 +52,19 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
     );
     super.initState();
   }
-
-
-  // Future<void> _askPermissions(String routeName) async {
-  //   PermissionStatus permissionStatus = await _getContactPermission();
+  //
+  // Future<void> askPermissions() async {
+  //   PermissionStatus permissionStatus = await getContactPermission();
   //   if (permissionStatus == PermissionStatus.granted) {
-  //     if (routeName != null) {
-  //       // Navigator.of(context).pushNamed(routeName);
-  //     }
-  //   } else {
-  //     _handleInvalidPermissions(permissionStatus);
+  //   //   if (routeName != null) {
+  //   //     Navigator.of(context).pushNamed(routeName);
+  //   //   }
+  //   // } else {
+  //     handleInvalidPermissions(permissionStatus);
   //   }
   // }
 
-  // Future<PermissionStatus> _getContactPermission() async {
+  // Future<PermissionStatus> getContactPermission() async {
   //   PermissionStatus permission = await Permission.contacts.status;
   //   if (permission != PermissionStatus.granted &&
   //       permission != PermissionStatus.permanentlyDenied) {
@@ -76,7 +75,8 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
   //   }
   // }
 
-  // void _handleInvalidPermissions(PermissionStatus permissionStatus) {
+
+  // void handleInvalidPermissions(PermissionStatus permissionStatus) {
   //   if (permissionStatus == PermissionStatus.denied) {
   //     final snackBar = SnackBar(content: Text('Access to contact data denied'));
   //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -86,6 +86,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
   //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   //   }
   // }
+
 
 
   @override
@@ -198,7 +199,9 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                     ),
                   ],
                 ),),
-                CustomButton(title: "follow".tr, onTap: (){}),
+                CustomButton(title: "follow".tr, onTap: (){
+                  con.getBillInquiry();
+                }),
                 SizedBox(height: 30.h,)
               ],
             ),

@@ -33,4 +33,6 @@ class API{
   /////////////
   static const String getBillers = "BillPayment/get-billers?ServiceTypeId=";
   static const String getBillerServices = "BillPayment/services/";
+  static const String getBillInquiry = "BillPayment/get-bill-inquiry";
+  static const String excuteDailyJob = "BillPayment/execute-daily-job";
 }

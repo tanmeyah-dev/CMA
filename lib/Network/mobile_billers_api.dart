@@ -1,3 +1,4 @@
+import 'package:Tanmeyah/Models/Bill_Inquiry_Response.dart';
 import 'package:Tanmeyah/Models/biller_services_response.dart';
 import 'package:Tanmeyah/Models/mobile_biller_response.dart';
 
@@ -31,5 +32,37 @@ class BillersApi{
       return null;
     }
   }
+
+
+  static Future excuteDailyJob() async {
+    var response = await NetworkMethods.getRequest(
+      url: API.excuteDailyJob,
+    );
+
+    print("We Hitted The JOB");
+  }
+
+
+  static Future<BillInquiryResponse?> getBillInquiry() async {
+    var response = await NetworkMethods.postRequestAsRow(
+      url: API.getBillInquiry,
+      body: {
+        "billTypeCode" : 117,
+        "billerId" : 169,
+        "billingAcct" : "0120000200",
+        "incOpenAmt" : true,
+        "paymentType" : "POST"
+      },
+    );
+    if (response == null) return null;
+    if (response["isSuccess"] == true) {
+      return BillInquiryResponse.fromJson(response);
+    } else {
+      return null;
+    }
+  }
+
+
+
 
 }

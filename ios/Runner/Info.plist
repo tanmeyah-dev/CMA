@@ -47,6 +47,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FirebaseAnalyticsCollectionEnabled</key>
 	<true/>
+	<key>NSContactsUsageDescription</key>
+    <string>Tanmeyah requires contacts access to function properly.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sms</string>

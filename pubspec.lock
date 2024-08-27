@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.4"
+  contacts_service:
+    dependency: "direct dev"
+    description:
+      name: contacts_service
+      sha256: f6d5ea33b31dfcdcd2e65d8abdc836502e04ddb0f66a96aa726fa9891ea9671e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.3"
   convert:
     dependency: transitive
     description:
@@ -438,14 +446,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
-  flutter_contacts:
-    dependency: "direct dev"
-    description:
-      name: flutter_contacts
-      sha256: "388d32cd33f16640ee169570128c933b45f3259bddbfae7a100bb49e5ffea9ae"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.9+2"
   flutter_icmp_ping:
     dependency: transitive
     description:
@@ -1245,6 +1245,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   retry:
     dependency: "direct dev"
     description:
