@@ -105,6 +105,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   contacts_service: ^0.6.3
+  fawry_sdk: ^2.0.7
+
 
 dependency_overrides:
   firebase_core_platform_interface: 4.8.0

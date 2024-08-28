@@ -21,9 +21,13 @@ class BillersApi{
   }
 
 
-  static Future<BillerServicesResponse?> getBillerServices({required String billerID}) async {
-    var response = await NetworkMethods.getRequest(
-      url: API.getBillerServices+"$billerID",
+  static Future<BillerServicesResponse?> getBillerServices({required String billerID,required String phoneNumber}) async {
+    var response = await NetworkMethods.postRequestAsRow(
+      url: API.getBillerServices,
+      body: {
+        "billerId" : billerID,
+        "userPhoneNumber" : phoneNumber,
+      }
     );
     if (response == null) return null;
     if (response["isSuccess"] == true) {
@@ -43,12 +47,12 @@ class BillersApi{
   }
 
 
-  static Future<BillInquiryResponse?> getBillInquiry() async {
+  static Future<BillInquiryResponse?> getBillInquiry({required phoneNumber,required billerId,required billTypeCode}) async {
     var response = await NetworkMethods.postRequestAsRow(
       url: API.getBillInquiry,
       body: {
-        "billTypeCode" : 117,
-        "billerId" : 169,
+        "billTypeCode" : billTypeCode,
+        "billerId" : billerId,
         "billingAcct" : "0120000200",
         "incOpenAmt" : true,
         "paymentType" : "POST"

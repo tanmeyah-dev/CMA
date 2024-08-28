@@ -29,7 +29,10 @@
         </intent>
     </queries>
     <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="تنميه"
+        tools:replace="android:label">
         android:name=".MyApp"
         android:icon="@mipmap/ic_launcher">
         <activity

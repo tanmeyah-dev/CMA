@@ -111,7 +111,7 @@ class AppModule extends Module {
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(GetBillInquiryScreen.routeName,
-        child: (_, args) => GetBillInquiryScreen(billers : args.data[0],serviceName: args.data[1],),
+        child: (_, args) => GetBillInquiryScreen(billers : args.data[0],services: args.data[1],),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
     defaultRoute(

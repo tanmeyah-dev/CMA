@@ -5,6 +5,7 @@ PODS:
   - adjust_sdk (4.38.1):
     - Adjust (= 4.38.2)
     - Flutter
+  - Alamofire (5.9.1)
   - audio_session (0.0.1):
     - Flutter
   - connectivity_plus (0.0.1):
@@ -16,6 +17,18 @@ PODS:
     - FBAudienceNetwork (~> 6.15)
     - FBSDKCoreKit (~> 17.0)
     - Flutter
+  - fawry_sdk (0.0.1):
+    - Alamofire
+    - FawryPaySDK
+    - Flutter
+    - IQKeyboardManagerSwift
+    - RxSwift
+    - SDWebImage
+  - FawryPaySDK (0.1.31):
+    - Alamofire
+    - IQKeyboardManagerSwift (~> 6.5.11)
+    - RxSwift (~> 6.5.0)
+    - SDWebImage (~> 5.15.0)
   - FBAEMKit (17.0.2):
     - FBSDKCoreKit_Basics (= 17.0.2)
   - FBAudienceNetwork (6.15.1)
@@ -150,6 +163,7 @@ PODS:
     - GoogleUtilities/Privacy
   - image_picker_ios (0.0.1):
     - Flutter
+  - IQKeyboardManagerSwift (6.5.16)
   - just_audio (0.0.1):
     - Flutter
   - local_auth_darwin (0.0.1):
@@ -170,6 +184,10 @@ PODS:
     - Flutter
   - PromisesObjC (2.4.0)
   - ReachabilitySwift (5.2.3)
+  - RxSwift (6.5.0)
+  - SDWebImage (5.15.8):
+    - SDWebImage/Core (= 5.15.8)
+  - SDWebImage/Core (5.15.8)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -193,6 +211,7 @@ DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - facebook_app_events (from `.symlinks/plugins/facebook_app_events/ios`)
+  - fawry_sdk (from `.symlinks/plugins/fawry_sdk/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -220,6 +239,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Adjust
+    - Alamofire
+    - FawryPaySDK
     - FBAEMKit
     - FBAudienceNetwork
     - FBSDKCoreKit
@@ -233,9 +254,12 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - IQKeyboardManagerSwift
     - nanopb
     - PromisesObjC
     - ReachabilitySwift
+    - RxSwift
+    - SDWebImage
     - Toast
 
 EXTERNAL SOURCES:
@@ -249,6 +273,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/contacts_service/ios"
   facebook_app_events:
     :path: ".symlinks/plugins/facebook_app_events/ios"
+  fawry_sdk:
+    :path: ".symlinks/plugins/fawry_sdk/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
@@ -299,10 +325,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Adjust: 5a0f813fe079212bed61404d1f635cc330068b4a
   adjust_sdk: e2b8a3f4115b4bb61594a2941dea942c51afa0d6
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   facebook_app_events: acb7c266406d3e3592bcf846d7184172ecfd6492
+  fawry_sdk: aec91b7fac1248da7ed5380f534b3de60e43c724
+  FawryPaySDK: ba760fe55c41f7b948a718033fb262c11f879f4e
   FBAEMKit: 619f96ea65427e8afca240d5b0f4703738dfdf5c
   FBAudienceNetwork: 80871c3b3057e89ab36d9eb79344be20377e3994
   FBSDKCoreKit: a5f384db2e9ee84e98494fed8f983d2bd79accff
@@ -327,6 +356,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
   image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
+  IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   local_auth_darwin: 4d56c90c2683319835a61274b57620df9c4520ab
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
@@ -336,6 +366,8 @@ SPEC CHECKSUMS:
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
@@ -344,6 +376,6 @@ SPEC CHECKSUMS:
   wakelock_plus: 8b09852c8876491e4b6d179e17dfe2a0b5f60d47
   webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
 
-PODFILE CHECKSUM: 25c4c30f01b20112ee6a63c16fd3bbdc9e05dc5c
+PODFILE CHECKSUM: fbad174d5e5a61df37840c8677df40958a61610c
 
 COCOAPODS: 1.15.2

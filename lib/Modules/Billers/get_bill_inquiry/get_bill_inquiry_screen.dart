@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
 
+import 'package:Tanmeyah/Modules/Billers/fawry.dart';
 import 'package:Tanmeyah/Modules/Billers/get_bill_inquiry/get_bill_inquiry_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
@@ -13,6 +14,7 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Models/biller_services_response.dart';
 import '../../../Models/mobile_biller_response.dart';
 import '../../../Theme/app_assets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -27,8 +29,8 @@ class GetBillInquiryScreen extends StatefulWidget {
 
 
   Billers billers;
-  String serviceName;
-  GetBillInquiryScreen({Key? key,required this.billers,required this.serviceName}) : super(key: key);
+  Services services;
+  GetBillInquiryScreen({Key? key,required this.billers,required this.services}) : super(key: key);
 
   @override
   _GetBillInquiryScreenState createState() => _GetBillInquiryScreenState();
@@ -50,6 +52,8 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
           "title" :"open_get_bill_inquiry_screen"
         }
     );
+    con.billers = widget.billers;
+    con.services = widget.services;
     super.initState();
   }
   //
@@ -131,7 +135,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                             borderRadius: BorderRadius.circular(8.sp)
                         ),
                         alignment: Alignment.centerRight,
-                        child: AppTextBold(title: widget.serviceName??"",color: ThemeClass.secondaryColor,),
+                        child: AppTextBold(title: widget.billers.billerName??"",color: ThemeClass.secondaryColor,),
                       ),
                     ),
                     Align(
@@ -201,6 +205,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                 ),),
                 CustomButton(title: "follow".tr, onTap: (){
                   con.getBillInquiry();
+                  // con.startPayment();
                 }),
                 SizedBox(height: 30.h,)
               ],

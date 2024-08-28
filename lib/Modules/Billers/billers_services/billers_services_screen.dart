@@ -76,7 +76,7 @@ class _BillersServicesScreenState extends StateMVC<BillersServicesScreen> {
                       itemBuilder: (_, index) {
                         return GestureDetector(
                           onTap: (){
-                             Navigator.pushNamed(context, GetBillInquiryScreen.routeName,arguments: [con.billers,con.billerServicesResponse!.services![index].serviceName,con.billerServicesResponse!.services![index]]);
+                             Navigator.pushNamed(context, GetBillInquiryScreen.routeName,arguments: [con.billers,con.billerServicesResponse!.services![index]]);
                           },
                           child: Container(
                               decoration: BoxDecoration(
