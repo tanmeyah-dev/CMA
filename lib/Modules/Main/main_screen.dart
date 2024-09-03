@@ -60,15 +60,15 @@ class _MainScreenState extends State<MainScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32.w),
                   border: Border.all(color: ThemeClass.hintColor),
-                  color: ThemeClass.whiteColor
+                  color: ThemeClass.hintColor
               ),
               margin:
               EdgeInsets.only(top: 4.w, left: 20.w, right: 16.w, bottom: 14.h),
               padding: EdgeInsets.symmetric(horizontal: 6.w),
               child: GNav(
-                tabBackgroundColor: ThemeClass.primaryColor,
+                tabBackgroundColor: ThemeClass.whiteColor,
                 padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
-                activeColor: ThemeClass.whiteColor,
+                activeColor: ThemeClass.primaryColor.withOpacity(0.6),
                 iconSize: 25.sp,
                 rippleColor: Colors.grey[300]!,
                 hoverColor: Colors.grey[100]!,
@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
                 tabBorderRadius: 30.w,
                 curve: Curves.easeOutExpo,
                 gap: 8,
-                color: ThemeClass.hintColor,
+                color: ThemeClass.whiteColor.withOpacity(0.6),
                 tabs:  [
                   GButton(
                     icon: _selectedIndex == 0 ? Iconsax.home_25 : Iconsax.home_2,
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
                     icon: _selectedIndex == 1 ? Iconsax.empty_wallet5 :  Iconsax.empty_wallet,
                   ),
                   GButton(
-                    icon:_selectedIndex == 2 ?  Iconsax.profile_circle5 : Iconsax.profile_circle,
+                    icon:_selectedIndex == 2 ?  Iconsax.element_plus : Iconsax.element_plus,
                   ),
                   GButton(
                     icon: _selectedIndex == 3 ?   Iconsax.more_square5 : Iconsax.more_square,

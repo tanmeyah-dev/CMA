@@ -10,6 +10,7 @@ import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:Tanmeyah/Widgets/login_alert_widget.dart';
+import 'package:Tanmeyah/Widgets/service_alert_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -359,8 +360,18 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           child:  ListView.separated(itemBuilder:(_,index){
                             return GestureDetector(
                               onTap: (){
-                                Navigator.pushNamed(context, MobileBillersScreen.routeName,
-                                    arguments: [con.homeResponse?.serviceTypes?[index].serviceTypeName,con.homeResponse?.serviceTypes?[index].id]);
+                                if( SharedPref.getUserObg() != null) {
+                                  Navigator.pushNamed(context, MobileBillersScreen.routeName,
+                                      arguments: [con.homeResponse?.serviceTypes?[index].serviceTypeName,con.homeResponse?.serviceTypes?[index].id]);
+                                } else {
+                                  AnimatedAlertDialog(
+                                      context, ServicesAlert(
+                                      onLoginTaped:
+                                          () {
+                                        Navigator.of(context).pushNamedAndRemoveUntil(
+                                            '/loginScreen', (Route<dynamic> route) => false,arguments: "");
+                                      }));
+                                }
                               },
                               child:  BillWidget(imageURL: con.homeResponse!.serviceTypes![index].logoUrl!, title: con.homeResponse!.serviceTypes![index].serviceTypeName!),
                             );

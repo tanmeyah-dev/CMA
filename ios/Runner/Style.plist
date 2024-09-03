@@ -5,10 +5,10 @@
     <key>primaryColorHex</key>
     <string>#DB4B44</string> <!-- Set your primary color hex code -->
     <key>secondaryColorHex</key>
-    <string>#092076</string> <!-- Set your secondary color hex code -->
+    <string>#F9E2E1</string> <!-- Set your secondary color hex code -->
     <key>tertiaryColorHex</key>
-    <string>#DB4B44</string> <!-- Set your tertiary color hex code -->
+    <string>#000000</string> <!-- Set your tertiary color hex code -->
     <key>headerColorHex</key>
-    <string>#DB4B44</string> <!-- Set your header color hex code -->
+    <string>#FFFFFF</string> <!-- Set your header color hex code -->
 </dict>
 </plist>

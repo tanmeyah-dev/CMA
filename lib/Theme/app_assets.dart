@@ -2,6 +2,7 @@
 
 class AppAssets {
   static const IMG_LOGO = "assets/images/logo.png";
+  static const IMG_LOGIN_LOGO = "assets/images/login_logo.png";
 
   static const IMG_SPLASH = "assets/images/splash.gif";
   static const IMG_No_INTERNET = "assets/images/no_internet.png";
@@ -48,6 +49,7 @@ class AppAssets {
   static const IMG_OTP = "assets/images/auth/otp.gif";
 
   static const IMG_LOGIN = "assets/images/auth/signin.gif";
+  static const IMG_LOGIN_BACK = "assets/images/auth/login_back.png";
   static const IMG_LOGOUT = "assets/images/auth/logout.png";
 
   static const IMG_LOAN = "assets/images/home/loan.png";

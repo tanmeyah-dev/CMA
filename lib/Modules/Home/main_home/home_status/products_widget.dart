@@ -31,12 +31,12 @@ class ProductsWidget extends StatelessWidget {
                 Align(
                     alignment: Alignment.centerRight,
                     child: AppTextRegular(
-                      title: "all_services_project".tr,
+                      title: "services".tr,
                       fontSize: 20.sp,
                     )),
                 Row(
                   children: [
-                    AppTextMedium(title: "all_services".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
+                    AppTextMedium(title: "all_services_project".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
                     Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,size: 16.sp,)
                   ],
                 ),

@@ -12,7 +12,11 @@ import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import '../../../Models/home_response.dart';
+import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/app_assets.dart';
+import '../../../Widgets/animated_alert.dart';
+import '../../../Widgets/service_alert_widget.dart';
+import '../mobile_billers/mobile_biller_screen.dart';
 import 'all_billers_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';import 'package:awesome_dialog/awesome_dialog.dart';
 
@@ -87,10 +91,18 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                               "title" :"request_service_with  ${widget.serviceList[index].serviceTypeName}"
                             }
                         );
-                        // Navigator.pushNamed(context,
-                        //     ServicesDetailScreen.routeName,
-                        //     arguments: con
-                        //         .homeResponse!.products[index]);
+                        if( SharedPref.getUserObg() != null) {
+                          Navigator.pushNamed(context, MobileBillersScreen.routeName,
+                              arguments: [widget.serviceList[index].serviceTypeName,widget.serviceList[index].id]);
+                        } else {
+                          AnimatedAlertDialog(
+                              context, ServicesAlert(
+                              onLoginTaped:
+                                  () {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    '/loginScreen', (Route<dynamic> route) => false,arguments: "");
+                              }));
+                        }
                       },
                       child: FadeIn(
                         delay: 2,

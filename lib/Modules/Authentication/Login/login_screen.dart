@@ -89,9 +89,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
         onWillPop: () async => false,
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
+            extendBodyBehindAppBar: true,
             appBar: BaseAppBar.main(
-                title: "login".tr,
                 isBackButtonVisible: false,
+                backgroundColor: Colors.transparent,
                 actions: [
                   Padding(
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 30.w),
@@ -123,15 +124,30 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       width: double.infinity,
                       height: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AppAssets.IMG_LOGIN_BACK,),fit: BoxFit.fill
+                        )
+                      ),
                       child: SingleChildScrollView(
                           child: Form(
                               key: con.newFormKey,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 33.h),
+                                    SizedBox(height: 180.h),
                                     image(),
-                                    SizedBox(height: 20.h),
+                                    SizedBox(height: 65.h),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        AppTextRegular(title: "تسجيل",fontSize: 16.sp,fontWeight: FontWeight.w300,color: ThemeClass.secondaryColor,),
+                                        SizedBox(width: 4.w,),
+                                        AppTextMedium(title: "الدخول",fontSize: 20.sp,fontWeight: FontWeight.w700,color: ThemeClass.secondaryColor),
+                                      ],
+                                    ),
+                                    SizedBox(height: 40.h),
                                     FadeIn(
                                       delay: 1,
                                       from: SlideFrom.TOP,
@@ -145,7 +161,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                     ),
                                     SizedBox(height: 10.h),
                                     phoneTxtField(),
-                                    SizedBox(height: 10.h),
+                                    SizedBox(height: 24.h),
                                     FadeIn(
                                       delay: 2,
                                       from: SlideFrom.TOP,
@@ -159,7 +175,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                     ),
                                     SizedBox(height: 10.h),
                                     passwordTxtField(context),
-                                    SizedBox(height: 8.h),
                                     forgetPassTxt(),
                                     SizedBox(height: 26.h),
                                     Row(
@@ -187,8 +202,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
     return FadeIn(
         delay: 2,
         from: SlideFrom.TOP,
-        child: Image.asset(AppAssets.IMG_LOGIN,
-            height: 250.h, width: 300.w, fit: BoxFit.cover));
+        child: Image.asset(AppAssets.IMG_LOGIN_LOGO,
+            height: 60.h, width: 165.w, fit: BoxFit.fill));
   }
 
   Widget phoneTxtField() {
@@ -201,7 +216,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             delay: 2,
             from: SlideFrom.TOP,
             child: CustomTextFieldWidget(
-                width: 215.w,
+                width: 320.w,
                 controller: con.phoneController,
                 hint: "phone_number".tr,
                 textInputType: TextInputType.number,
@@ -209,10 +224,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                 formatter: [
                   LengthLimitingTextInputFormatter(11),
                 ])),
-        SizedBox(
-          width: 10.w,
-        ),
-         FadeIn(delay: 2, from: SlideFrom.TOP, child: CountryCodeWidget()),
       ],
     );
   }
