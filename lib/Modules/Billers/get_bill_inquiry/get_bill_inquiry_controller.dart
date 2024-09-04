@@ -131,26 +131,26 @@ class GetBillInquiryController extends ControllerMVC {
 ///////////////////// Fawry///////////////
 
 class Constants {
-  static const String merchantCode = "+/IAAY2nothN6tNlekupwA==";
-  static const String secureKey = "4b815c12-891c-42ab-b8de-45bd6bd02c3d";
-  static const String baseUrl = "https://atfawry.fawrystaging.com";
+  static const String merchantCode = "770000019868";
+  static const String secureKey = "0525af58-50ec-4e13-b586-bf3724ad781c";
+  static const String baseUrl = "https://atfawry.fawrystaging.com/";
 }
 
 
 BillItem item = BillItem(
   itemId: 'ITEM_ID',
   description: '',
-  quantity: 5,
-  price: 50,
+  quantity: 1,
+  price: 4,
 );
 
 List<BillItem> chargeItems = [item];
 
 LaunchCustomerModel customerModel = LaunchCustomerModel(
   customerProfileId: '533518',
-  customerName: 'John Doe',
-  customerEmail: 'john.doe@xyz.com',
-  customerMobile: '+201000000000',
+  customerName: 'Mohamed Gamal',
+  customerEmail: 'mgabdelmigid@tanmeyah.com',
+  customerMobile: '+201033103360',
 );
 
 FawryLaunchModel model = FawryLaunchModel(
