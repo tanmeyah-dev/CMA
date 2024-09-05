@@ -196,6 +196,18 @@
   "letters" : "أحرف",
   "number_wrong" : "برجاء ادخال الأقام باللغة الانجليزيه",
   "previous_number" : "الارقام السابقه",
-  "follow" : "متــــابعة"
+  "follow" : "متــــابعة",
+  "wallet" : "محفظتي",
+  "current_loans" : "التمويلات القائمة",
+  "total_loan" : "اجمالي قيمة مبلغ التمويل",
+  "month_need" : "المستحقات هذا الشهر",
+  "last_paid_amount" : "اخر مبلغ مسدد:",
+  "paided" : "المسدد :",
+  "remaining" : "المتبقي :",
+  "paid_amount" : "م. المسددة :",
+  "remain_amount" : "م. المتبقية :",
+  "tex_amount" : "م. الغرامات :",
+  "next_installment" : "قيمة القسط القادم :",
+  "due_date" : "تاريخ الاستحقاق :"
 
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
+import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +49,7 @@ class ActiveLoanWidget extends StatelessWidget {
                           Row(
                             children: [
                               AppTextRegular(
-                                title: "المستحقات هذا الشهر",
+                                title: "month_need".tr,
                                 color: ThemeClass.whiteColor,
                               ),
                               SizedBox(width: 6.w,),

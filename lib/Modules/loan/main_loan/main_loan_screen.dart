@@ -17,7 +17,8 @@ import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';import 'package:iconsax/iconsax.dart';
+
 
 
 class MainLoanScreen extends StatefulWidget {
@@ -35,6 +36,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
   }
 
   late MainRequestLoanController con;
+  bool _isExpanded = false;
 
   @override
   void initState() {
@@ -55,283 +57,421 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
       child: Scaffold(
         backgroundColor: ThemeClass.whiteColor,
         appBar: BaseAppBar.main(
-          title: "loan".tr,
+          title: "wallet".tr,
           isBackButtonVisible: false,
         ),
         body: SafeArea(
           child: LoadingScreen(
             loading: con.loading,
-            child: GestureDetector(
-              onTap: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              child: con.isLogin
+            child: SingleChildScrollView(
+              child:  con.isLogin
                   ? (con.activeLoanModel?.activeLoan != null)
-                      ? Container(
-                          padding: EdgeInsets.all(16.w),
-                          child: SingleChildScrollView(
-                            child: Column(
+                  ? Container(
+                padding: EdgeInsets.all(10.w),
+                child: Column(
+                  children: [
+                    Align(alignment : Alignment.centerRight,child: AppTextRegular(title: "current_loans".tr,fontSize: 24.sp,fontWeight: FontWeight.w300,),),
+                    SizedBox(height: 10.h,),
+                    FadeIn(
+                      delay: 1,
+                      from: SlideFrom.TOP,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isExpanded = !_isExpanded;
+                          });
+                        },
+                        child: Container(
+                            width: 328.w,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(16.sp),
+                                image: const DecorationImage(
+                                    image: AssetImage(
+                                      AppAssets.IMG_LOAN_BACKGROUND,),fit: BoxFit.fill
+                                )),
+                            padding: EdgeInsets.all(16.sp),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.TOP,
-                                  child: Container(
-                                    width: 328.w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(16.sp),
-                                        image: const DecorationImage(
-                                          image: AssetImage(
-                                              AppAssets.IMG_LOAN_BACKGROUND),
-                                        )),
-                                    padding: EdgeInsets.all(14.sp),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppTextRegular(
+                                      title: "total_loan".tr,
+                                      fontSize: 14.sp,
+                                      color: ThemeClass.whiteColor,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.alphabetic,
                                       children: [
-                                        AppTextRegular(
-                                          title: "current_loan".tr,
-                                          fontSize: 14.sp,
-                                          color: ThemeClass.whiteColor,
-                                        ),
                                         AppTextBold(
                                           title: con.activeLoanModel?.activeLoan
                                               ?.totalAmount
                                               .toString() ??
                                               "0000",
-                                          color: ThemeClass.accentColor,
+                                          color: ThemeClass.whiteColor,
                                           fontWeight: FontWeight.w700,
                                           fontSize: 36.sp,
                                         ),
+                                        SizedBox(width: 4.w,),
+                                        AppTextRegular(title: "ج. م",color: ThemeClass.whiteColor,fontSize: 20.sp,)
                                       ],
-                                    ),
-                                  ),
+                                    )
+                                  ],
                                 ),
-                                SizedBox(height: 8.h),
-                                FadeIn(
-                                    delay: 1,
-                                    from: SlideFrom.BOTTOM,
-                                    child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Column
-                                            (
-                                            children: [
-                                              amounts(
-                                                  title: "اجمالي الغرامات",
-                                                  amount:
-                                                  "${con.activeLoanModel?.activeLoan?.penaltyAmount.toString()}",color: const Color(0xFFEAF3EB)),
-                                              SizedBox(height: 8.h),
-                                              amounts(
-                                                  title: "paid_value".tr,
-                                                  amount:
-                                                  "${con.activeLoanModel?.activeLoan?.paidAmount.toString()}",color: const Color(0xFFEAF3EB)),
-                                              SizedBox(height: 8.h),
-                                              amounts(
-                                                  title: "loan_needed".tr,
-                                                  amount:
-                                                  "${con.activeLoanModel?.activeLoan?.totalDueAmount.toString()}",color : const Color(0xFFFFF3F2))
-                                            ],
-                                          ),
-                                          Column(children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                numberOfMonths(
-                                                    title: 'paid'.tr,
-                                                    months: con
-                                                        .activeLoanModel
-                                                        ?.activeLoan
-                                                        ?.numberOfpaidMonths
-                                                        .toString() ??
-                                                        "0",
-                                                    routeName: AlreadyPaidScreen
-                                                        .routeName),
-                                                SizedBox(width: 8.w),
-                                                numberOfMonths(
-                                                    title: 'needed'.tr,
-                                                    months: con
-                                                        .activeLoanModel
-                                                        ?.activeLoan
-                                                        ?.numberOfNotPaidMonths
-                                                        .toString() ??
-                                                        "0",
-                                                    routeName: PaymentNeededScreen
-                                                        .routeName),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 14.h,
-                                            ),
-                                            Container(
-                                                width: 170.w,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      16.sp),
-                                                  color: const Color(0xFFF0FAFF),
-                                                ),
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10.h,
-                                                    horizontal: 16.w),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    AppTextRegular(
-                                                        title: "next_loan".tr,color: ThemeClass.borderColor,fontWeight: FontWeight.w300,),
-                                                    SizedBox(
-                                                      height: 16.h,
-                                                    ),
-                                                    AppTextBold(
-                                                      title: con
-                                                          .activeLoanModel
-                                                          ?.activeLoan
-                                                          ?.nextInstallmentDate
-                                                          .toString()??
-                                                          "",
-                                                      color:
-                                                      ThemeClass.blackColor,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      fontSize: 22.sp,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 18.h,
-                                                    ),
-                                                    AppTextRegular(title: "installment_value".tr,color: ThemeClass.borderColor,),
-                                                    SizedBox(
-                                                      height: 16.h,
-                                                    ),
-                                                    AppTextBold(title: con.activeLoanModel!.activeLoan!.dueInstallmentAmount.toString()),
-                                                    SizedBox(height: 8.h)
-                                                  ],
-                                                )),
-
-
-                                          ]),
-                                        ])),
-                                SizedBox(height: 8.h,),
-                                FadeIn(
-                                  delay: 1.5,
-                                  from: SlideFrom.BOTTOM,
-                                  child: CustomButton(
-                                      borderColor: ThemeClass.buttonNotActiveColor,
-                                      radius: 16,
-                                      title: "pay_now".tr,
-                                      onTap: ()  {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_pay',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_pay"
-                                            }
-                                        );
-                                        Navigator.pushNamed(context, PaymentMethodsScreen.routeName,arguments: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString());
-                                      }),
-                                ),
-                                SizedBox(height: 55.h,),
-                                FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.BOTTOM,
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: con.activeLoanModel!.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
-                                          name: 'request_previous_loans',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_previous_loans"
-                                          }
-                                      );
-                                      Navigator.pushNamed(context, PreviousLoanScreen.routeName);
-                                    },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                                  ),
-                                ),
-                                SizedBox(height: 70.h,),
+                                Container(
+                                  width: 50.w,
+                                  height: 50.h,
+                                  child: Icon( _isExpanded ?  Iconsax.arrow_square_up : Iconsax.arrow_square_down,color: ThemeClass.whiteColor,),
+                                )
                               ],
-                            ),
-                          ),)
-                      : Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
-                          child: Column(
-                            children: [
-                              FadeIn(
-                                delay: 1,
-                                from: SlideFrom.TOP,
-                                child: Image.asset(
-                                  AppAssets.IMG_NO_LOAN,
-                                  fit: BoxFit.fill,
-                                  width: double.infinity,
-                                  height: 328.h,
-                                ),
-                              ),
-                              SizedBox(height: 20.h,),
-                              FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.BOTTOM,
-                                  child: AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,)),
-                              SizedBox(height: 170.h,),
-                              (con.activeLoanModel?.havePreviousLoan != null) ?
-                              FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                    _analytics.logEvent(
-                                        name: 'request_previous_loans',
-                                        parameters: <String,dynamic>{
-                                          "title" :"request_previous_loans"
-                                        }
-                                    );
-                                    Navigator.pushNamed(context, PreviousLoanScreen.routeName);
-                                  },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                                ),
-                              ) : Container()
-                            ],
-                          ),
-                        )
-                  : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Padding(
-                            padding: EdgeInsets.all(16.w),
-                            child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
-                      ),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: AppTextMedium(
-                          title: "empty_loan".tr,
+                            )
                         ),
                       ),
-                      SizedBox(height: 131.h,),
-                      FadeIn(
+                    ),
+                    Container(
+                        width: 400.w,
+                        height: 90.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24.sp)
+                        ),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(16.sp),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    AppTextRegular(title: "month_need".tr,color: ThemeClass.primaryColor,),
+                                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.primaryColor,size: 16.sp,)
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                                  textBaseline: TextBaseline.alphabetic,
+                                  children: [
+                                    AppTextBold(title: con.activeLoanModel!.activeLoan!.dueInstallmentAmount.toString()),
+                                    SizedBox(width: 4.w,),
+                                    AppTextRegular(title: "ج. م",color: ThemeClass.primaryColor,fontSize: 14.sp,)
+                                  ],
+                                )
+                              ],
+                            ),
+                            Container(
+                              width: 60.w,
+                              // height: 50.h,
+                              decoration: BoxDecoration(
+                                  color: ThemeClass.primaryColor,
+                                  borderRadius: BorderRadius.circular(8.sp)
+                              ),
+                              padding: EdgeInsets.all(4.w),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Iconsax.card_send,color: ThemeClass.whiteColor,),
+                                  AppTextRegular(title: "pay".tr,color: ThemeClass.whiteColor,),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ) ,
+                      ),
+                    AnimatedContainer(
+                      duration:  Duration(seconds: 1),
+                      curve: Curves.fastOutSlowIn,
+                      height: _isExpanded ? 340.h : 0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: _isExpanded
+                          ?  SingleChildScrollView(
+                             child: Column(
+                          children: [
+                                Container(
+                                  width: 366.w,
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.greyBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.all(12.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          AppTextRegular(title: "last_paid_amount".tr),
+                                          Row(
+                                            textBaseline: TextBaseline.alphabetic,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                              SizedBox(width: 4.w,),
+                                              AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              AppTextRegular(title: "date_of_pay".tr),
+                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
+                                            ],
+                                          ),
+                                          SizedBox(width: 40.w,),
+                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 8.h,),
+                                Container(
+                                  width: 366.w,
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.greyBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.all(12.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              AppTextRegular(title: "paided".tr),
+                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfpaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                            ],
+                                          ),
+                                          SizedBox(width: 40.w,),
+                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                        ],
+                                      ),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              AppTextRegular(title: "remaining".tr),
+                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfNotPaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                            ],
+                                          ),
+                                          SizedBox(width: 40.w,),
+                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 8.h,),
+                                Container(
+                                  width: 366.w,
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.greyBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.all(12.sp),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          AppTextRegular(title: "paid_amount".tr),
+                                         Row(
+                                           crossAxisAlignment: CrossAxisAlignment.end,
+                                           textBaseline: TextBaseline.alphabetic,
+                                           children: [
+                                             AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                             SizedBox(width: 4.w,),
+                                             AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
+                                           ],
+                                         ),
+                                        ],
+                                      ),
+                                      SizedBox(width: 40.w,),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          AppTextRegular(title: "remaining".tr),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            textBaseline: TextBaseline.alphabetic,
+                                            children: [
+                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.totalDueAmount.toString()??"0",color: ThemeClass.secondaryColor,fontSize: 16.sp,),
+                                              SizedBox(width: 4.w,),
+                                              AppTextRegular(title: "ج. م",color: ThemeClass.secondaryColor,fontSize: 14.sp,)
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(width: 40.w,),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          AppTextRegular(title: "tex_amount".tr),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            textBaseline: TextBaseline.alphabetic,
+                                            children: [
+                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.penaltyAmount.toString()??"0",color: ThemeClass.orangeColor,fontSize: 16.sp,),
+                                              SizedBox(width: 4.w,),
+                                              AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 8.h,),
+                                Container(
+                                  width: 366.w,
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.greyBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.all(12.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              AppTextRegular(title: "next_installment".tr),
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                textBaseline: TextBaseline.alphabetic,
+                                                children: [
+                                                  AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",fontSize: 16.sp,),
+                                                  SizedBox(width: 4.w,),
+                                                  AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                        ],
+                                      ),
+                                      Container(color: ThemeClass.borderColor,height: 30.h,width: 1.w,),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          AppTextRegular(title: "due_date".tr),
+                                          AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 10.h,),
+                          ],
+                        ),
+                      )
+                          : null,
+                    ),
+
+                  ],
+                ),
+              )
+                  : Container(
+                padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
+                child: Column(
+                  children: [
+                    FadeIn(
+                      delay: 1,
+                      from: SlideFrom.TOP,
+                      child: Image.asset(
+                        AppAssets.IMG_NO_LOAN,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        height: 328.h,
+                      ),
+                    ),
+                    SizedBox(height: 20.h,),
+                    FadeIn(
                         delay: 1,
                         from: SlideFrom.BOTTOM,
-                        child: CustomButton(
-                            width: 216,
-                            title: "login".tr,
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, LoginScreen.routeName,
-                                  arguments: "");
-                            }),
+                        child: AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,)),
+                    SizedBox(height: 170.h,),
+                    (con.activeLoanModel?.havePreviousLoan != null) ?
+                    FadeIn(
+                      delay: 1,
+                      from: SlideFrom.BOTTOM,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
+                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                          _analytics.logEvent(
+                              name: 'request_previous_loans',
+                              parameters: <String,dynamic>{
+                                "title" :"request_previous_loans"
+                              }
+                          );
+                          Navigator.pushNamed(context, PreviousLoanScreen.routeName);
+                        },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
                       ),
-                    ],
+                    ) : Container()
+                  ],
+                ),
+              )
+                  : Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  FadeIn(
+                    delay: 1,
+                    from: SlideFrom.TOP,
+                    child: Padding(
+                        padding: EdgeInsets.all(16.w),
+                        child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
                   ),
-            ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  FadeIn(
+                    delay: 1,
+                    from: SlideFrom.TOP,
+                    child: AppTextMedium(
+                      title: "empty_loan".tr,
+                    ),
+                  ),
+                  SizedBox(height: 131.h,),
+                  FadeIn(
+                    delay: 1,
+                    from: SlideFrom.BOTTOM,
+                    child: CustomButton(
+                        width: 216,
+                        title: "login".tr,
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, LoginScreen.routeName,
+                              arguments: "");
+                        }),
+                  ),
+                ],
+              ),
+            )
           ),
         ),
       ),

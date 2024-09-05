@@ -49,6 +49,9 @@ class ActiveLoan {
     required this.numberOfNotPaidMonths,
     required this.totalDueAmount,
     required this.dueInstallmentAmount,
+    this.lastPaidInstallmentAmount,
+    this.lastPaidInstallmentDate,
+    this.lastPaidInstallmentNumber,
     this.penaltyAmount
   });
 
@@ -60,6 +63,10 @@ class ActiveLoan {
   double totalDueAmount;
   double dueInstallmentAmount;
   double? penaltyAmount;
+  double? lastPaidInstallmentAmount;
+  double? lastPaidInstallmentNumber;
+  String? lastPaidInstallmentDate;
+
 
   factory ActiveLoan.fromJson(Map<String, dynamic> json) => ActiveLoan(
     totalAmount: json["totalAmount"].toDouble(),
@@ -68,6 +75,9 @@ class ActiveLoan {
     numberOfpaidMonths: json["numberOfpaidMonths"],
     numberOfNotPaidMonths: json["numberOfNotPaidMonths"],
     totalDueAmount: json["totalDueAmount"]?.toDouble(),
+    lastPaidInstallmentAmount: json["lastPaidInstallmentAmount"] != null ? json["lastPaidInstallmentAmount"]?.toDouble() : 0,
+    lastPaidInstallmentNumber: json["lastPaidInstallmentNumber"]?.toDouble(),
+    lastPaidInstallmentDate: json["lastPaidInstallmentDate"],
     dueInstallmentAmount: json["dueInstallmentAmount"].toDouble(),
       penaltyAmount : json["penaltyAmount"] != null ? json["penaltyAmount"].toDouble() : null,
   );
@@ -80,5 +90,8 @@ class ActiveLoan {
     "numberOfNotPaidMonths": numberOfNotPaidMonths,
     "totalDueAmount": totalDueAmount,
     "dueInstallmentAmount" : dueInstallmentAmount,
+    "lastPaidInstallmentDate" : lastPaidInstallmentDate,
+    "lastPaidInstallmentNumber" : lastPaidInstallmentNumber,
+    "lastPaidInstallmentAmount" : lastPaidInstallmentAmount
   };
 }

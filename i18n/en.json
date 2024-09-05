@@ -178,6 +178,11 @@
   "logout" : "Logout",
   "logout_alert" : "Do you want to Logout..?",
   "previous_number" : "Previous Numbers",
-  "follow" : "Follow"
+  "follow" : "Follow",
+  "wallet" : "My Wallet",
+  "current_loans" : "Current Loans",
+  "total_loan" : "ُTotal Amount Of Loan",
+  "month_need" : "ُThis Month Need"
+
 
 }
