@@ -27,10 +27,16 @@ class MoreItemWidget extends StatelessWidget {
           color: ThemeClass.termsBackground,
           borderRadius: BorderRadius.circular(16.sp),
         ),
-        padding: EdgeInsets.symmetric(vertical : 8.h,horizontal: 8.w),
+        padding: EdgeInsets.symmetric(vertical : 12.h,horizontal: 12.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Image.asset(
+              image,
+              color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xFF6A4B4C80) : ThemeClass.fontColor,
+              width: 24.w,
+              height: 24.h,
+            ),
             Padding(
               padding: EdgeInsetsDirectional.only(start: 8.w),
               child: AppTextRegular(
@@ -39,19 +45,9 @@ class MoreItemWidget extends StatelessWidget {
                 fontSize: 18.sp,
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(8.w),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: image == AppAssets.IMG_MORE_ABOUT ? Color(0xFFF3D4D2) : Color(0xFFE4E4E4),
-              ),
-              child: Image.asset(
-                image,
-                color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xFF6A4B4C80) : ThemeClass.fontColor,
-                width: 24.w,
-                height: 24.h,
-              ),
-            ),
+            Spacer(),
+            Icon(Iconsax.arrow_square_left)
+
           ],
         ),
       ),

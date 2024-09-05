@@ -73,15 +73,15 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                       ),
                       (con.servicesResponse?.products != null &&
                               con.servicesResponse!.products!.isNotEmpty)
-                          ?  SizedBox(
-                        height: 660.h,
+                          ? SizedBox(
+                            height: 660.h,
                             child: MasonryGridView.count(
                               crossAxisCount: 2,
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 8,
-                        itemCount: con.servicesResponse!.products!.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
+                              itemCount: con.servicesResponse!.products!.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
                             onTap: () {
                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                               _analytics.logEvent(
@@ -241,7 +241,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                         ),
                       ),
                     ],
-                  )) : Container(),
+                  )
+          ) : Container(),
         ),
       ),
     );

@@ -40,156 +40,153 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-          backgroundColor: ThemeClass.whiteColor,
-          appBar: BaseAppBar.main(
-              title: "account".tr, isBackButtonVisible: false),
-          body: SafeArea(
-              child: LoadingScreen(
-                loading: con.loading,
-                child: GestureDetector(
-                    onTap: () {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
-                    child: SharedPref.getUserObg() != null
-                    ? Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10.w),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: ThemeClass.whiteColor),
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Column(children: [
-                              SizedBox(height: 10.h),
-                              FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
-                                      title: "full_name".tr,
-                                      data: con.userModel?.fullName ?? "")),
-                              FadeIn(
-                                  delay: 1.2,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
-                                      title: "id_num".tr,
-                                      data: con.userModel?.nationalId ?? "")),
-                              FadeIn(
-                                  delay: 1.5,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
-                                      title: "birthday".tr,
-                                      data: con.userModel?.birthDate
-                                              .substring(0, 11) ??
-                                          "")),
-                              FadeIn(
-                                  delay: 1.8,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
-                                      title: "phone_number".tr,
-                                      data:
-                                          con.userModel?.mobileNumber ?? "")),
-                              con.userModel?.email != null ?
-                              FadeIn(
-                                delay: 2,
+    return Scaffold(
+        backgroundColor: ThemeClass.whiteColor,
+        appBar: BaseAppBar.main(
+            title: "account".tr),
+        body: SafeArea(
+            child: LoadingScreen(
+              loading: con.loading,
+              child: GestureDetector(
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  child: SharedPref.getUserObg() != null
+                      ? Container(
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 10.w),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: ThemeClass.whiteColor),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Column(children: [
+                            SizedBox(height: 10.h),
+                            FadeIn(
+                                delay: 1,
+                                from: SlideFrom.LEFT,
+                                child: UserDataWidget(
+                                    title: "full_name".tr,
+                                    data: con.userModel?.fullName ?? "")),
+                            FadeIn(
+                                delay: 1.2,
+                                from: SlideFrom.LEFT,
+                                child: UserDataWidget(
+                                    title: "id_num".tr,
+                                    data: con.userModel?.nationalId ?? "")),
+                            FadeIn(
+                                delay: 1.5,
+                                from: SlideFrom.LEFT,
+                                child: UserDataWidget(
+                                    title: "birthday".tr,
+                                    data: con.userModel?.birthDate
+                                        .substring(0, 11) ??
+                                        "")),
+                            FadeIn(
+                                delay: 1.8,
+                                from: SlideFrom.LEFT,
+                                child: UserDataWidget(
+                                    title: "phone_number".tr,
+                                    data:
+                                    con.userModel?.mobileNumber ?? "")),
+                            con.userModel?.email != null ?
+                            FadeIn(
+                              delay: 2,
+                              from: SlideFrom.LEFT,
+                              child: UserDataWithEdit(
+                                  title: "email".tr,
+                                  data: con.userModel?.email != null
+                                      ? con.userModel!.email!
+                                      : "example@example.com"),
+                            ) : Container(),
+                            FadeIn(
+                                delay: 2.2,
                                 from: SlideFrom.LEFT,
                                 child: UserDataWithEdit(
-                                    title: "email".tr,
-                                    data: con.userModel?.email != null
-                                        ? con.userModel!.email!
-                                        : "example@example.com"),
-                              ) : Container(),
-                              FadeIn(
-                                  delay: 2.2,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWithEdit(
-                                      title: "government".tr,
-                                      data:  con.city != null ? con.city! : "القاهره")),
-                              FadeIn(
-                                  delay: 2.4,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWithEdit(
-                                      title: "password".tr,
-                                      data: "*************")),
-                              SizedBox(height: 16.h,),
-                              !con.guestMood?
-                              CustomButton(
-                                width: 216,
-                                title: "deactivate".tr,
-                                backgroundColor: ThemeClass.whiteColor,
-                                textColor: ThemeClass.primaryColor,
-                                borderColor: ThemeClass.primaryColor,
-                                onTap: () {
-                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                  _analytics.logEvent(
-                                      name: 'request_deactivate_account',
-                                      parameters: <String,dynamic>{
-                                        "title" :"request_deactivate_account"
-                                      }
-                                  );
-                                  AnimatedAlertDialog(context,
-                                      LogoutAlertWidget(message : "deactivate_message".tr ,onOkPressed: () {
-                                        con.logout(context,con.userModel?.mobileNumber??"",con.userModel?.nationalId??"");
-                                      }));
-                                },
+                                    title: "government".tr,
+                                    data:  con.city != null ? con.city! : "القاهره")),
+                            FadeIn(
+                                delay: 2.4,
+                                from: SlideFrom.LEFT,
+                                child: UserDataWithEdit(
+                                    title: "password".tr,
+                                    data: "*************")),
+                            SizedBox(height: 16.h,),
+                            !con.guestMood?
+                            CustomButton(
+                              width: 216,
+                              title: "deactivate".tr,
+                              backgroundColor: ThemeClass.whiteColor,
+                              textColor: ThemeClass.primaryColor,
+                              borderColor: ThemeClass.primaryColor,
+                              onTap: () {
+                                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                _analytics.logEvent(
+                                    name: 'request_deactivate_account',
+                                    parameters: <String,dynamic>{
+                                      "title" :"request_deactivate_account"
+                                    }
+                                );
+                                AnimatedAlertDialog(context,
+                                    LogoutAlertWidget(message : "deactivate_message".tr ,onOkPressed: () {
+                                      con.logout(context,con.userModel?.mobileNumber??"",con.userModel?.nationalId??"");
+                                    }));
+                              },
 
-                              ) : Container(),
-                              SizedBox(height: 100.h,),
+                            ) : Container(),
+                            SizedBox(height: 20.h,),
 
-                            ]),
+                          ]),
+                        ),
+                      ))
+                      : Column(
+                      crossAxisAlignment:
+                      CrossAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(height: 10.h),
+                        FadeIn(
+                          delay: 2,
+                          from: SlideFrom.TOP,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Image.asset(AppAssets.IMG_EMPTY_ACCOUNT,
+                                width: double.infinity,
+                                height: 357.h,
+                                fit: BoxFit.fill),
                           ),
-                        ))
-                    : Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.center,
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(height: 10.h),
-                          FadeIn(
+                        ),
+                        SizedBox(height: 16.h),
+                        FadeIn(
                             delay: 2,
                             from: SlideFrom.TOP,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Image.asset(AppAssets.IMG_EMPTY_ACCOUNT,
-                                  width: double.infinity,
-                                  height: 357.h,
-                                  fit: BoxFit.fill),
-                            ),
-                          ),
-                          SizedBox(height: 16.h),
-                          FadeIn(
-                              delay: 2,
-                              from: SlideFrom.TOP,
-                              child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20.w),
-                                  child: AppTextBold(
-                                      title: "guest_des".tr))),
-                           SizedBox(
-                             height: 121.h,
-                           ),
-                          FadeIn(
-                              delay: 2,
-                              from: SlideFrom.BOTTOM,
-                              child: CustomButton(
-                                  width: 216,
-                                  title: "login".tr,
-                                  onTap: () async {
-                                    Navigator.of(context,
-                                            rootNavigator: true)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen(
-                                                  phoneNumber: "",
-                                                ),
-                                            maintainState:
-                                                false)); // await con.register(context);
-                                  })),
-                        ])),
-              ))),
-    );
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w),
+                                child: AppTextBold(
+                                    title: "guest_des".tr))),
+                        SizedBox(
+                          height: 100.h,
+                        ),
+                        FadeIn(
+                            delay: 2,
+                            from: SlideFrom.BOTTOM,
+                            child: CustomButton(
+                                width: 216,
+                                title: "login".tr,
+                                onTap: () async {
+                                  Navigator.of(context,
+                                      rootNavigator: true)
+                                      .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginScreen(
+                                            phoneNumber: "",
+                                          ),
+                                      maintainState:
+                                      false)); // await con.register(context);
+                                })),
+                      ])),
+            )));
   }
 }

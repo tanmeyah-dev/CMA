@@ -11,7 +11,8 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../offers/main_offers/main_offers_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MainOffersScreen extends StatefulWidget {
   static const String routeName = "/mainOffersScreen";

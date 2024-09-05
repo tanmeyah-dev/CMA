@@ -3,6 +3,7 @@ import 'package:Tanmeyah/Modules/Account/account_screen.dart';
 import 'package:Tanmeyah/Modules/More/main_more/more_screen.dart';
 import 'package:flutter/material.dart';
 import '../../Theme/themeclass.dart';
+import '../BillersAndServices/billers_and_services_screen.dart';
 import '../Home/main_home/home_screen.dart';
 import '../loan/main_loan/main_loan_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -25,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     MainLoanScreen(),
-    AccountScreen(),
+    BillersAndServicesScreen(),
     MoreScreen(),
   ];
 
