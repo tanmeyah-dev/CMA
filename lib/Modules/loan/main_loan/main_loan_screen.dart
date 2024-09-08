@@ -73,8 +73,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     Align(alignment : Alignment.centerRight,child: AppTextRegular(title: "current_loans".tr,fontSize: 24.sp,fontWeight: FontWeight.w300,),),
                     SizedBox(height: 10.h,),
                     FadeIn(
-                      delay: 1,
-                      from: SlideFrom.TOP,
+                      delay: 1.5,
+                      from: SlideFrom.RIGHT,
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -131,7 +131,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                         ),
                       ),
                     ),
-                    Container(
+                    FadeIn(
+                      delay: 2,
+                      from: SlideFrom.RIGHT,
+                      child: Container(
                         width: 400.w,
                         height: 90.h,
                         decoration: BoxDecoration(
@@ -182,6 +185,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           ],
                         ) ,
                       ),
+                    ),
                     AnimatedContainer(
                       duration:  Duration(seconds: 1),
                       curve: Curves.fastOutSlowIn,
@@ -478,98 +482,5 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
     );
   }
 
-  Widget amounts({required String title, required String amount,required Color color}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(16.w),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 10.w),
-      width: 130.w,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AppTextRegular(title: title,color: ThemeClass.borderColor,fontWeight: FontWeight.w300,),
-          SizedBox(
-            height: 7.h,
-          ),
-          AppTextBold(
-            title: amount,
-            color: ThemeClass.blackColor,
-          ),
-          SizedBox(
-            height: 14.h,
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget numberOfMonths(
-      {required String title,
-      required String months,
-      required String routeName}) {
-    return GestureDetector(
-      onTap: () {
-        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-       if(routeName == AlreadyPaidScreen.routeName) {
-         _analytics.logEvent(
-             name: 'request_paid_installment_screen',
-             parameters: <String, dynamic>{
-               "title": "request_paid_installment_screen"
-             }
-         );
-       }else {
-         _analytics.logEvent(
-             name: 'request_due_installment_screen',
-             parameters: <String,dynamic>{
-               "title" :"request_due_installment_screen"
-             }
-         );
-       }
-        Navigator.pushNamed(context, routeName);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            color: const Color(0xFFFEFBE8),
-            borderRadius: BorderRadius.circular(16.sp),
-            border: Border.all(color: ThemeClass.primaryColor,width: 1.sp)
-        ),
-        padding: EdgeInsets.symmetric(vertical : 12.w,horizontal: 10.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Column(
-                  children: [
-                    AppTextRegular(title: title,color: ThemeClass.borderColor,fontWeight: FontWeight.w300,),
-                    SizedBox(height: 5.h,)
-                  ],
-                ),
-                SizedBox(width: 8.w,),
-                Container(
-                  decoration: BoxDecoration(
-                    color: ThemeClass.borderColor,
-                    borderRadius: BorderRadius.circular(4.sp)
-                  ),
-                  padding: EdgeInsets.all(4.w),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 8.sp,
-                    color: Color(0xFFFEFBE8),
-                  ),
-                ),
-              ],
-            ),
-            AppTextBold(
-              title: months,
-              color: ThemeClass.blackColor,
-            ),
-            AppTextRegular(title: "installments".tr),
-          ],
-        ),
-      ),
-    );
-  }
 }

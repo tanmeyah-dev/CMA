@@ -108,108 +108,119 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 child: SizedBox(
                                     width: 50.w,
                                     child: AppTextHint(title: "hello".tr))))),
-                    SharedPref.getUserObg() != null
-                        ? FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Padding(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Align(
-                                alignment:
-                                AlignmentDirectional.centerStart,
-                                child: AppTextBold(
-                                    title:
-                                    SharedPref.getUserObg()!.fullName,
-                                    color: ThemeClass.secondaryColor))))
-                        : Container(),
-                    SizedBox(height: 22.h),
                     (con.homeResponse?.loanRequest == null)
                         ? FadeIn(
-                      delay: 1.5,
-                      from: SlideFrom.TOP,
-                      child:
-                      (con.homeResponse?.canRequestLoan == true)
-                          ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(24.w),
-                          image: const DecorationImage(
-                              image: AssetImage(
-                                AppAssets
-                                    .IMG_HOME_BACKGROUND,
-                              ),
-                              fit: BoxFit.fill),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 16.h),
-                        margin: EdgeInsets.symmetric(horizontal: 10.w),
-                        child: Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(height: 12.h,),
-                                SizedBox(
-                                  width : 120.w,
-                                  child: AppTextRegular(
-                                    title: """اطلب
+                          delay: 1.5,
+                          from: SlideFrom.TOP,
+                          child:
+                              (con.homeResponse?.canRequestLoan == true)
+                                 ? Stack(
+                                    children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(24.w),
+                                        color: ThemeClass.whiteColor
+                                        ),
+                                       margin: EdgeInsets.only(top : 16.w,right: 16.w,left: 16.w),
+                                       child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                                Padding(padding: EdgeInsets.symmetric(horizontal: 2.w),
+                                                  child :  SharedPref.getUserObg() != null
+                                                   ? FadeIn(
+                                               delay: 1,
+                                               from: SlideFrom.TOP,
+                                               child: AppTextBold(
+                                                 title:
+                                                 SharedPref.getUserObg()!.fullName,
+                                                 color: ThemeClass.secondaryColor,textAlign: TextAlign.start,))
+                                                   : Container(),
+                                                ),
+                                                SizedBox(height: 20.h,),
+                                                Container(
+                                                  width: 325.w,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(24.sp),
+                                                    image: DecorationImage(
+                                                        image: AssetImage(AppAssets.IMG_HOME_BACKGROUND),
+                                                        fit: BoxFit.fill
+                                                    ),
+                                                  ),
+                                                  alignment: Alignment.centerRight,
+                                                  padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(height: 12.h,),
+                                                      SizedBox(
+                                                        width : 120.w,
+                                                        child: AppTextRegular(
+                                                          title: """اطلب
 تمويل مشروعك
 بكل سهولة
-                                    """,
-                                    color: ThemeClass.whiteColor,
-                                    textAlign: TextAlign.start,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w500,
+                                                          """,
+                                                          color: ThemeClass.whiteColor,
+                                                          textAlign: TextAlign.start,
+                                                          fontSize: 18.sp,
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                      CustomButton(
+                                                          width : 135,
+                                                          fontSize: 20.sp,
+                                                          backgroundColor:
+                                                          ThemeClass.whiteColor,
+                                                          textColor:
+                                                          ThemeClass.primaryColor,
+                                                          title: "ask_loan".tr,
+                                                          fontWeight: FontWeight.bold,
+                                                          onTap: () async {
+                                                            if (con.isLogin)  {
+                                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                                              _analytics.logEvent(
+                                                                  name: 'request_loan_button',
+                                                                  parameters: <String,dynamic>{
+                                                                    "title" :"request_loan_button"
+                                                                  }
+                                                              );
+                                                              Navigator.pushNamed(
+                                                                  context,
+                                                                  LoanRequestTermsScreen
+                                                                      .routeName);
+                                                            } else {
+                                                              AnimatedAlertDialog(
+                                                                  context, LoginAlert(
+                                                                  onLoginTaped:
+                                                                      () {
+                                                                    Navigator.of(context).pushNamedAndRemoveUntil(
+                                                                        '/loginScreen', (Route<dynamic> route) => false,arguments: "");
+                                                                  }));
+                                                            }
+                                                          }),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        ],
+                                    ),
                                   ),
-                                ),
-                                CustomButton(
-                                    width : 135,
-                                    fontSize: 20.sp,
-                                    backgroundColor:
-                                    ThemeClass.whiteColor,
-                                    textColor:
-                                    ThemeClass.primaryColor,
-                                    title: "ask_loan".tr,
-                                    fontWeight: FontWeight.bold,
-                                    onTap: () async {
-                                        if (con.isLogin)  {
-                                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                          _analytics.logEvent(
-                                              name: 'request_loan_button',
-                                              parameters: <String,dynamic>{
-                                                "title" :"request_loan_button"
-                                              }
-                                          );
-                                              Navigator.pushNamed(
-                                                  context,
-                                                  LoanRequestTermsScreen
-                                                      .routeName);
-                                        } else {
-                                          AnimatedAlertDialog(
-                                              context, LoginAlert(
-                                              onLoginTaped:
-                                                  () {
-                                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                                    '/loginScreen', (Route<dynamic> route) => false,arguments: "");
-                                              }));
-                                      }
-                                    }),
-                              ],
-                            ),
-                            Image.asset(
-                              AppAssets.IMG_HOME,
-                              width: 174.w,
-                              height: 168.h,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ],
-                        ),
-                      )
-                          :  (con.homeResponse?.branches == null || con.homeResponse!.branches!.isEmpty) ? Container(
+                                    Positioned(
+                                      left: 16.w,
+                                      top: 20.h,
+                                      bottom: 20.h,
+                                      child: Image.asset(
+                                      AppAssets.IMG_HOME,
+                                      width: 200.w,
+                                      height: 220.h,
+                                      fit: BoxFit.fill,
+                                    ),)
+                                ],
+                              )
+                                :  (con.homeResponse?.branches == null || con.homeResponse!.branches!.isEmpty) ? Container(
                         width: 328.w,
                         // height: 200.h,
                         decoration: BoxDecoration(

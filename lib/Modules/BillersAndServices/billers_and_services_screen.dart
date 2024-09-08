@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Theme/themeclass.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../Widgets/base_appbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class BillersAndServicesScreen extends StatefulWidget {
   static const String routeName = "/billersAndServices";
@@ -36,11 +38,42 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                 ),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, MainServicesScreen.routeName);
-                      },
-                      child:Container(
+                    FadeIn(
+                      delay: 0.5,
+                      from: SlideFrom.BOTTOM,
+                      child :  GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, MainServicesScreen.routeName);
+                        },
+                        child:Container(
+                          width: 382.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.sp),
+                              color: ThemeClass.borderColor
+                          ),
+                          padding: EdgeInsets.all(20.w),
+                          child: Row(
+                            children: [
+                              Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
+                              SizedBox(width: 20.w,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppTextBold(title: "services".tr,color: ThemeClass.secondaryColor,),
+                                  AppTextRegular(title: "services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8.h,),
+                    FadeIn(
+                      delay: 1,
+                      from: SlideFrom.BOTTOM,
+                      child: Container(
                         width: 382.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.sp),
@@ -49,43 +82,20 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                         padding: EdgeInsets.all(20.w),
                         child: Row(
                           children: [
-                            Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
+                            Icon(Iconsax.receipt_item5,size: 48.sp,color: ThemeClass.primaryColor,),
                             SizedBox(width: 20.w,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AppTextBold(title: "services".tr,color: ThemeClass.secondaryColor,),
-                                AppTextRegular(title: "services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
+                                AppTextBold(title: "billing_services".tr,color: ThemeClass.secondaryColor,),
+                                AppTextRegular(title: "billing_services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
                               ],
                             )
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(height: 8.h,),
-                    Container(
-                      width: 382.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.sp),
-                          color: ThemeClass.borderColor
-                      ),
-                      padding: EdgeInsets.all(20.w),
-                      child: Row(
-                        children: [
-                          Icon(Iconsax.receipt_item5,size: 48.sp,color: ThemeClass.primaryColor,),
-                          SizedBox(width: 20.w,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppTextBold(title: "billing_services".tr,color: ThemeClass.secondaryColor,),
-                              AppTextRegular(title: "billing_services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),

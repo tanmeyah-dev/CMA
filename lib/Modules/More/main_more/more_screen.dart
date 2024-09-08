@@ -9,8 +9,6 @@ import 'package:Tanmeyah/Modules/More/contact_us/contact_us_screen.dart';
 import 'package:Tanmeyah/Modules/More/main_more/more_controller.dart';
 import 'package:Tanmeyah/Modules/More/main_more/widget/logout_alert.dart';
 import 'package:Tanmeyah/Modules/More/main_more/widget/more_item.dart';
-import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
-import 'package:Tanmeyah/Shared/shard_obj.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
@@ -79,7 +77,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                           child: Column(children: [
                             Column(
                           children: [
-                            !con.guestMood ?   GestureDetector(
+                            !con.guestMood ?   FadeIn(
+                              delay: 0.5,
+                              from: SlideFrom.TOP,
+                              child: GestureDetector(
                                 onTap: (){
                                   Navigator.pushNamed(context, AccountScreen.routeName);
                                 },
@@ -107,7 +108,8 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     ],
                                   ),
                                 ),
-                              ) : Container(),
+                              ),
+                            ) : Container(),
                               SizedBox(height: 8.h),
                               FadeIn(
                                   delay: 1.5,
