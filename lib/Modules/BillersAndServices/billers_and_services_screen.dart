@@ -1,3 +1,4 @@
+import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,26 +36,31 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      width: 382.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.sp),
-                        color: ThemeClass.borderColor
-                      ),
-                      padding: EdgeInsets.all(20.w),
-                      child: Row(
-                        children: [
-                          Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
-                          SizedBox(width: 20.w,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppTextBold(title: "services".tr,color: ThemeClass.secondaryColor,),
-                              AppTextRegular(title: "services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
-                            ],
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, MainServicesScreen.routeName);
+                      },
+                      child:Container(
+                        width: 382.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.sp),
+                            color: ThemeClass.borderColor
+                        ),
+                        padding: EdgeInsets.all(20.w),
+                        child: Row(
+                          children: [
+                            Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
+                            SizedBox(width: 20.w,),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppTextBold(title: "services".tr,color: ThemeClass.secondaryColor,),
+                                AppTextRegular(title: "services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 8.h,),

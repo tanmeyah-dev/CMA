@@ -109,7 +109,7 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                 ),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 22.h, horizontal: 30.w),
+                                      vertical: 20.h, horizontal: 20.w),
                                   decoration: BoxDecoration(
                                     borderRadius:
                                     BorderRadius.circular(20.w),
@@ -119,40 +119,58 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(16.w),
                                         child:  con.servicesResponse!.products![index]
-                                            .imageUrl !=
+                                            .logo !=
                                             null
                                             ? Image.network(con
                                             .servicesResponse!
                                             .products![index]
-                                            .imageUrl ??
-                                            "")
+                                            .logo ??
+                                            "",
+                                            width: 40.w,
+                                            height: 40.h,
+                                            fit: BoxFit.fill,
+                                        )
                                             : Image.asset(
                                           AppAssets
                                               .IMG_SERVICES_PLACEHOLDER,
-                                          width: 30.w,
-                                          color: Color(con
-                                              .servicesResponse!
-                                              .products![index]
-                                              .color!),
+                                          width: 40.w,
+                                          height: 40.h,
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 30.h,
-                                      ),
+                                      SizedBox(height: 10.h,),
                                       AppTextRegular(
-                                          title: con
-                                              .servicesResponse
-                                              ?.products![index]
-                                              .nameAr ??
-                                              "",
-                                          color: Color(con.servicesResponse!
-                                              .products![index].color!),
+                                        title: "تمويل",
+                                        color: ThemeClass.secondaryColor,
+                                        fontSize: 16.sp,
                                         textAlign: TextAlign.start,
+                                      ),
+                                      SizedBox(height: 4.h,),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(16.w),
+                                        child:  con.servicesResponse!.products![index]
+                                            .titleImg !=
+                                            null
+                                            ? Image.network(con
+                                            .servicesResponse!
+                                            .products![index]
+                                            .titleImg ??
+                                            "",
+                                          width: 85.w,
+                                          height: 20.h,
+                                          fit: BoxFit.fill,
+                                        )
+                                            : Image.asset(
+                                          AppAssets
+                                              .IMG_SERVICES_PLACEHOLDER,
+                                          width: 40.w,
+                                          height: 40.h,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ],
                                   ),

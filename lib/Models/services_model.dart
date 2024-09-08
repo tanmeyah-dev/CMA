@@ -52,6 +52,8 @@ class ServiceDetailModel {
     required this.descriptionAr,
     required this.descriptionEn,
     required this.imageUrl,
+    this.logo,
+    this.titleImg,
     this.info,
     this.color,
     this.title,
@@ -65,6 +67,8 @@ class ServiceDetailModel {
   String? descriptionAr;
   String? descriptionEn;
   String? imageUrl;
+  String? logo;
+  String? titleImg;
   // Color? productColor;
   List<Info>? info;
   int? color;
@@ -82,6 +86,8 @@ class ServiceDetailModel {
       descriptionEn:
           json["descriptionEn"] != null ? json["descriptionEn"] : null,
       imageUrl: json["imageUrl"] != null ? json["imageUrl"] : null,
+       logo: json["logo"] != null ? json["logo"] : null,
+       titleImg: json["titleImg"] != null ? json["titleImg"] : null,
       info: json["info"] != null
           ? List<Info>.from(json["info"].map((x) => Info.fromJson(x)))
           : null,
@@ -95,6 +101,8 @@ class ServiceDetailModel {
         "nameEn": nameEn,
         "descriptionAr": descriptionAr,
         "descriptionEn": descriptionEn,
+        "logo" : logo,
+        "titleImg" : titleImg,
         "imageUrl": imageUrl,
         "info": List<Info>.from(info!.map((x) => x.toJson())),
       };

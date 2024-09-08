@@ -70,42 +70,40 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
                   children: [
                     SizedBox(height: 20.h,),
                     Container(
-                      width: 328.w,
+                      // width: 340.w,
+                      height: 70.h,
                       decoration: BoxDecoration(
-                        color: Color(widget.serviceDetailModel.color!)
-                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(24.sp),
+                        color: ThemeClass.greyBackgroundColor
                       ),
                       padding: EdgeInsets.all(16.w),
                       child: Row(
                         children: [
-                          widget.serviceDetailModel.imageUrl != null
+                          widget.serviceDetailModel.logo != null
                               ? Image.network(
-                                  widget.serviceDetailModel.imageUrl!,
-                                  width: 36.w,
-                                  height: 36.h,
-                                  color:
-                                      Color(widget.serviceDetailModel.color!),
+                                  widget.serviceDetailModel.logo!,
+                                  width: 40.w,
+                                  height: 40.h,
                                 )
                               : Image.asset(
                                   AppAssets.IMG_SERVICES_PLACEHOLDER,
-                                  width: 36.w,
-                                  height: 36.h,
-                                  color:
-                                      Color(widget.serviceDetailModel.color!),
+                                  width: 40.w,
+                                  height: 40.h,
                                 ),
-                          SizedBox(
-                            width: 20.w,
+                          Spacer(),
+                          widget.serviceDetailModel.titleImg != null
+                              ? Image.network(
+                            widget.serviceDetailModel.titleImg!,
+                            width: 140.w,
+                            height: 40.h,
+                            fit: BoxFit.fill,
+                          )
+                              : Image.asset(
+                            AppAssets.IMG_SERVICES_PLACEHOLDER,
+                            width: 140.w,
+                            height: 40.h,
                           ),
-                          SizedBox(
-                            width: 240.w,
-                            child: AppTextRegular(
-                              title: widget.serviceDetailModel.nameAr ?? "",
-                              color: Color(widget.serviceDetailModel.color!),
-                              fontSize: 20.sp,
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
+                          Spacer(),
                         ],
                       ),
                     ),

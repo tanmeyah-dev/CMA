@@ -10,6 +10,7 @@ import 'package:Tanmeyah/Modules/More/main_more/more_controller.dart';
 import 'package:Tanmeyah/Modules/More/main_more/widget/logout_alert.dart';
 import 'package:Tanmeyah/Modules/More/main_more/widget/more_item.dart';
 import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
+import 'package:Tanmeyah/Shared/shard_obj.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
@@ -17,6 +18,7 @@ import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/themeclass.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
@@ -77,7 +79,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                           child: Column(children: [
                             Column(
                           children: [
-                              GestureDetector(
+                            !con.guestMood ?   GestureDetector(
                                 onTap: (){
                                   Navigator.pushNamed(context, AccountScreen.routeName);
                                 },
@@ -93,8 +95,11 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          AppTextBold(title: "ابانوب يوسف عوض الله",color: ThemeClass.profileContainer,),
-                                          AppTextRegular(title: "01234567890")
+                                          SizedBox(
+                                            width: 200.w,
+                                            child: AppTextBold(title: "${SharedPref.getUserObg()?.fullName}",color: ThemeClass.profileContainer,maxLines: 1,textAlign: TextAlign.start,),
+                                          ),
+                                          AppTextRegular(title: "${SharedPref.getUserObg()?.mobileNumber}")
                                         ],
                                       ),
                                       Spacer(),
@@ -102,7 +107,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     ],
                                   ),
                                 ),
-                              ),
+                              ) : Container(),
                               SizedBox(height: 8.h),
                               FadeIn(
                                   delay: 1.5,
@@ -218,7 +223,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                             context, AboutUsScreen.routeName);
                                       })),
                               SizedBox(height: 8.h),
-                              SizedBox(height: 85.h),
+                            !con.guestMood ?   SizedBox(height: 85.h) : SizedBox(height: 150.h,),
                           ],
                         ),
                             con.guestMood
@@ -274,7 +279,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       ),
                                     )
                                 )),
-                            SizedBox(height: 25.h,),
+                            SizedBox(height: 15.h,),
                             AppTextHint(title: "App Version 2.0.0")
                       ])))))),
     );
