@@ -103,9 +103,6 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius:
                                   BorderRadius.circular(20.w),
-                                  color: Color(con.servicesResponse!
-                                      .products![index].color!)
-                                      .withOpacity(0.1),
                                 ),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(

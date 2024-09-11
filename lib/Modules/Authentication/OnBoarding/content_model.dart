@@ -24,4 +24,8 @@ List<UnbordingContent> contents = [
       title: "onboarding3_title".tr,
       image: AppAssets.IMG_ONBOARDING_3,
       discription: "onboarding3_des".tr),
+  UnbordingContent(
+      title: "onboarding4_title".tr,
+      image: AppAssets.IMG_ONBOARDING_4,
+      discription: "onboarding4_des".tr),
 ];

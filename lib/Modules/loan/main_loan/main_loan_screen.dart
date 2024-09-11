@@ -205,7 +205,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   ),
                                   padding: EdgeInsets.all(12.sp),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,10 +221,12 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                           ),
                                         ],
                                       ),
+
+                                      SizedBox(width: 60.w,),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      SizedBox(width: 20.w,),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
