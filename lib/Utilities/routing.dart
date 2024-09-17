@@ -99,7 +99,7 @@ class AppModule extends Module {
         transition: TransitionType.downToUp,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(AllBillersScreen.routeName,
-        child: (_, args) => AllBillersScreen(serviceList: args.data,),
+        child: (_, args) => AllBillersScreen(),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(MobileBillersScreen.routeName,

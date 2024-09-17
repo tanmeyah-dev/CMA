@@ -204,8 +204,8 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                   ],
                 ),),
                 CustomButton(title: "follow".tr, onTap: (){
-                   // con.getBillInquiry();
-                  con.startPayment();
+                   con.getBillInquiry();
+                  // con.startPayment();
                 }),
                 SizedBox(height: 30.h,)
               ],

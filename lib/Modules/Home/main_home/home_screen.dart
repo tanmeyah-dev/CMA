@@ -350,7 +350,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                               "title" :"request_view_all_offers"
                               }
                               );
-                              Navigator.pushNamed(context, AllBillersScreen.routeName,arguments: con.homeResponse?.serviceTypes);
+                              Navigator.pushNamed(context, AllBillersScreen.routeName);
                                 },
                                 child:   Row(
                                   children: [

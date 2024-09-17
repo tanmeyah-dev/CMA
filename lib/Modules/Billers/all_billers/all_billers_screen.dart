@@ -24,9 +24,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';im
 class AllBillersScreen extends StatefulWidget {
   static const String routeName = "/allBillingServices";
 
-  List<ServiceType> serviceList;
 
-   AllBillersScreen({Key? key,required this.serviceList}) : super(key: key);
+   AllBillersScreen({Key? key}) : super(key: key);
 
   @override
   _AllBillersScreenState createState() => _AllBillersScreenState();
@@ -73,11 +72,11 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                (widget.serviceList != null && widget.serviceList.isNotEmpty) ?
+                (con.getAllServicesResponse != null && con.getAllServicesResponse!.serviceTypes!.isNotEmpty) ?
                 MasonryGridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.serviceList.length,
+                  itemCount: con.getAllServicesResponse?.serviceTypes?.length,
                   crossAxisCount: 3,
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
@@ -88,12 +87,12 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                         _analytics.logEvent(
                             name: 'request_service',
                             parameters: <String,dynamic>{
-                              "title" :"request_service_with  ${widget.serviceList[index].serviceTypeName}"
+                              "title" :"request_service_with  ${con.getAllServicesResponse?.serviceTypes![index].serviceTypeName}"
                             }
                         );
                         if( SharedPref.getUserObg() != null) {
                           Navigator.pushNamed(context, MobileBillersScreen.routeName,
-                              arguments: [widget.serviceList[index].serviceTypeName,widget.serviceList[index].id]);
+                              arguments: [con.getAllServicesResponse?.serviceTypes![index].serviceTypeName,con.getAllServicesResponse?.serviceTypes![index].id]);
                         } else {
                           AnimatedAlertDialog(
                               context, ServicesAlert(
@@ -129,11 +128,10 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                                 ClipRRect(
                                   borderRadius:
                                   BorderRadius.circular(16.w),
-                                  child: widget.serviceList[index]
+                                  child: con.getAllServicesResponse?.serviceTypes![index]
                                       .logoUrl !=
                                       null
-                                      ? Image.network(widget
-                                      .serviceList[index]
+                                      ? Image.network(con.getAllServicesResponse?.serviceTypes![index]
                                       .logoUrl ??
                                       "",width: 48.w,height: 52.h,)
                                       : Image.asset(
@@ -143,8 +141,7 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                                   ),
                                 ),
                                 AppTextRegular(
-                                  title: widget
-                                      .serviceList[index]
+                                  title: con.getAllServicesResponse?.serviceTypes![index]
                                       .serviceTypeName ??
                                       "",
                                   maxLines: 2,

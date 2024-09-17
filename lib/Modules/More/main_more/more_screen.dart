@@ -225,7 +225,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                             context, AboutUsScreen.routeName);
                                       })),
                               SizedBox(height: 8.h),
-                            !con.guestMood ?   SizedBox(height: 85.h) : SizedBox(height: 150.h,),
+                            !con.guestMood ?   SizedBox(height: 120.h) : SizedBox(height: 150.h,),
                           ],
                         ),
                             con.guestMood

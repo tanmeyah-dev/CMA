@@ -30,9 +30,10 @@ class API{
   static const String version = "Version";
   static const String checkVersion = "Version/checkversion";
   static const String contactUs = "identity/Contact";
-  /////////////
+  ///////////// 
   static const String getBillers = "BillPayment/get-billers?ServiceTypeId=";
   static const String getBillerServices = "BillPayment/services/";
   static const String getBillInquiry = "BillPayment/get-bill-inquiry";
   static const String excuteDailyJob = "BillPayment/execute-daily-job";
+  static const String getServiceType = "BillPayment/get-service-types";
 }
