@@ -1,11 +1,11 @@
 class BillInquiryResponse {
   BillInqRs? billInqRs;
-  bool? isSuccess;
+  late bool isSuccess;
   String? code;
   String? message;
 
   BillInquiryResponse(
-      {this.billInqRs, this.isSuccess, this.code, this.message});
+      {this.billInqRs, this.isSuccess = false, this.code, this.message});
 
   BillInquiryResponse.fromJson(Map<String, dynamic> json) {
     billInqRs = json['billInqRs'] != null

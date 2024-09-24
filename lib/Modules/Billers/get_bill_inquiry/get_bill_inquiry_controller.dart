@@ -43,11 +43,11 @@ class GetBillInquiryController extends ControllerMVC {
   String? paymentType;
 
   late StreamSubscription? _fawryCallbackResultStream;
-
+  late List<BillItem> chargeItems;
   late TextEditingController phoneController;
   final GlobalKey<FormState> formKey = GlobalKey();
   bool active = false;
-
+  late FawryLaunchModel model;
 
   num? amount;
 
@@ -134,7 +134,45 @@ class GetBillInquiryController extends ControllerMVC {
     loading = false;
     setState(() {
     });
+    if(billInquiryResponse!.isSuccess){
+      getBillInfo();
+    }
     return billInquiryResponse;
+  }
+
+
+  getBillInfo() {
+    chargeItems = [];
+
+    BillItem item = BillItem(
+      itemId: 'ITEM_ID',
+      description: '',
+      quantity: 1,
+      price: amount?.toDouble(),
+    );
+
+    chargeItems.add(item);
+
+    LaunchCustomerModel customerModel = LaunchCustomerModel(
+      customerProfileId: '533518',
+      customerName: 'Mohamed Gamal',
+      customerEmail: 'mgabdelmigid@tanmeyah.com',
+      customerMobile: '+201033103360',
+    );
+
+
+
+    model = FawryLaunchModel(
+      allow3DPayment: true,
+      chargeItems: chargeItems,
+      launchCustomerModel: customerModel,
+      launchMerchantModel: FawryService.getMerchantModel(),
+      skipLogin: true,
+      skipReceipt: false,
+      payWithCardToken: false,
+      paymentMethods: PaymentMethods.ALL,
+    );
+
   }
 
 }
@@ -146,36 +184,6 @@ class Constants {
   static const String secureKey = "0525af58-50ec-4e13-b586-bf3724ad781c";
   static const String baseUrl = "https://atfawry.fawrystaging.com/";
 }
-
-
-BillItem item = BillItem(
-  itemId: 'ITEM_ID',
-  description: '',
-  quantity: 1,
-  price: 100,
-);
-
-List<BillItem> chargeItems = [item];
-
-LaunchCustomerModel customerModel = LaunchCustomerModel(
-  customerProfileId: '533518',
-  customerName: 'Mohamed Gamal',
-  customerEmail: 'mgabdelmigid@tanmeyah.com',
-  customerMobile: '+201033103360',
-);
-
-FawryLaunchModel model = FawryLaunchModel(
-  allow3DPayment: true,
-  chargeItems: chargeItems,
-  launchCustomerModel: customerModel,
-  launchMerchantModel: FawryService.getMerchantModel(),
-  skipLogin: true,
-  skipReceipt: false,
-  payWithCardToken: false,
-  paymentMethods: PaymentMethods.ALL,
-);
-
-
 
 class FawryService {
   static LaunchMerchantModel getMerchantModel() {
