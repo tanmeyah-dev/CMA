@@ -158,7 +158,7 @@ class BillSummAmt {
 }
 
 class CurAmt {
-  int? amt;
+  double? amt;
   String? curCode;
 
   CurAmt({this.amt, this.curCode});

@@ -61,7 +61,7 @@ class BillersApi{
   }
 
 
-  static Future<BillInquiryResponse?> getBillInquiry({required phoneNumber,required billerId,required billTypeCode}) async {
+  static Future<BillInquiryResponse?> getBillInquiry({required phoneNumber,required billerId,required billTypeCode,required paymentType}) async {
     var response = await NetworkMethods.postRequestAsRow(
       url: API.getBillInquiry,
       body: {
@@ -69,7 +69,8 @@ class BillersApi{
         "billerId" : billerId,
         "billingAcct" : "0120000200",
         "incOpenAmt" : true,
-        "paymentType" : "POST"
+        "paymentType" : paymentType,
+        "userPhoneNumber" : phoneNumber
       },
     );
     if (response == null) return null;

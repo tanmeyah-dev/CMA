@@ -384,7 +384,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                       }));
                                 }
                               },
-                              child:  BillWidget(imageURL: con.homeResponse!.serviceTypes![index].logoUrl!, title: con.homeResponse!.serviceTypes![index].serviceTypeName!),
+                              child:  BillWidget(imageURL: con.homeResponse!.serviceTypes![index].logoUrl??"", title: con.homeResponse!.serviceTypes![index].serviceTypeName!),
                             );
                           } ,
                             itemCount: con.homeResponse!.serviceTypes!.length,

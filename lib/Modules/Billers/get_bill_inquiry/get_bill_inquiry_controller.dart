@@ -40,12 +40,20 @@ class GetBillInquiryController extends ControllerMVC {
   BillInquiryResponse? billInquiryResponse;
   Billers? billers;
   Services? services;
+  String? paymentType;
 
   late StreamSubscription? _fawryCallbackResultStream;
 
+  late TextEditingController phoneController;
+  final GlobalKey<FormState> formKey = GlobalKey();
+  bool active = false;
+
+
+  num? amount;
 
   @override
   void initState() {
+    phoneController = TextEditingController();
     BillersApi.excuteDailyJob();
     super.initState();
     initSDKCallback();
@@ -54,6 +62,8 @@ class GetBillInquiryController extends ControllerMVC {
 
   @override
   void dispose() {
+    phoneController.dispose();
+    active = false;
     _fawryCallbackResultStream?.cancel();
     super.dispose();
   }
@@ -117,13 +127,14 @@ class GetBillInquiryController extends ControllerMVC {
   }
 
 
-  Future getBillInquiry() async {
+  Future<BillInquiryResponse?> getBillInquiry() async {
     loading = true;
     setState(() {});
-    billInquiryResponse = await BillersApi.getBillInquiry(phoneNumber: SharedPref.getUserObg()!.mobileNumber, billerId: billers!.id, billTypeCode: services!.billTypeCode,);
+    billInquiryResponse = await BillersApi.getBillInquiry(phoneNumber: SharedPref.getUserObg()!.mobileNumber, billerId: billers!.id, billTypeCode: services!.billTypeCode,paymentType: paymentType);
     loading = false;
     setState(() {
     });
+    return billInquiryResponse;
   }
 
 }
@@ -141,7 +152,7 @@ BillItem item = BillItem(
   itemId: 'ITEM_ID',
   description: '',
   quantity: 1,
-  price: 4,
+  price: 100,
 );
 
 List<BillItem> chargeItems = [item];

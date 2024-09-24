@@ -133,11 +133,12 @@ class Helper {
       "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png";
   static final timeAmOrPm = DateTime.now().hour < 12 ? 'am'.tr : "pm".tr;
 
-  static Future showDialogWidget({required BuildContext context, Function()? onDismiss, required Widget child})async{
+  static Future showDialogWidget({required BuildContext context, Function()? onDismiss, required Widget child,Function()? onTap})async{
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: ThemeClass.whiteColor,
           content: child,
         );
       },
