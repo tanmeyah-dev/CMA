@@ -35,7 +35,7 @@ class BillWidget extends StatelessWidget {
                 AppAssets.IMG_SERVICES_PLACEHOLDER,
                 width: 40.w,
                 height: 40.h,
-              ),
+              )
             ),
             SizedBox(height: 8.h,),
             AppTextRegular(title: title ,color: ThemeClass.secondaryMediumColor,maxLines: 2,),

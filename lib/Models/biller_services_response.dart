@@ -50,7 +50,7 @@ class Services {
   bool? allowRcptReprint;
   bool? otpEnabled;
   bool? validationEnabled;
-  Null? timeout;
+  String? timeout;
   String? pmtType;
   bool? otpRequired;
   bool? isBAConfRequired;
@@ -104,7 +104,7 @@ class Services {
     allowRcptReprint = json['allowRcptReprint'];
     otpEnabled = json['otpEnabled'];
     validationEnabled = json['validationEnabled'];
-    timeout = json['timeout'];
+    timeout = json['timeout'] != null ? json['timeout'] : null;
     pmtType = json['pmtType'];
     otpRequired = json['otpRequired'];
     isBAConfRequired = json['isBAConfRequired'];
