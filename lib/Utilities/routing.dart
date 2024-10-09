@@ -3,7 +3,6 @@ import 'package:Tanmeyah/Modules/Account/account_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/AppVersion/app_version_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Conditions/conditions_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Register/registeration_error.dart';
-import 'package:Tanmeyah/Modules/Billers/all_billers/all_billers_screen.dart';
 import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
@@ -31,7 +30,8 @@ import '../Modules/Authentication/Splash/splash_screen.dart';
 import '../Modules/Authentication/Terms/terms_screen.dart';
 import '../Modules/Authentication/ValidateUser/validate_user_screen.dart';
 import '../Modules/Billers/get_bill_inquiry/get_bill_inquiry_screen.dart';
-import '../Modules/Billers/mobile_billers/mobile_biller_screen.dart';
+import '../Modules/Billers/service_billers/service_billers_screen.dart';
+import '../Modules/Billers/service_types/all_service_types_screen.dart';
 import '../Modules/Home/main_home/home_screen.dart';
 import '../Modules/Home/offers/main_offers/main_offers_screen.dart';
 import '../Modules/Home/request_loan/loan_request_success/loan_request_success_screen.dart';
@@ -98,12 +98,12 @@ class AppModule extends Module {
         child: (_, args) => LoanRequestOutOfCairoScreen(branches: args.data,),
         transition: TransitionType.downToUp,
         duration: const Duration(milliseconds: 300)),
-    ChildRoute(AllBillersScreen.routeName,
-        child: (_, args) => AllBillersScreen(),
+    ChildRoute(AllServiceTypesScreen.routeName,
+        child: (_, args) => AllServiceTypesScreen(),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
-    ChildRoute(MobileBillersScreen.routeName,
-        child: (_, args) => MobileBillersScreen(title : args.data[0],billerId: args.data[1],),
+    ChildRoute(ServiceBillersScreen.routeName,
+        child: (_, args) => ServiceBillersScreen(title : args.data[0],billerId: args.data[1],),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(BillersServicesScreen.routeName,

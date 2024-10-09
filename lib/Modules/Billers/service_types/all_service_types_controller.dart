@@ -3,20 +3,18 @@ import 'package:Tanmeyah/Models/get_all_services_response.dart';
 import 'package:Tanmeyah/Models/previous_loan_model.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Network/mobile_billers_api.dart';
-import '../../../Network/request_loan_api.dart';
-import '../../../Shared/shared_prefirences.dart';
 
 
-class AllBillersController extends ControllerMVC {
+class AllServicesTypeController extends ControllerMVC {
   // singleton
-  factory AllBillersController() {
-    _this ??= AllBillersController._();
+  factory AllServicesTypeController() {
+    _this ??= AllServicesTypeController._();
     return _this!;
   }
 
-  static AllBillersController? _this;
+  static AllServicesTypeController? _this;
 
-  AllBillersController._();
+  AllServicesTypeController._();
 
   bool loading = false,
       autoValidate = false;

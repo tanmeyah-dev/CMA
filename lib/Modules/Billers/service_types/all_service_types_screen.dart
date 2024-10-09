@@ -16,27 +16,27 @@ import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../../Widgets/service_alert_widget.dart';
-import '../mobile_billers/mobile_biller_screen.dart';
-import 'all_billers_controller.dart';
+import '../service_billers/service_billers_screen.dart';
+import 'all_service_types_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';import 'package:awesome_dialog/awesome_dialog.dart';
 
 
-class AllBillersScreen extends StatefulWidget {
-  static const String routeName = "/allBillingServices";
+class AllServiceTypesScreen extends StatefulWidget {
+  static const String routeName = "/allServiceTypesScreen";
 
 
-   AllBillersScreen({Key? key}) : super(key: key);
+  AllServiceTypesScreen({Key? key}) : super(key: key);
 
   @override
   _AllBillersScreenState createState() => _AllBillersScreenState();
 }
 
-class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
-  _AllBillersScreenState() : super(AllBillersController()) {
-    con = AllBillersController();
+class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
+  _AllBillersScreenState() : super(AllServicesTypeController()) {
+    con = AllServicesTypeController();
   }
 
-  late AllBillersController con;
+  late AllServicesTypeController con;
 
   @override
   void initState() {
@@ -91,7 +91,7 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                             }
                         );
                         if( SharedPref.getUserObg() != null) {
-                          Navigator.pushNamed(context, MobileBillersScreen.routeName,
+                          Navigator.pushNamed(context, ServiceBillersScreen.routeName,
                               arguments: [con.getAllServicesResponse?.serviceTypes![index].serviceTypeName,con.getAllServicesResponse?.serviceTypes![index].id]);
                         } else {
                           AnimatedAlertDialog(
@@ -109,8 +109,6 @@ class _AllBillersScreenState extends StateMVC<AllBillersScreen> {
                         child: Container(
                           width: 120.w,
                           height: 120.h,
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 22.h, horizontal: 30.w),
                           decoration: BoxDecoration(
                             borderRadius:
                             BorderRadius.circular(20.w),

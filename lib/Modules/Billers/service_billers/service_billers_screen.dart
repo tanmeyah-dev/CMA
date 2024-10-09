@@ -1,10 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
-import 'package:Tanmeyah/Models/mobile_biller_response.dart';
 import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_screen.dart';
-import 'package:Tanmeyah/Modules/Billers/mobile_billers/mobile_biller_controller.dart';
-import 'package:Tanmeyah/Modules/loan/previous_loans/previous_loan_controller.dart';
-import 'package:Tanmeyah/Utilities/helper.dart';
+import 'package:Tanmeyah/Modules/Billers/service_billers/service_billers_controller.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,23 +12,23 @@ import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class MobileBillersScreen extends StatefulWidget {
-  static const String routeName = "/mobileBillersScreen";
+class ServiceBillersScreen extends StatefulWidget {
+  static const String routeName = "/serviceBillersScreen";
 
    String title;
    int billerId;
-   MobileBillersScreen({ required this.billerId,required this.title, Key? key}) : super(key: key);
+  ServiceBillersScreen({ required this.billerId,required this.title, Key? key}) : super(key: key);
 
   @override
   _MobileBillersScreenState createState() => _MobileBillersScreenState();
 }
 
-class _MobileBillersScreenState extends StateMVC<MobileBillersScreen> {
-  _MobileBillersScreenState() : super(MobileBillersController()) {
-    con = MobileBillersController();
+class _MobileBillersScreenState extends StateMVC<ServiceBillersScreen> {
+  _MobileBillersScreenState() : super(ServiceBillersController()) {
+    con = ServiceBillersController();
   }
 
-  late MobileBillersController con;
+  late ServiceBillersController con;
 
   @override
   void initState() {
@@ -84,7 +81,7 @@ class _MobileBillersScreenState extends StateMVC<MobileBillersScreen> {
                                 color: ThemeClass.greyBackgroundColor.withOpacity(0.4)
                               ),
                               padding: EdgeInsets.symmetric(
-                                  vertical: 16.h, horizontal: 24.w),
+                                  vertical: 8.h, horizontal: 24.w),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -99,12 +96,17 @@ class _MobileBillersScreenState extends StateMVC<MobileBillersScreen> {
                                         )
                                     ),
                                   ),
-                                  SizedBox(width: 16.w,),
-                                  AppTextRegular(
-                                    title: con.mobileBillersResponse!.billers![index].billerName??"",
-                                    fontSize: 20.sp,
-                                    color: ThemeClass.secondaryColor,
-                                  ),
+                                  SizedBox(width: 10.w,),
+                                  SizedBox(
+                                    width: 210.w,
+                                    child: AppTextRegular(
+                                      title: con.mobileBillersResponse!.billers![index].billerName??"",
+                                      fontSize: 20.sp,
+                                      color: ThemeClass.secondaryColor,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  )
                                 ],
                               )
                           ),

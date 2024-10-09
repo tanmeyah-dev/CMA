@@ -1,9 +1,9 @@
 PODS:
-  - Adjust (4.38.2):
-    - Adjust/Core (= 4.38.2)
-  - Adjust/Core (4.38.2)
-  - adjust_sdk (4.38.1):
-    - Adjust (= 4.38.2)
+  - Adjust (4.38.4):
+    - Adjust/Core (= 4.38.4)
+  - Adjust/Core (4.38.4)
+  - adjust_sdk (4.38.2):
+    - Adjust (= 4.38.4)
     - Flutter
   - Alamofire (5.9.1)
   - audio_session (0.0.1):
@@ -17,25 +17,25 @@ PODS:
     - FBAudienceNetwork (~> 6.15)
     - FBSDKCoreKit (~> 17.0)
     - Flutter
-  - fawry_sdk (0.0.1):
+  - fawry_sdk (1.0.76):
     - Alamofire
     - FawryPaySDK
     - Flutter
     - IQKeyboardManagerSwift
     - RxSwift
     - SDWebImage
-  - FawryPaySDK (0.1.31):
+  - FawryPaySDK (0.1.33):
     - Alamofire
     - IQKeyboardManagerSwift (~> 6.5.11)
     - RxSwift (~> 6.5.0)
     - SDWebImage (~> 5.15.0)
-  - FBAEMKit (17.1.0):
-    - FBSDKCoreKit_Basics (= 17.1.0)
+  - FBAEMKit (17.3.0):
+    - FBSDKCoreKit_Basics (= 17.3.0)
   - FBAudienceNetwork (6.15.2)
-  - FBSDKCoreKit (17.1.0):
-    - FBAEMKit (= 17.1.0)
-    - FBSDKCoreKit_Basics (= 17.1.0)
-  - FBSDKCoreKit_Basics (17.1.0)
+  - FBSDKCoreKit (17.3.0):
+    - FBAEMKit (= 17.3.0)
+    - FBSDKCoreKit_Basics (= 17.3.0)
+  - FBSDKCoreKit_Basics (17.3.0)
   - Firebase/Analytics (10.22.0):
     - Firebase/Core
   - Firebase/Core (10.22.0):
@@ -168,6 +168,7 @@ PODS:
     - Flutter
   - local_auth_darwin (0.0.1):
     - Flutter
+    - FlutterMacOS
   - location (0.0.1):
     - Flutter
   - nanopb (2.30910.0):
@@ -323,19 +324,19 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
-  Adjust: 5a0f813fe079212bed61404d1f635cc330068b4a
-  adjust_sdk: e2b8a3f4115b4bb61594a2941dea942c51afa0d6
+  Adjust: afda46df69f035fd216310fb85f399c40c61830a
+  adjust_sdk: 842aa02d307de38a3e5f1a73e695da0e23b76f8e
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   facebook_app_events: acb7c266406d3e3592bcf846d7184172ecfd6492
-  fawry_sdk: aec91b7fac1248da7ed5380f534b3de60e43c724
-  FawryPaySDK: ba760fe55c41f7b948a718033fb262c11f879f4e
-  FBAEMKit: cb719c53575a3be86ea873279f30d6a2c4e15881
+  fawry_sdk: 91776be856dc3304baf76b63ad1852956b3b6548
+  FawryPaySDK: 265309bf70543952efaa9244149a4438c330f421
+  FBAEMKit: 92f488a9c97208e2f6f01655750944d213fbc0b0
   FBAudienceNetwork: 2457a89b45e2596241fd81b0c2fd8cb6f6053869
-  FBSDKCoreKit: ecdb980a24633ccb012700299ceb16d0235e14d2
-  FBSDKCoreKit_Basics: 045101c4a9ef10c845347424d73a29aae02c3e43
+  FBSDKCoreKit: 1be47a742ccdddf8dd85272c3953534214dc0f30
+  FBSDKCoreKit_Basics: fcafe75f7deeed1146d04ea51b45a69731e63c16
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
   firebase_analytics: b9ce200bfc2c54629076bb22d6a510f31c296ab8
   firebase_core: 100945864b4aedce3cfef0c62ab864858bf013cf
@@ -358,7 +359,7 @@ SPEC CHECKSUMS:
   image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
-  local_auth_darwin: 4d56c90c2683319835a61274b57620df9c4520ab
+  local_auth_darwin: 66e40372f1c29f383a314c738c7446e2f7fdadc3
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
@@ -374,8 +375,8 @@ SPEC CHECKSUMS:
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 8b09852c8876491e4b6d179e17dfe2a0b5f60d47
-  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
+  webview_flutter_wkwebview: 2a23822e9039b7b1bc52e5add778e5d89ad488d1
 
-PODFILE CHECKSUM: 5dce180906911d32661f4f5902bb5188894a5c4a
+PODFILE CHECKSUM: 9a288a08531fa674fae616e41941d816670ec8f0
 
 COCOAPODS: 1.15.2

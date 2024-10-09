@@ -219,7 +219,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 220.h,),
+                  SizedBox(height: 180.h,),
                   CustomButton(
                       backgroundColor: con.active ? ThemeClass.primaryColor : ThemeClass.hintColor,
                       title: "follow".tr,

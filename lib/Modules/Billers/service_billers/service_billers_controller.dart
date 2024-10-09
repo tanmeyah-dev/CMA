@@ -4,16 +4,16 @@ import 'package:Tanmeyah/Network/mobile_billers_api.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 
-class MobileBillersController extends ControllerMVC {
+class ServiceBillersController extends ControllerMVC {
   // singleton
-  factory MobileBillersController() {
-    _this ??= MobileBillersController._();
+  factory ServiceBillersController() {
+    _this ??= ServiceBillersController._();
     return _this!;
   }
 
-  static MobileBillersController? _this;
+  static ServiceBillersController? _this;
 
-  MobileBillersController._();
+  ServiceBillersController._();
 
   bool loading = false,
       autoValidate = false;

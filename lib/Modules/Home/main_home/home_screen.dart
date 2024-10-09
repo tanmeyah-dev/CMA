@@ -1,7 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously
 import 'dart:math';
-import 'package:Tanmeyah/Modules/Billers/all_billers/all_billers_screen.dart';
-import 'package:Tanmeyah/Modules/Billers/mobile_billers/mobile_biller_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
@@ -18,6 +16,8 @@ import '../../../Theme/themeclass.dart';
 import '../../../Utilities/loading_screen.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
+import '../../Billers/service_billers/service_billers_screen.dart';
+import '../../Billers/service_types/all_service_types_screen.dart';
 import '../request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import 'home_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -350,7 +350,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                               "title" :"request_view_all_offers"
                               }
                               );
-                              Navigator.pushNamed(context, AllBillersScreen.routeName);
+                              Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
                                 },
                                 child:   Row(
                                   children: [
@@ -372,7 +372,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                             return GestureDetector(
                               onTap: (){
                                 if( SharedPref.getUserObg() != null) {
-                                  Navigator.pushNamed(context, MobileBillersScreen.routeName,
+                                  Navigator.pushNamed(context, ServiceBillersScreen.routeName,
                                       arguments: [con.homeResponse?.serviceTypes?[index].serviceTypeName,con.homeResponse?.serviceTypes?[index].id]);
                                 } else {
                                   AnimatedAlertDialog(

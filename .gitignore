@@ -270,6 +270,7 @@ Dependencies/
 
 ### Android ###
 # Gradle files
+android/gradle/
 .gradle/
 build/
 

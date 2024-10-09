@@ -1,4 +1,3 @@
-import 'package:Tanmeyah/Modules/Billers/all_billers/all_billers_screen.dart';
 import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
@@ -10,6 +9,8 @@ import 'package:iconsax/iconsax.dart';
 import '../../Widgets/base_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+
+import '../Billers/service_types/all_service_types_screen.dart';
 
 class BillersAndServicesScreen extends StatefulWidget {
   static const String routeName = "/billersAndServices";
@@ -76,7 +77,7 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                       from: SlideFrom.BOTTOM,
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.pushNamed(context, AllBillersScreen.routeName);
+                          Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
                         },
                         child:Container(
                           width: 382.w,
