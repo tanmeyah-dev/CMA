@@ -12,6 +12,8 @@ import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../../Theme/app_assets.dart';
+
 class ServiceBillersScreen extends StatefulWidget {
   static const String routeName = "/serviceBillersScreen";
 
@@ -89,10 +91,12 @@ class _MobileBillersScreenState extends StateMVC<ServiceBillersScreen> {
                                     width: 60.w,
                                     height: 60.h,
                                     decoration: BoxDecoration(
-                                        image: DecorationImage(
+                                        image: con.mobileBillersResponse?.billers?[index].logoUrl != null ? DecorationImage(
                                             image: CachedNetworkImageProvider(
                                                 con.mobileBillersResponse!.billers?[index].logoUrl??"",
                                             ),fit: BoxFit.fill
+                                        ) : const DecorationImage(
+                                            image: AssetImage(AppAssets.IMG_SERVICES_PLACEHOLDER) ,fit: BoxFit.fill
                                         )
                                     ),
                                   ),

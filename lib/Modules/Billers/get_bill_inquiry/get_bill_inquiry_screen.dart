@@ -114,14 +114,14 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             width: double.infinity,
             height: double.infinity,
-            child: SingleChildScrollView(
-              child:  Column(
+            child:   Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: 10.h,
                   ),
-                  CachedNetworkImage(imageUrl: widget.billers.logoUrl??"",width: 80.w,height: 50.h,),
+                  widget.billers.logoUrl != null ?
+                  CachedNetworkImage(imageUrl: widget.billers.logoUrl??"",width: 80.w,height: 50.h,) :  Image( image: const AssetImage(AppAssets.IMG_LOGO), width: 130.w, height: 80.h,),
                   AppTextBold(title: widget.billers.billerName??"",color: ThemeClass.blackColor,fontWeight: FontWeight.w500,),
                   Container(
                     width: 328.w,
@@ -131,9 +131,8 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                     padding: EdgeInsets.symmetric(
                         vertical: 16.h, horizontal: 10.w),
                     child:  Container(
-                      height: 50.h,
                       width: 280.w,
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                      padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 10.h),
                       decoration: BoxDecoration(
                           color: ThemeClass.lightBlueColor.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(8.sp)
@@ -219,7 +218,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 180.h,),
+                  Spacer(),
                   CustomButton(
                       backgroundColor: con.active ? ThemeClass.primaryColor : ThemeClass.hintColor,
                       title: "follow".tr,
@@ -238,7 +237,6 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                   SizedBox(height: 30.h,)
                 ],
               ),
-            )
           ),
         ),
       ),

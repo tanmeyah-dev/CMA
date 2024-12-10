@@ -46,7 +46,7 @@ class Services {
   String? billTypeDescription;
   bool? isHidden;
   String? billRefType;
-  Null? receiptFooter;
+  String? receiptFooter;
   bool? allowRcptReprint;
   bool? otpEnabled;
   bool? validationEnabled;

@@ -13,6 +13,8 @@ import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../../Theme/app_assets.dart';
+
 class BillersServicesScreen extends StatefulWidget {
   static const String routeName = "/billersServicesScreen";
 
@@ -65,7 +67,9 @@ class _BillersServicesScreenState extends StateMVC<BillersServicesScreen> {
                 SizedBox(
                   height: 50.h,
                 ),
-                CachedNetworkImage(imageUrl: widget.billers.logoUrl??"",width: 130.w,height: 80.h,),
+                widget.billers.logoUrl != null ?
+                CachedNetworkImage(imageUrl: widget.billers.logoUrl??"",width: 130.w,height: 80.h,) :
+                Image( image: const AssetImage(AppAssets.IMG_LOGO), width: 130.w, height: 80.h,),
                 AppTextBold(title: widget.billers.billerName??"",color: ThemeClass.blackColor,fontWeight: FontWeight.w500,),
                 SizedBox(
                   height: 50.h,
