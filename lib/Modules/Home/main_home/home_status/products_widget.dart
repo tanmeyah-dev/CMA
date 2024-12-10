@@ -3,7 +3,6 @@ import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
@@ -21,10 +20,7 @@ class ProductsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FadeIn(
-          delay: 1.5,
-          from: SlideFrom.BOTTOM,
-          child: Padding(
+         Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,8 +44,8 @@ class ProductsWidget extends StatelessWidget {
               ),
               ],
             ),
-          )
-        ),
+          ),
+
         SizedBox(
           height: 16.h,
         ),
@@ -77,10 +73,7 @@ class ProductsWidget extends StatelessWidget {
                       arguments: con
                           .homeResponse!.products[index]);
                 },
-                child: FadeIn(
-                  delay: 2,
-                  from: SlideFrom.BOTTOM,
-                  child: Container(
+                child:Container(
                     width: 354.w,
                     padding: EdgeInsets.symmetric(
                         vertical: 22.h, horizontal: 30.w),
@@ -156,7 +149,6 @@ class ProductsWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
               );
             },
           ),

@@ -16,7 +16,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../Widgets/animated_alert.dart';
 import '../../Widgets/custom_button_widget.dart';
 import '../../Widgets/custom_text.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../Authentication/Login/login_screen.dart';
 import '../More/main_more/widget/logout_alert.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -63,55 +62,35 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Column(children: [
                             SizedBox(height: 10.h),
-                            FadeIn(
-                                delay: 1,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWidget(
+                            UserDataWidget(
                                     title: "full_name".tr,
-                                    data: con.userModel?.fullName ?? "")),
-                            FadeIn(
-                                delay: 1.2,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWidget(
+                                    data: con.userModel?.fullName ?? ""),
+                            UserDataWidget(
                                     title: "id_num".tr,
-                                    data: con.userModel?.nationalId ?? "")),
-                            FadeIn(
-                                delay: 1.5,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWidget(
+                                    data: con.userModel?.nationalId ?? ""),
+                          UserDataWidget(
                                     title: "birthday".tr,
                                     data: con.userModel?.birthDate
                                         .substring(0, 11) ??
-                                        "")),
-                            FadeIn(
-                                delay: 1.8,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWidget(
+                                        ""),
+
+                            UserDataWidget(
                                     title: "phone_number".tr,
                                     data:
-                                    con.userModel?.mobileNumber ?? "")),
+                                    con.userModel?.mobileNumber ?? ""),
                             con.userModel?.email != null ?
-                            FadeIn(
-                              delay: 2,
-                              from: SlideFrom.LEFT,
-                              child: UserDataWithEdit(
+                            UserDataWithEdit(
                                   title: "email".tr,
                                   data: con.userModel?.email != null
                                       ? con.userModel!.email!
-                                      : "example@example.com"),
-                            ) : Container(),
-                            FadeIn(
-                                delay: 2.2,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWithEdit(
+                                      : "example@example.com") : Container(),
+
+                                UserDataWithEdit(
                                     title: "government".tr,
-                                    data:  con.city != null ? con.city! : "القاهره")),
-                            FadeIn(
-                                delay: 2.4,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWithEdit(
+                                    data:  con.city != null ? con.city! : "القاهره"),
+                             UserDataWithEdit(
                                     title: "password".tr,
-                                    data: "*************")),
+                                    data: "*************"),
                             SizedBox(height: 16.h,),
                             !con.guestMood?
                             CustomButton(
@@ -146,33 +125,23 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                       // mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SizedBox(height: 10.h),
-                        FadeIn(
-                          delay: 2,
-                          from: SlideFrom.TOP,
-                          child: Padding(
+                      Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Image.asset(AppAssets.IMG_EMPTY_ACCOUNT,
                                 width: double.infinity,
                                 height: 357.h,
                                 fit: BoxFit.fill),
                           ),
-                        ),
                         SizedBox(height: 16.h),
-                        FadeIn(
-                            delay: 2,
-                            from: SlideFrom.TOP,
-                            child: Padding(
+                        Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20.w),
                                 child: AppTextBold(
-                                    title: "guest_des".tr))),
+                                    title: "guest_des".tr)),
                         SizedBox(
                           height: 100.h,
                         ),
-                        FadeIn(
-                            delay: 2,
-                            from: SlideFrom.BOTTOM,
-                            child: CustomButton(
+                        CustomButton(
                                 width: 216,
                                 title: "login".tr,
                                 onTap: () async {
@@ -185,7 +154,7 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                           ),
                                       maintainState:
                                       false)); // await con.register(context);
-                                })),
+                                }),
                       ])),
             )));
   }

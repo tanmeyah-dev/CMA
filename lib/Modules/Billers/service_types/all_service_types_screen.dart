@@ -18,7 +18,7 @@ import '../../../Widgets/animated_alert.dart';
 import '../../../Widgets/service_alert_widget.dart';
 import '../service_billers/service_billers_screen.dart';
 import 'all_service_types_controller.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 
 class AllServiceTypesScreen extends StatefulWidget {
@@ -78,7 +78,6 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: con.getAllServicesResponse?.serviceTypes?.length,
                   crossAxisCount: 3,
-                  mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -103,10 +102,7 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
                               }));
                         }
                       },
-                      child: FadeIn(
-                        delay: 2,
-                        from: SlideFrom.BOTTOM,
-                        child: Container(
+                      child:  Container(
                           width: 120.w,
                           height: 120.h,
                           decoration: BoxDecoration(
@@ -138,20 +134,22 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
                                     width: 48.w,height: 52.h,
                                   ),
                                 ),
-                                AppTextRegular(
-                                  title: con.getAllServicesResponse?.serviceTypes![index]
-                                      .serviceTypeName ??
-                                      "",
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                  fontSize: 16.sp,
-
+                                SizedBox(
+                                  height: 50.h,
+                                  child: AppTextRegular(
+                                    title: con.getAllServicesResponse?.serviceTypes![index]
+                                        .serviceTypeName ??
+                                        "",
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    fontSize: 16.sp,
+                                  ),
                                 )
                               ],
                             ),
                           ),
                         ),
-                      ),
+
                     );
                   },
                 ):Container(),

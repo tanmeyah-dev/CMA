@@ -5,7 +5,6 @@ import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
@@ -20,10 +19,7 @@ class ActiveLoanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeIn(
-      delay: 1.5,
-      from: SlideFrom.TOP,
-      child: GestureDetector(
+    return GestureDetector(
         onTap: (){
           Navigator.pushNamed(context, MainScreen.routeName,arguments: 1);
         },
@@ -217,7 +213,6 @@ class ActiveLoanWidget extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }

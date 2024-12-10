@@ -3,7 +3,6 @@ import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/forget_password_c
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_text.dart';
@@ -42,10 +41,7 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                    delay: 2,
-                    from: SlideFrom.LEFT,
-                    child: PinCodeWidget(
+                 PinCodeWidget(
                       controller: widget.con.codeController,
                       onChangeOTP: (value) {
                         if (value.length == 5) {
@@ -56,12 +52,9 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                           setState(() {});
                         }
                       },
-                    )),
+                    ),
                 SizedBox(height: 20.h),
-                FadeIn(
-                    delay: 1.0,
-                    from: SlideFrom.LEFT,
-                    child:
+
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       InkWell(
                           onTap: () {
@@ -84,13 +77,10 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                               fontWeight: FontWeight.w600,
                               fontSize: 14.sp,
                               color: ThemeClass.blackColor))
-                    ])),
+                    ]),
               ],
             )),
-            FadeIn(
-                delay: 1.5,
-                from: SlideFrom.LEFT,
-                child: Column(
+            Column(
                   children: [
                     widget.con.activeBtn2
                         ? CustomButton(
@@ -110,7 +100,7 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                     ),
                     SizedBox(height: 40.h,)
                   ],
-                ))
+                )
           ],
         ),
       ),

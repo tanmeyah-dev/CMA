@@ -2,7 +2,6 @@
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,29 +60,23 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
                       SizedBox(height: 50.h),
                       localAuthDes(),
                       SizedBox(height: 100.h),
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Align(
+                  Align(
                             alignment:
                             AlignmentDirectional.centerStart,
                             child: AppTextRegular(
                               title: "phone_number".tr,
                               color: ThemeClass.secondaryColor,
-                            )),
+                            ),
                       ),
                       SizedBox(height: 10.h),
                       phoneTxtField(),
-                      FadeIn(
-                        delay: 2,
-                        from: SlideFrom.TOP,
-                        child: Align(
+                     Align(
                             alignment:
                             AlignmentDirectional.centerStart,
                             child: AppTextRegular(
                               title: "password".tr,
                               color: ThemeClass.secondaryColor,
-                            ),
+
                         ),
                       ),
                       SizedBox(height: 10.h),
@@ -109,23 +102,17 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
   }
 
   Widget phoneTxtField() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.TOP,
-        child: CustomTextFieldWidget(
+    return CustomTextFieldWidget(
             controller: con.phoneController,
             hint: "phone_number".tr,
             textInputType: TextInputType.number,
             validator: (value) => Validator.validatePhone(context,value!),
             formatter: [LengthLimitingTextInputFormatter(11),
-            ]));
+            ]);
   }
 
   Widget passwordTxtField() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.TOP,
-        child: CustomTextFieldWidget(
+    return CustomTextFieldWidget(
           obscure: con.showPassword,
           controller: con.passwordController,
           hint: "password".tr,
@@ -141,17 +128,13 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
                 con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
                 color: ThemeClass.secondaryColor,
               ),
-            )
 
 
         ));
   }
 
   Widget confirmBtn() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.BOTTOM,
-      child: CustomButton(
+    return  CustomButton(
         width: 230,
         title: "confirm".tr,
         onTap: () {
@@ -166,7 +149,7 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
              con.localAuthApi(context);
           }
         },
-      ),
+
     );
   }
 }

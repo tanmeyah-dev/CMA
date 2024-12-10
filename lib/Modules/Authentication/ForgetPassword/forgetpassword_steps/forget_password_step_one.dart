@@ -5,7 +5,6 @@ import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/Validator.dart';
 import '../../../../Widgets/country_code_widget.dart';
@@ -34,21 +33,14 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FadeIn(
-                      delay: 1.5,
-                      from: SlideFrom.TOP,
-                      child: AppTextRegular(
+                   AppTextRegular(
                         title: "id_num".tr,
                         color: ThemeClass.secondaryColor,
                       ),
-                    ),
                     SizedBox(
                       height: 12.h,
                     ),
-                    FadeIn(
-                        delay: 1.5,
-                        from: SlideFrom.TOP,
-                        child: CustomTextFieldWidget(
+                    CustomTextFieldWidget(
                             controller: widget.con.nationalIdController,
                             hint: "id_num".tr,
                             onchange: (value) {
@@ -62,16 +54,13 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                             textInputType: TextInputType.phone,
                             validator: (value) =>
                                 Validator.validateNationalId(context,value!),
-                            formatter: [LengthLimitingTextInputFormatter(14)])),
+                            formatter: [LengthLimitingTextInputFormatter(14)]),
                     SizedBox(height: 10.h),
-                    FadeIn(
-                      delay: 2,
-                      from: SlideFrom.TOP,
-                      child: AppTextRegular(
+                     AppTextRegular(
                         title: "phone_number".tr,
                         color: ThemeClass.secondaryColor,
                       ),
-                    ),
+
                     SizedBox(
                       height: 10.h,
                     ),
@@ -80,10 +69,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        FadeIn(
-                            delay: 2,
-                            from: SlideFrom.TOP,
-                            child: CustomTextFieldWidget(
+                        CustomTextFieldWidget(
                                 width: 215.w,
                                 controller: widget.con.phoneController,
                                 hint: "phone_number".tr,
@@ -100,14 +86,12 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                                     Validator.validatePhone(context,value!),
                                 formatter: [
                                   LengthLimitingTextInputFormatter(11),
-                                ])),
+                                ]),
                         SizedBox(
                           width: 8.w,
                         ),
-                         FadeIn(
-                            delay: 2,
-                            from: SlideFrom.TOP,
-                            child: CountryCodeWidget()),
+
+                             CountryCodeWidget(),
                       ],
                     ),
                   ],
@@ -118,10 +102,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
-                      FadeIn(
-                          delay: 2,
-                          from: SlideFrom.BOTTOM,
-                          child: Column(
+                     Column(
                             children: [
                               (widget.con.activeBtn1 == true &&
                                   widget.con.activeBtn12 == true)
@@ -146,7 +127,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                               ),
                               SizedBox(height: 30.h,),
                             ],
-                          )),
+                          ),
                       SizedBox(height:10.h,)
                     ],
                   ))

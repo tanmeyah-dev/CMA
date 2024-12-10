@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class BillWidget extends StatelessWidget {
     String imageURL;
@@ -16,10 +15,7 @@ class BillWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0.w),
-      child: FadeIn(
-        delay: 1.5,
-        from: SlideFrom.LEFT,
-        child : SizedBox(
+      child: SizedBox(
           width: 60.w,
         child:   Column(
           children: [
@@ -42,7 +38,6 @@ class BillWidget extends StatelessWidget {
           ],
         ),
         )
-      )
     );
   }
 }

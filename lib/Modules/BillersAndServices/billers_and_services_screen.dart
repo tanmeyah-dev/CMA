@@ -8,7 +8,6 @@ import '../../Theme/themeclass.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../Widgets/base_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 import '../Billers/service_types/all_service_types_screen.dart';
 
@@ -40,10 +39,7 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                 ),
                 child: Column(
                   children: [
-                    FadeIn(
-                      delay: 0.5,
-                      from: SlideFrom.BOTTOM,
-                      child :  GestureDetector(
+                  GestureDetector(
                         onTap: (){
                           Navigator.pushNamed(context, MainServicesScreen.routeName);
                         },
@@ -69,13 +65,9 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                             ],
                           ),
                         ),
-                      ),
                     ),
                     SizedBox(height: 8.h,),
-                    FadeIn(
-                      delay: 1,
-                      from: SlideFrom.BOTTOM,
-                      child: GestureDetector(
+                    GestureDetector(
                         onTap: (){
                           Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
                         },
@@ -101,7 +93,6 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                             ],
                           ),
                         ),
-                      )
                     )
                   ],
                 ),

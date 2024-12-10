@@ -6,7 +6,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
@@ -23,10 +22,7 @@ class OffersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FadeIn(
-          delay: 1,
-          from: SlideFrom.BOTTOM,
-          child: Padding(
+        Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,16 +58,12 @@ class OffersWidget extends StatelessWidget {
                 ),
               ],
             ),
-          ),
         ) ,
 
         SizedBox(
           height: 16.h,
         ),
-        FadeIn(
-          delay: 1,
-          from: SlideFrom.BOTTOM,
-          child: CarouselSlider(
+         CarouselSlider(
             options: CarouselOptions(
                 height: 130.h,
                 autoPlay: true,
@@ -144,7 +136,6 @@ class OffersWidget extends StatelessWidget {
               );
             }).toList(),
           ),
-        ),
         SizedBox(
           height: 16.h,
         ),

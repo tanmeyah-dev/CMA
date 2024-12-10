@@ -16,7 +16,6 @@ import '../../../Utilities/general_toast.dart';
 import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';import 'package:iconsax/iconsax.dart';
 
 
@@ -72,10 +71,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                   children: [
                     Align(alignment : Alignment.centerRight,child: AppTextRegular(title: "current_loans".tr,fontSize: 24.sp,fontWeight: FontWeight.w300,),),
                     SizedBox(height: 10.h,),
-                    FadeIn(
-                      delay: 1.5,
-                      from: SlideFrom.RIGHT,
-                      child: GestureDetector(
+                    GestureDetector(
                         onTap: () {
                           setState(() {
                             _isExpanded = !_isExpanded;
@@ -130,11 +126,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                             )
                         ),
                       ),
-                    ),
-                    FadeIn(
-                      delay: 2,
-                      from: SlideFrom.RIGHT,
-                      child: Container(
+                   Container(
                         width: 400.w,
                         height: 90.h,
                         decoration: BoxDecoration(
@@ -185,7 +177,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           ],
                         ) ,
                       ),
-                    ),
+
                     AnimatedContainer(
                       duration:  Duration(seconds: 1),
                       curve: Curves.fastOutSlowIn,
@@ -403,27 +395,17 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                 padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
                 child: Column(
                   children: [
-                    FadeIn(
-                      delay: 1,
-                      from: SlideFrom.TOP,
-                      child: Image.asset(
+                    Image.asset(
                         AppAssets.IMG_NO_LOAN,
                         fit: BoxFit.fill,
                         width: double.infinity,
                         height: 328.h,
-                      ),
                     ),
                     SizedBox(height: 20.h,),
-                    FadeIn(
-                        delay: 1,
-                        from: SlideFrom.BOTTOM,
-                        child: AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,)),
+                    AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,),
                     SizedBox(height: 170.h,),
                     (con.activeLoanModel?.havePreviousLoan != null) ?
-                    FadeIn(
-                      delay: 1,
-                      from: SlideFrom.BOTTOM,
-                      child: Align(
+                    Align(
                         alignment: Alignment.bottomCenter,
                         child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
                           final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -435,8 +417,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           );
                           Navigator.pushNamed(context, PreviousLoanScreen.routeName);
                         },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                      ),
-                    ) : Container()
+                      ): Container()
                   ],
                 ),
               )
@@ -444,28 +425,17 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  FadeIn(
-                    delay: 1,
-                    from: SlideFrom.TOP,
-                    child: Padding(
+                   Padding(
                         padding: EdgeInsets.all(16.w),
                         child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
-                  ),
                   SizedBox(
                     height: 16.h,
                   ),
-                  FadeIn(
-                    delay: 1,
-                    from: SlideFrom.TOP,
-                    child: AppTextMedium(
+                  AppTextMedium(
                       title: "empty_loan".tr,
                     ),
-                  ),
                   SizedBox(height: 131.h,),
-                  FadeIn(
-                    delay: 1,
-                    from: SlideFrom.BOTTOM,
-                    child: CustomButton(
+                  CustomButton(
                         width: 216,
                         title: "login".tr,
                         onTap: () {
@@ -473,7 +443,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                               context, LoginScreen.routeName,
                               arguments: "");
                         }),
-                  ),
                 ],
               ),
             )
