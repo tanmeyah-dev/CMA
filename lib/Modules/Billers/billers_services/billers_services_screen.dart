@@ -96,7 +96,7 @@ class _BillersServicesScreenState extends StateMVC<BillersServicesScreen> {
                                 borderRadius: BorderRadius.circular(8.sp)
                             ),
                             alignment: Alignment.centerRight,
-                            child: AppTextBold(title: con.billerServicesResponse!.services![index].serviceName??"",color: ThemeClass.secondaryColor,fontWeight: FontWeight.w500,),
+                            child: AppTextBold(title: con.billerServicesResponse!.services![index].serviceName??"",color: ThemeClass.secondaryColor,fontWeight: FontWeight.w500,textAlign: TextAlign.start,),
                           ),
                           ),
                         );

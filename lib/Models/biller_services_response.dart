@@ -167,9 +167,9 @@ class Services {
 }
 
 class Fees {
-  int? lowerAmt;
-  int? upperAmt;
-  int? fixedAmt;
+  double? lowerAmt;
+  double? upperAmt;
+  double? fixedAmt;
   String? curCode;
   bool? isEmbeddedFees;
 
@@ -181,9 +181,9 @@ class Fees {
         this.isEmbeddedFees});
 
   Fees.fromJson(Map<String, dynamic> json) {
-    lowerAmt = json['lowerAmt'];
-    upperAmt = json['upperAmt'];
-    fixedAmt = json['fixedAmt'];
+    lowerAmt = json['lowerAmt'].toDouble();
+    upperAmt = json['upperAmt'].toDouble();
+    fixedAmt = json['fixedAmt'] != null ? json['fixedAmt'].toDouble() : null;
     curCode = json['curCode'];
     isEmbeddedFees = json['isEmbeddedFees'];
   }

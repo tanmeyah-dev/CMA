@@ -120,7 +120,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                     FocusManager.instance.primaryFocus?.unfocus();
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(horizontal: 32.w),
                       width: double.infinity,
                       height: double.infinity,
                       decoration: BoxDecoration(
@@ -134,19 +134,19 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 180.h),
+                                    SizedBox(height: 186.h),
                                     image(),
-                                    SizedBox(height: 65.h),
+                                    SizedBox(height: 100.h),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        AppTextRegular(title: "تسجيل",fontSize: 16.sp,fontWeight: FontWeight.w300,color: ThemeClass.secondaryColor,),
+                                        AppTextRegular(title: "تسجيل",fontSize: 24.sp,fontWeight: FontWeight.w300,color: ThemeClass.secondaryColor,),
                                         SizedBox(width: 4.w,),
-                                        AppTextMedium(title: "الدخول",fontSize: 20.sp,fontWeight: FontWeight.w700,color: ThemeClass.secondaryColor),
+                                        AppTextMedium(title: "الدخول",fontSize: 24.sp,fontWeight: FontWeight.w400,color: ThemeClass.secondaryColor),
                                       ],
                                     ),
-                                    SizedBox(height: 40.h),
+                                    SizedBox(height: 63.h),
                                     Align(
                                           alignment:
                                               AlignmentDirectional.centerStart,
@@ -157,7 +157,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                     ),
                                     SizedBox(height: 10.h),
                                     phoneTxtField(),
-                                    SizedBox(height: 24.h),
                                      Align(
                                           alignment:
                                               AlignmentDirectional.centerStart,
@@ -168,7 +167,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                     ),
                                     SizedBox(height: 10.h),
                                     passwordTxtField(context),
-                                    forgetPassTxt(),  
+                                    forgetPassTxt(),
                                     SizedBox(height: 26.h),
                                     Row(
                                       mainAxisAlignment:
@@ -184,7 +183,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 16.h,
+                                      height: 35.h,
                                     ),
                                     registerTxt(),
                                   ]))))),
@@ -192,8 +191,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   }
 
   Widget image() {
-    return Image.asset(AppAssets.IMG_LOGIN_LOGO,
-            height: 60.h, width: 165.w, fit: BoxFit.fill);
+    return Hero(tag: "gifHero", child: Image.asset(AppAssets.IMG_LOGIN_LOGO,
+        height: 58.h, width: 166.w, fit: BoxFit.fitWidth));
   }
 
   Widget phoneTxtField() {
@@ -203,7 +202,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
       mainAxisSize: MainAxisSize.min,
       children: [
          CustomTextFieldWidget(
-                width: 320.w,
                 controller: con.phoneController,
                 hint: "phone_number".tr,
                 textInputType: TextInputType.number,
@@ -413,7 +411,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                     arguments: "");
               },
               color: ThemeClass.primaryColor,
-              fontWeight: FontWeight.w500)
+              fontWeight: FontWeight.w700)
         ]);
   }
 }

@@ -104,6 +104,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 child: SizedBox(
                                     width: 50.w,
                                     child: AppTextHint(title: "hello".tr)))),
+                    SizedBox(height: 10.h,),
                     (con.homeResponse?.loanRequest == null)
                         ? (con.homeResponse?.canRequestLoan == true)
                                  ? Stack(
@@ -127,11 +128,14 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                                  title:
                                                  SharedPref.getUserObg()!.fullName,
                                                  color: ThemeClass.secondaryColor,textAlign: TextAlign.start,)
-                                                   : Container(),
+                                                   : AppTextBold(
+                                                    title:
+                                                    "عميل تنميه المميز",
+                                                    color: ThemeClass.secondaryColor,textAlign: TextAlign.start,),
                                                 ),
                                                 SizedBox(height: 20.h,),
                                                 Container(
-                                                  width: 325.w,
+                                                  width: 398.w,
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(24.sp),
                                                     image: DecorationImage(
@@ -203,8 +207,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                       bottom: 20.h,
                                       child: Image.asset(
                                       AppAssets.IMG_HOME,
-                                      width: 200.w,
-                                      height: 220.h,
+                                      width: 220.w,
+                                      height: 222.h,
                                       fit: BoxFit.fill,
                                     ),)
                                 ],
@@ -320,6 +324,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                     SizedBox(
                       height: 16.h,
                     ),
+                    (con.homeResponse?.serviceTypes != null &&
+                        con.homeResponse!.serviceTypes?.length != 0) ?
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Column(
@@ -354,7 +360,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           (con.homeResponse?.serviceTypes != null &&
                               con.homeResponse!.serviceTypes?.length != 0) ?
                           SizedBox(
-                          height: 120.h,
+                          height: 125.h,
                           child:  ListView.separated(itemBuilder:(_,index){
                             return GestureDetector(
                               onTap: (){
@@ -376,14 +382,14 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           } ,
                             itemCount: con.homeResponse!.serviceTypes!.length,
                             scrollDirection: Axis.horizontal, separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(width: 16.w,);
+                            return SizedBox(width: 14.w,);
                             } ,
 
                           ),
                         ) : Container()
                         ],
                       ),
-                    ),
+                    ) : Container(),
                     (con.homeResponse?.offers != null &&
                         con.homeResponse!.offers.length != 0) ? OffersWidget(con: con) : Container(),
                     (con.homeResponse?.products != null &&

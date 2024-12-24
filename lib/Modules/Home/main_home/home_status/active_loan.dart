@@ -26,7 +26,7 @@ class ActiveLoanWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: 328.w,
+              width: 400.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.w),
                 color: ThemeClass.primaryColor,

@@ -97,8 +97,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
   Widget image() {
     return  Image.asset(
         AppAssets.IMG_VALIDATE_USER,
-        height: 300.h,
-        width: 300.w,
+        height: 320.h,
+        width: 320.w,
         fit: BoxFit.fill,
     );
   }

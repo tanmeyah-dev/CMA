@@ -1,4 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
+import 'dart:ffi';
+
 import 'package:Tanmeyah/Modules/loan/payment_methods/payment_methods_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_needed/payment_needed_screen.dart';
 import 'package:Tanmeyah/Modules/loan/previous_loans/previous_loan_screen.dart';
@@ -6,7 +8,9 @@ import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/loading_screen.dart';
@@ -78,7 +82,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           });
                         },
                         child: Container(
-                            width: 328.w,
+                            width: 400.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                 BorderRadius.circular(16.sp),
@@ -128,7 +132,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                       ),
                    Container(
                         width: 400.w,
-                        height: 90.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24.sp)
                         ),
@@ -177,20 +180,25 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           ],
                         ) ,
                       ),
-
-                    AnimatedContainer(
+                   AnimatedContainer(
                       duration:  Duration(seconds: 1),
                       curve: Curves.fastOutSlowIn,
-                      height: _isExpanded ? 340.h : 0,
+                      height: _isExpanded ? 350.h : 0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
+                        border: Border(
+                          bottom: BorderSide(
+                            color: ThemeClass.primaryColor,
+                            width: 3.w, // Thickness of the line
+                          ),
+                        ),
                       ),
                       child: _isExpanded
                           ?  SingleChildScrollView(
-                             child: Column(
-                          children: [
+                              padding: EdgeInsets.all(16.w),
+                              child: Column(
+                                children: [
                                 Container(
-                                  width: 366.w,
                                   decoration: BoxDecoration(
                                     color: ThemeClass.greyBackgroundColor,
                                     borderRadius: BorderRadius.circular(8.sp),
@@ -198,45 +206,48 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   padding: EdgeInsets.all(12.sp),
                                   child: Row(
                                     children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AppTextRegular(title: "last_paid_amount".tr),
-                                          Row(
-                                            textBaseline: TextBaseline.alphabetic,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
-                                              SizedBox(width: 4.w,),
-                                              AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
-                                            ],
-                                          ),
-                                        ],
+                                      SizedBox(
+                                        width: 175.w,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AppTextRegular(title: "last_paid_amount".tr),
+                                            Row(
+                                              textBaseline: TextBaseline.alphabetic,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                SizedBox(width: 4.w,),
+                                                AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-
-                                      SizedBox(width: 60.w,),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      SizedBox(width: 20.w,),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              AppTextRegular(title: "date_of_pay".tr),
-                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
-                                            ],
-                                          ),
-                                          SizedBox(width: 40.w,),
-                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
-                                        ],
-                                      ),
+                                      SizedBox(
+                                        width: 175.w,
+                                        child:  Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(width: 16.w,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                AppTextRegular(title: "date_of_pay".tr),
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
                                 SizedBox(height: 8.h,),
                                 Container(
-                                  width: 366.w,
                                   decoration: BoxDecoration(
                                     color: ThemeClass.greyBackgroundColor,
                                     borderRadius: BorderRadius.circular(8.sp),
@@ -245,132 +256,156 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                      GestureDetector(
+                                        onTap : (){
+                                          Navigator.pushNamed(context, AlreadyPaidScreen.routeName);
+                                        },
+                                        child: SizedBox(
+                                          width: 160.w,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              AppTextRegular(title: "paided".tr),
-                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfpaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
-                                            ],
-                                          ),
-                                          SizedBox(width: 40.w,),
-                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
-                                        ],
-                                      ),
-                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              AppTextRegular(title: "remaining".tr),
-                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfNotPaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
-                                            ],
-                                          ),
-                                          SizedBox(width: 40.w,),
-                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 8.h,),
-                                Container(
-                                  width: 366.w,
-                                  decoration: BoxDecoration(
-                                    color: ThemeClass.greyBackgroundColor,
-                                    borderRadius: BorderRadius.circular(8.sp),
-                                  ),
-                                  padding: EdgeInsets.all(12.sp),
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AppTextRegular(title: "paid_amount".tr),
-                                         Row(
-                                           crossAxisAlignment: CrossAxisAlignment.end,
-                                           textBaseline: TextBaseline.alphabetic,
-                                           children: [
-                                             AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
-                                             SizedBox(width: 4.w,),
-                                             AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
-                                           ],
-                                         ),
-                                        ],
-                                      ),
-                                      SizedBox(width: 40.w,),
-                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AppTextRegular(title: "remaining".tr),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            textBaseline: TextBaseline.alphabetic,
-                                            children: [
-                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.totalDueAmount.toString()??"0",color: ThemeClass.secondaryColor,fontSize: 16.sp,),
-                                              SizedBox(width: 4.w,),
-                                              AppTextRegular(title: "ج. م",color: ThemeClass.secondaryColor,fontSize: 14.sp,)
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(width: 40.w,),
-                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AppTextRegular(title: "tex_amount".tr),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            textBaseline: TextBaseline.alphabetic,
-                                            children: [
-                                              AppTextBold(title: con.activeLoanModel?.activeLoan?.penaltyAmount.toString()??"0",color: ThemeClass.orangeColor,fontSize: 16.sp,),
-                                              SizedBox(width: 4.w,),
-                                              AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 8.h,),
-                                Container(
-                                  width: 366.w,
-                                  decoration: BoxDecoration(
-                                    color: ThemeClass.greyBackgroundColor,
-                                    borderRadius: BorderRadius.circular(8.sp),
-                                  ),
-                                  padding: EdgeInsets.all(12.sp),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              AppTextRegular(title: "next_installment".tr),
-                                              Row(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                textBaseline: TextBaseline.alphabetic,
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",fontSize: 16.sp,),
-                                                  SizedBox(width: 4.w,),
-                                                  AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
+                                                  AppTextRegular(title: "paided".tr),
+                                                  AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfpaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
                                                 ],
-                                              )
+                                              ),
+                                              Spacer(),
+                                              Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
                                             ],
                                           ),
-                                          Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
-                                        ],
+                                        ),
+                                      ),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      GestureDetector(
+                                        onTap: (){
+                                          Navigator.pushNamed(context, PaymentNeededScreen.routeName);
+                                        },
+                                        child: SizedBox(
+                                          width: 160.w,
+                                          child: Row(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  AppTextRegular(title: "remaining".tr),
+                                                  AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfNotPaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 8.h,),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.greyBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.all(12.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 115.w,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            AppTextRegular(title: "paid_amount".tr),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              textBaseline: TextBaseline.alphabetic,
+                                              children: [
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                SizedBox(width: 4.w,),
+                                                AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      SizedBox(
+                                        width: 115.w,
+                                        child:  Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            AppTextRegular(title: "remaining".tr),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              textBaseline: TextBaseline.alphabetic,
+                                              children: [
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.totalDueAmount.toString()??"0",color: ThemeClass.secondaryColor,fontSize: 16.sp,),
+                                                SizedBox(width: 4.w,),
+                                                AppTextRegular(title: "ج. م",color: ThemeClass.secondaryColor,fontSize: 14.sp,)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
+                                      SizedBox(
+                                        width: 115.w,
+                                        child:  Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            AppTextRegular(title: "tex_amount".tr),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              textBaseline: TextBaseline.alphabetic,
+                                              children: [
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.penaltyAmount.toString()??"0",color: ThemeClass.orangeColor,fontSize: 16.sp,),
+                                                SizedBox(width: 4.w,),
+                                                AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 8.h,),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.greyBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.all(12.sp),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 175.w,
+                                        child:    Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AppTextRegular(title: "next_installment".tr),
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              textBaseline: TextBaseline.alphabetic,
+                                              children: [
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",fontSize: 16.sp,),
+                                                SizedBox(width: 4.w,),
+                                                AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                       Container(color: ThemeClass.borderColor,height: 30.h,width: 1.w,),
+                                      SizedBox(width: 16.w,),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -383,8 +418,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                 ),
                                 SizedBox(height: 10.h,),
                           ],
-                        ),
-                      )
+                              ),
+                          )
                           : null,
                     ),
 
@@ -399,7 +434,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                         AppAssets.IMG_NO_LOAN,
                         fit: BoxFit.fill,
                         width: double.infinity,
-                        height: 328.h,
+                        height: 400.h,
                     ),
                     SizedBox(height: 20.h,),
                     AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,),

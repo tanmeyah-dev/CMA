@@ -12,7 +12,7 @@ class CountryCodeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 89.w,
-      padding: EdgeInsets.symmetric(vertical : 10.h , horizontal: 8.w),
+      padding: EdgeInsets.symmetric(vertical : 16.h , horizontal: 8.w),
       decoration: BoxDecoration(
         color: ThemeClass.textfieldColor,
         borderRadius: BorderRadius.circular(14.w),

@@ -52,7 +52,6 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
         backgroundColor: ThemeClass.whiteColor,
         appBar: BaseAppBar.main(
           title: "loan_terms".tr,
-          centerTitle: false,
         ),
         body: GestureDetector(
           onTap: () {
@@ -140,7 +139,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                           SizedBox(height: 10.h,),
                           (con.accept == true && con.accept2 == true)  ?
                           CustomButton(
-                              width: 216,
+                              width: 382.w,
                               title: "start_ask_for_loan".tr, onTap: () {
                             if(con.accept) {
                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -155,7 +154,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               ToastHelper.showError(context ,message: "alert_accept_terms".tr);
                             }
                           }) : CustomButton(
-                            width: 216,
+                            width: 382.w,
                             title: "start_ask_for_loan".tr, onTap: (){},
                             color: ThemeClass.textFieldBackgroundColor,
                             borderColor: ThemeClass.textFieldBackgroundColor,
@@ -178,7 +177,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
 
   Widget bannerWidget({required String title, required String imageUrl}) {
     return Container(
-      width: 354.w,
+      width: 382.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.w),
         color: ThemeClass.termsBackground,

@@ -196,7 +196,9 @@ class _AlreadyPaidScreenState extends StateMVC<AlreadyPaidScreen> {
                       },
                       itemCount:
                           con.paidInstallmentResponse!.paidInstallment!.length),
-                ) : Container(),
+                ) : Expanded(child: Center(
+                  child: AppTextBold(title: "no_services".tr,),
+                )),
                 SizedBox(height: 20.h,),
               ],
             ),

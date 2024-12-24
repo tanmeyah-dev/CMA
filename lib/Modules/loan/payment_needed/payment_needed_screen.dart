@@ -67,7 +67,7 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
                         child: ListView.separated(
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
-                              width: 328.w,
+                              width: 400.w,
                               decoration: BoxDecoration(
                                 color: ThemeClass.needToPayBackground,
                                 borderRadius: BorderRadius.circular(12.sp),

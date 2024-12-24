@@ -47,12 +47,19 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                           width: 382.w,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16.sp),
-                              color: ThemeClass.borderColor
+                              color: Color(0xFFF6F6F6),
                           ),
                           padding: EdgeInsets.all(20.w),
                           child: Row(
                             children: [
-                              Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
+                              Container(
+                                padding: EdgeInsets.all(8.w),
+                                decoration: BoxDecoration(
+                                  color: ThemeClass.whiteColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(6.sp),),
+                                ),
+                                child: Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
+                              ),
                               SizedBox(width: 20.w,),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -75,12 +82,19 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                           width: 382.w,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16.sp),
-                              color: ThemeClass.borderColor
+                              color: Color(0xFFF6F6F6)
                           ),
                           padding: EdgeInsets.all(20.w),
                           child: Row(
                             children: [
-                              Icon(Iconsax.receipt_item5,size: 48.sp,color: ThemeClass.primaryColor,),
+                              Container(
+                                padding: EdgeInsets.all(8.w),
+                                decoration: BoxDecoration(
+                                  color: ThemeClass.whiteColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(6.sp),),
+                                ),
+                                child: Icon(Iconsax.receipt_item5,size: 48.sp,color: ThemeClass.profileContainer,),
+                              ),
                               SizedBox(width: 20.w,),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,

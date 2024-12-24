@@ -134,9 +134,9 @@ class GetBillInquiryController extends ControllerMVC {
     loading = false;
     setState(() {
     });
-    if(billInquiryResponse!.isSuccess){
+    // if(billInquiryResponse!.isSuccess){
       getBillInfo();
-    }
+    // }
     return billInquiryResponse;
   }
 

@@ -105,7 +105,7 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
             ),
             SizedBox(height: 10.h,),
             SizedBox(
-              height: 610.h,
+              height: 750.h,
               child: (con.branchList != null && con.branchList.isNotEmpty)
                   ? SmartRefresher(
                       enablePullDown: true,

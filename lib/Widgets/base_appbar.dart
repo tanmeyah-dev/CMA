@@ -80,8 +80,8 @@ class BaseAppBar extends PreferredSize {
                       maxLines: 1,
                       style: TextStyle(
                         color: titleColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     elevation: elevation,

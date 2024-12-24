@@ -91,14 +91,14 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                                   ),
                                   alignment: Alignment.center ,
                                   padding: EdgeInsets.all(6.w),
-                                  child: Icon(Iconsax.send_2,color: ThemeClass.primaryColor,size: 20.sp,)),
+                                  child: Icon(Iconsax.send_2,color: ThemeClass.primaryColor,size: 30.sp,)),
                               SizedBox(width: 8.w,),
-                              AppTextRegular(title: "ارسال رسالة نصية لتنميه",fontSize: 20.sp,),
+                              AppTextRegular(title: "ارسال رسالة نصية لتنميه",fontSize: 24.sp,),
 
                             ],
                           ),
                           SizedBox(height: 20.h,),
-                          emailTxtField(),
+                          nameTxtField(),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -185,7 +185,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextFieldWidget(
-          width: 180.w,
+          width: 260.w,
           controller: con.phoneController,
           hint: "1xxxxxxxxxx",
           textInputType: TextInputType.phone,
@@ -196,16 +196,14 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
             LengthLimitingTextInputFormatter(11),
           ],
         ),
-        SizedBox(
-          width: 10.w,
-        ),
+        Spacer(),
         const CountryCodeWidget(),
       ],
     );
   }
 
 
-  Widget emailTxtField() {
+  Widget nameTxtField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

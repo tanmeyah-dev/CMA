@@ -39,6 +39,7 @@ import '../Modules/Main/main_screen.dart';
 import '../Modules/More/main_more/more_screen.dart';
 import '../Modules/loan/main_loan/main_loan_screen.dart';
 import '../Modules/loan/previous_loans/previous_loan_screen.dart';
+import '../Widgets/ticket_alert.dart';
 
 class AppModule extends Module {
   @override
@@ -133,7 +134,7 @@ class AppModule extends Module {
               phoneNumber: args.data,
             ),
         transition: TransitionType.fadeIn,
-        duration: const Duration(milliseconds: 300)),
+        duration: const Duration(milliseconds: 2000)),
     ChildRoute(MainScreen.routeName,
         child: (_, args) => MainScreen(
           index: args.data??0,

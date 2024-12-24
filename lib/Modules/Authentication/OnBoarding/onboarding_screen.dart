@@ -57,7 +57,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           child: Stack(
             children: [
               Column(
-                children: [pageView(), nextAndBackButton()],
+                children: [pageView(), nextAndBackButton(),SizedBox(height: 25.h,)],
               ),
               Positioned(
                   top: 10.h,
@@ -96,11 +96,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         itemBuilder: (_, i) {
           return Column(
             children: [
-              SizedBox(height: 70.h),
+              SizedBox(height: 100.h),
               Image.asset(
                 contents[i].image,
-                height: 300.h,
-                width: 300.w,
+                height: 320.h,
+                width: 320.w,
                 fit: BoxFit.fill,
               ),
               SizedBox(height: 40.h),
@@ -110,10 +110,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     contents.length,
                     (index) => buildDot(index, context),
                   )),
-              SizedBox(height: 48.h),
-              AppTextMedium(title: contents[i].title,fontWeight: FontWeight.w600,),
-              SizedBox(height: 30.h),
-              AppTextRegular(title: contents[i].discription,color: ThemeClass.borderColor,),
+              SizedBox(height: 32.h),
+              AppTextMedium(title: contents[i].title,fontWeight: FontWeight.w600,fontSize: 24.sp,),
+              SizedBox(height: 60.h),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 40.w),
+                 child : AppTextRegular(title: contents[i].discription,color: ThemeClass.borderColor,),
+              )
             ],
           );
         },
@@ -136,14 +138,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     );
                   },
                   child: Container(
-                      width: 40.w,
-                      height: 40.h,
+                      width: 56.w,
+                      height: 56.h,
                       decoration: BoxDecoration(
-                          border: Border.all(color: ThemeClass.borderColor),
                           borderRadius: BorderRadius.circular(20.w),
-                          color: ThemeClass.whiteColor),
+                          color: ThemeClass.backgroundBackButton),
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(vertical: 6.h,horizontal: 13.w),
+                      padding: EdgeInsets.only(left: 6.h,right: 16.w),
                       child: Icon(Icons.arrow_back_ios,
                           color: ThemeClass.borderColor),),)
               : Container(),
@@ -169,8 +170,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 );
               },
               child: Container(
-                  width: 90.w,
-                  height: 40.h,
+                  width: 126.w,
+                  height: 56.h,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.w),
                       color: ThemeClass.primaryColor),
@@ -183,7 +184,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           child: Text(
                             "next".tr,
                             style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w500,
                                 color: ThemeClass.whiteColor),
                           ),

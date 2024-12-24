@@ -109,8 +109,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                         children: [
                           Image.asset(
                             AppAssets.IMG_AMOUNT,
-                            width: 300.w,
-                            height: 300.h,
+                            width: 366.w,
+                            height: 320.h,
                           ),
 
                           SizedBox(

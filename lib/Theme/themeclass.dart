@@ -63,5 +63,6 @@ class ThemeClass {
   static Color orangeColor = const Color(0xFFEF8732);
   static Color profileBackground = const Color(0xFFE5F3FF);
   static Color profileContainer = const Color(0xFF067EDA);
+  static Color backgroundBackButton = const Color(0xFFEBEBEB);
   static Color backgroundAppBar = Colors.transparent;
 }

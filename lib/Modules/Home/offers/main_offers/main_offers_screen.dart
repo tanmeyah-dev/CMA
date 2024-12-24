@@ -133,10 +133,13 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                     Expanded(
                       child: Column(
                         children: [
+                          SizedBox(
+                            height: 40.h,
+                          ),
                           Image.asset(
                             AppAssets.IMG_EMPTY_OFFERS,
-                            width: 300.w,
-                            height: 300.h,
+                            width: 350.w,
+                            height: 350.h,
                             fit: BoxFit.fill,
                           ),
                           SizedBox(
@@ -144,7 +147,7 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                           ),
                           AppTextRegular(
                             title: "empty_offers".tr,
-                            fontSize: 20.sp,
+                            fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
                             color: ThemeClass.primaryColor,
                           ),
@@ -163,7 +166,7 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            width: 90.w,
+                            width: 120.w,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
                                 24.sp,
@@ -173,6 +176,7 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                             padding:
                             EdgeInsets.symmetric(vertical: 4.h, horizontal: 14.w),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.arrow_back_ios_outlined,
@@ -180,7 +184,8 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                                 ),
                                 Padding(
                                     padding: EdgeInsets.only(bottom: 10.h),
-                                    child: AppTextMedium(title: "back".tr,color: ThemeClass.whiteColor,)),
+                                    child: AppTextMedium(title: "back".tr,color: ThemeClass.whiteColor,)
+                                ),
                               ],
                             ),
                           ),

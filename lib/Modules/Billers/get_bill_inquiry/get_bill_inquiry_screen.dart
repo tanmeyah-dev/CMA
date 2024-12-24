@@ -101,6 +101,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: BaseAppBar.main(
         title: widget.billers.billerName??"",
       ),
@@ -114,7 +115,8 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             width: double.infinity,
             height: double.infinity,
-            child:   Column(
+            child:  SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
@@ -124,7 +126,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                   CachedNetworkImage(imageUrl: widget.billers.logoUrl??"",width: 80.w,height: 50.h,) :  Image( image: const AssetImage(AppAssets.IMG_LOGO), width: 130.w, height: 80.h,),
                   AppTextBold(title: widget.billers.billerName??"",color: ThemeClass.blackColor,fontWeight: FontWeight.w500,),
                   Container(
-                    width: 328.w,
+                    width: 400.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
                     ),
@@ -151,10 +153,11 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                     child:  ListView.separated(
                       scrollDirection: Axis.horizontal, itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        width: 83.w,
-                        height: 83.h,
+                        width: 90.w,
+                        height: 90.h,
                         decoration: BoxDecoration(
                           color: ThemeClass.greyBackgroundColor.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(8.sp)
                         ),
                         alignment: Alignment.center,
                         child: Column(
@@ -168,7 +171,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       );
                     },
                       separatorBuilder: (BuildContext context, int index) { return SizedBox(width: 10.w,); },
-                      itemCount: 4,
+                      itemCount: 6,
 
                     ),
                   ),
@@ -184,32 +187,32 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       Form(
                         key : con.formKey,
                         child: CustomTextFieldWidget(
-                          width: 240.w,
+                          width: 320.w,
                           hint: "phone_number".tr,
                           controller: con.phoneController,
-                          validator: (value) => Validator.validatePhone(context, value!),
+                          // validator: (value) => Validator.validatePhone(context, value!),
                           textInputType: TextInputType.phone,
-                          onchange: (_){
-                            if(con.phoneController.text.length != 11) {
-                              setState(() {
-                                con.active = false;
-                              });
-                            } else {
-                              setState(() {
-                                con.active = true;
-                              });
-                            }
-                          },
-                          formatter: [
-                            LengthLimitingTextInputFormatter(11),
-                          ],
+                          // onchange: (_){
+                          //   if(con.phoneController.text.length != 11) {
+                          //     setState(() {
+                          //       con.active = false;
+                          //     });
+                          //   } else {
+                          //     setState(() {
+                          //       con.active = true;
+                          //     });
+                          //   }
+                          // },
+                          // formatter: [
+                          //   LengthLimitingTextInputFormatter(11),
+                          // ],
                         ),),
                       SizedBox(
                         width: 8.w,
                       ),
                       Container(
                         width: 60.w,
-                        height: 50.h,
+                        height: 55.h,
                         decoration: BoxDecoration(
                             color: ThemeClass.secondaryColor,
                             borderRadius: BorderRadius.circular(12.sp)
@@ -218,25 +221,27 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  SizedBox(height: 220.h,),
                   CustomButton(
-                      backgroundColor: con.active ? ThemeClass.primaryColor : ThemeClass.hintColor,
-                      title: "follow".tr,
-                      onTap: (){
-                        con.active ?
-                        con.getBillInquiry().then((value) {
-                          ReceiptAlert.getReceipt(context: context, onTap: (){
-                           con.startPayment();
-                          },
-                              phoneNumber: con.billInquiryResponse?.billInqRs!.billRec![0].billingAcct.toString()??"",
-                              amount: con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt?.amt ??00.00,
-                              fees: con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt?.amt??0.00);
-                        }) : ToastHelper.showError(context,message: "برجاء ادخال رقم الهاتف");
-                          con.amount = (con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt!.amt??0.0) + (con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt!.amt??0.0);
-                        },),
+                    // backgroundColor: con.active ? ThemeClass.primaryColor : ThemeClass.hintColor,
+                    title: "follow".tr,
+                    onTap: (){
+                      // con.active ?
+                      con.getBillInquiry().then((value) {
+                        ReceiptAlert.getReceipt(context: context, onTap: (){
+                          con.startPayment();
+                        },
+                            phoneNumber: con.billInquiryResponse?.billInqRs!.billRec![0].billingAcct.toString()??"",
+                            amount: con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt?.amt ??00.00,
+                            fees: con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt?.amt??0.00);
+                      });
+                      // : ToastHelper.showError(context,message: "برجاء ادخال رقم الهاتف");
+                      // con.amount = (con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt!.amt??0.0) + (con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt!.amt??0.0);
+                    },),
                   SizedBox(height: 30.h,)
                 ],
               ),
+            ),
           ),
         ),
       ),

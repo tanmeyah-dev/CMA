@@ -13,30 +13,25 @@ class BillWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0.w),
-      child: SizedBox(
-          width: 50.w,
-          child: Column(
-          children: [
-            Container(
-              width: 55.w,
-              padding: EdgeInsets.all(12.w),
+    return SizedBox(
+      width: 68.w,
+      child: Column(
+        children: [
+          Container(
               decoration: BoxDecoration(
-                  color: Color(0xFFF6F6F6),
+                  color: const Color(0xFFF6F6F6),
                   borderRadius: BorderRadius.circular(24.w)
               ),
-              child: imageURL != null ? Image.network(imageURL!,width: 40.w,height: 40.h,fit: BoxFit.fill,) : Image.asset(
+              child: imageURL != null ? Image.network(imageURL!,width: 66.w,height: 66.h,fit: BoxFit.fill,) : Image.asset(
                 AppAssets.IMG_SERVICES_PLACEHOLDER,
-                width: 40.w,
-                height: 40.h,
+                width: 66.w,
+                height: 66.h,
                 fit: BoxFit.fill,
               )
-            ),
-            AppTextRegular(title: title ,color: ThemeClass.secondaryMediumColor,maxLines: 2,),
-          ],
-        ),
-        )
+          ),
+          AppTextRegular(title: title ,color: ThemeClass.secondaryMediumColor,maxLines: 2,),
+        ],
+      ),
     );
   }
 }

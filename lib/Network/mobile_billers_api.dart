@@ -67,7 +67,7 @@ class BillersApi{
       body: {
         "billTypeCode" : billTypeCode,
         "billerId" : billerId,
-        "billingAcct" : "0120000200",
+        "billingAcct" : "0220395477",
         "incOpenAmt" : true,
         "paymentType" : paymentType,
         "userPhoneNumber" : phoneNumber

@@ -20,6 +20,7 @@ import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/themeclass.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
+import '../../../Widgets/ticket_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
@@ -83,9 +84,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                 child: Container(
                                   width: 400.w,
                                   decoration: BoxDecoration(
-                                      color: ThemeClass.profileBackground
+                                      color: ThemeClass.profileBackground,
+                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(16.sp),topRight: Radius.circular(40.sp),bottomLeft: Radius.circular(16.sp),bottomRight: Radius.circular(16.sp))
                                   ),
-                                  padding: EdgeInsets.all(8.w),
+                                  padding: EdgeInsets.all(12.w),
                                   child: Row(
                                     children: [
                                       Image.asset(AppAssets.IMG_PROFILE,width: 50.w,height: 50.h,),
@@ -100,7 +102,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         ],
                                       ),
                                       Spacer(),
-                                      Icon(Iconsax.arrow_square_left)
+                                      Icon(Icons.arrow_forward_ios_outlined,size: 20.sp,color: ThemeClass.profileContainer.withOpacity(0.4),)
                                     ],
                                   ),
                                 ),
@@ -185,7 +187,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         Navigator.pushNamed(
                                             context, ConditionsScreen.routeName);
                                       }),
-                              SizedBox(height: 8.h),
+                               SizedBox(height: 8.h),
                                MoreItemWidget(
                                       image: AppAssets.IMG_MORE_ABOUT,
                                       title: "about_us".tr,
@@ -202,7 +204,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                             context, AboutUsScreen.routeName);
                                       }),
                               SizedBox(height: 8.h),
-                            !con.guestMood ?   SizedBox(height: 120.h) : SizedBox(height: 150.h,),
+                            !con.guestMood ?   SizedBox(height: 200.h) : SizedBox(height: 150.h,),
                           ],
                         ),
                             con.guestMood
@@ -256,4 +258,6 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                       ])))))),
     );
   }
+
+
 }

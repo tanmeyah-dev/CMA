@@ -14,6 +14,7 @@ class AppAssets {
   static const IMG_ONBOARDING_2 = "assets/images/onboarding/onboarding2.png";
   static const IMG_ONBOARDING_3 = "assets/images/onboarding/onboarding3.png";
   static const IMG_ONBOARDING_4 = "assets/images/onboarding/onboarding4.png";
+  static const IMG_ONBOARDING_5 = "assets/images/onboarding/onboarding5.png";
 
   static const IMG_VALIDATE_USER = "assets/images/auth/validate.gif";
   static const IMG_FACE_ID = "assets/images/auth/face_id.png";

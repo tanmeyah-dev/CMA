@@ -30,7 +30,7 @@ class AppTextBold extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-          fontSize: fontSize?? 20.sp,
+          fontSize: fontSize?? 24.sp,
           fontWeight: fontWeight?? FontWeight.bold,
           color: color ?? ThemeClass.primaryColor,
          decoration: textDecoration != null ? TextDecoration.underline : null
@@ -91,7 +91,7 @@ class AppTextRegular extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-          fontSize: fontSize ?? 14.sp,
+          fontSize: fontSize ?? 18.sp,
           fontWeight: fontWeight??  FontWeight.w400,
           color: color ?? ThemeClass.fontColor,
       ),

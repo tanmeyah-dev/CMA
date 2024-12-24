@@ -27,7 +27,7 @@ class MoreItemWidget extends StatelessWidget {
           color: ThemeClass.termsBackground,
           borderRadius: BorderRadius.circular(16.sp),
         ),
-        padding: EdgeInsets.symmetric(vertical : 12.h,horizontal: 12.w),
+        padding: EdgeInsets.symmetric(vertical : 14.h,horizontal: 16.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -46,7 +46,7 @@ class MoreItemWidget extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Icon(Iconsax.arrow_square_left)
+            Icon(Icons.arrow_forward_ios_outlined,size: 20.sp,color: ThemeClass.borderColor,)
 
           ],
         ),

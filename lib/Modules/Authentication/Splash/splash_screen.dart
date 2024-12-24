@@ -16,6 +16,7 @@ import '../ValidateUser/validate_user_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
@@ -78,7 +79,7 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
           Navigator.pushNamed(context, AppVersionScreen.routeName);
         }
         else {
-          await Future.delayed(const Duration(milliseconds: 1400));
+          await Future.delayed(const Duration(milliseconds: 2200));
           if (!SharedPref.isWatchIntro()) {
             Navigator.of(context).pushReplacementNamed(OnBoardingScreen.routeName);
           } else if (SharedPref.isUserLogIn()) {
@@ -96,16 +97,19 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
   @override
   Widget build(BuildContext context) {
        return Scaffold(
-                  backgroundColor: ThemeClass.blackColor,
+                  backgroundColor: ThemeClass.whiteColor,
                   key: _scaffoldKey,
-                  body: SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Image.asset(
-                      AppAssets.IMG_SPLASH,
-                      fit: BoxFit.fitWidth,
-                    ),
-                 ),
+                  body: Center(
+                    child: Hero(
+                      tag: 'gifHero',
+                      child: Image.asset(
+                        AppAssets.IMG_SPLASH,
+                        width: 280.w,
+                        height: 280.h,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    )
+                  )
                 // );
         // }
         );

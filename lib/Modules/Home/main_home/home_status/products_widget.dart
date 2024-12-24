@@ -106,7 +106,7 @@ class ProductsWidget extends StatelessWidget {
                                 .homeResponse!
                                 .products[index]
                                 .logo ??
-                                "",width: 40.w,height: 40.h,)
+                                "",width: 50.w,height: 50.h,)
                                 : Image.asset(
                               AppAssets
                                   .IMG_SERVICES_PLACEHOLDER,
@@ -123,7 +123,7 @@ class ProductsWidget extends StatelessWidget {
                           AppTextRegular(
                             title: "تمويل",
                             color: ThemeClass.secondaryColor,
-                            fontSize: 16.sp,
+                            fontSize: 20.sp,
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(height: 6.h,),
@@ -139,11 +139,11 @@ class ProductsWidget extends StatelessWidget {
                                 .homeResponse!
                                 .products[index]
                                 .titleImg ??
-                                "",width: 85.w,height: 20.h,)
+                                "",width: 140.w,height: 32.h,fit: BoxFit.fill,)
                                 : Image.asset(
                               AppAssets
                                   .IMG_SERVICES_PLACEHOLDER,
-                              width: 30.w,),
+                              width: 140.w,height: 32.h,fit: BoxFit.fill,),
                             ),
                         ],
                       ),

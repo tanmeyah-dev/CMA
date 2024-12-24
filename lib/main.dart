@@ -83,7 +83,7 @@ class _EntryPointState extends State<EntryPoint>  {
         statusBarColor: Colors.transparent
     ));
     return ScreenUtilInit(
-      designSize: const Size(360, 800),
+      designSize: const Size(430, 932),
       builder: (_, __) {
         // FlutterNativeSplash.remove();
         return  MaterialApp(
