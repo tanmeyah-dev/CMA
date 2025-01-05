@@ -4,6 +4,7 @@ import 'package:Tanmeyah/Modules/Authentication/AppVersion/app_version_screen.da
 import 'package:Tanmeyah/Modules/Authentication/Conditions/conditions_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Register/registeration_error.dart';
 import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_screen.dart';
+import 'package:Tanmeyah/Modules/Billers/checkout/checkout_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
@@ -145,6 +146,13 @@ class AppModule extends Module {
         child: (_, args) => OfferDetailScreen(
               offerID: args.data,
             ),
+        transition: TransitionType.fadeIn,
+        duration: const Duration(milliseconds: 300)),
+    ChildRoute(CheckoutScreen.routeName,
+        child: (_, args) => CheckoutScreen(
+          billInquiryResponse: args.data[0],
+          billers:  args.data[1],
+        ),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(LocalAuthScreen.routeName,

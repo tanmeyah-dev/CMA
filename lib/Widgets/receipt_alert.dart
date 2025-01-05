@@ -20,7 +20,7 @@ class ReceiptAlert{
         onTap: onTap,
         context: context,
         child: SizedBox(
-          height: 420.h,
+          height: 450.h,
           child: Column(
             children: [
               Row(

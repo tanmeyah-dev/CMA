@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
 
+import 'package:Tanmeyah/Modules/Billers/checkout/checkout_screen.dart';
 import 'package:Tanmeyah/Modules/Billers/fawry.dart';
 import 'package:Tanmeyah/Modules/Billers/get_bill_inquiry/get_bill_inquiry_controller.dart';
 import 'package:Tanmeyah/Utilities/general_toast.dart';
@@ -228,12 +229,13 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                     onTap: (){
                       // con.active ?
                       con.getBillInquiry().then((value) {
-                        ReceiptAlert.getReceipt(context: context, onTap: (){
-                          con.startPayment();
-                        },
-                            phoneNumber: con.billInquiryResponse?.billInqRs!.billRec![0].billingAcct.toString()??"",
-                            amount: con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt?.amt ??00.00,
-                            fees: con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt?.amt??0.00);
+                        Navigator.pushNamed(context, CheckoutScreen.routeName,arguments: [con.billInquiryResponse!,widget.billers!]);
+                        // ReceiptAlert.getReceipt(context: context, onTap: (){
+                        //   con.startPayment();
+                        // },
+                        //     phoneNumber: con.billInquiryResponse?.billInqRs!.billRec![0].billingAcct.toString()??"",
+                        //     amount: con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt?.amt ??00.00,
+                        //     fees: con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt?.amt??0.00);
                       });
                       // : ToastHelper.showError(context,message: "برجاء ادخال رقم الهاتف");
                       // con.amount = (con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt!.amt??0.0) + (con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt!.amt??0.0);

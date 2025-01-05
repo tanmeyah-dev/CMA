@@ -54,7 +54,7 @@ class GetBillInquiryController extends ControllerMVC {
   @override
   void initState() {
     phoneController = TextEditingController();
-    BillersApi.excuteDailyJob();
+    // BillersApi.excuteDailyJob();
     super.initState();
     initSDKCallback();
 
