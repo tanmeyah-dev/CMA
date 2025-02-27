@@ -38,7 +38,7 @@ class BranchesResponse {
 
 
 class BranchModel {
-  int? id;
+  String? id;
   String? nameAr;
   String? nameEn;
   String? address;
@@ -65,7 +65,7 @@ class BranchModel {
       });
 
   BranchModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     nameAr = json['nameAr'];
     nameEn = json['nameEn'];
     address = json['address'];

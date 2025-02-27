@@ -67,13 +67,13 @@ class _LoanSuccessRequestScreenState extends StateMVC<LoanSuccessRequestScreen> 
                   Expanded(child: Column(
                     children: [
                       SizedBox(height: 20.h,),
-                      Image.asset(AppAssets.IMG_SUCCESS,width: 300.w,height: 300.h,fit: BoxFit.fill,),
+                      Image.asset(AppAssets.IMG_SUCCESS_SUBMIT,width: 320.w,height: 320.h,fit: BoxFit.fill,),
                       SizedBox(height: 64.h,),
                       AppTextMedium(title: "congratulations".tr,fontSize: 18.sp,fontWeight: FontWeight.w600,color: ThemeClass.secondaryColor,),
                       SizedBox(height: 20.h,),
                       AppTextRegular(title: "success_loan_des".tr,fontSize: 18.sp,color: ThemeClass.primaryColor,),
                       SizedBox(height: 20.h,),
-                      AppTextMedium(title: "خلال ٤٨ ساعة",fontSize: 18.sp,fontWeight: FontWeight.w600,color: ThemeClass.secondaryColor,),
+                      AppTextMedium(title: "خلال ٤٨ ساعة",fontSize: 18.sp,fontWeight: FontWeight.w600,color: ThemeClass.primaryColor,),
 
                     ],
                   )),
@@ -82,8 +82,9 @@ class _LoanSuccessRequestScreenState extends StateMVC<LoanSuccessRequestScreen> 
                      child: Column(
                        children: [
                          CustomButton(
-                           width: 216,
-                           backgroundColor: ThemeClass.buttonBackgroundColor,
+                           width: 385.w,
+                           backgroundColor: ThemeClass.profileContainer,
+                           borderColor: ThemeClass.profileContainer,
                            title: "oky".tr, onTap: (){
                            Navigator.of(context)
                                .pushNamedAndRemoveUntil('/mainScreen', (Route<dynamic> route) => false);

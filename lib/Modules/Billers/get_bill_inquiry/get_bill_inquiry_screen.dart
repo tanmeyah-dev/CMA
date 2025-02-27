@@ -23,9 +23,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/custom_textfield_widget.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-import '../../../Widgets/receipt_alert.dart';
 
 
 class GetBillInquiryScreen extends StatefulWidget {
@@ -178,7 +175,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                   ),
                   SizedBox(height: 32.h,),
                   Align(alignment: Alignment.centerRight,child:
-                  AppTextRegular(title: "phone_number".tr,color: ThemeClass.secondaryColor,fontSize: 16.sp,fontWeight: FontWeight.w400,),),
+                  AppTextRegular(title: widget.services.billTypeAcctLabel??"",color: ThemeClass.secondaryColor,fontSize: 16.sp,fontWeight: FontWeight.w400,),),
                   SizedBox(height: 12.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -188,22 +185,22 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       Form(
                         key : con.formKey,
                         child: CustomTextFieldWidget(
-                          width: 320.w,
-                          hint: "phone_number".tr,
-                          controller: con.phoneController,
-                          // validator: (value) => Validator.validatePhone(context, value!),
+                          width: (!["UTL", "BKS", "FWC"].contains(widget.services.serviceType)) ? 320.w : 370.w,
+                          hint:  widget.services.billTypeAcctLabel??"",
+                          controller: con.inquiryText,
+                          validator: (value) => Validator.validateEmpty(con.inquiryText.text,value!),
                           textInputType: TextInputType.phone,
-                          // onchange: (_){
-                          //   if(con.phoneController.text.length != 11) {
-                          //     setState(() {
-                          //       con.active = false;
-                          //     });
-                          //   } else {
-                          //     setState(() {
-                          //       con.active = true;
-                          //     });
-                          //   }
-                          // },
+                          onchange: (_){
+                            if(con.inquiryText.text.length != 0) {
+                              setState(() {
+                                con.active = true;
+                              });
+                            } else {
+                              setState(() {
+                                con.active = false;
+                              });
+                            }
+                          },
                           // formatter: [
                           //   LengthLimitingTextInputFormatter(11),
                           // ],
@@ -211,6 +208,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                       SizedBox(
                         width: 8.w,
                       ),
+                      (!["UTL", "BKS", "FWC"].contains(widget.services.serviceType)) ?
                       Container(
                         width: 60.w,
                         height: 55.h,
@@ -219,16 +217,16 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                             borderRadius: BorderRadius.circular(12.sp)
                         ),
                         child: Icon(Iconsax.user_square,size: 32,color: ThemeClass.whiteColor,),
-                      ),
+                      ) : Container(),
                     ],
                   ),
                   SizedBox(height: 220.h,),
                   CustomButton(
-                    // backgroundColor: con.active ? ThemeClass.primaryColor : ThemeClass.hintColor,
+                    backgroundColor: con.active ? ThemeClass.primaryColor : ThemeClass.hintColor,
                     title: "follow".tr,
                     onTap: (){
-                      // con.active ?
-                      con.getBillInquiry().then((value) {
+                       con.active ?
+                      con.getBillInquiry(context).then((value) {
                         Navigator.pushNamed(context, CheckoutScreen.routeName,arguments: [con.billInquiryResponse!,widget.billers!]);
                         // ReceiptAlert.getReceipt(context: context, onTap: (){
                         //   con.startPayment();
@@ -236,8 +234,7 @@ class _GetBillInquiryScreenState extends StateMVC<GetBillInquiryScreen> {
                         //     phoneNumber: con.billInquiryResponse?.billInqRs!.billRec![0].billingAcct.toString()??"",
                         //     amount: con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt?.amt ??00.00,
                         //     fees: con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt?.amt??0.00);
-                      });
-                      // : ToastHelper.showError(context,message: "برجاء ادخال رقم الهاتف");
+                      }) : ToastHelper.showError(context,message: "برجاء ادخال ${widget.services.billTypeAcctLabel}");
                       // con.amount = (con.billInquiryResponse?.billInqRs!.billRec![0].billInfo?.billSummAmt![0].curAmt!.amt??0.0) + (con.billInquiryResponse?.billInqRs!.billRec?[0].billInfo!.billSummAmt?[1].curAmt!.amt??0.0);
                     },),
                   SizedBox(height: 30.h,)

@@ -2,6 +2,9 @@
 
 import 'dart:io';
 
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_screen.dart';
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_city/loan_city_screen.dart';
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
 import 'package:Tanmeyah/Utilities/update_app.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +17,7 @@ import 'Cache/app_languages.dart';
 import 'Cache/shared_data_provider.dart';
 import 'Cache/locales.dart';
 import 'Modules/Authentication/Splash/splash_screen.dart';
+import 'Modules/Home/request_loan/loan_request_success/loan_request_success_screen.dart';
 import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Utilities/routing.dart';

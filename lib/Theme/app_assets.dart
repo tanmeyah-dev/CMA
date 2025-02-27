@@ -44,7 +44,7 @@ class AppAssets {
   static const IMG_HOME_BACKGROUND = "assets/images/home/home_background.png";
   static const IMG_ACTIVE_LOAN = "assets/images/home/active_loan.png";
 
-  static const IMG_AMOUNT = "assets/images/home/amount.gif";
+  static const IMG_AMOUNT = "assets/images/home/amount.png";
 
   static const IMG_BIOMETRIC = "assets/images/auth/biometric.gif";
 
@@ -75,6 +75,8 @@ class AppAssets {
 
   static const IMG_PLACEHOLDER = "assets/images/placeholder.png";
   static const IMG_EMPTY_LOAN = "assets/images/loan/empty_loan.png";
+  static const IMG_CHECKOUT = "assets/images/loan/checkout.png";
+  static const IMG_SUCCESS_SUBMIT = "assets/images/loan/success.png";
 
 
 

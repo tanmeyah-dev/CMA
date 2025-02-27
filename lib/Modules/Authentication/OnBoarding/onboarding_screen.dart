@@ -96,14 +96,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         itemBuilder: (_, i) {
           return Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 90.h),
               Image.asset(
                 contents[i].image,
                 height: 320.h,
                 width: 320.w,
                 fit: BoxFit.fill,
               ),
-              SizedBox(height: 40.h),
+              SizedBox(height: 30.h),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
@@ -112,7 +112,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   )),
               SizedBox(height: 32.h),
               AppTextMedium(title: contents[i].title,fontWeight: FontWeight.w600,fontSize: 24.sp,),
-              SizedBox(height: 60.h),
+              SizedBox(height: 50.h),
               Padding(padding: EdgeInsets.symmetric(horizontal: 40.w),
                  child : AppTextRegular(title: contents[i].discription,color: ThemeClass.borderColor,),
               )

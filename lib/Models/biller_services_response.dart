@@ -42,6 +42,7 @@ class Services {
   int? id;
   String? serviceName;
   String? billTypeCode;
+  String? serviceType;
   String? billTypeAcctLabel;
   String? billTypeDescription;
   bool? isHidden;
@@ -90,6 +91,7 @@ class Services {
         this.isAdvAcpt,
         this.isAcptCardPmt,
         this.fees,
+        this.serviceType,
         this.billTypeExtraRefKeys});
 
   Services.fromJson(Map<String, dynamic> json) {
@@ -107,6 +109,7 @@ class Services {
     timeout = json['timeout'] != null ? json['timeout'] : null;
     pmtType = json['pmtType'];
     otpRequired = json['otpRequired'];
+    serviceType = json['serviceType'];
     isBAConfRequired = json['isBAConfRequired'];
     isTermsConditionReq = json['isTermsConditionReq'];
     isInQrQr = json['isInQrQr'];
@@ -146,6 +149,7 @@ class Services {
     data['timeout'] = this.timeout;
     data['pmtType'] = this.pmtType;
     data['otpRequired'] = this.otpRequired;
+    data['serviceType'] = this.serviceType;
     data['isBAConfRequired'] = this.isBAConfRequired;
     data['isTermsConditionReq'] = this.isTermsConditionReq;
     data['isInQrQr'] = this.isInQrQr;

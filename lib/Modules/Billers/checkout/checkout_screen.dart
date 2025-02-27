@@ -79,9 +79,9 @@ class _CheckoutScreenState extends StateMVC<CheckoutScreen> {
                 Padding(padding: EdgeInsets.symmetric(horizontal: 40.w),
                   child: Column(
                     children: [
-                      AppTextBold(title: "ملخص الفاتورة",color: ThemeClass.blackColor,),
+                      AppTextBold(title: "receipt_summary".tr,color: ThemeClass.blackColor,),
                       SizedBox(height: 16.h,),
-                      AppTextRegular(title: "يرجى مراجعة تفاصيل الفاتورة الخاص بك"),
+                      AppTextRegular(title: "review_summary".tr),
                       SizedBox(height: 16.h,),
                       Divider(),
                       SizedBox(height: 16.h,),
@@ -94,7 +94,7 @@ class _CheckoutScreenState extends StateMVC<CheckoutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppTextRegular(title: "رقم الموبايل",color: ThemeClass.whiteColor,),
+                            AppTextRegular(title: "phone_number".tr,color: ThemeClass.whiteColor,),
                             AppTextRegular(title: widget.billInquiryResponse.billInqRs!.billRec?[0].billingAcct??"",color: ThemeClass.whiteColor,)
                           ],
                         ),
@@ -103,9 +103,9 @@ class _CheckoutScreenState extends StateMVC<CheckoutScreen> {
                       Column(
                         children: [
                           SizedBox(height: 12.h,),
-                          info(title: "التاريخ والوقت", data: "${dateForm}"),
-                          info(title: "قيمة الفاتورة", data: "${amount} ج م "),
-                          info(title: "مصاريف الخدمة", data: "${fees} ج م "),
+                          info(title: "date_time".tr, data: "${dateForm}"),
+                          info(title: "receipt_value".tr, data: "${amount} ج م "),
+                          info(title: "fees".tr, data: "${fees} ج م "),
                           SizedBox(height: 20.h,),
                         ],
                       ),
@@ -121,7 +121,7 @@ class _CheckoutScreenState extends StateMVC<CheckoutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppTextRegular(title: "الاجمالي",color: ThemeClass.whiteColor,fontWeight: FontWeight.w500,),
+                            AppTextRegular(title: "total".tr,color: ThemeClass.whiteColor,fontWeight: FontWeight.w500,),
                             AppTextRegular(title: "${amount+fees} ج م ",color: ThemeClass.whiteColor,fontWeight: FontWeight.w500,)
                           ],
                         ),

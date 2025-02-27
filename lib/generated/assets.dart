@@ -22,7 +22,7 @@ class Assets {
   static const String fontsDINNextLTArabicRegular = 'assets/fonts/DINNextLTArabic-Regular.ttf';
   static const String homeActiveLoan = 'assets/images/home/active_loan.png';
   static const String homeAlert = 'assets/images/home/alert.png';
-  static const String homeAmount = 'assets/images/home/amount.gif';
+  static const String homeAmount = 'assets/images/home/amount.png';
   static const String homeCall = 'assets/images/home/call.png';
   static const String homeClock = 'assets/images/home/clock.png';
   static const String homeHome = 'assets/images/home/home.png';
@@ -52,6 +52,7 @@ class Assets {
   static const String imagesPlaceholder = 'assets/images/placeholder.png';
   static const String imagesSplash = 'assets/images/splash.gif';
   static const String loanAmountBackground = 'assets/images/loan/amount_background.png';
+  static const String loanCheckout = 'assets/images/loan/checkout.png';
   static const String loanDamen = 'assets/images/loan/damen.png';
   static const String loanEmptyLoan = 'assets/images/loan/empty_loan.png';
   static const String loanFawry = 'assets/images/loan/fawry.png';
@@ -59,6 +60,7 @@ class Assets {
   static const String loanMasry = 'assets/images/loan/masry.png';
   static const String loanNoLoan = 'assets/images/loan/no_loan.png';
   static const String loanOpay = 'assets/images/loan/opay.png';
+  static const String loanSuccess = 'assets/images/loan/success.png';
   static const String moreEmptyAccount = 'assets/images/more/empty_account.png';
   static const String moreEmptyData = 'assets/images/more/empty_data.gif';
   static const String moreEmptyOffer = 'assets/images/more/empty_offer.gif';

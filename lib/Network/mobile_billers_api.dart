@@ -2,7 +2,8 @@ import 'package:Tanmeyah/Models/Bill_Inquiry_Response.dart';
 import 'package:Tanmeyah/Models/biller_services_response.dart';
 import 'package:Tanmeyah/Models/get_all_services_response.dart';
 import 'package:Tanmeyah/Models/mobile_biller_response.dart';
-
+import 'package:Tanmeyah/Utilities/general_toast.dart';
+import 'package:flutter/cupertino.dart';
 import '../Models/services_model.dart';
 import 'api.dart';
 import 'network_methods.dart';
@@ -61,13 +62,13 @@ class BillersApi{
   }
 
 
-  static Future<BillInquiryResponse?> getBillInquiry({required phoneNumber,required billerId,required billTypeCode,required paymentType}) async {
+  static Future<BillInquiryResponse?> getBillInquiry({required BuildContext context,required phoneNumber,required billerId,required billTypeCode,required paymentType,required inquiryNumber}) async {
     var response = await NetworkMethods.postRequestAsRow(
       url: API.getBillInquiry,
       body: {
         "billTypeCode" : billTypeCode,
         "billerId" : billerId,
-        "billingAcct" : "01010305838",
+        "billingAcct" : inquiryNumber,
         "incOpenAmt" : true,
         "paymentType" : paymentType,
         "userPhoneNumber" : phoneNumber
@@ -77,7 +78,8 @@ class BillersApi{
     if (response["isSuccess"] == true) {
       return BillInquiryResponse.fromJson(response);
     } else {
-      return null;
+       ToastHelper.showError(context,message: response["message"]);
+       return null;
     }
   }
 

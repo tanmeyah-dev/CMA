@@ -4,7 +4,6 @@ import 'package:Tanmeyah/Models/request_loan_response.dart';
 class SubmitLoanResponse {
   RequestLoanModel? requestLoanModel;
   List<BranchModel>? branches;
-  bool? isCapital;
   bool? isSuccess;
   String? code;
   String? message;
@@ -12,7 +11,6 @@ class SubmitLoanResponse {
   SubmitLoanResponse(
       {this.requestLoanModel,
         this.branches,
-        this.isCapital,
         this.isSuccess,
         this.code,
         this.message});
@@ -27,7 +25,6 @@ class SubmitLoanResponse {
         branches!.add(BranchModel.fromJson(v));
       });
     }
-    isCapital = json['isCapital'];
     isSuccess = json['isSuccess'];
     code = json['code'];
     message = json['message'];
@@ -41,7 +38,6 @@ class SubmitLoanResponse {
     if (branches != null) {
       data['branches'] = branches!.map((v) => v.toJson()).toList();
     }
-    data['isCapital'] = isCapital;
     data['isSuccess'] = isSuccess;
     data['code'] = code;
     data['message'] = message;

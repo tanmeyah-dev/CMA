@@ -74,40 +74,40 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                         ),
                     ),
                     SizedBox(height: 8.h,),
-                    GestureDetector(
-                        onTap: (){
-                          Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
-                        },
-                        child:Container(
-                          width: 382.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.sp),
-                              color: Color(0xFFF6F6F6)
-                          ),
-                          padding: EdgeInsets.all(20.w),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(8.w),
-                                decoration: BoxDecoration(
-                                  color: ThemeClass.whiteColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(6.sp),),
-                                ),
-                                child: Icon(Iconsax.receipt_item5,size: 48.sp,color: ThemeClass.profileContainer,),
-                              ),
-                              SizedBox(width: 20.w,),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppTextBold(title: "billing_services".tr,color: ThemeClass.secondaryColor,),
-                                  AppTextRegular(title: "billing_services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                    )
+                    // GestureDetector(
+                    //     onTap: (){
+                    //       Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
+                    //     },
+                    //     child:Container(
+                    //       width: 382.w,
+                    //       decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(16.sp),
+                    //           color: Color(0xFFF6F6F6)
+                    //       ),
+                    //       padding: EdgeInsets.all(20.w),
+                    //       child: Row(
+                    //         children: [
+                    //           Container(
+                    //             padding: EdgeInsets.all(8.w),
+                    //             decoration: BoxDecoration(
+                    //               color: ThemeClass.whiteColor,
+                    //               borderRadius: BorderRadius.all(Radius.circular(6.sp),),
+                    //             ),
+                    //             child: Icon(Iconsax.receipt_item5,size: 48.sp,color: ThemeClass.profileContainer,),
+                    //           ),
+                    //           SizedBox(width: 20.w,),
+                    //           Column(
+                    //             mainAxisAlignment: MainAxisAlignment.start,
+                    //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //             children: [
+                    //               AppTextBold(title: "billing_services".tr,color: ThemeClass.secondaryColor,),
+                    //               AppTextRegular(title: "billing_services_des".tr,fontSize: 16.sp,fontWeight: FontWeight.w300,)
+                    //             ],
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ),
+                    // )
                   ],
                 ),
               ),

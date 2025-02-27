@@ -64,5 +64,6 @@ class ThemeClass {
   static Color profileBackground = const Color(0xFFE5F3FF);
   static Color profileContainer = const Color(0xFF067EDA);
   static Color backgroundBackButton = const Color(0xFFEBEBEB);
+  static Color selectBackground = const Color(0xFFE9F3FC);
   static Color backgroundAppBar = Colors.transparent;
 }

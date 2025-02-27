@@ -18,7 +18,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../Billers/service_billers/service_billers_screen.dart';
 import '../../Billers/service_types/all_service_types_screen.dart';
-import '../request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import 'home_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -213,7 +212,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     ),)
                                 ],
                               )
-                                :  (con.homeResponse?.branches == null || con.homeResponse!.branches!.isEmpty) ? Container(
+                                : Container(
                         width: 328.w,
                         // height: 200.h,
                         decoration: BoxDecoration(
@@ -235,7 +234,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                               width: 130.w,
                               child: AppTextRegular(
                                 title: con.homeResponse?.message??"",
-                                color: ThemeClass.whiteColor,
+                                color: ThemeClass.blackColor,
                                 textAlign: TextAlign.start,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16.sp,
@@ -249,151 +248,80 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                             ),
                           ],
                         ),
-                      ) : Container(
-                        width: 328.w,
-                        // height: 200.h,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(24.w),
-                          // color: ThemeClass.primaryColor,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 16.h),
-                        margin: EdgeInsets.symmetric(horizontal: 10.w),
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width : 120.w,
-                                  child: AppTextRegular(
-                                    title: """اطلب
-تمويل مشروعك
-بكل سهولة
-                                    """,
-                                    color: ThemeClass.whiteColor,
-                                    textAlign: TextAlign.start,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18.sp,
-                                  ),
-                                ),
-                                CustomButton(
-                                    width: 130,
-                                    edgeInsets:
-                                    EdgeInsets.symmetric(
-                                        vertical: 6.h,
-                                        horizontal: 17.w),
-                                    fontSize: 20.sp,
-                                    backgroundColor:
-                                    ThemeClass.whiteColor,
-                                    textColor:
-                                    ThemeClass.primaryColor,
-                                    title: "ask_loan".tr,
-                                    fontWeight: FontWeight.bold,
-                                    onTap: () async {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
-                                          name: 'open_nearest_branches',
-                                          parameters: <String,dynamic>{
-                                            "title" :"open_nearest_branches"
-                                          }
-                                      );
-                                      Navigator.pushNamed(
-                                          context,
-                                          LoanRequestOutOfCairoScreen
-                                              .routeName,arguments: con.homeResponse!.branches);
-                                    }
-                                ),
-                              ],
-                            ),
-                            Image.asset(
-                              AppAssets.IMG_HOME,
-                              width: 130.w,
-                              height: 130.h,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ],
-                        ),
                       ) : ActiveLoanWidget(con: con,),
                     SizedBox(
                       height: 16.h,
                     ),
-                    (con.homeResponse?.serviceTypes != null &&
-                        con.homeResponse!.serviceTypes?.length != 0) ?
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppTextMedium(title: "billing_services".tr,color: ThemeClass.blackColor,fontWeight: FontWeight.w400,fontSize: 24.sp,),
-                              GestureDetector(
-                                onTap:(){
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
-                              name: 'request_view_all_offers',
-                              parameters: <String,dynamic>{
-                              "title" :"request_view_all_offers"
-                              }
-                              );
-                              Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
-                                },
-                                child:   Row(
-                                  children: [
-                                    AppTextMedium(title: "all_services".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
-                                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,size: 16.sp,)
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          (con.homeResponse?.serviceTypes != null &&
-                              con.homeResponse!.serviceTypes?.length != 0) ?
-                          SizedBox(
-                          height: 125.h,
-                          child:  ListView.separated(itemBuilder:(_,index){
-                            return GestureDetector(
-                              onTap: (){
-                                if( SharedPref.getUserObg() != null) {
-                                  Navigator.pushNamed(context, ServiceBillersScreen.routeName,
-                                      arguments: [con.homeResponse?.serviceTypes?[index].serviceTypeName,con.homeResponse?.serviceTypes?[index].id]);
-                                } else {
-                                  AnimatedAlertDialog(
-                                      context, ServicesAlert(
-                                      onLoginTaped:
-                                          () {
-                                        Navigator.of(context).pushNamedAndRemoveUntil(
-                                            '/loginScreen', (Route<dynamic> route) => false,arguments: "");
-                                      }));
-                                }
-                              },
-                              child:  BillWidget(imageURL: con.homeResponse!.serviceTypes![index].logoUrl, title: con.homeResponse!.serviceTypes![index].serviceTypeName!),
-                            );
-                          } ,
-                            itemCount: con.homeResponse!.serviceTypes!.length,
-                            scrollDirection: Axis.horizontal, separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(width: 14.w,);
-                            } ,
-
-                          ),
-                        ) : Container()
-                        ],
-                      ),
-                    ) : Container(),
+                    // (con.homeResponse?.serviceTypes != null &&
+                    //     con.homeResponse!.serviceTypes?.length != 0) ?
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    //   child: Column(
+                    //     children: [
+                    //       Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           AppTextMedium(title: "billing_services".tr,color: ThemeClass.blackColor,fontWeight: FontWeight.w400,fontSize: 24.sp,),
+                    //           GestureDetector(
+                    //             onTap:(){
+                    //           final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                    //           _analytics.logEvent(
+                    //           name: 'request_view_all_offers',
+                    //           parameters: <String,dynamic>{
+                    //           "title" :"request_view_all_offers"
+                    //           }
+                    //           );
+                    //           Navigator.pushNamed(context, AllServiceTypesScreen.routeName);
+                    //             },
+                    //             child:   Row(
+                    //               children: [
+                    //                 AppTextMedium(title: "all_services".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
+                    //                 Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,size: 16.sp,)
+                    //               ],
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ),
+                    //       SizedBox(
+                    //         height: 16.h,
+                    //       ),
+                    //       (con.homeResponse?.serviceTypes != null &&
+                    //           con.homeResponse!.serviceTypes?.length != 0) ?
+                    //       SizedBox(
+                    //       height: 125.h,
+                    //       child:  ListView.separated(itemBuilder:(_,index){
+                    //         return GestureDetector(
+                    //           onTap: (){
+                    //             if( SharedPref.getUserObg() != null) {
+                    //               Navigator.pushNamed(context, ServiceBillersScreen.routeName,
+                    //                   arguments: [con.homeResponse?.serviceTypes?[index].serviceTypeName,con.homeResponse?.serviceTypes?[index].id]);
+                    //             } else {
+                    //               AnimatedAlertDialog(
+                    //                   context, ServicesAlert(
+                    //                   onLoginTaped:
+                    //                       () {
+                    //                     Navigator.of(context).pushNamedAndRemoveUntil(
+                    //                         '/loginScreen', (Route<dynamic> route) => false,arguments: "");
+                    //                   }));
+                    //             }
+                    //           },
+                    //           child:  BillWidget(imageURL: con.homeResponse!.serviceTypes![index].logoUrl, title: con.homeResponse!.serviceTypes![index].serviceTypeName!),
+                    //         );
+                    //       } ,
+                    //         itemCount: con.homeResponse!.serviceTypes!.length,
+                    //         scrollDirection: Axis.horizontal, separatorBuilder: (BuildContext context, int index) {
+                    //         return SizedBox(width: 14.w,);
+                    //         } ,
+                    //
+                    //       ),
+                    //     ) : Container()
+                    //     ],
+                    //   ),
+                    // ) : Container(),
                     (con.homeResponse?.offers != null &&
                         con.homeResponse!.offers.length != 0) ? OffersWidget(con: con) : Container(),
-                    (con.homeResponse?.products != null &&
-                        con.homeResponse!.products.isNotEmpty) ? ProductsWidget(con: con,) : Container(),
+                    // (con.homeResponse?.products != null &&
+                    //     con.homeResponse!.products.isNotEmpty) ? ProductsWidget(con: con,) : Container(),
                     SizedBox(
                       height: 80.h,
                     )

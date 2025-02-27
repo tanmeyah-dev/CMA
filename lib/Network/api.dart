@@ -23,7 +23,7 @@ class API{
   static const String servicesDetail = "Product/Details";
   static const String offer = "Offer";
   static const String offerDetail = "Offer/Details";
-  static const String branches = "Branch/Branches";
+  static const String branches = "Location/Branches";
   static const String paidInstallment = "Loan/paid-installments";
   static const String previousLoan = "Loan/GetHistoricalData";
   static const String dueInstallment = "Loan/due-Installment";
@@ -36,4 +36,8 @@ class API{
   static const String getBillInquiry = "BillPayment/get-bill-inquiry";
   static const String excuteDailyJob = "BillPayment/execute-daily-job";
   static const String getServiceType = "BillPayment/get-service-types";
+  static const String getGovernorates = "Location/Governorates";
+  static const String getCites = "Location/Governorates";
+  static const String getBranchWithCites = "Location/BranchesByGovernorateId";
+  static const String getLoanProducts = "Product/LoanRequestProducts";
 }

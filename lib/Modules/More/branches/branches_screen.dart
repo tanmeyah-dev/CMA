@@ -57,7 +57,7 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
           loading: con.loading,
           child: Column(children: [
             SizedBox(
-              height: 18.h,
+              height: 14.h,
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -103,9 +103,9 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 8.h,),
             SizedBox(
-              height: 750.h,
+              height: 730.h,
               child: (con.branchList != null && con.branchList.isNotEmpty)
                   ? SmartRefresher(
                       enablePullDown: true,

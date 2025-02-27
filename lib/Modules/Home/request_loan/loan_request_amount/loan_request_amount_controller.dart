@@ -2,6 +2,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:Tanmeyah/Models/loan_products_response.dart';
 import 'package:Tanmeyah/Models/request_loan_response.dart';
 import 'package:Tanmeyah/Models/submit_loan_response.dart';
 import 'package:Tanmeyah/Network/request_loan_api.dart';
@@ -9,16 +10,11 @@ import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:intl/intl.dart';
-import '../../../../Utilities/general_toast.dart';
+import '../../../../Network/loan_products_api.dart';
 import '../../../../Widgets/alert_for_location.dart';
-import '../../../../Widgets/animated_alert.dart';
-import '../../../../Widgets/location_alert.dart';
-import '../loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
-import '../loan_request_success/loan_request_success_screen.dart';
 import 'package:geolocator/geolocator.dart';
 // import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as permsion;
-import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 import 'package:url_launcher/url_launcher.dart';
@@ -36,12 +32,18 @@ class LoanRequestAmountController extends ControllerMVC {
 
   bool loading = false,
       autoValidate = false,
-      activeBtn = false;
+      activeBtn = false,
+      accept = false,
+      accept2 = false;
 
   String? currentLatitude, currentLongitude;
 
   Position? currentPosition;
 
+  LoanProductsResponse? loanProductsResponse;
+
+  int? selectedValue;
+  String? selectedTitle;
   // LocationData? locationData;
 
 
@@ -52,12 +54,15 @@ class LoanRequestAmountController extends ControllerMVC {
   @override
   void initState() {
     loanAmount = TextEditingController();
+    getLoanProducts();
     super.initState();
   }
 
   @override
   void dispose() {
     loanAmount.dispose();
+    accept = false;
+    accept2 = false;
     super.dispose();
   }
 
@@ -144,6 +149,15 @@ class LoanRequestAmountController extends ControllerMVC {
  }
 
 
+  Future getLoanProducts() async {
+    loading = true;
+    setState(() {});
+    loanProductsResponse = await LoanProductsApi.getLoanProducts();
+    loading = false;
+    setState(() {});
+  }
+
+
  applyForLoan(BuildContext context) async{
    final now = DateTime.now();
    String formatter = DateFormat('yyyy-MM-dd').format(now);
@@ -160,32 +174,12 @@ class LoanRequestAmountController extends ControllerMVC {
    setState(() {
      loading = true;
    });
-   SubmitLoanResponse? result = await RequestLoanApi.requestLoan(
-       context, requestLoanModel: requestLoanModel);
+   // SubmitLoanResponse? result = await RequestLoanApi.requestLoan(
+   //     context, requestLoanModel: requestLoanModel);
    setState(() {
      loading = false;
    });
-   if (result?.isCapital == true) {
-     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-     _analytics.logEvent(
-         name: 'loan_submitted_from_cairo_successfully',
-         parameters: <String,dynamic>{
-           "title" :"loan_submitted_from_cairo_successfully"
-         }
-     );
-     Navigator.pushNamed(context, LoanSuccessRequestScreen.routeName);
-   } else if (result?.isCapital == false) {
-     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-     _analytics.logEvent(
-         name: 'loan_submitted_out_of_cairo_successfully',
-         parameters: <String,dynamic>{
-           "title" :"loan_submitted_out_of_cairo_successfully"
-         }
-     );
-     Navigator.pushNamed(context, LoanRequestOutOfCairoScreen.routeName,
-         arguments: result?.branches);
-   }
-
+   // Navigator.pushNamed(context, CheckoutSc.routeName);
  }
 
 }

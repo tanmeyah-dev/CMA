@@ -433,11 +433,11 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     Image.asset(
                         AppAssets.IMG_NO_LOAN,
                         fit: BoxFit.fill,
-                        width: double.infinity,
-                        height: 400.h,
+                        width: 320.w,
+                        height: 320.h,
                     ),
-                    SizedBox(height: 20.h,),
-                    AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,),
+                    SizedBox(height: 40.h,),
+                    AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
                     SizedBox(height: 170.h,),
                     (con.activeLoanModel?.havePreviousLoan != null) ?
                     Align(

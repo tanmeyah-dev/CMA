@@ -5,8 +5,9 @@ import 'package:Tanmeyah/Modules/Authentication/Conditions/conditions_screen.dar
 import 'package:Tanmeyah/Modules/Authentication/Register/registeration_error.dart';
 import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_screen.dart';
 import 'package:Tanmeyah/Modules/Billers/checkout/checkout_screen.dart';
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_screen.dart';
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_city/loan_city_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
-import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Modules/More/about_us/about_us_screen.dart';
 import 'package:Tanmeyah/Modules/More/branches/branches_screen.dart';
@@ -81,6 +82,14 @@ class AppModule extends Module {
     defaultRoute(
         routeName: LoanRequestAmountScreen.routeName,
         child: const LoanRequestAmountScreen()),
+    ChildRoute(LoanCityScreen.routeName,
+        child: (_, args) =>  LoanCityScreen(loanCheckoutModel: args.data,),
+        transition: TransitionType.downToUp,
+        duration: const Duration(milliseconds: 300)),
+    ChildRoute(LoanCheckoutScreen.routeName,
+        child: (_, args) =>  LoanCheckoutScreen(loanCheckoutModel: args.data,),
+        transition: TransitionType.downToUp,
+        duration: const Duration(milliseconds: 300)),
     defaultRoute(
         routeName: MainOffersScreen.routeName, child: const MainOffersScreen()),
     defaultRoute(
@@ -94,10 +103,6 @@ class AppModule extends Module {
         duration: const Duration(milliseconds: 300)),
     ChildRoute(PaymentMethodsScreen.routeName,
         child: (_, args) =>  PaymentMethodsScreen(amount: args.data,),
-        transition: TransitionType.downToUp,
-        duration: const Duration(milliseconds: 300)),
-    ChildRoute(LoanRequestOutOfCairoScreen.routeName,
-        child: (_, args) => LoanRequestOutOfCairoScreen(branches: args.data,),
         transition: TransitionType.downToUp,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(AllServiceTypesScreen.routeName,

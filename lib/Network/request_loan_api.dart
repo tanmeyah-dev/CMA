@@ -2,6 +2,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:Tanmeyah/Models/due_installment_response.dart';
+import 'package:Tanmeyah/Models/loan_checkout_model.dart';
+import 'package:Tanmeyah/Models/loan_checkout_response.dart';
 import 'package:Tanmeyah/Models/previous_loan_model.dart';
 import 'package:Tanmeyah/Models/request_loan_response.dart';
 import 'package:Tanmeyah/Models/services_model.dart';
@@ -14,16 +16,16 @@ import '../Utilities/general_toast.dart';
 import 'api.dart';
 
 class RequestLoanApi {
-  static Future<SubmitLoanResponse?> requestLoan(
-      BuildContext context,{required RequestLoanModel requestLoanModel}) async {
+  static Future<LoanCheckoutResponse?> loanCheckout(
+      BuildContext context,{LoanCheckoutModel? loanCheckoutModel}) async {
     var response = await NetworkMethods.postRequestAsRow(
       url: API.requestLoan,
-      body: requestLoanModel.toJson(),
+      body: loanCheckoutModel!.toJson(),
     );
     if (response == null) return null;
     if (response["isSuccess"] == true) {
       ToastHelper.showSuccess(context , message: response["message"]);
-      return SubmitLoanResponse.fromJson(response);
+      return LoanCheckoutResponse.fromJson(response);
     } else {
       ToastHelper.showError(context,message: response["message"]);
       return null;

@@ -23,21 +23,19 @@ class HomeResponse {
     required this.isSuccess,
     this.code,
     this.message,
-    this.serviceTypes,
     required this.canRequestLoan,
-    this.branches,
+    // this.branchModel,
     this.waitingMessage,
   });
 
   LoanRequestModel? loanRequest;
   List<OfferModel> offers;
   List<ServiceDetailModel> products;
-  List<BranchModel>? branches;
   String? waitingMessage;
-  List<ServiceType>? serviceTypes;
   bool activeCustomer;
   bool isSuccess;
   bool canRequestLoan;
+  BranchModel? branchModel;
   String? code;
   String? message;
 
@@ -46,12 +44,11 @@ class HomeResponse {
         offers: List<OfferModel>.from(json["offers"].map((x) => OfferModel.fromJson(x))),
         products: List<ServiceDetailModel>.from(
             json["products"].map((x) => ServiceDetailModel.fromJson(x))),
-        branches: List<BranchModel>.from(json["branches"].map((x) => BranchModel.fromJson(x))),
-        serviceTypes: List<ServiceType>.from(json["serviceTypes"].map((x) => ServiceType.fromJson(x))),
         activeCustomer: json["activeCustomer"],
         isSuccess: json["isSuccess"],
         code: json["code"],
         waitingMessage: json["waitingMessage"],
+        // branchModel: json["loanRequestBranch"] != null ? json["loanRequestBranch"] : null,
         message: json["message"],
         canRequestLoan: json["canRequestLoan"],
       );
@@ -62,6 +59,7 @@ class HomeResponse {
         "products": List<dynamic>.from(products.map((x) => x.toJson())),
         "activeCustomer": activeCustomer,
         "isSuccess": isSuccess,
+        // "loanRequestBranch": branchModel,
         "code": code,
         "message": message,
         "canRequestLoan" : canRequestLoan,

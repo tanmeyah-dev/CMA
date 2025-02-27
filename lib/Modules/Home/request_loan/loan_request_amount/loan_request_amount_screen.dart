@@ -1,4 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
+import 'package:Tanmeyah/Models/loan_checkout_model.dart';
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_screen.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
@@ -15,6 +17,8 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/Validator.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
+import '../../../Billers/checkout/checkout_screen.dart';
+import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -46,6 +50,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   //   con.getCurrentPosition(context);
   //   super.didUpdateWidget(oldWidget);
   // }
+
+  int? _selectedIndex;
 
   @override
   void initState() {
@@ -97,206 +103,166 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
           },
           child: SafeArea(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
               color: ThemeClass.whiteColor,
-              child: SingleChildScrollView(
+              child:  Form(
+                key: con.formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Form(
-                      key: con.formKey,
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            AppAssets.IMG_AMOUNT,
-                            width: 366.w,
-                            height: 320.h,
-                          ),
-
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.w),
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(text: "أقل قيمة للتمويل هي ",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 16.sp)),
-                              TextSpan(text: "ألف ", style:  TextStyle(fontWeight: FontWeight.bold,color: ThemeClass.primaryColor,fontSize: 16.sp,fontFamily: "DINNextLTArabic-Regular")),
-                              TextSpan(text: "جنيه مصري وأقصى قيمة للتمويل هي",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 16.sp)),
-                              TextSpan(text: " ٢٢٠ ألف ", style:  TextStyle(fontWeight: FontWeight.bold,color: ThemeClass.primaryColor,fontSize: 16.sp,fontFamily: "DINNextLTArabic-Regular")),
-                              TextSpan(text: "جنيه مصري",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 16.sp)),
-                            ],
+                    Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.IMG_AMOUNT,
+                          width: 366.w,
+                          height: 320.h,
+                        ),
+                    SizedBox(
+                          height: 16.h,
+                        ),
+                    Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: "أقل قيمة للتمويل هي ",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 18.sp)),
+                                TextSpan(text: "٥٠٠٠ ", style:  TextStyle(fontWeight: FontWeight.bold,color: ThemeClass.primaryColor,fontSize: 18.sp,fontFamily: "DINNextLTArabic-Regular",)),
+                                TextSpan(text: "جنيه مصري وأقصى قيمة للتمويل هي",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 18.sp)),
+                                TextSpan(text: " ٢٤٢ ألف ", style:  TextStyle(fontWeight: FontWeight.bold,color: ThemeClass.primaryColor,fontSize: 18.sp,fontFamily: "DINNextLTArabic-Regular")),
+                                TextSpan(text: "جنيه مصري",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 18.sp)),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          Align(
-                              alignment: AlignmentDirectional.centerStart,
-                              child: AppTextRegular(title: "loan_amount".tr)),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CustomTextFieldWidget(
-                                width: 215.w,
-                                height: 56.h,
-                                hint: "loan_amount".tr,
-                                onchange: (value) {
-                                  if (value.length < 4) {
-                                    con.activeBtn = false;
-                                    setState(() {});
-                                  } else {
-                                    con.activeBtn = true;
-                                    setState(() {});
-                                  }
-                                },
-                                textInputType: TextInputType.phone,
-                                controller: con.loanAmount,
-                                formatter: [
-                                  LengthLimitingTextInputFormatter(6),
-                                ],
-                                validator: (value) {
-                                  var regExp = RegExp("^[0-9]");
-                                  if(!regExp.hasMatch(value!)) {
-                                    return "يجب ادخال ارقام فقط";
-                                  }
-                                },
-                                //    var phoneRegExp = RegExp(r'^0|1[0125][0-9]{8}$');
-                                // validator: (value) {
-                                //   var phoneRegExp =
-                                //       RegExp(r'^0|1[0125][0-9]{8}$');
-                                //   if (!phoneRegExp.hasMatch(value!)) {
-                                //     return "ادخل الرقم صحيح";
-                                //   }
-                                //   // Validator.validatePhone(context, value!)
-                                // },
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Container(
-                                width: 89.w,
-                                height: 46.h,
+                    SizedBox(height: 30.h,),
+                    (con.loanProductsResponse?.loanRequestProducts != null && con.loanProductsResponse!.loanRequestProducts!.isNotEmpty)?
+                    SizedBox(height: 250.h,
+                        child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: con.loanProductsResponse?.loanRequestProducts?.length,
+                    itemBuilder: (context, index) {
+                    return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (_selectedIndex == index) {
+                          _selectedIndex = null;
+                        } else {
+                          _selectedIndex = index;
+                          con.selectedValue =  con.loanProductsResponse!.loanRequestProducts![index].id;
+                          con.selectedTitle = con.loanProductsResponse!.loanRequestProducts![index].name;
+                        }
+                      });
+                    },
+                    child: Container(
+                    margin: EdgeInsets.all(8.r),
+                    padding: EdgeInsets.all(16.r),
+                    decoration: BoxDecoration(
+                            color: _selectedIndex == index ? ThemeClass.selectBackground : ThemeClass.whiteColor,
+                            borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Row(
+                    children: [
+                    SizedBox(width: 16.w),
+                      Container(
+                        padding: EdgeInsets.all(1.w),
+                        width: 24.w,
+                        height: 24.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: con.accept ? ThemeClass.profileContainer : Colors.grey, // border color
+                            width: 2.w,),),
+                        child: _selectedIndex == index ?
+                        Container(
                                 decoration: BoxDecoration(
-                                  color: ThemeClass.textfieldColor,
-                                  borderRadius: BorderRadius.circular(10.w),
-                                  border: Border.all(color: Colors.transparent),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ThemeClass.secondaryMediumColor,
-                                      spreadRadius: 0,
-                                      blurRadius: 0,
-                                      offset: const Offset(
-                                          -0.0, 2), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      AppAssets.IMG_FLAG,
-                                      width: 24.w,
-                                      height: 16.h,
-                                    ),
-                                    SizedBox(
-                                      width: 6.w,
-                                    ),
-                                    AppTextMedium(
-                                      title: "ج م",
-                                      color: ThemeClass.fontColor,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+                                shape: BoxShape.circle,
+                                  color: ThemeClass.profileContainer,),) : null,),
+                        SizedBox(width: 5.w,),
+                        AppTextRegular(title: con.loanProductsResponse!.loanRequestProducts![index].name??"",color: _selectedIndex == index ?ThemeClass.profileContainer : ThemeClass.blackColor,fontWeight: _selectedIndex == index ? FontWeight.w700 : FontWeight.w400,),
+                    ],
+                    ),
+                    ));}),) : Container(),
+                    SizedBox(height: 30.h,),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _selectedIndex != null
+                          ? Column(
+                        children: [
+                          CustomButton(
+                            width: 385.w,
+                            title: "next".tr,
+                            onTap: () {
+                              print("SELECTED " + con.selectedValue.toString());
+                              if (con.currentPosition == null) {
+                                con.checkLocation(
+                                    context: context,
+                                    isInitLocation: true);
+                              } else {
+                                LoanCheckoutModel? loanCheckoutModel = LoanCheckoutModel();
+                                loanCheckoutModel.latitude = con.currentPosition?.latitude.toString();
+                                loanCheckoutModel.longitude = con.currentPosition?.longitude.toString();
+                                loanCheckoutModel.amount = con.selectedValue;
+                                loanCheckoutModel.branchTitle = con.selectedTitle;
+                                Navigator.pushNamed(context, LoanCityScreen.routeName,arguments: loanCheckoutModel);
+                                // con.applyForLoan(context);
+                              }
+                            },
+                            color: ThemeClass.textFieldBackgroundColor,
+                            borderColor:
+                            ThemeClass.textFieldBackgroundColor,
+                            textColor: ThemeClass.whiteColor,
+                            backgroundColor:
+                            ThemeClass.primaryColor,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                        ],
+                      )
+                          : Column(
+                        children: [
+                          CustomButton(
+                            width: 385.w,
+                            title: "next".tr,
+                            backgroundColor:
+                            ThemeClass.buttonNotActiveColor,
+                            borderColor: ThemeClass.buttonNotActiveColor,
+                            onTap: () {
+                              if (con.formKey.currentState!.validate()) {
+                                if (con.loanAmount.text.isNotEmpty &&
+                                    con.loanAmount.text.length > 3) {
+                                  if (con.currentPosition == null) {
+                                    con.checkLocation(
+                                        context: context,
+                                        isInitLocation: true);
+                                  } else {
+                                    con.applyForLoan(context);
+                                  }
+                                } else {
+                                  ToastHelper.showError(context,
+                                      message: "enter_amount".tr);
+                                }
+                              } else {
+                                setState(() {
+                                  con.autoValidate = true;
+                                });
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 16.h,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 90.h,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: con.loanAmount.text.length < 4
-                          ? Column(
-                              children: [
-                                CustomButton(
-                                  width: 216,
-                                  title: "send".tr,
-                                  onTap: () {},
-                                  color: ThemeClass.textFieldBackgroundColor,
-                                  borderColor:
-                                      ThemeClass.textFieldBackgroundColor,
-                                  textColor: ThemeClass.hintColor,
-                                  backgroundColor:
-                                      ThemeClass.buttonNotActiveColor,
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                CustomButton(
-                                  width: 216,
-                                  title: "send".tr,
-                                  backgroundColor:
-                                      ThemeClass.buttonBackgroundColor,
-                                  onTap: () {
-                                    if (con.formKey.currentState!.validate()) {
-                                      if (con.loanAmount.text.isNotEmpty &&
-                                          con.loanAmount.text.length > 3) {
-                                        if (con.currentPosition == null) {
-                                          con.checkLocation(
-                                              context: context,
-                                              isInitLocation: true);
-                                        } else {
-                                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                          _analytics.logEvent(
-                                              name: 'submit_loan_request',
-                                              parameters: <String,dynamic>{
-                                                "title" :"submit_loan_request"
-                                              }
-                                          );
-                                          con.applyForLoan(context);
-                                        }
-                                      } else {
-                                        ToastHelper.showError(context,
-                                            message: "enter_amount".tr);
-                                      }
-                                    } else {
-                                      setState(() {
-                                        con.autoValidate = true;
-                                      });
-                                    }
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                              ],
-                            ),
-                    ),
-                  ],
+                 ],
                 ),
-              ),
+             ] ),
             ),
           ),
         ),
       ),
-    );
+    ),);
   }
 }

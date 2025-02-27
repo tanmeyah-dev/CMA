@@ -70,9 +70,9 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                 key: con.formKey,
                 child: SingleChildScrollView(
                   child: Column(children: [
-                    SizedBox(height: 60.h),
+                    SizedBox(height: 100.h),
                     image(),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20.h),
                     title(),
                     SizedBox(height: 79.h),
                     mobileTxtField(),
@@ -97,8 +97,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
   Widget image() {
     return  Image.asset(
         AppAssets.IMG_VALIDATE_USER,
-        height: 320.h,
-        width: 320.w,
+        height: 350.h,
+        width: 350.w,
         fit: BoxFit.fill,
     );
   }
@@ -121,7 +121,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                   setState(() { });
                 }
               },
-              width: 173.w,
+              width: 250.w,
               controller: con.phoneController,
               hint: "1xxxxxxxxxx",
               textInputType: TextInputType.phone,
@@ -146,7 +146,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
         children: [
              con.activeBtn
                 ? CustomButton(
-                    width: 200,
+                    width: 300,
                     title: "continue".tr,
                     onTap: () async {
                       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -161,7 +161,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                       }
                     },
                   ) : CustomButton(
-              width: 200,
+              width: 300,
               title: "continue".tr,
               onTap: () async {},
               color: ThemeClass.textFieldBackgroundColor,

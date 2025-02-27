@@ -44,7 +44,7 @@ class GetBillInquiryController extends ControllerMVC {
 
   late StreamSubscription? _fawryCallbackResultStream;
   late List<BillItem> chargeItems;
-  late TextEditingController phoneController;
+  late TextEditingController inquiryText;
   final GlobalKey<FormState> formKey = GlobalKey();
   bool active = false;
   late FawryLaunchModel model;
@@ -53,7 +53,7 @@ class GetBillInquiryController extends ControllerMVC {
 
   @override
   void initState() {
-    phoneController = TextEditingController();
+    inquiryText = TextEditingController();
     // BillersApi.excuteDailyJob();
     super.initState();
     initSDKCallback();
@@ -62,7 +62,7 @@ class GetBillInquiryController extends ControllerMVC {
 
   @override
   void dispose() {
-    phoneController.dispose();
+    inquiryText.dispose();
     active = false;
     _fawryCallbackResultStream?.cancel();
     super.dispose();
@@ -127,10 +127,10 @@ class GetBillInquiryController extends ControllerMVC {
   }
 
 
-  Future<BillInquiryResponse?> getBillInquiry() async {
+  Future<BillInquiryResponse?> getBillInquiry(BuildContext context) async {
     loading = true;
     setState(() {});
-    billInquiryResponse = await BillersApi.getBillInquiry(phoneNumber: SharedPref.getUserObg()!.mobileNumber, billerId: billers!.id, billTypeCode: services!.billTypeCode,paymentType: paymentType);
+    billInquiryResponse = await BillersApi.getBillInquiry(phoneNumber: SharedPref.getUserObg()!.mobileNumber, billerId: billers!.id, billTypeCode: services!.billTypeCode,paymentType: paymentType, context: context, inquiryNumber: inquiryText.text);
     loading = false;
     setState(() {
     });
