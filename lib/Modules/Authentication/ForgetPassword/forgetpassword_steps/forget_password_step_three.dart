@@ -24,7 +24,7 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
     return Form(
         key: widget.con.formKey3,
         child: SizedBox(
-          height: 330.h,
+          height: 350.h,
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Expanded(child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -86,7 +86,7 @@ class _LoanCheckoutScreenState extends StateMVC<LoanCheckoutScreen>
                     SizedBox(height: 16.h,),
                     Divider(),
                     SizedBox(height: 16.h,),
-                    info(title: "loan_amount_checkout".tr, data: "من 75000 لـ 242 ألف ج.م",),
+                    info(title: "loan_amount_checkout".tr, data:  widget.loanCheckoutModel.amountTitle??"",),
                     SizedBox(height: 6.h,),
                     info(title: "government".tr, data: widget.loanCheckoutModel.govTitle??"",),
                     SizedBox(height: 6.h,),

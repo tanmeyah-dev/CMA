@@ -438,7 +438,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     ),
                     SizedBox(height: 40.h,),
                     AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
-                    SizedBox(height: 170.h,),
+                    SizedBox(height: 250.h,),
                     (con.activeLoanModel?.havePreviousLoan != null) ?
                     Align(
                         alignment: Alignment.bottomCenter,
@@ -469,7 +469,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                   AppTextMedium(
                       title: "empty_loan".tr,
                     ),
-                  SizedBox(height: 131.h,),
+                  SizedBox(height: 230.h,),
                   CustomButton(
                         width: 216,
                         title: "login".tr,

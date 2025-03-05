@@ -42,12 +42,11 @@ class BranchModel {
   String? nameAr;
   String? nameEn;
   String? address;
-  double? latitude;
-  double? longitude;
-  String? location;
+  dynamic latitude;
+  dynamic longitude;
   int? governorateId;
   String? governorateName;
-  String? distance;
+  dynamic distance;
   String? distanceText;
 
   BranchModel(
@@ -57,7 +56,6 @@ class BranchModel {
         this.address,
         this.latitude,
         this.longitude,
-        this.location,
         this.governorateId,
         this.governorateName,
         this.distance,
@@ -67,15 +65,14 @@ class BranchModel {
   BranchModel.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
     nameAr = json['nameAr'];
-    nameEn = json['nameEn'];
+    nameEn = json['nameEn'] != null ? json['nameEn'] : null;
     address = json['address'];
     latitude = json['latitude'];
     longitude = json['longitude'];
-    location = json['location'];
     governorateId = json['governorateId'];
     governorateName = json['governorateName'];
     distanceText = json['distanceText'];
-    distance =   json['distance'].toString();
+    distance =   json['distance'] ;
   }
 
   Map<String, dynamic> toJson() {
@@ -86,7 +83,6 @@ class BranchModel {
     data['address'] = address;
     data['latitude'] = latitude;
     data['longitude'] = longitude;
-    data['location'] = location;
     data['governorateId'] = governorateId;
     data['governorateName'] = governorateName;
     data['distance'] = distance;

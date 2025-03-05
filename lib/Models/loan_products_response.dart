@@ -2,15 +2,17 @@ class LoanProductsResponse {
   bool? isSuccess;
   String? code;
   String? message;
+  String? title;
   List<LoanRequestProducts>? loanRequestProducts;
 
   LoanProductsResponse(
-      {this.isSuccess, this.code, this.message, this.loanRequestProducts});
+      {this.isSuccess, this.code, this.message, this.loanRequestProducts,this.title});
 
   LoanProductsResponse.fromJson(Map<String, dynamic> json) {
     isSuccess = json['isSuccess'];
     code = json['code'];
     message = json['message'];
+    title = json['title'];
     if (json['loanRequestProducts'] != null) {
       loanRequestProducts = <LoanRequestProducts>[];
       json['loanRequestProducts'].forEach((v) {
@@ -24,6 +26,7 @@ class LoanProductsResponse {
     data['isSuccess'] = this.isSuccess;
     data['code'] = this.code;
     data['message'] = this.message;
+    data['title'] = this.title;
     if (this.loanRequestProducts != null) {
       data['loanRequestProducts'] =
           this.loanRequestProducts!.map((v) => v.toJson()).toList();

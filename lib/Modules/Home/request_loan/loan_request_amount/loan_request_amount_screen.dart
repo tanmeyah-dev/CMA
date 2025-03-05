@@ -122,22 +122,11 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                         ),
                     Padding(
                           padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(text: "أقل قيمة للتمويل هي ",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 18.sp)),
-                                TextSpan(text: "٥٠٠٠ ", style:  TextStyle(fontWeight: FontWeight.bold,color: ThemeClass.primaryColor,fontSize: 18.sp,fontFamily: "DINNextLTArabic-Regular",)),
-                                TextSpan(text: "جنيه مصري وأقصى قيمة للتمويل هي",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 18.sp)),
-                                TextSpan(text: " ٢٤٢ ألف ", style:  TextStyle(fontWeight: FontWeight.bold,color: ThemeClass.primaryColor,fontSize: 18.sp,fontFamily: "DINNextLTArabic-Regular")),
-                                TextSpan(text: "جنيه مصري",style: TextStyle(color: ThemeClass.primaryColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 18.sp)),
-                              ],
-                            ),
-                          ),
+                          child: AppTextMedium(title: con.loanProductsResponse?.title??"",),
                         ),
                     SizedBox(height: 30.h,),
                     (con.loanProductsResponse?.loanRequestProducts != null && con.loanProductsResponse!.loanRequestProducts!.isNotEmpty)?
-                    SizedBox(height: 250.h,
+                    SizedBox(height: 210.h,
                         child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: con.loanProductsResponse?.loanRequestProducts?.length,
@@ -203,6 +192,7 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                 loanCheckoutModel.latitude = con.currentPosition?.latitude.toString();
                                 loanCheckoutModel.longitude = con.currentPosition?.longitude.toString();
                                 loanCheckoutModel.amount = con.selectedValue;
+                                loanCheckoutModel.amountTitle = con.selectedTitle;
                                 loanCheckoutModel.branchTitle = con.selectedTitle;
                                 Navigator.pushNamed(context, LoanCityScreen.routeName,arguments: loanCheckoutModel);
                                 // con.applyForLoan(context);

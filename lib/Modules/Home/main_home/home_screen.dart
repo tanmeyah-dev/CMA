@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously
 import 'dart:math';
+import 'package:Tanmeyah/Modules/Home/main_home/home_status/waitting_loan_widget.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
@@ -212,43 +213,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     ),)
                                 ],
                               )
-                                : Container(
-                        width: 328.w,
-                        // height: 200.h,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(24.w),
-                          // color: ThemeClass.primaryColor,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 16.h),
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              width: 130.w,
-                              child: AppTextRegular(
-                                title: con.homeResponse?.message??"",
-                                color: ThemeClass.blackColor,
-                                textAlign: TextAlign.start,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                            Image.asset(
-                              AppAssets.IMG_CLOCK,
-                              width: 160.w,
-                              height: 160.h,
-                              fit: BoxFit.fill,
-                            ),
-                          ],
-                        ),
-                      ) : ActiveLoanWidget(con: con,),
+                                : WaitingLoanWidget(con: con) : ActiveLoanWidget(con: con,),
                     SizedBox(
                       height: 16.h,
                     ),
@@ -320,8 +285,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                     // ) : Container(),
                     (con.homeResponse?.offers != null &&
                         con.homeResponse!.offers.length != 0) ? OffersWidget(con: con) : Container(),
-                    // (con.homeResponse?.products != null &&
-                    //     con.homeResponse!.products.isNotEmpty) ? ProductsWidget(con: con,) : Container(),
+                    (con.homeResponse?.products != null &&
+                        con.homeResponse!.products.isNotEmpty) ? ProductsWidget(con: con,) : Container(),
                     SizedBox(
                       height: 80.h,
                     )

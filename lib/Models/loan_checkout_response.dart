@@ -7,28 +7,25 @@ class LoanCheckoutResponse {
   String? code;
   String? message;
   LoanRequestModel? loanRequest;
-  List<BranchModel>? branches;
+  BranchModel? loanRequestBranch;
 
   LoanCheckoutResponse(
       {this.isSuccess,
         this.code,
         this.message,
         this.loanRequest,
-        this.branches});
+        this.loanRequestBranch});
 
   LoanCheckoutResponse.fromJson(Map<String, dynamic> json) {
     isSuccess = json['isSuccess'];
     code = json['code'];
     message = json['message'];
+    loanRequestBranch =  json["loanRequestBranch"] != null
+        ? BranchModel.fromJson(json["loanRequestBranch"])
+        : null;
     loanRequest = json['loanRequest'] != null
         ? new LoanRequestModel.fromJson(json['loanRequest'])
         : null;
-    if (json['branches'] != null) {
-      branches = <BranchModel>[];
-      json['branches'].forEach((v) {
-        branches!.add(new BranchModel.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -39,9 +36,7 @@ class LoanCheckoutResponse {
     if (this.loanRequest != null) {
       data['loanRequest'] = this.loanRequest!.toJson();
     }
-    if (this.branches != null) {
-      data['branches'] = this.branches!.map((v) => v.toJson()).toList();
-    }
+    data['loanRequestBranch'] = this.loanRequestBranch;
     return data;
   }
 }

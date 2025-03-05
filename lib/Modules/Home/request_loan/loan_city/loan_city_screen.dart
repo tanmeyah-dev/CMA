@@ -134,7 +134,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                                 : null;
 
                             // Ensure `selectedItem` is not null before accessing properties
-                            if (selectedItem != null && selectedItem.id!.isNotEmpty) {
+                            if (selectedItem != null && selectedItem.id! != null) {
                               con.cityTitle = selectedItem.nameAr; // ✅ Get the name/title safely
                             } else {
                               con.cityTitle = "Unknown"; // Provide a default fallback
@@ -146,7 +146,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                         borderColor: Colors.grey,
                         items:  con.branchList?.map((item) {
                           return DropdownMenuItem<String>(
-                            value: item.id,
+                            value: item.id.toString(),
                             child: Text(item.nameAr??"",
                                 style: TextStyle(fontSize: 16.sp, height: -0.2)),
                           );

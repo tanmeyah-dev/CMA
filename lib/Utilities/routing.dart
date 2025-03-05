@@ -124,7 +124,7 @@ class AppModule extends Module {
     defaultRoute(
         routeName: BranchesScreen.routeName, child: const BranchesScreen()),
     ChildRoute(LoanSuccessRequestScreen.routeName,
-        child: (_, args) => const LoanSuccessRequestScreen(),
+        child: (_, args) => LoanSuccessRequestScreen(loanCheckoutResponse: args.data,),
         transition: TransitionType.downToUp,
         duration: const Duration(milliseconds: 300)),
     ChildRoute(AlreadyPaidScreen.routeName,

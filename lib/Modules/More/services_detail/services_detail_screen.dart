@@ -3,6 +3,7 @@ import 'package:Tanmeyah/Modules/More/services_detail/services_detail_controller
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
+import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -177,8 +178,7 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
                                 con.serviceDetailModel!.info!.length,
                         )
                         : Container(),
-                     SizedBox(height: 20.h,),
-
+                    SizedBox(height: 20.h,),
                   ],
                 ),
               ),

@@ -14,14 +14,11 @@ class LoanCheckoutModel{
   Map<String, dynamic> toJson() {
     return {
       "userId" : userId,
-      "amountTitle": amountTitle,
       "amount": amount,
       "latitude": latitude,
       "longitude": longitude,
       "govId": govId,
-      "govTitle": govTitle,
       "branchId": branchId,
-      "branchTitle": branchTitle,
     };
   }
 }

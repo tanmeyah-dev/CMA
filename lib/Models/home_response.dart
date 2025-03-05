@@ -24,7 +24,7 @@ class HomeResponse {
     this.code,
     this.message,
     required this.canRequestLoan,
-    // this.branchModel,
+    this.branchModel,
     this.waitingMessage,
   });
 
@@ -48,7 +48,7 @@ class HomeResponse {
         isSuccess: json["isSuccess"],
         code: json["code"],
         waitingMessage: json["waitingMessage"],
-        // branchModel: json["loanRequestBranch"] != null ? json["loanRequestBranch"] : null,
+        branchModel: json["loanRequestBranch"] != null ? BranchModel.fromJson(json["loanRequestBranch"]): null,
         message: json["message"],
         canRequestLoan: json["canRequestLoan"],
       );
@@ -59,7 +59,7 @@ class HomeResponse {
         "products": List<dynamic>.from(products.map((x) => x.toJson())),
         "activeCustomer": activeCustomer,
         "isSuccess": isSuccess,
-        // "loanRequestBranch": branchModel,
+        "loanRequestBranch": branchModel,
         "code": code,
         "message": message,
         "canRequestLoan" : canRequestLoan,
@@ -118,13 +118,13 @@ class LoanRequestModel {
       });
 
   LoanRequestModel.fromJson(Map<String, dynamic> json){
-    totalAmount = json['totalAmount'].toDouble();
-    paidAmount = json['paidAmount'].toDouble();
+    totalAmount = json['totalAmount'] != null ?  json['totalAmount'].toDouble() : null;
+    paidAmount = json['totalAmount'] != null ? json['paidAmount'].toDouble() : null;
     nextInstallmentDate = json['nextInstallmentDate'];
     numberOfpaidMonths = json['numberOfpaidMonths'];
     numberOfNotPaidMonths = json['numberOfNotPaidMonths'];
-    totalDueAmount = json['totalDueAmount'].toDouble();
-    dueInstallmentAmount = json['dueInstallmentAmount'].toDouble();
+    totalDueAmount = json['totalAmount'] != null ? json['totalDueAmount'].toDouble(): null;
+    dueInstallmentAmount = json['totalAmount'] != null ? json['dueInstallmentAmount'].toDouble() : null;
     lastPaidInstallmentAmount =  json["lastPaidInstallmentAmount"] != null ? json["lastPaidInstallmentAmount"].toDouble() : null;
     lastPaidInstallmentDate =  json["lastPaidInstallmentDate"];
   }

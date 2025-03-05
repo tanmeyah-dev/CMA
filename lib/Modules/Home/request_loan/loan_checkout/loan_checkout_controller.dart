@@ -66,6 +66,9 @@ class LoanCheckoutController extends ControllerMVC {
     loanCheckoutResponse = await RequestLoanApi.loanCheckout(context, loanCheckoutModel: loanCheckoutModel);
     loading = false;
     setState(() {});
+    if(loanCheckoutResponse?.isSuccess == true){
+      Navigator.pushNamed(context, LoanSuccessRequestScreen.routeName,arguments: loanCheckoutResponse);
+    }
   }
 
 }

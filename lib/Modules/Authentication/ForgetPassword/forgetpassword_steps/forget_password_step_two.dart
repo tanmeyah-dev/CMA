@@ -22,7 +22,7 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
     return Form(
       key: widget.con.formKey2,
       child: SizedBox(
-        height: 330.h,
+        height: 350.h,
         child: Column(
           children: [
             Expanded(child: Column(
