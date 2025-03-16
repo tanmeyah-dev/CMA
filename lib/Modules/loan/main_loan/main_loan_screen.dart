@@ -469,7 +469,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                   AppTextMedium(
                       title: "empty_loan".tr,
                     ),
-                  SizedBox(height: 230.h,),
+                  SizedBox(height: 250.h,),
                   CustomButton(
                         width: 216,
                         title: "login".tr,

@@ -236,9 +236,9 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             children: [
               con.editPhone
                   ? CustomTextFieldWidget(
-                  width: 215.w, hint: con.phone, enable: false)
+                  width: 270.w, hint: con.phone, enable: false)
                   : CustomTextFieldWidget(
-                width: 215.w,
+                width: 270.w,
                 hint: "phone_number".tr,
                 controller: con.numberController,
                 validator: (value) => Validator.validatePhone(context, value!),
