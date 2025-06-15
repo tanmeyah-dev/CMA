@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>primaryColorHex</key>
+    <string>#DB4B44</string> <!-- Set your primary color hex code -->
+    <key>secondaryColorHex</key>
+    <string>#F9E2E1</string> <!-- Set your secondary color hex code -->
+    <key>tertiaryColorHex</key>
+    <string>#000000</string> <!-- Set your tertiary color hex code -->
+    <key>headerColorHex</key>
+    <string>#FFFFFF</string> <!-- Set your header color hex code -->
+</dict>
+</plist>
