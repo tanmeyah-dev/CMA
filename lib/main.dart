@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_city/loan_city_screen.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
+import 'package:Tanmeyah/Modules/More/main_more/more_screen.dart';
 import 'package:Tanmeyah/Utilities/update_app.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';

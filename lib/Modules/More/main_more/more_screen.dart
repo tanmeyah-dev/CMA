@@ -6,6 +6,7 @@ import 'package:Tanmeyah/Modules/Authentication/Terms/terms_screen.dart';
 import 'package:Tanmeyah/Modules/More/about_us/about_us_screen.dart';
 import 'package:Tanmeyah/Modules/More/branches/branches_screen.dart';
 import 'package:Tanmeyah/Modules/More/contact_us/contact_us_screen.dart';
+import 'package:Tanmeyah/Modules/More/faq/faq_screen.dart';
 import 'package:Tanmeyah/Modules/More/main_more/more_controller.dart';
 import 'package:Tanmeyah/Modules/More/main_more/widget/logout_alert.dart';
 import 'package:Tanmeyah/Modules/More/main_more/widget/more_item.dart';
@@ -204,7 +205,16 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                             context, AboutUsScreen.routeName);
                                       }),
                               SizedBox(height: 8.h),
-                            !con.guestMood ?   SizedBox(height: 200.h) : SizedBox(height: 260.h,),
+                              MoreItemWidget(
+                                  image: AppAssets.IMG_MORE_FAQ,
+                                  title: "faq".tr,
+                                  hint: false,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, FAQScreen.routeName);
+                                  }),
+                            SizedBox(height: 8.h),
+                            !con.guestMood ?   SizedBox(height: 140.h) : SizedBox(height: 220.h,),
                           ],
                         ),
                             con.guestMood

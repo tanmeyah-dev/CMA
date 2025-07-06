@@ -145,7 +145,7 @@
   "already_paid" : "الاقساط المسددة",
   "need_to_paid" : "الاقساط المستحقة",
   "installment" : "قسط",
-
+  "start_ask_loan" : "بدأ طلب تمويل",
   "installment_amount" : "مبلغ القسط :",
   "payment_method" :"طريقة السداد :",
   "date_of_pay" : "تاريخ السداد :",
@@ -198,6 +198,7 @@
   "empty_offers" : "ترقبوا أفضل العروض قريباً",
   "deactivate" : "تعطيل الحساب",
   "deactivate_message" : "هل أنت متأكد أنك تريد تعطيل حسابك؟",
+  "faq" : "الأسئله الشائعه - FAQs ",
   "///////////////////// Start Account": "////////////////////////// Start Account",
   "government": "المحافظة",
   "///////////////////// End Account": "////////////////////////// End Account",

@@ -3,6 +3,7 @@ import 'package:Tanmeyah/Models/services_model.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../Network/request_loan_api.dart';
+import '../../../Shared/shared_prefirences.dart';
 
 
 class ServicesDetailController extends ControllerMVC {
@@ -21,6 +22,9 @@ class ServicesDetailController extends ControllerMVC {
   int? serviceId;
   ServiceDetailModel? serviceDetailModel;
 
+  bool? canRequestLoan = false,isLogin = false;
+
+
   @override
   void initState() {
     getServiceDetail();
@@ -30,10 +34,19 @@ class ServicesDetailController extends ControllerMVC {
   @override
   void dispose() {
     isExpanded = false;
+    canRequestLoan = false;
     super.dispose();
   }
 
   Future getServiceDetail() async {
+    print(">>>>>>>><<<<<<< GAMAL IS HERE" + SharedPref.getCanRequestLoan().toString());
+    if(SharedPref.getCanRequestLoan() == true){
+      print("GAMAL IS HERE AND YES ");
+      canRequestLoan = true;
+    }
+    if(SharedPref.getUserObg() != null) {
+      isLogin = true;
+    } else {isLogin = false;}
     loading = true;
     setState(() {
     });

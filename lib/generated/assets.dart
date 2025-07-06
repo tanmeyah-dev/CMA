@@ -66,6 +66,7 @@ class Assets {
   static const String moreEmptyOffer = 'assets/images/more/empty_offer.gif';
   static const String moreItemBranches = 'assets/images/more/more_item/branches.png';
   static const String moreItemContact = 'assets/images/more/more_item/contact.png';
+  static const String moreItemFaq = 'assets/images/more/more_item/faq.png';
   static const String moreItemInfo = 'assets/images/more/more_item/info.png';
   static const String moreItemOffers = 'assets/images/more/more_item/offers.png';
   static const String moreItemPrivacy = 'assets/images/more/more_item/privacy.png';

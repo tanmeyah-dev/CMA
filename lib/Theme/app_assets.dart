@@ -88,6 +88,7 @@ class AppAssets {
   static const IMG_MORE_BRANCHES = "assets/images/more/more_item/branches.png";
   static const IMG_MORE_TERMS = "assets/images/more/more_item/terms.png";
   static const IMG_MORE_PRIVACY = "assets/images/more/more_item/privacy.png";
+  static const IMG_MORE_FAQ = "assets/images/more/more_item/faq.png";
   static const IMG_MORE_ABOUT = "assets/images/more/more_item/info.png";
   static const IMG_CONTACT = "assets/images/contact.png";
   static const IMG_PROFILE = "assets/images/auth/profile.png";

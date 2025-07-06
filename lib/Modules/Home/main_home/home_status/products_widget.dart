@@ -54,7 +54,7 @@ class ProductsWidget extends StatelessWidget {
           child: MasonryGridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: con.homeResponse?.products.length,
+            itemCount: con.homeResponse!.products.length < 4 ? con.homeResponse?.products.length : 4,
             crossAxisCount: 2,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,

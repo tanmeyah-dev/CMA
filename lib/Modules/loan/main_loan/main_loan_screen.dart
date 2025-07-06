@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'dart:ffi';
 
+import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_methods/payment_methods_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_needed/payment_needed_screen.dart';
 import 'package:Tanmeyah/Modules/loan/previous_loans/previous_loan_screen.dart';
@@ -438,7 +439,11 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     ),
                     SizedBox(height: 40.h,),
                     AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
-                    SizedBox(height: 250.h,),
+                    SizedBox(height: 160.h,),
+                    (con.canRequestLoan == true) ? CustomButton(title: "start_ask_loan".tr, onTap: (){
+                      Navigator.pushNamed(context, LoanRequestTermsScreen.routeName);
+                    },fontWeight : FontWeight.w600,width: 318.w,backgroundColor: Color(0xFFF9E2E1), textColor: ThemeClass.primaryColor,borderColor: Colors.transparent,) : Container(),
+                    SizedBox(height: 20.h,),
                     (con.activeLoanModel?.havePreviousLoan != null) ?
                     Align(
                         alignment: Alignment.bottomCenter,
@@ -451,7 +456,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                               }
                           );
                           Navigator.pushNamed(context, PreviousLoanScreen.routeName);
-                        },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
+                        },width: 318.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
                       ): Container()
                   ],
                 ),
@@ -469,7 +474,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                   AppTextMedium(
                       title: "empty_loan".tr,
                     ),
-                  SizedBox(height: 250.h,),
+                  SizedBox(height: 230.h,),
                   CustomButton(
                         width: 216,
                         title: "login".tr,

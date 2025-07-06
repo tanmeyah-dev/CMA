@@ -10,9 +10,13 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../Models/services_model.dart';
 import '../../../Theme/themeclass.dart';
+import '../../../Widgets/animated_alert.dart';
 import '../../../Widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+
+import '../../../Widgets/login_alert_widget.dart';
+import '../../Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 
 
 
@@ -178,6 +182,19 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
                                 con.serviceDetailModel!.info!.length,
                         )
                         : Container(),
+                    SizedBox(height: 20.h,),
+                    (con.canRequestLoan == true) ? Center(
+                      child: CustomButton(title: "ask_loan".tr, onTap: (){
+                        con.isLogin == true ?
+                        Navigator.pushNamed(context, LoanRequestTermsScreen.routeName) : AnimatedAlertDialog(
+                            context, LoginAlert(
+                            onLoginTaped:
+                                () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/loginScreen', (Route<dynamic> route) => false,arguments: "");
+                            }));
+                      },fontWeight : FontWeight.w600,width: 382.w,backgroundColor: ThemeClass.primaryColor, textColor: ThemeClass.whiteColor,borderColor: Colors.transparent,),
+                    ) : Container(),
                     SizedBox(height: 20.h,),
                   ],
                 ),

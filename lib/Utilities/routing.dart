@@ -12,6 +12,7 @@ import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_reque
 import 'package:Tanmeyah/Modules/More/about_us/about_us_screen.dart';
 import 'package:Tanmeyah/Modules/More/branches/branches_screen.dart';
 import 'package:Tanmeyah/Modules/More/contact_us/contact_us_screen.dart';
+import 'package:Tanmeyah/Modules/More/faq/faq_screen.dart';
 import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Modules/More/offer_detail/offer_details_screen.dart';
 import 'package:Tanmeyah/Modules/More/services_detail/services_detail_screen.dart';
@@ -68,6 +69,7 @@ class AppModule extends Module {
         routeName: ForgetPasswordScreen.routeName,
         child: const ForgetPasswordScreen()),
     defaultRoute(routeName: TermsScreen.routeName, child: const TermsScreen()),
+    defaultRoute(routeName: FAQScreen.routeName, child: const FAQScreen()),
     defaultRoute(routeName: HomeScreen.routeName, child: const HomeScreen()),
     defaultRoute(routeName: PreviousLoanScreen.routeName, child: const PreviousLoanScreen()),
     defaultRoute(routeName: NoInternetScreen.routeName, child: const NoInternetScreen()),

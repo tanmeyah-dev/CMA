@@ -40,4 +40,5 @@ class API{
   static const String getCites = "Location/Governorates";
   static const String getBranchWithCites = "Location/BranchesByGovernorateId";
   static const String getLoanProducts = "Product/LoanRequestProducts";
+  static const String getFAQ = "FAQ";
 }

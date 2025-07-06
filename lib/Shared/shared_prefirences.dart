@@ -10,6 +10,7 @@ class SharedPref {
   static const String _alreadyExist = "_alreadyExist";
   static const String latitude = "latitude";
   static const String longitude = "longitude";
+  static const String canRequestLoan = "canRequestLoan";
 
   static Future<bool?> saveToken({required String sessionToken}) async {
     return await SharedObj()
@@ -88,5 +89,12 @@ class SharedPref {
 
   static String? getUserLongitude() {
     return SharedObj().prefs?.getString(longitude);
+  }
+  static Future<void> setCanRequestLoan({required bool value}) async {
+    await SharedObj().prefs?.setBool(canRequestLoan, value);
+  }
+
+  static bool getCanRequestLoan() {
+    return SharedObj().prefs?.getBool(canRequestLoan) ?? false;
   }
 }

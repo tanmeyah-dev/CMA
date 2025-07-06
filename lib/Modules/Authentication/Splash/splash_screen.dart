@@ -70,7 +70,7 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
   }
 
   Future init() async {
-    // SharedPref.logOut();
+    SharedPref.logOut();
     SharedPref.clearLocation();
     Future.delayed(Duration.zero,() {
        con.getCurrentPosition(context);

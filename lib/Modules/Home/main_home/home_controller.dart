@@ -71,6 +71,11 @@ class HomeController extends ControllerMVC {
     homeResponse = await HomeApi.getHomeData(nationalId: userModel?.nationalId ?? "");
     if(SharedPref.getUserObg() != null) {isLogin = true;} else
       {isLogin = false;}
+    print("<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>" + SharedPref.getCanRequestLoan().toString());
+    if(homeResponse?.canRequestLoan == false){
+      await SharedPref.setCanRequestLoan(value: false);
+    } else { await SharedPref.setCanRequestLoan(value: true);};
+    print("<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>" + SharedPref.getCanRequestLoan().toString());
     loading = false;
     setState(() {});
 }

@@ -19,12 +19,18 @@ class MainRequestLoanController extends ControllerMVC {
       autoValidate = false,
       isLogin = true;
 
+  bool? canRequestLoan;
+
   LoanResponse? activeLoanModel;
 
   @override
   void initState() {
     if(SharedPref.getUserObg()?.nationalId != null ) {
       getLoan();
+      if(SharedPref.getCanRequestLoan() == true){
+        canRequestLoan = true;
+        print("GASGASFG");
+      }
     } else {
       isLogin = false;
     }
