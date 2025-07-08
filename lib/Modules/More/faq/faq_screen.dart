@@ -40,38 +40,41 @@ class _FAQScreenState extends StateMVC<FAQScreen> {
       appBar: BaseAppBar.main(
         title: "faq".tr,
       ),
-      body: con.faqResponse?.faqs != null ? ListView.builder(
-        itemCount: con.faqResponse?.faqs?.length,
-        itemBuilder: (context, index) {
-          return Card(
-            color: ThemeClass.termsBackground,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.sp),
-            ),
-            margin:  EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                dividerColor: Colors.transparent, // 👈 This hides the gray border
+      body: LoadingScreen(
+        loading: con.loading,
+        child : con.faqResponse?.faqs != null ? ListView.builder(
+          itemCount: con.faqResponse?.faqs?.length,
+          itemBuilder: (context, index) {
+            return Card(
+              color: ThemeClass.termsBackground,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.sp),
               ),
-              child: ExpansionTile(
-                title: HtmlWidget(
-                  con.faqResponse!.faqs![index].question??"",
+              margin:  EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  dividerColor: Colors.transparent, // 👈 This hides the gray border
                 ),
-                iconColor: Colors.grey[700],
-                collapsedIconColor: Colors.grey[700],
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                    child: HtmlWidget(
-                      con.faqResponse!.faqs![index].answer??"",
-                    ),
+                child: ExpansionTile(
+                  title: HtmlWidget(
+                    con.faqResponse!.faqs![index].question??"",
                   ),
-                ],
+                  iconColor: Colors.grey[700],
+                  collapsedIconColor: Colors.grey[700],
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                      child: HtmlWidget(
+                        con.faqResponse!.faqs![index].answer??"",
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ) ;
-        },
-      ): Container(),
+            ) ;
+          },
+        ): Container(),
+      ),
     );
   }
 }
