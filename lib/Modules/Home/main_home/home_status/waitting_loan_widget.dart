@@ -34,7 +34,7 @@ class WaitingLoanWidget extends StatelessWidget {
           onTap: () {
             openMap(con.homeResponse?.branchModel?.latitude??0.0, con.homeResponse?.branchModel?.longitude??0.0);
           },
-          child :  Container(
+          child : Container(
             width: 400.w,
             decoration: BoxDecoration(
               gradient:  const LinearGradient(

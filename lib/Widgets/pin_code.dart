@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../Theme/themeclass.dart';
@@ -21,6 +22,9 @@ class PinCodeWidget extends StatelessWidget {
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: PinCodeTextField(
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly, // 💡 Only allow digits (0-9)
+          ],
           appContext: context,
           length: length,
           obscureText: false,

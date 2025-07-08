@@ -23,18 +23,19 @@ class Validator {
     }
   }
 
-  static validateEmail(String email) {
+  static String? validateEmail(String email) {
     var emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (email.trim().isEmpty) {
-      return "email_field_is_required".tr;
-    } else if (!emailRegExp.hasMatch(email)) {
+      return null;
+    }
+    if (!emailRegExp.hasMatch(email.trim())) {
       return "email_error".tr;
     }
     return null;
   }
 
   static validateFullName(BuildContext context ,String name) {
-    var nameReg = RegExp(r'^[^\d]*$');
+    var nameReg = RegExp(r'^[\u0600-\u06FF\s]+$');
     if (name.trim().isEmpty) {
       return "field_is_required".tr;
     } else if (!nameReg.hasMatch(name)) {
@@ -44,17 +45,13 @@ class Validator {
   }
 
   static validatePassword(BuildContext context,String password) {
-    var passwordRegExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    var passwordRegExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (password.trim().isEmpty) {
-      // NewToastHelper.showError(message: "password_field_is_required".tr);
-      //  return "";
       return "password_field_is_required".tr;
     } else if(password.length < 8) {
       return "password_length".tr;
     }
     else if (!passwordRegExp.hasMatch(password)) {
-      // NewToastHelper.showError(message: "password_error".tr);
-      // return "";
       return "password_error".tr;
     }
     return null;

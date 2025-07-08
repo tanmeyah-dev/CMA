@@ -216,6 +216,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
           isDense: false,
           controller: con.fullName,
           hint: "الاسم بالكامل",
+          validator: (value) => Validator.validateFullName(context, value!),
         ),
       ],
     );

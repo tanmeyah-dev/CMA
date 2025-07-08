@@ -16,11 +16,12 @@ class CustomDropDownWidget<T> extends StatelessWidget {
   final String hint;
   final String? Function(dynamic)? validate;
   final double? width;
+  final OutlineInputBorder? outlineInputBorder;
 
   const CustomDropDownWidget({Key? key,this.prefixIcon,
     this.selected,required this.onChange,
     required this.hint,this.validate,
-    required this.items, required this.borderColor,this.width}) : super(key: key);
+    required this.items, required this.borderColor,this.width,this.outlineInputBorder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +42,14 @@ class CustomDropDownWidget<T> extends StatelessWidget {
           enabledBorder: defaultBorder,
           disabledBorder: defaultBorder,
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
+            borderSide: const BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.circular(15.w),
           ),
-          errorBorder: OutlineInputBorder(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          errorBorder: outlineInputBorder ?? OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red,),
             borderRadius: BorderRadius.circular(15.w),
           ),

@@ -276,6 +276,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             isDense: false,
             controller: con.emailController,
             hint: "example@example.com",
+            validator: (value) => Validator.validateEmail(value!),
           ),
         ],
       );

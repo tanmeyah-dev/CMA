@@ -46,6 +46,7 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeClass.whiteColor,
+      resizeToAvoidBottomInset: true,
       appBar: BaseAppBar.main(
         title: "branches".tr,
       ),
@@ -55,107 +56,113 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
         },
         child: LoadingScreen(
           loading: con.loading,
-          child: Column(children: [
-            SizedBox(
-              height: 14.h,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              color: ThemeClass.whiteColor,
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      onChanged: (value) async {
-                        await con.onRefresh();
-                      },
-                      controller: con.searchController,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.w),
-                          borderSide: BorderSide(
-                            width: 1.sp,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(children: [
+              SizedBox(
+                height: 14.h,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                color: ThemeClass.whiteColor,
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        onChanged: (value) async {
+                          await con.onRefresh();
+                        },
+                        controller: con.searchController,
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.w),
+                            borderSide: BorderSide(
+                              width: 1.sp,
+                              color: ThemeClass.primaryColor,
+                            ),
+                          ),
+                          suffixIcon: Icon(
+                            Iconsax.search_normal_1,
                             color: ThemeClass.primaryColor,
                           ),
-                        ),
-                        suffixIcon: Icon(
-                          Iconsax.search_normal_1,
-                          color: ThemeClass.primaryColor,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ThemeClass.hintColor, width: 1.sp),
-                          borderRadius: BorderRadius.circular(
-                            12.w,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ThemeClass.hintColor, width: 1.sp),
+                            borderRadius: BorderRadius.circular(
+                              12.w,
+                            ),
                           ),
+                          hintText: "search".tr,
+                          hintStyle: TextStyle(
+                            color: ThemeClass.hintColor,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 12.h, horizontal: 10.w),
                         ),
-                        hintText: "search".tr,
-                        hintStyle: TextStyle(
-                          color: ThemeClass.hintColor,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 12.h, horizontal: 10.w),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 8.h,),
-            SizedBox(
-              height: 730.h,
-              child: (con.branchList != null && con.branchList.isNotEmpty)
-                  ? SmartRefresher(
-                      enablePullDown: true,
-                      enablePullUp: true,
-                      header: const WaterDropHeader(),
-                      footer: CustomFooter(
-                        builder: (BuildContext context, LoadStatus? mode) {
-                          if (mode == LoadStatus.idle) {
-                            return SizedBox(
-                                height: 50.h,
-                                child: Center(child: Text("swipe_load".tr)));
-                          } else if (mode == LoadStatus.loading) {
-                            return SizedBox(
-                                height: 50.h,
-                                child: Center(
-                                    child: CircularProgressIndicator(
+              SizedBox(height: 8.h,),
+              SizedBox(
+                height: 730.h,
+                child: (con.branchList != null && con.branchList.isNotEmpty)
+                    ? SmartRefresher(
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  header: const WaterDropHeader(),
+                  footer: CustomFooter(
+                    builder: (BuildContext context, LoadStatus? mode) {
+                      if (mode == LoadStatus.idle) {
+                        return SizedBox(
+                            height: 50.h,
+                            child: Center(child: Text("swipe_load".tr)));
+                      } else if (mode == LoadStatus.loading) {
+                        return SizedBox(
+                            height: 50.h,
+                            child: Center(
+                                child: CircularProgressIndicator(
                                   color: ThemeClass.primaryColor,
                                 )));
-                          }
-                          return const SizedBox();
-                        },
-                      ),
-                      controller: con.refreshController!,
-                      onRefresh: con.onRefresh,
-                      onLoading: con.onLoading,
-                      child: ListView.separated(
-                          itemBuilder: (_, index) {
-                            return BranchWidget(
-                              branchModel: con.branchList[index],
-                            );
-                          },
-                          separatorBuilder: (_, index) {
-                            return SizedBox(
-                              height: 8.h,
-                            );
-                          },
-                          itemCount: con.branchList.length),
-                    )
-                  :
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                  controller: con.refreshController!,
+                  onRefresh: con.onRefresh,
+                  onLoading: con.onLoading,
+                  child: ListView.separated(
+                      itemBuilder: (_, index) {
+                        return BranchWidget(
+                          branchModel: con.branchList[index],
+                        );
+                      },
+                      separatorBuilder: (_, index) {
+                        return SizedBox(
+                          height: 8.h,
+                        );
+                      },
+                      itemCount: con.branchList.length),
+                )
+                    :
 
-              Center(
-                        child: Container(
-                            alignment: Alignment.center,
-                            height: 500.h,
-                            child: AppTextRegular(
-                              title: 'no_branches'.tr,
-                              fontSize: 20.sp,
-                            ))),
-            ),
-          ]),
+                Center(
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 500.h,
+                        child: AppTextRegular(
+                          title: 'no_branches'.tr,
+                          fontSize: 20.sp,
+                        ))),
+              ),
+            ]),
+          ),
+
+
+
         ),
       ),
     );

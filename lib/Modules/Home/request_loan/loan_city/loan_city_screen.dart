@@ -81,8 +81,8 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                       CustomDropDownWidget<String>(
                         hint: "choose_gov".tr,
                         selected: con.governmentsIds.any((item) => item.id == con.selectedGovernmentId)
-                            ? con.selectedGovernmentId // ✅ Assign only if it exists
-                            : null, // ✅ Prevents error if it doesn’t exist
+                            ? con.selectedGovernmentId
+                            : null,
                         onChange: (String? selectedId) {
                           if (selectedId != null) {
                             con.selectedGovernmentId = selectedId;
@@ -91,7 +91,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                                 orElse: () => GovernmentModel(id: '', title: ''),
                             );
                             if (selectedItem != null) {
-                              con.governmentTitle = selectedItem.title; // ✅ Get the name (title)
+                              con.governmentTitle = selectedItem.title;
                               con.getCityByGovernorat(governerateId: selectedId);
                             }
                             setState(() {});
@@ -119,6 +119,12 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                       con.selectedGovernmentId != null ?
                       CustomDropDownWidget<String>(
                         hint: "choose_branch".tr,
+                        validate: (value) {
+                          if (value == null || value.isEmpty) {
+                            return  ToastHelper.showError(context,message: "برجاء اختيار الفرع");
+                          }
+                          return null;
+                        },
                         selected: con.branchList?.any((item) => item.id == con.selectedCityId) ?? false
                             ? con.selectedCityId // ✅ Assign only if it exists
                             : null, // ✅ Prevents error if it doesn’t exist
@@ -183,14 +189,16 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                       ),
                       SizedBox(height: 430.h,),
                       Center(child: CustomButton(title: "next".tr, onTap: (){
-                        if(con.selectedGovernmentId != null && con.selectedCityId != null){
-                          widget.loanCheckoutModel.govId = con.selectedGovernmentId.toString();
-                          widget.loanCheckoutModel.branchId = con.selectedCityId.toString();
-                          widget.loanCheckoutModel.govTitle = con.governmentTitle;
-                          widget.loanCheckoutModel.branchTitle = con.cityTitle;
-                          Navigator.pushNamed(context, LoanCheckoutScreen.routeName,arguments: widget.loanCheckoutModel);
-                        }else {
-                          ToastHelper.showError(context,message: "برجاء اختيار الفرع");
+                        if (con.formKey.currentState!.validate()) {
+                          if(con.selectedGovernmentId != null && con.selectedCityId != null){
+                            widget.loanCheckoutModel.govId = con.selectedGovernmentId.toString();
+                            widget.loanCheckoutModel.branchId = con.selectedCityId.toString();
+                            widget.loanCheckoutModel.govTitle = con.governmentTitle;
+                            widget.loanCheckoutModel.branchTitle = con.cityTitle;
+                            Navigator.pushNamed(context, LoanCheckoutScreen.routeName,arguments: widget.loanCheckoutModel);
+                          }else {
+                            ToastHelper.showError(context,message: "برجاء اختيار الفرع");
+                          }
                         }
                       },width: 385.w),),
                     ],

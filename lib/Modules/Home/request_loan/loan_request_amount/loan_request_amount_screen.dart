@@ -144,33 +144,39 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                       });
                     },
                     child: Container(
-                    margin: EdgeInsets.all(8.r),
-                    padding: EdgeInsets.all(16.r),
+                    margin: EdgeInsets.all(4.r),
+                    padding: EdgeInsets.all(12.r),
                     decoration: BoxDecoration(
-                            color: _selectedIndex == index ? ThemeClass.selectBackground : ThemeClass.whiteColor,
+                            color: _selectedIndex == index ? ThemeClass.selectBackground : Color(0xFFFAFAFA),
                             borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Row(
                     children: [
-                    SizedBox(width: 16.w),
-                      Container(
-                        padding: EdgeInsets.all(1.w),
-                        width: 24.w,
-                        height: 24.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: con.accept ? ThemeClass.profileContainer : Colors.grey, // border color
-                            width: 2.w,),),
-                        child: _selectedIndex == index ?
+                        SizedBox(width: 10.w),
                         Container(
-                                decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                  color: ThemeClass.profileContainer,),) : null,),
+                            padding: EdgeInsets.all(1.w),
+                            width: 24.w,
+                            height: 24.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: con.accept ? ThemeClass.profileContainer : Colors.grey, // border color
+                                width: 2.w,),),
+                            child: _selectedIndex == index ?
+                            Container(
+                                    decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                      color: ThemeClass.profileContainer,),) : null,),
                         SizedBox(width: 5.w,),
-                        AppTextRegular(title: con.loanProductsResponse!.loanRequestProducts![index].name??"",color: _selectedIndex == index ?ThemeClass.profileContainer : ThemeClass.blackColor,fontWeight: _selectedIndex == index ? FontWeight.w700 : FontWeight.w400,),
-                    ],
-                    ),
+                        // AppTextRegular(title: con.loanProductsResponse!.loanRequestProducts![index].name??"",color: _selectedIndex == index ?ThemeClass.profileContainer : ThemeClass.blackColor,fontWeight: _selectedIndex == index ? FontWeight.w700 : FontWeight.w400,),
+                        RichText(
+                              textDirection: TextDirection.rtl,
+                              text: TextSpan(
+                                children: _highlightArabicDigits(con.loanProductsResponse!.loanRequestProducts![index].name??"", _selectedIndex == index ?ThemeClass.profileContainer : ThemeClass.blackColor),
+                              ),
+                            ),
+                        ],
+                      ),
                     ));}),) : Container(),
                     SizedBox(height: 30.h,),
                     Align(
@@ -182,7 +188,6 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                             width: 385.w,
                             title: "next".tr,
                             onTap: () {
-                              print("SELECTED " + con.selectedValue.toString());
                               if (con.currentPosition == null) {
                                 con.checkLocation(
                                     context: context,
@@ -254,5 +259,23 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
         ),
       ),
     ),);
+  }
+
+
+  List<TextSpan> _highlightArabicDigits(String input,Color color) {
+    final regExp = RegExp(r'[\u0660-\u0669]+|[^\u0660-\u0669]+');
+
+    return regExp.allMatches(input).map((match) {
+      final textPart = match.group(0)!;
+      final isDigits = RegExp(r'^[\u0660-\u0669]+$').hasMatch(textPart);
+      return TextSpan(
+        text: textPart,
+        style: TextStyle(
+          fontWeight: isDigits ? FontWeight.w700 : FontWeight.w400,
+          fontSize: isDigits ? 20.sp : 20.sp,
+          color: color,
+        ),
+      );
+    }).toList();
   }
 }
