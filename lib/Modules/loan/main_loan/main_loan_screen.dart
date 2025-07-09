@@ -239,8 +239,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                                 AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
                                               ],
                                             ),
-                                            Spacer(),
-                                            Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
                                           ],
                                         ),
                                       )

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../Shared/shared_prefirences.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
@@ -25,6 +26,21 @@ class ActiveLoanWidget extends StatelessWidget {
         },
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(padding: EdgeInsets.symmetric(horizontal: 18.w),
+                child :  SharedPref.getUserObg() != null
+                    ?  AppTextBold(
+                  title:
+                  SharedPref.getUserObg()!.fullName,
+                  color: ThemeClass.secondaryColor,textAlign: TextAlign.start,)
+                    : AppTextBold(
+                  title:
+                  "عميل تنميه المميز",
+                  color: ThemeClass.secondaryColor,textAlign: TextAlign.start,),
+              ),
+            ),
+            SizedBox(height: 10.h,),
             Container(
               width: 400.w,
               decoration: BoxDecoration(

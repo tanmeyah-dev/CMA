@@ -26,7 +26,8 @@ class ServicesDetailController extends ControllerMVC {
 
 
   @override
-  void initState() {
+  void initState() async {
+    canRequestLoan = await SharedPref.getCanRequestLoan();
     getServiceDetail();
     super.initState();
   }
@@ -34,16 +35,16 @@ class ServicesDetailController extends ControllerMVC {
   @override
   void dispose() {
     isExpanded = false;
-    canRequestLoan = false;
+    // canRequestLoan = false;
     super.dispose();
   }
 
   Future getServiceDetail() async {
-    print(">>>>>>>><<<<<<< GAMAL IS HERE" + SharedPref.getCanRequestLoan().toString());
-    if(SharedPref.getCanRequestLoan() == true){
-      print("GAMAL IS HERE AND YES ");
-      canRequestLoan = true;
-    }
+    // print(">>>>>>>><<<<<<< GAMAL IS HERE" + SharedPref.getCanRequestLoan().toString());
+    // if(SharedPref.getCanRequestLoan() == true){
+    //   print("GAMAL IS HERE AND YES ");
+    //   canRequestLoan = true;
+    // }
     if(SharedPref.getUserObg() != null) {
       isLogin = true;
     } else {isLogin = false;}

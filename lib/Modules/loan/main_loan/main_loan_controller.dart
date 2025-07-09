@@ -27,10 +27,7 @@ class MainRequestLoanController extends ControllerMVC {
   void initState() {
     if(SharedPref.getUserObg()?.nationalId != null ) {
       getLoan();
-      if(SharedPref.getCanRequestLoan() == true){
-        canRequestLoan = true;
-        print("GASGASFG");
-      }
+      canRequestLoan = SharedPref.getCanRequestLoan();
     } else {
       isLogin = false;
     }
@@ -44,6 +41,11 @@ class MainRequestLoanController extends ControllerMVC {
   }
 
   Future getLoan() async {
+    print(">>>>>>>><<<<<<< GAMAL IS HERE" + SharedPref.getCanRequestLoan().toString());
+    if(SharedPref.getCanRequestLoan() == true){
+      print("GAMAL IS HERE AND YES ");
+      canRequestLoan = true;
+    }
     loading = true;
     setState(() {});
     activeLoanModel = await RequestLoanApi.getLoanDetails(nationalId: SharedPref.getUserObg()!.nationalId);
