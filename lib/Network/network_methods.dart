@@ -11,6 +11,7 @@ import 'api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'dart:async';
+import 'package:bot_toast/bot_toast.dart';
 
 
 
@@ -70,7 +71,7 @@ class NetworkMethods {
         }
         return null;
       } catch (e) {
-        log("❌ Request failed: $e");
+        BotToast.showText(text:"برجاء التحقق من الاتصال بالانترنت");
         if (context != null) {
          return  ToastHelper.showError(context, message: "Something went wrong. Please try again.");
         }
@@ -126,6 +127,7 @@ class NetworkMethods {
       return null;
     }  on SocketException catch (_) {
       log("❌ Socket/network error");
+      BotToast.showText(text:"برجاء التحقق من الاتصال بالانترنت");
       // if (context != null) {
       //   ToastHelper.showError(context, message: "Network error. Please check your connection.");
       // }

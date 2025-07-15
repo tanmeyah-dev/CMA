@@ -28,6 +28,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:dart_ping_ios/dart_ping_ios.dart';import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 
 Future<void> main() async {
@@ -77,7 +78,7 @@ class _EntryPointState extends State<EntryPoint>  {
 
   @override
   Widget build(BuildContext context) {
-
+    final botToastBuilder = BotToastInit();  //1. call BotToastInit
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     final appLan = Provider.of<AppLanguage>(context);
     appLan.fetchLocale();
@@ -97,11 +98,13 @@ class _EntryPointState extends State<EntryPoint>  {
           navigatorKey: SharedObj.navigatorKey,
           scaffoldMessengerKey:SharedObj.rootScaffoldMessengerKey ,
           debugShowCheckedModeBanner: false,
+          builder: BotToastInit(),
           title: appLan.appLanguage == Languages.ar
               ? 'تنميه'
               : "Tanmeyah",
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: _analytics),
+            BotToastNavigatorObserver()
           ],
           initialRoute: SplashScreen.routeName,
           // locale: appLan.appLocal,

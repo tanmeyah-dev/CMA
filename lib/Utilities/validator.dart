@@ -78,6 +78,8 @@ class Validator {
         return 'phone_field_is_required'.tr;
     }  else if(!textIsArabic.hasMatch(phone)){
       return "number_wrong".tr;
+    } else if (phone.length != 11) {
+      return "phone_must_be_11_digits".tr;
     } else if (!phoneRegExp.hasMatch(phone)) {
       return "phone_error".tr;
     }
