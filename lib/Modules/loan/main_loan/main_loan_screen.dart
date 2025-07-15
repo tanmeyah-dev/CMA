@@ -28,7 +28,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';import 'package:icon
 class MainLoanScreen extends StatefulWidget {
   static const String routeName = "/mainLoanScreen";
 
-  const MainLoanScreen({Key? key}) : super(key: key);
+  MainLoanScreen({Key? key}) : super(key: key);
 
   @override
   _LoanScreenState createState() => _LoanScreenState();
@@ -51,6 +51,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
           "title" :"open_main_loan_screen"
         }
     );
+    _isExpanded = true;
     super.initState();
   }
 
@@ -133,9 +134,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                       ),
                    Container(
                         width: 400.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24.sp)
-                        ),
                         alignment: Alignment.center,
                         padding: EdgeInsets.all(16.sp),
                         child: Row(

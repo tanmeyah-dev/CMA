@@ -94,7 +94,7 @@ class _LoanSuccessRequestScreenState extends StateMVC<LoanSuccessRequestScreen> 
                                   SizedBox(height: 4.h,),
                                   AppTextRegular(title: widget.loanCheckoutResponse.loanRequestBranch?.nameAr??""),
                                   SizedBox(height: 4.h,),
-                                  AppTextHint(title: widget.loanCheckoutResponse.loanRequestBranch?.distance.toString()??""),
+                                  widget.loanCheckoutResponse.loanRequestBranch?.distance != 0 ? AppTextHint(title: widget.loanCheckoutResponse.loanRequestBranch!.distanceText.toString()) : Container(),
                                 ],
                               ),
                               Icon(Iconsax.arrow_square5,color: ThemeClass.primaryColor,),

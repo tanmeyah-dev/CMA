@@ -67,7 +67,7 @@ class UserApi {
     var response = await http.post(Uri.parse("${API.baseServerURL}/api/v1/Identity/Login"), headers: headers,
         body: jsonEncode(loginForm.toJson()));
     if (response == null) return false;
-    var result = json.decode(utf8.decode(response.body.codeUnits));
+    var result = json.decode(utf8.decode(response.bodyBytes));
     print("<<<<<<<<<<<>>>>>>>>>>" + result.toString());
     if( result["isSuccess"] == true  && result["code"] == "200") {
       Map<String, String> headers = response.headers;

@@ -73,8 +73,10 @@ class AppModule extends Module {
     defaultRoute(routeName: HomeScreen.routeName, child: const HomeScreen()),
     defaultRoute(routeName: PreviousLoanScreen.routeName, child: const PreviousLoanScreen()),
     defaultRoute(routeName: NoInternetScreen.routeName, child: const NoInternetScreen()),
-    defaultRoute(
-        routeName: MainLoanScreen.routeName, child: const MainLoanScreen()),
+    ChildRoute(MainLoanScreen.routeName,
+        child: (_, args) =>  MainLoanScreen(),
+        transition: TransitionType.downToUp,
+        duration: const Duration(milliseconds: 300)),
     defaultRoute(
         routeName: AccountScreen.routeName, child: const AccountScreen()),
     defaultRoute(routeName: MoreScreen.routeName, child: const MoreScreen()),

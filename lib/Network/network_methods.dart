@@ -6,10 +6,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../Shared/shared_prefirences.dart';
+import '../Utilities/general_toast.dart';
 import 'api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-
+import 'dart:async';
 
 
 
@@ -43,22 +44,36 @@ class NetworkMethods {
       });
       debugPrint(headers.toString());
       request.headers.addAll(headers);
-      http.StreamedResponse response =
-      await request.send().timeout(const Duration(seconds: 100));
-      String result = await response.stream.bytesToString();
-      log(response.statusCode.toString());
-      log("api response >>>>>>>>>>>>>>>>>>>>>>>>:${result.toString()}");
-      if(response.statusCode == 401){
-        await SharedPref.logOut();
-        Modular.to.pushNamedAndRemoveUntil(
-            "/loginScreen", (Route<dynamic> route) => false,
-            arguments: "");
-      }
-
       try {
-        return json.decode(result);
+        http.StreamedResponse response =
+        await request.send().timeout(const Duration(seconds: 100));
+        String result = await response.stream.bytesToString();
+        log(response.statusCode.toString());
+        log("api response >>>>>>>>>>>>>>>>>>>>>>>>:${result.toString()}");
+        if(response.statusCode == 401){
+          await SharedPref.logOut();
+          Modular.to.pushNamedAndRemoveUntil(
+              "/loginScreen", (Route<dynamic> route) => false,
+              arguments: "");
+        }
+        try {
+          return json.decode(result);
+        } catch (e) {
+          log("cccccccccsdsdsdsdsd$e");
+          return null;
+        }
+      }
+      on TimeoutException catch (_) {
+        log("⏰ Request timed out");
+        if (context != null) {
+         return ToastHelper.showError(context, message: "Request timed out. Please try again.");
+        }
+        return null;
       } catch (e) {
-        log("cccccccccsdsdsdsdsd$e");
+        log("❌ Request failed: $e");
+        if (context != null) {
+         return  ToastHelper.showError(context, message: "Something went wrong. Please try again.");
+        }
         return null;
       }
     }
@@ -88,29 +103,41 @@ class NetworkMethods {
     try {
       response =
       await request.send().timeout(const Duration(seconds: 10));
-    } on TimeoutException {
-      // ToastHelper.showError( message: "network_connection".tr);
-      return null;
-    } on SocketException {
-      // ToastHelper.showError(message: "server_error".tr);
-      return null;
-    }
-
-    String result = await response.stream.bytesToString();
-    log(response.statusCode.toString());
-    // if(response.statusCode == 401 ){
-    //   Modular.to.pushNamedAndRemoveUntil(
-    //       "/loginScreen", (Route<dynamic> route) => false,arguments: "");
-    // }
-    log(result.toString());
-
+      String result = await response.stream.bytesToString();
+      log(response.statusCode.toString());
+      log(result.toString());
       if(response.statusCode == 401){
         await SharedPref.logOut();
         Modular.to.pushNamedAndRemoveUntil(
             "/loginScreen", (Route<dynamic> route) => false,
             arguments: "");
       }
-      return json.decode(result);
+      try {
+        return json.decode(result);
+      } catch (e) {
+        log("❌ JSON decoding error: $e");
+        return null;
+      }
+    } on TimeoutException catch (_) {
+      log("⏰ Request timed out");
+      // if (context != null) {
+      //   ToastHelper.showError(context, message: "Request timed out. Please try again.");
+      // }
+      return null;
+    }  on SocketException catch (_) {
+      log("❌ Socket/network error");
+      // if (context != null) {
+      //   ToastHelper.showError(context, message: "Network error. Please check your connection.");
+      // }
+      return null;
+    } catch (e) {
+      log("❌ Unexpected error: $e");
+      // if (context != null) {
+      //   ToastHelper.showError(context, message: "An unexpected error occurred.");
+      // }
+      return null;
+    }
+      // return json.decode(result);
     } else {
       Modular.to.popAndPushNamed(
         "/noInternetScreen");

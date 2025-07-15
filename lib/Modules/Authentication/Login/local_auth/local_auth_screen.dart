@@ -117,7 +117,7 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
           controller: con.passwordController,
           hint: "password".tr,
           validator: (value) =>
-              Validator.validatePhone(context, con.passwordController.text),
+              Validator.validatePassword(context, con.passwordController.text),
             suffixIcon: GestureDetector(
               onTap: () {
                 con.showPassword = !con.showPassword;

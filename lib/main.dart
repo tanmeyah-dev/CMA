@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'Cache/app_languages.dart';
 import 'Cache/shared_data_provider.dart';
 import 'Cache/locales.dart';
+import 'Modules/Authentication/Login/local_auth/local_auth_screen.dart';
 import 'Modules/Authentication/Splash/splash_screen.dart';
 import 'Modules/Home/request_loan/loan_request_success/loan_request_success_screen.dart';
 import 'Shared/shard_obj.dart';

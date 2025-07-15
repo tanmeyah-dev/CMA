@@ -152,7 +152,9 @@ class LoanRequestAmountController extends ControllerMVC {
   Future getLoanProducts() async {
     loading = true;
     setState(() {});
+    print(">>>>>>>>>>>>1");
     loanProductsResponse = await LoanProductsApi.getLoanProducts();
+    print("<<<<<<< + ${loanProductsResponse?.loanRequestProducts?[0].name} ");
     loading = false;
     setState(() {});
   }

@@ -223,7 +223,7 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                               Navigator.pop(context);
                             },
                             child: Container(
-                              width: 90.w,
+                              width: 110.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
                                   14.sp,

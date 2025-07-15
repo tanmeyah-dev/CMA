@@ -1,16 +1,15 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../Shared/shared_prefirences.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../Main/main_screen.dart';
+import 'package:iconsax/iconsax.dart';
 
 
 
@@ -29,206 +28,108 @@ class ActiveLoanWidget extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Padding(padding: EdgeInsets.symmetric(horizontal: 18.w),
-                child :  SharedPref.getUserObg() != null
-                    ?  AppTextBold(
+                child :  AppTextBold(
                   title:
                   SharedPref.getUserObg()!.fullName,
                   color: ThemeClass.secondaryColor,textAlign: TextAlign.start,)
-                    : AppTextBold(
-                  title:
-                  "عميل تنميه المميز",
-                  color: ThemeClass.secondaryColor,textAlign: TextAlign.start,),
               ),
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 6.h,),
             Container(
               width: 400.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24.w),
-                color: ThemeClass.primaryColor,
+                  borderRadius:
+                  BorderRadius.circular(16.sp),
+                  image: const DecorationImage(
+                      image: AssetImage(
+                        AppAssets.IMG_LOAN_BACKGROUND,),fit: BoxFit.fill
+                  )
               ),
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20.w, vertical: 16.h),
-              child: Column(
+              padding: EdgeInsets.all(16.sp),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              AppTextRegular(
-                                title: "month_need".tr,
-                                color: ThemeClass.whiteColor,
-                              ),
-                              SizedBox(width: 6.w,),
-                              Container(
-                                width: 14.w,
-                                height: 14.h,
-                                decoration: BoxDecoration(
-                                    color: ThemeClass.whiteColor,
-                                    borderRadius: BorderRadius.circular(4.sp)
-                                ),
-                                child: Icon(Icons.arrow_back_ios_new_rounded,size: 8.sp,),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          AppTextBold(
-                            title: con
-                                .homeResponse
-                                ?.loanRequest
-                                ?.dueInstallmentAmount
-                                .toString() ??
-                                "",
-                            color: ThemeClass.whiteColor,
-                          ),
-                        ],
+                      AppTextRegular(
+                        title: "total_loan".tr,
+                        fontSize: 18.sp,
+                        color: ThemeClass.whiteColor,
                       ),
-                      Image.asset(AppAssets.IMG_ACTIVE_LOAN,width: 48.w,height: 48.h,)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          AppTextBold(
+                            title: con.homeResponse?.loanRequest?.totalAmount.toString()??"0",
+                            color: ThemeClass.whiteColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 36.sp,
+                          ),
+                          SizedBox(width: 4.w,),
+                          AppTextRegular(title: "ج. م",color: ThemeClass.whiteColor,fontSize: 20.sp,)
+                        ],
+                      )
                     ],
                   ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
                   Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFC34640),
-                      borderRadius: BorderRadius.circular(16.sp),
-                    ),
-                    padding: EdgeInsets.all(12.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                AppTextRegular(
-                                  title: "اخر مبلغ مسدد",
-                                  color: ThemeClass.whiteColor,
-                                ),
-                                SizedBox(width: 6.w,),
-                                Container(
-                                  width: 14.w,
-                                  height: 14.h,
-                                  decoration: BoxDecoration(
-                                      color: ThemeClass.whiteColor,
-                                      shape: BoxShape.circle
-                                  ),
-                                  child: Icon(Icons.arrow_back_ios_new_rounded,size: 8.sp,),
-                                )
-                              ],
-                            ),
-                            AppTextBold(title: con.homeResponse?.loanRequest?.lastPaidInstallmentAmount.toString()??"",color: ThemeClass.whiteColor,fontSize: 28.sp,),
-                          ],
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFAA3B36),
-                            borderRadius: BorderRadius.circular(6.sp),
-                            boxShadow: const <BoxShadow>[
-                              BoxShadow(
-                                  color: Color(0xFFF8E254),
-                                  blurRadius: 0.0,
-                                  offset: Offset(0.0, 1.5)
-                              )
-                            ],
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal:16.w,vertical: 8.h),
-                          child: Column(
-                            children: [
-                              AppTextRegular(
-                                title: "تاريخ السداد",
-                                color: ThemeClass.whiteColor,
-                              ),
-                              SizedBox(width: 6.w,),
-                              AppTextBold(title: con.homeResponse?.loanRequest?.lastPaidInstallmentDate??"8888",color: ThemeClass.whiteColor,fontSize: 16.sp,),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )
+                    width: 50.w,
+                    height: 50.h,
+                    child: Icon( Iconsax.arrow_square_left ,color: ThemeClass.whiteColor,),
+                  ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(
-                  top: 10.w,
-                  left: 20.w,
-                  right: 20.w,
-                  bottom: 10),
+              width: 400.w,
+              // decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(24.sp)
+              // ),
               decoration: BoxDecoration(
-                color: const Color(0xFFEEEEEE),
-                borderRadius:
-                BorderRadius.circular(16.w),
-                boxShadow: const <BoxShadow>[
-                  BoxShadow(
-                      color: Color(0xFF989899),
-                      blurRadius: 0.0,
-                      offset: Offset(0.0, 1.5)
-                  )
-                ],
+                borderRadius: BorderRadius.circular(8),
+                border: Border(
+                  bottom: BorderSide(
+                    color: ThemeClass.primaryColor,
+                    width: 3.w, // Thickness of the line
+                  ),
+                ),
               ),
-              margin: EdgeInsets.symmetric(horizontal : 18.w,vertical: 8.h),
               alignment: Alignment.center,
-
+              padding: EdgeInsets.all(16.sp),
               child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppTextRegular(
-                        title: "اجمالي المستحقات",
-                        color: ThemeClass.secondaryColor,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AppTextRegular(title: "month_need".tr,color: ThemeClass.primaryColor,fontSize: 16.sp,),
+                          Icon(Iconsax.arrow_square_left5,color: ThemeClass.primaryColor,size: 16.sp,)
+                        ],
                       ),
-                      AppTextBold(
-                        title: con
-                            .homeResponse
-                            ?.loanRequest
-                            ?.totalDueAmount
-                            .toString() ??
-                            "",
-                        color: ThemeClass.secondaryColor,
-                        fontSize: 24.sp,
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 60.h,
-                    width: 1,
-                    color: ThemeClass.borderColor,
-                  ),
-                  Column(
-                    children: [
-                      AppTextRegular(
-                        title: "اجمالي السداد",
-                        color: ThemeClass.secondaryColor,
-                      ),
-                      AppTextBold(
-                        title: con
-                            .homeResponse
-                            ?.loanRequest
-                            ?.paidAmount
-                            .toString() ??
-                            "",
-                        color: ThemeClass.secondaryColor,
-                        fontSize: 24.sp,
-                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          AppTextBold(title: con.homeResponse!.loanRequest!.dueInstallmentAmount.toString()),
+                          SizedBox(width: 4.w,),
+                          AppTextRegular(title: "ج. م",color: ThemeClass.primaryColor,fontSize: 14.sp,)
+                        ],
+                      )
                     ],
                   ),
                 ],
-              ),
+              ) ,
             ),
           ],
-        ),
+        )
     );
   }
 }
+
+
+
+

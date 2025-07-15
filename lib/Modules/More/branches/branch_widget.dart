@@ -43,7 +43,7 @@ class BranchWidget extends StatelessWidget {
             SizedBox(height: 6.h,),
             AppTextRegular(title: branchModel.address??"" ,fontSize: 14.sp,textAlign: TextAlign.start,maxLines: 2,),
             SizedBox(height: 6.h,),
-            branchModel.distance != "0" ? AppTextRegular(title: branchModel.distanceText!,fontSize: 14.sp,color: ThemeClass.fontColor.withOpacity(0.6),) : Container(),
+            branchModel.distance != 0 ? AppTextRegular(title: branchModel.distanceText!,fontSize: 14.sp,color: ThemeClass.fontColor.withOpacity(0.6),) : Container(),
           ],
         ),
       ),
