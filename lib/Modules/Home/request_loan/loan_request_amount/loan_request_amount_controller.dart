@@ -107,11 +107,17 @@ class LoanRequestAmountController extends ControllerMVC {
   // }
 
   static Future<bool> checkGps() async {
-    if (await Geolocator.isLocationServiceEnabled()) {
-      return true;
-    } else {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return false;
+
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       return false;
     }
+
+    return true;
   }
 
 
@@ -152,9 +158,7 @@ class LoanRequestAmountController extends ControllerMVC {
   Future getLoanProducts() async {
     loading = true;
     setState(() {});
-    print(">>>>>>>>>>>>1");
     loanProductsResponse = await LoanProductsApi.getLoanProducts();
-    print("<<<<<<< + ${loanProductsResponse?.loanRequestProducts?[0].name} ");
     loading = false;
     setState(() {});
   }
