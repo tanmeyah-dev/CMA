@@ -164,6 +164,8 @@ class RegisterController extends ControllerMVC {
             (code) => onConfirm(code, context)
       ]);
     } else if (result?.isAlreadyMobileNumberExist == true ){
+      print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
+
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'error_registration_screen',
@@ -171,7 +173,8 @@ class RegisterController extends ControllerMVC {
             "title" : "error_registration_screen"
           }
       );
-      Navigator.pushNamed(context, RegistrationError.routeName,arguments: phoneNumber);
+      print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
+      Navigator.pushNamed(context, RegistrationError.routeName,arguments: newMobile);
     }
   }
 

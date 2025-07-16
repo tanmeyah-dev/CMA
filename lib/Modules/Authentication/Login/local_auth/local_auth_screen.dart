@@ -106,7 +106,24 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
             controller: con.phoneController,
             hint: "phone_number".tr,
             textInputType: TextInputType.number,
-            validator: (value) => Validator.validatePhone(context,value!),
+            validator: (value) {
+              String phone = value?.trim() ?? '';
+              if (phone.isEmpty) {
+                return "رقم الهاتف لا يمكن أن يكون فارغًا";
+              }
+              if (phone.length != 11) {
+                return "رقم الهاتف يجب أن يحتوي على 11 رقمًا";
+              }
+              RegExp arabicTextOrDigits = RegExp(r'[\u0621-\u064A\u0660-\u0669]');
+              if (arabicTextOrDigits.hasMatch(phone)) {
+                return "يرجى إدخال الرقم باللغة الإنجليزية فقط";
+              }
+              RegExp phoneRegExp = RegExp(r'^(01)[0125][0-9]{8}$');
+              if (!phoneRegExp.hasMatch(phone)) {
+                return "رقم الهاتف غير صحيح";
+              }
+              return null;
+            },
             formatter: [LengthLimitingTextInputFormatter(11),
             ]);
   }
