@@ -77,7 +77,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image(
-                      image: const AssetImage(AppAssets.IMG_LOGO),
+                      image: const AssetImage(AppAssets.IMG_LOGIN_LOGO),
                       width: 100.w,
                       height: 40.h,
                     ),
@@ -101,10 +101,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 16.w),
                             child: Align(
                                 alignment: AlignmentDirectional.centerStart,
-                                child: SizedBox(
-                                    width: 50.w,
-                                    child: AppTextHint(title: "hello".tr)))),
-                    SizedBox(height: 10.h,),
+                                    child: AppTextRegular(title: "hello".tr))),
+                    SizedBox(height: 6.h,),
                     (con.homeResponse?.loanRequest == null)
                         ? (con.homeResponse?.canRequestLoan == true)
                                  ? Stack(

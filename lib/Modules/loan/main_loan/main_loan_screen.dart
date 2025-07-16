@@ -160,22 +160,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                 )
                               ],
                             ),
-                            Container(
-                              width: 60.w,
-                              // height: 50.h,
-                              decoration: BoxDecoration(
-                                  color: ThemeClass.primaryColor,
-                                  borderRadius: BorderRadius.circular(8.sp)
-                              ),
-                              padding: EdgeInsets.all(4.w),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Iconsax.card_send,color: ThemeClass.whiteColor,),
-                                  AppTextRegular(title: "pay".tr,color: ThemeClass.whiteColor,),
-                                ],
-                              ),
-                            ),
                           ],
                         ) ,
                       ),
@@ -234,7 +218,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 AppTextRegular(title: "date_of_pay".tr),
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
                                               ],
                                             ),
                                           ],

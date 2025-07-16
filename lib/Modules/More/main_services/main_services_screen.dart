@@ -75,7 +75,7 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                           ? SizedBox(
                             height: 660.h,
                             child: MasonryGridView.count(
-                              crossAxisCount: 2,
+                              crossAxisCount: 3,
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 8,
                               itemCount: con.servicesResponse!.products!.length,
