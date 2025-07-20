@@ -120,18 +120,19 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                             textInputAction: TextInputAction.newline,
                             keyboardType: TextInputType.multiline,
                             maxLines: 8,
+                            maxLength: 200,
                             decoration: InputDecoration(
-                              helperText: '',
+                              helperText: ' ', // keep space reserved for error/helper text
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(14.sp),
-                                borderSide: BorderSide(width: 1,color: Colors.grey.withOpacity(0.2)),
+                                borderSide: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(width: 1, color: ThemeClass.secondaryMediumColor),
                                 borderRadius: BorderRadius.circular(14.sp),
                               ),
-                              errorStyle: TextStyle(height: 1),
-                              errorBorder:OutlineInputBorder(
+                              errorStyle: TextStyle(height: 1.5, fontSize: 12, color: ThemeClass.primaryColor), // fixed height & font
+                              errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(width: 2, color: ThemeClass.primaryColor),
                                 borderRadius: BorderRadius.circular(14.sp),
                               ),
@@ -139,13 +140,22 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                               border: OutlineInputBorder(),
                               hintText: 'أرسل استفسارك',
                               hintStyle: TextStyle(
-                                  color: ThemeClass.borderColor
+                                color: ThemeClass.borderColor,
                               ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10.h,vertical: 13.h),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 13.h),
                             ),
-                            validator: (value) =>
-                                Validator.validateLength(value!,con.messageController.text,10,200),
-
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'هذا الحقل مطلوب';
+                              }
+                              if (value.trim().length < 10) {
+                                return 'يجب ألا يقل الاستفسار عن 10 أحرف';
+                              }
+                              if (value.trim().length > 200) {
+                                return 'يجب ألا يتجاوز الاستفسار 200 حرف';
+                              }
+                              return null;
+                            },
                           ),
                           SizedBox(height: 6.h,),
                           CustomButton(title: "send".tr, onTap: (){
