@@ -377,7 +377,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               textBaseline: TextBaseline.alphabetic,
                                               children: [
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",fontSize: 16.sp,),
+                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString()??"0",fontSize: 16.sp,),
                                                 SizedBox(width: 4.w,),
                                                 AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
                                               ],
