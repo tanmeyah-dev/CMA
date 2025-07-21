@@ -107,17 +107,11 @@ class LoanRequestAmountController extends ControllerMVC {
   // }
 
   static Future<bool> checkGps() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return false;
-
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
+    if (await Geolocator.isLocationServiceEnabled()) {
+      return true;
+    } else {
       return false;
     }
-
-    return true;
   }
 
 
