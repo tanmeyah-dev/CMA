@@ -24,7 +24,7 @@ class Validator {
   }
 
   static String? validateEmail(String email) {
-    var emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    final emailRegExp = RegExp(r"^([\w\.\-]+)@([\w\-]+)\.([a-zA-Z]{2,})$");
     if (email.trim().isEmpty) {
       return null;
     }
