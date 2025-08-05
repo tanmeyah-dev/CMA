@@ -72,7 +72,7 @@ class Validator {
   static RegExp phoneRegExp = RegExp(r'^0|1[0125][0-9]{8}$');
 
   static validatePhone(BuildContext context, String? phone) {
-    var phoneRegExp = RegExp(r'^0|1[0125][0-9]{8}$');
+    var phoneRegExp = RegExp(r'^(0?1)[0125][0-9]{8}$');
     var textIsArabic = RegExp(r'^[\0621-\064A0-9 ]+$');
     if (phone!.trim().isEmpty) {
         return 'phone_field_is_required'.tr;

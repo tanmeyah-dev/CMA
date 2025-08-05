@@ -37,6 +37,7 @@ class _FAQScreenState extends StateMVC<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ThemeClass.whiteColor,
       appBar: BaseAppBar.main(
         title: "faq".tr,
       ),
