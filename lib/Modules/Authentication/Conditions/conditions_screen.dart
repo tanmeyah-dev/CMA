@@ -239,7 +239,7 @@ textAlign: TextAlign.start,),
                   SizedBox(height: 20.h,),
 
                   Center(child: AppTextBold(title: "حدثت أخر مرة في أغسطس 2023.")),
-
+                  SizedBox(height: 20.h,),
 
                 ],
               ),

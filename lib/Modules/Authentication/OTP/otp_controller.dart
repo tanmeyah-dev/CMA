@@ -44,6 +44,7 @@ class OtpController extends ControllerMVC {
   @override
   void dispose() {
     timer?.cancel();
+    codeController.clear();
     codeController.dispose();
     super.dispose();
   }
@@ -93,5 +94,6 @@ class OtpController extends ControllerMVC {
     setState(() {
       loading = false;
     });
+    codeController.text = "";
   }
 }

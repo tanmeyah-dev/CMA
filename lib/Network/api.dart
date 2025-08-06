@@ -1,8 +1,8 @@
 class API{
 
 
-         // static const String baseServerURL = "https://gateway.tanmeyah.com:8443";
-         static const String baseServerURL = "https://dev.tanmeyah.lan:8090";
+         static const String baseServerURL = "https://gateway.tanmeyah.com:8443";
+         // Dev static const String baseServerURL = "https://dev.tanmeyah.lan:8090";
          static const String baseURL = "$baseServerURL/api/v1/";
 
   //=========================== api parameters ====================================

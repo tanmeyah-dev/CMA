@@ -19,6 +19,8 @@ import 'package:permission_handler/permission_handler.dart' as permsion;
 
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../Widgets/alert_for_permission.dart';
+
 class LoanRequestAmountController extends ControllerMVC {
   // singleton
   factory LoanRequestAmountController() {
@@ -116,44 +118,24 @@ class LoanRequestAmountController extends ControllerMVC {
 
 
   checkLocation({required BuildContext context, bool isInitLocation = false}) async {
-    // Step 1: Check if location services (GPS) are enabled
-    bool isServiceEnabled = await checkGps();
-    if (!isServiceEnabled) {
-      if (context.mounted) {
-        AlertLocation.checkGpsWidget(
-          context: context,
-          onDismiss: () {},
-        );
-      }
+    bool result = await checkGps();
+    setState(() {});
+    if (!result) {
+      if (context.mounted) AlertLocation.checkGpsWidget(
+        context: context, onDismiss: () {},);
       return;
-    }
-
-    // Step 2: Check current permission
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    // Step 3: Request permission if needed
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-    }
-
-    // Step 4: If still denied or deniedForever, show alert
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      if (context.mounted) {
-        AlertLocation.checkGpsWidget(
-          context: context,
-          onDismiss: () async {
-            // await Geolocator.openAppSettings(); // Optional
-          },
-        );
+    } else {
+      LocationPermission permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        print("}}}}}}<>>>>>>>>>>>>>>" + permission.toString());
+        AlertForPermission.checkPermission(
+            context: context, onDismiss: () {});
+        return;
+      } else if (permission == LocationPermission.always ||
+          permission == LocationPermission.whileInUse) {
+        submitLoan(context:context,isInit: isInitLocation);
       }
-      return;
-    }
-
-    // Step 5: If granted, proceed
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      submitLoan(context: context, isInit: isInitLocation);
     }
   }
   submitLoan({required BuildContext context, bool isInit = false}) async {
