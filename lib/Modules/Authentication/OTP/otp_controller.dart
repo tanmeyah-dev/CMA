@@ -18,8 +18,7 @@ class OtpController extends ControllerMVC {
 
   OtpController._();
 
-  final GlobalKey<FormState> formKey = GlobalKey();
-
+  late GlobalKey<FormState> formKey;
   late TextEditingController codeController;
   bool loading = false,
       autoValidate = false,
@@ -34,7 +33,9 @@ class OtpController extends ControllerMVC {
 
   @override
   void initState() {
+    formKey = GlobalKey<FormState>();
     codeController = TextEditingController();
+    codeController.clear();
     startTimer();
     activeResend = false;
     start = 30;
@@ -44,7 +45,6 @@ class OtpController extends ControllerMVC {
   @override
   void dispose() {
     timer?.cancel();
-    codeController.clear();
     codeController.dispose();
     super.dispose();
   }
@@ -94,6 +94,5 @@ class OtpController extends ControllerMVC {
     setState(() {
       loading = false;
     });
-    codeController.text = "";
   }
 }
