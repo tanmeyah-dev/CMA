@@ -73,7 +73,7 @@ class SplashController extends ControllerMVC {
 
   Future<bool> getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = await packageInfo.version;
+    String version = packageInfo.version;
     isUpToDate = await SplashApi.sendVersion(version);
     print("MMMMMM$isUpToDate");
     if (isUpToDate == true) {
