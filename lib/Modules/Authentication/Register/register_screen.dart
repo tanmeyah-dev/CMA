@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/Validator.dart';
@@ -134,10 +133,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
   }
 
   Widget fullNameTxtField() {
-    return FadeIn(
-      delay: 0.5,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -159,15 +155,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               validator: (value) =>
                   Validator.validateFullName(context, value!)),
         ],
-      ),
     );
   }
 
   Widget nationalIdTxtField() {
-    return FadeIn(
-      delay: 1,
-      from: SlideFrom.TOP,
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -189,15 +181,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   Validator.validateNationalId(context, value!),
               formatter: [LengthLimitingTextInputFormatter(14)]),
         ],
-      ),
     );
   }
 
   Widget dateTimeWidget() {
-    return FadeIn(
-      delay: 1.5,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -229,15 +217,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             ),
           ),
         ],
-      ),
     );
   }
 
   Widget phoneTxtField() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -270,15 +254,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             ],
           ),
         ],
-      ),
     );
   }
 
   Widget emailTxtField() {
-    return FadeIn(
-      delay: 2.5,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -298,15 +278,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             hint: "example@example.com",
           ),
         ],
-      ),
     );
   }
 
   Widget passwordTxtField() {
-    return FadeIn(
-      delay: 3,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -329,25 +305,18 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
 
           ),
         ],
-      ),
     );
   }
 
   Widget selectGovernment() {
-    return FadeIn(
-      delay: 3,
-      from: SlideFrom.TOP,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+    return  Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
             title: "government".tr,
             color: ThemeClass.secondaryColor,
           ),
           SizedBox(height: 10.h,),
-          FadeIn(
-            delay: 2,
-            from: SlideFrom.BOTTOM,
-            child: CustomDropDownWidget<String>(
+           CustomDropDownWidget<String>(
               hint: "المحافظه",
               selected: con.selectedValue,
               onChange: (v) {
@@ -369,18 +338,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   color: ThemeClass.secondaryColor,
                 ),
               ),
-            ),
           ),
         ],
-      ),
     );
   }
 
   Widget confirmPassTxtField() {
-    return FadeIn(
-      delay: 3,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -405,15 +369,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             ),
           ),
         ],
-      ),
     );
   }
 
   Widget registerDes() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Column(
+    return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -465,14 +425,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               AppTextRegular(title: " ${"ours".tr} ", fontSize: 12.sp)
             ])
           ],
-        ));
+        );
   }
 
   Widget createBtn() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Align(
+    return  Align(
           alignment: Alignment.center,
           child:
           (con.selectedValue != null && con.accept == true ) ?
@@ -505,14 +462,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
           )
 
           ,
-        ));
+        );
   }
 
   Widget loginDes() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Padding(
+    return  Padding(
           padding: EdgeInsetsDirectional.only(start: 20.w),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -529,6 +483,6 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                         fontSize: 16.sp,
                         textDecoration: TextDecoration.underline))
               ]),
-        ));
+        );
   }
 }

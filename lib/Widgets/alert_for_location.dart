@@ -5,7 +5,7 @@ import '../Theme/app_assets.dart';
 import '../Utilities/helper.dart';
 import 'custom_button_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 
 
@@ -54,7 +54,7 @@ class AlertLocation{
                 height: 40.h,
                 fontSize: 14.sp,
                 onTap: () async {
-                  Geolocator.openLocationSettings();
+                  Location().requestService();
                   Navigator.of(context, rootNavigator: true).pop();
                 },
               ),

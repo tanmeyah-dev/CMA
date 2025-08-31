@@ -12,7 +12,6 @@ import '../../../Utilities/Validator.dart';
 import '../../../Utilities/encreption.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/custom_text.dart';
@@ -132,30 +131,24 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                     SizedBox(height: 33.h),
                                     image(),
                                     SizedBox(height: 20.h),
-                                    FadeIn(
-                                      delay: 1,
-                                      from: SlideFrom.TOP,
-                                      child: Align(
+                                    Align(
                                           alignment:
                                               AlignmentDirectional.centerStart,
                                           child: AppTextRegular(
                                             title: "phone_number".tr,
                                             color: ThemeClass.secondaryColor,
-                                          )),
+                                          ),
                                     ),
                                     SizedBox(height: 10.h),
                                     phoneTxtField(),
                                     SizedBox(height: 10.h),
-                                    FadeIn(
-                                      delay: 2,
-                                      from: SlideFrom.TOP,
-                                      child: Align(
+                                    Align(
                                           alignment:
                                               AlignmentDirectional.centerStart,
                                           child: AppTextRegular(
                                             title: "password".tr,
                                             color: ThemeClass.secondaryColor,
-                                          )),
+                                          ),
                                     ),
                                     SizedBox(height: 10.h),
                                     passwordTxtField(context),
@@ -184,11 +177,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   }
 
   Widget image() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.TOP,
-        child: Image.asset(AppAssets.IMG_LOGIN,
-            height: 250.h, width: 300.w, fit: BoxFit.cover));
+    return  Image.asset(AppAssets.IMG_LOGIN,
+            height: 250.h, width: 300.w, fit: BoxFit.cover);
   }
 
   Widget phoneTxtField() {
@@ -197,10 +187,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        FadeIn(
-            delay: 2,
-            from: SlideFrom.TOP,
-            child: CustomTextFieldWidget(
+        CustomTextFieldWidget(
                 width: 215.w,
                 controller: con.phoneController,
                 hint: "phone_number".tr,
@@ -208,20 +195,17 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                 validator: (value) => Validator.validatePhone(context, value!),
                 formatter: [
                   LengthLimitingTextInputFormatter(11),
-                ])),
+                ]),
         SizedBox(
           width: 10.w,
         ),
-         FadeIn(delay: 2, from: SlideFrom.TOP, child: CountryCodeWidget()),
+       CountryCodeWidget(),
       ],
     );
   }
 
   Widget passwordTxtField(BuildContext context) {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.TOP,
-        child: CustomTextFieldWidget(
+    return CustomTextFieldWidget(
             obscure: con.showPassword,
             controller: con.passwordController,
             hint: "password".tr,
@@ -236,14 +220,11 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                 con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
                 color: ThemeClass.secondaryColor,
               ),
-            )));
+            ));
   }
 
   Widget forgetPassTxt() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.TOP,
-        child: Align(
+    return  Align(
             alignment: AlignmentDirectional.centerEnd,
             child: AppTextUnderline(
               onTap: () {
@@ -259,14 +240,11 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
               title: 'forget_password'.tr,
               fontSize: 14.sp,
               color: const Color(0xFF979797),
-            )));
+            ));
   }
 
   Widget loginBtn() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: CustomButton(
+    return  CustomButton(
             width: 230,
             title: "login".tr,
             onTap: () async {
@@ -284,25 +262,19 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                   con.autoValidate = true;
                 });
               }
-            }));
+            });
   }
 
   Widget orTxt() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(width: 100.w, height: 1.h, color: ThemeClass.fontColor),
           AppTextRegular(title: " ${"or".tr}   "),
           Container(width: 100.w, height: 1.h, color: ThemeClass.fontColor)
-        ]));
+        ]);
   }
 
   Widget bioMetric() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Row(
+    return  Row(
             mainAxisAlignment: (con.hasFaceId || con.hasFingerPrint || con.hasFingerPrintForIOS)
                 ? MainAxisAlignment.spaceAround
                 : MainAxisAlignment.center,
@@ -405,14 +377,11 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                           height: 20.h,
                         ),
                       )):SizedBox.shrink(),
-            ]));
+            ]);
   }
 
   Widget registerTxt() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           AppTextRegular(
             title: "${"no_account".tr}    ",
             fontSize: 12.sp,
@@ -434,6 +403,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
               },
               color: ThemeClass.primaryColor,
               fontWeight: FontWeight.w500)
-        ]));
+        ]);
   }
 }

@@ -2,7 +2,7 @@
 import 'package:Tanmeyah/Network/user_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 import '../../Models/government_model.dart';
 import '../../Models/user_model.dart';
@@ -25,7 +25,7 @@ class AccountController extends ControllerMVC {
 
   bool loading = false, autoValidate = false , guestMood = false;
 
-  Position? currentPosition;
+  LocationData? currentPosition;
 
   UserModel? userModel;
 

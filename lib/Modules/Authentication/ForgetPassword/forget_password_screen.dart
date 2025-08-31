@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/custom_text.dart';
 import 'forget_password_controller.dart';
@@ -72,10 +71,7 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                       SizedBox(height: 16.h),
-                      FadeIn(
-                          delay: 1.5,
-                          from: SlideFrom.TOP,
-                          child: StepperWidget(con: con)),
+                       StepperWidget(con: con),
                       SizedBox(height: 16.h),
                       image(),
                           SizedBox(height: 20.h,),
@@ -89,16 +85,13 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
   }
 
   Widget image() {
-    return FadeIn(
-        delay: 1.5,
-        from: con.stepThreeSuccess ? SlideFrom.BOTTOM : SlideFrom.TOP,
-        child: Image.asset(
+    return  Image.asset(
             con.stepThreeSuccess
                 ? AppAssets.IMG_SUCCESS
                 : AppAssets.IMG_FORGETPASSWORD,
             height: 300.h,
             width: 300.w,
-            fit: BoxFit.fill));
+            fit: BoxFit.fill);
   }
 
   // Widget stepOne() {
@@ -435,51 +428,39 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
   Widget successChangePassword() {
     return Column(
       children: [
-        FadeIn(
-            delay: 1.5,
-            from: SlideFrom.BOTTOM,
-            child: AppTextBold(
+        AppTextBold(
               title: "done".tr,
               color: ThemeClass.secondaryColor,
               fontSize: 24.sp,
-            )),
+            ),
         SizedBox(
           height: 30.h,
         ),
-        FadeIn(
-            delay: 1.5,
-            from: SlideFrom.BOTTOM,
-            child: AppTextRegular(
+        AppTextRegular(
               title: "success_des".tr,
               fontSize: 20.sp,
               color: ThemeClass.primaryColor,
-            )),
+            ),
         SizedBox(
           height: 30.h,
         ),
-        FadeIn(
-          delay: 1.5,
-          from: SlideFrom.BOTTOM,
-          child: Padding(
+         Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.w),
               child: AppTextHint(
                 title: "success_des_2".tr,
-              )),
+              ),
         ),
         SizedBox(
           height: 50.h,
         ),
-        FadeIn(
-          delay: 1.5,
-          from: SlideFrom.BOTTOM,
-          child: CustomButton(
+        CustomButton(
               width: 216.w,
               title: "login".tr,
               onTap: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/loginScreen', (Route<dynamic> route) => false,
                     arguments: "");
-              }),
+              },
         ),
       ],
     );

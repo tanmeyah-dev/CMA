@@ -19,7 +19,6 @@ import '../../../Theme/themeclass.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
 
@@ -76,10 +75,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                         Column(
                           children: [
                             SizedBox(height: 20.h),
-                            FadeIn(
-                                delay: 1,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_SERVICES,
                                     title: "services".tr,
                                     hint: false,
@@ -92,12 +88,9 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                           }
                                       );
                                       Navigator.pushNamed(context, MainServicesScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 1.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_OFFERS,
                                     title: "offers".tr,
                                     hint: false,
@@ -111,12 +104,9 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       );
                                       Navigator.pushNamed(
                                           context, MainOffersScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                             MoreItemWidget(
                                     image: AppAssets.IMG_MORE_CONTACT,
                                     title: "contact_us".tr,
                                     hint: false,
@@ -130,31 +120,26 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       );
                                       Navigator.pushNamed(
                                           context, ContactUsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_BRANCHES,
                                     title: "branches".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                      final FirebaseAnalytics _analytics = FirebaseAnalytics
+                                          .instance;
                                       _analytics.logEvent(
                                           name: 'request_branches_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_branches_screen"
+                                          parameters: <String, dynamic>{
+                                            "title": "request_branches_screen"
                                           }
                                       );
                                       Navigator.pushNamed(
                                           context, BranchesScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                             MoreItemWidget(
                                     image: AppAssets.IMG_MORE_TERMS,
                                     title: "terms".tr,
                                     hint: false,
@@ -168,12 +153,9 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       );
                                       Navigator.pushNamed(
                                           context, TermsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_PRIVACY,
                                     title: "privacy".tr,
                                     hint: false,
@@ -187,13 +169,9 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       );
                                       Navigator.pushNamed(
                                           context, ConditionsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-
-                            FadeIn(
-                                delay: 3,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_ABOUT,
                                     title: "about_us".tr,
                                     hint: false,
@@ -207,17 +185,14 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       );
                                       Navigator.pushNamed(
                                           context, AboutUsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
 
                             SizedBox(height: 85.h),
                           ],
                         ),
                         con.guestMood
-                            ? FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
+                            ? Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Column(
                                     children: [
@@ -235,12 +210,8 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       ),
                                     ],
                                   ),
-                                ),
                               )
-                            : FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
+                            :  Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Column(children: [
                                       CustomButton(
@@ -264,7 +235,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         },
                                       ),
                                       SizedBox(height: 8.h),
-                                    ])))
+                                    ]))
                       ])))))),
     );
   }

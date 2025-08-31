@@ -4,7 +4,6 @@ import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/forget_password_c
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/Validator.dart';
 import '../../../../Widgets/custom_button_widget.dart';
@@ -30,19 +29,12 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
             Expanded(child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FadeIn(
-                  delay: 1,
-                  from: SlideFrom.LEFT,
-                  child: AppTextRegular(
+                AppTextRegular(
                     title: "new_password".tr,
                     color: ThemeClass.secondaryColor,
                   ),
-                ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                    delay: 0.5,
-                    from: SlideFrom.LEFT,
-                    child: CustomTextFieldWidget(
+                CustomTextFieldWidget(
                         onchange: (value) {
                           if (value.length > 8) {
                             widget.con.activeBtn31 = true;
@@ -66,21 +58,14 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                           ),
                         )
 
-                    )),
+                    ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                  delay: 1,
-                  from: SlideFrom.LEFT,
-                  child: AppTextRegular(
+                AppTextRegular(
                     title: "confirm_new_password".tr,
                     color: ThemeClass.secondaryColor,
                   ),
-                ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                    delay: 1,
-                    from: SlideFrom.LEFT,
-                    child: CustomTextFieldWidget(
+                CustomTextFieldWidget(
                         obscure: widget.con.showConfirmPassword,
                         controller: widget.con.confirmNewPasswordController,
                         hint: "confirm_new_password".tr,
@@ -106,12 +91,9 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                           ),
                         )
 
-                    )),
+                    ),
               ],),),
-            FadeIn(
-                delay: 1.5,
-                from: SlideFrom.BOTTOM,
-                child: Align(
+             Align(
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
@@ -138,7 +120,6 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                       SizedBox(height: 40.h,),
                     ],
                   ),
-                )
             ),
           ]),
         ));

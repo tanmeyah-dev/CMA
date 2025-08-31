@@ -15,8 +15,7 @@ import '../../../../Widgets/animated_alert.dart';
 import '../../../../Widgets/location_alert.dart';
 import '../loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import '../loan_request_success/loan_request_success_screen.dart';
-import 'package:geolocator/geolocator.dart';
-// import 'package:location/location.dart';
+import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as permsion;
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -40,7 +39,7 @@ class LoanRequestAmountController extends ControllerMVC {
 
   String? currentLatitude, currentLongitude;
 
-  Position? currentPosition;
+  LocationData? currentPosition;
 
   // LocationData? locationData;
 
@@ -62,31 +61,33 @@ class LoanRequestAmountController extends ControllerMVC {
   }
 
 
-  static Future<Position?> getCurrentLocation(BuildContext context) async {
+  static Future<LocationData?> getCurrentLocation(BuildContext context) async {
+    Location location = Location();
 
-
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    bool serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      // ToastHelper.showError(message: 'Location services are disabled.');
-      return null;
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        // ToastHelper.showError(message: 'Location services are disabled.');
+        return null;
+      }
     }
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
+    PermissionStatus permission = await location.hasPermission();
+    if (permission == PermissionStatus.denied) {
+      permission = await location.requestPermission();
+      if (permission == PermissionStatus.denied) {
         // ToastHelper.showError(message: 'Location permissions are denied');
         return null;
       }
     }
-    if (permission == LocationPermission.deniedForever) {
+    if (permission == PermissionStatus.deniedForever) {
       // ToastHelper.showError(
       //     message:
       //     'Location permissions are permanently denied, we cannot request permissions.');
       return null;
     }
 
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
+    return await location.getLocation();
   }
 
 
@@ -102,7 +103,8 @@ class LoanRequestAmountController extends ControllerMVC {
   // }
 
   static Future<bool> checkGps() async {
-    if (await Geolocator.isLocationServiceEnabled()) {
+    Location location = Location();
+    if (await location.serviceEnabled()) {
       return true;
     } else {
       return false;
@@ -118,14 +120,13 @@ class LoanRequestAmountController extends ControllerMVC {
         context: context, onDismiss: () {},);
       return;
     } else {
-      LocationPermission permission = await Geolocator.requestPermission();
+      var permission = await permsion.Permission.location.request();
       print("}}}}}}<>>>>>>>>>>>>>>" + permission.toString());
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        await Geolocator.openAppSettings();
+      if (permission == permsion.PermissionStatus.denied ||
+          permission == permsion.PermissionStatus.permanentlyDenied) {
+        await permsion.openAppSettings();
         return;
-      } else if (permission == LocationPermission.always ||
-          permission == LocationPermission.whileInUse) {
+      } else if (permission == permsion.PermissionStatus.granted) {
           submitLoan(context:context,isInit: isInitLocation);
       }
     }
@@ -134,7 +135,7 @@ class LoanRequestAmountController extends ControllerMVC {
   submitLoan({required BuildContext context, bool isInit = false}) async {
     loading = true;
     setState(() { });
-    Position? position = await getCurrentLocation(context);
+    LocationData? position = await getCurrentLocation(context);
     if (position == null) return;
     setState(() {
       loading = false;

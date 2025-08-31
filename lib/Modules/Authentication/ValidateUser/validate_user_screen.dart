@@ -14,7 +14,6 @@ import '../../../Widgets/custom_text.dart';
 import 'validate_user_controller.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 
@@ -90,33 +89,24 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
   }
 
   Widget title() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.TOP,
-        child: AppTextMedium(
+    return AppTextMedium(
           title: "enter_number".tr,
-        ));
+        );
   }
 
   Widget image() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.TOP,
-      child: Image.asset(
+    return Image.asset(
         AppAssets.IMG_VALIDATE_USER,
         height: 300.h,
         width: 300.w,
         fit: BoxFit.fill,
-      ),
     );
   }
 
   Widget mobileTxtField() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
-      child: FadeIn(
-        delay: 2, from: SlideFrom.TOP,
-        child: Row(
+      child:  Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -147,21 +137,13 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
             ),
             const CountryCodeWidget(),
           ],
-        ),
       ),
     );
   }
 
   Widget continueBtn() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.BOTTOM,
-      child: Column(
-        children: [
-          FadeIn(
-            delay: 2,
-            from: SlideFrom.BOTTOM,
-            child: con.activeBtn
+    return  Column(
+        children: [con.activeBtn
                 ? CustomButton(
                     width: 200,
                     title: "continue".tr,
@@ -185,11 +167,9 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
               borderColor: ThemeClass.textFieldBackgroundColor,
               textColor: ThemeClass.hintColor,
               backgroundColor: ThemeClass.buttonNotActiveColor,
-            ),
           ),
           SizedBox(height: 20.h,)
         ],
-      ),
     );
   }
 }

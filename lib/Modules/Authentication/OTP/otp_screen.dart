@@ -3,7 +3,6 @@ import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -79,10 +78,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                     SizedBox(height: 8.h),
                     otpDes(),
                     SizedBox(height: 40.h,),
-                    FadeIn(
-                        delay: 2,
-                        from: SlideFrom.LEFT,
-                        child: PinCodeWidget(controller: con.codeController, onChangeOTP: (value) {
+                    PinCodeWidget(controller: con.codeController, onChangeOTP: (value) {
                           if(value.length == 5) {
                             con.activeBtn = true;
                             setState(() { });
@@ -90,7 +86,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                             con.activeBtn = false;
                             setState(() { });
                           }
-                        },)),
+                        },),
                     SizedBox(height: 35.h),
                     timer(),
                     SizedBox(height: 85.h),
@@ -106,25 +102,17 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
   }
 
   Widget title() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.TOP,
-      child: AppTextMedium(
+    return  AppTextMedium(
         title:  "confirm_number".tr,
-      ),
     );
   }
 
   Widget image() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.TOP,
-      child: Image.asset(
+    return  Image.asset(
         AppAssets.IMG_OTP,
         height: 300.h,
         width: 300.w,
         fit: BoxFit.fill,
-      ),
     );
   }
 
@@ -144,10 +132,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
 
 
   Widget timer() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.BOTTOM,
-      child: Row(
+    return  Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
@@ -182,17 +167,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                 color: ThemeClass.blackColor),
           ),
         ],
-      ),
     );
   }
 
   Widget confirmBtn() {
     return Column(
       children: [
-        FadeIn(
-          delay: 2,
-          from: SlideFrom.BOTTOM,
-          child: con.activeBtn == true ?  CustomButton(
+         con.activeBtn == true ?  CustomButton(
             width: 200,
             title: "confirm".tr,
             onTap: () {
@@ -219,7 +200,6 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
             onTap: () {
             },
           )  ,
-        ),
       ],
     );
   }

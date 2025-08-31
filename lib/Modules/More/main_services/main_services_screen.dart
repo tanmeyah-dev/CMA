@@ -11,7 +11,6 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import 'main_services_controller.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -95,10 +94,7 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                   arguments:
                                   con.servicesResponse!.products![index]);
                             },
-                            child: FadeIn(
-                              delay: 2,
-                              from: SlideFrom.BOTTOM,
-                              child: Container(
+                            child:  Container(
                                 width: 354.w,
                                 decoration: BoxDecoration(
                                   borderRadius:
@@ -157,7 +153,6 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                     ],
                                   ),
                                 ),
-                              ),
                             ),
                           );
                         },

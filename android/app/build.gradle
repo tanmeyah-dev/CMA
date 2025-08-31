@@ -42,8 +42,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
-    ndkVersion" 26.1.10909125"
+    compileSdkVersion 36
+    ndkVersion "26.1.10909125"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -64,7 +64,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

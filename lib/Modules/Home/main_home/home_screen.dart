@@ -16,8 +16,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import 'home_controller.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'home_status/active_loan.dart';
 import 'home_status/bill_widget.dart';
@@ -38,7 +37,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
   int crossAxisCount = 4;
 
 
-  Position? currentPosition;
+  LocationData? currentPosition;
 
   _HomeScreenState() : super(HomeController()) {
     con = HomeController();
@@ -111,21 +110,15 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 10.h),
-                    FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Padding(
+                    Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.w),
                             child: Align(
                                 alignment: AlignmentDirectional.centerStart,
                                 child: SizedBox(
                                     width: 50.w,
-                                    child: AppTextHint(title: "hello".tr))))),
+                                    child: AppTextHint(title: "hello".tr)))),
                     SharedPref.getUserObg() != null
-                        ? FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Padding(
+                        ?  Padding(
                             padding:
                             EdgeInsets.symmetric(horizontal: 16.w),
                             child: Align(
@@ -134,14 +127,11 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 child: AppTextBold(
                                     title:
                                     SharedPref.getUserObg()!.fullName,
-                                    color: ThemeClass.secondaryColor))))
+                                    color: ThemeClass.secondaryColor)))
                         : Container(),
                     SizedBox(height: 22.h),
                     (con.homeResponse?.loanRequest == null)
-                        ? FadeIn(
-                      delay: 1.5,
-                      from: SlideFrom.TOP,
-                      child:
+                        ?
                       (con.homeResponse?.canRequestLoan == true)
                           ? Container(
                         decoration: BoxDecoration(
@@ -324,7 +314,6 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                             ),
                           ],
                         ),
-                      ),
                     )
                         : ActiveLoanWidget(con: con,),
                     SizedBox(

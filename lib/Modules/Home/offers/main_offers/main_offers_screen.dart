@@ -11,7 +11,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../offers/main_offers/main_offers_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MainOffersScreen extends StatefulWidget {
   static const String routeName = "/mainOffersScreen";
@@ -66,10 +66,7 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                   Expanded(
                   child: ListView.separated(
                       itemBuilder: (_, index) {
-                        return FadeIn(
-                          delay: 2,
-                          from: SlideFrom.BOTTOM,
-                          child: GestureDetector(
+                        return GestureDetector(
                             onTap: () {
                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                               _analytics.logEvent(
@@ -118,7 +115,6 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                                 //     child: AppTextRegular(title: con.offersResponse?.offers[index].title??"")) : Container(),
                               ],
                             ),
-                          ),
                         );
                       },
                       separatorBuilder: (_, index) {

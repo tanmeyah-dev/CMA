@@ -16,7 +16,6 @@ import '../../../Utilities/general_toast.dart';
 import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 
@@ -72,10 +71,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.TOP,
-                                  child: Container(
+                                Container(
                                     width: 328.w,
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -104,13 +100,9 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                         ),
                                       ],
                                     ),
-                                  ),
                                 ),
                                 SizedBox(height: 8.h),
-                                FadeIn(
-                                    delay: 1,
-                                    from: SlideFrom.BOTTOM,
-                                    child: Row(
+                                Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,12 +204,9 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
 
                                           ]),
-                                        ])),
+                                        ]),
                                 SizedBox(height: 8.h,),
-                                FadeIn(
-                                  delay: 1.5,
-                                  from: SlideFrom.BOTTOM,
-                                  child: CustomButton(
+                               CustomButton(
                                       borderColor: ThemeClass.buttonNotActiveColor,
                                       radius: 16,
                                       title: "pay_now".tr,
@@ -230,13 +219,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                             }
                                         );
                                         Navigator.pushNamed(context, PaymentMethodsScreen.routeName,arguments: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString());
-                                      }),
+                                      },
                                 ),
                                 SizedBox(height: 55.h,),
-                                FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.BOTTOM,
-                                  child: Align(
+                                Align(
                                     alignment: Alignment.bottomCenter,
                                     child: con.activeLoanModel!.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
                                       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -248,7 +234,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                       );
                                       Navigator.pushNamed(context, PreviousLoanScreen.routeName);
                                     },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                                  ),
                                 ),
                                 SizedBox(height: 70.h,),
                               ],
@@ -258,27 +243,17 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
                           child: Column(
                             children: [
-                              FadeIn(
-                                delay: 1,
-                                from: SlideFrom.TOP,
-                                child: Image.asset(
+                               Image.asset(
                                   AppAssets.IMG_NO_LOAN,
                                   fit: BoxFit.fill,
                                   width: double.infinity,
                                   height: 328.h,
-                                ),
                               ),
                               SizedBox(height: 20.h,),
-                              FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.BOTTOM,
-                                  child: AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,)),
+                               AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,),
                               SizedBox(height: 170.h,),
                               (con.activeLoanModel?.havePreviousLoan != null) ?
-                              FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
+                              Align(
                                   alignment: Alignment.bottomCenter,
                                   child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
                                     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -290,7 +265,6 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                     );
                                     Navigator.pushNamed(context, PreviousLoanScreen.routeName);
                                   },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                                ),
                               ) : Container()
                             ],
                           ),
@@ -299,35 +273,25 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Padding(
+                       Padding(
                             padding: EdgeInsets.all(16.w),
-                            child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
+                            child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)
                       ),
                       SizedBox(
                         height: 16.h,
                       ),
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: AppTextMedium(
+                      AppTextMedium(
                           title: "empty_loan".tr,
-                        ),
                       ),
                       SizedBox(height: 131.h,),
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.BOTTOM,
-                        child: CustomButton(
+                       CustomButton(
                             width: 216,
                             title: "login".tr,
                             onTap: () {
                               Navigator.pushNamed(
                                   context, LoginScreen.routeName,
                                   arguments: "");
-                            }),
+                            },
                       ),
                     ],
                   ),
