@@ -8,7 +8,7 @@ class API{
   static const String token = "Identity/Token";
   static const String validateUser = "Identity/SendOTP";
   static const String verifyOtp = "Identity/VerifyOTP";
-  static const String deactivateUser = "Identity/DeactiveUser";
+  static const String deactivateUser = "Identity/DeactiveUser";gi
   static const String otpForgetPassword = "Identity/VerifyPhoneNumber";
   static const String login = "Identity/Login";
   static const String forgetPassword = "Identity/ForgotPassword";
