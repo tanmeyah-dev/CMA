@@ -14,6 +14,7 @@ import 'main_services_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 
 class MainServicesScreen extends StatefulWidget {
@@ -37,8 +38,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_main_services_screen',
         parameters: <String,dynamic>{
           "title" :"open_main_services_screen"
@@ -83,8 +84,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
+                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              analytics.logEvent(
                                   name: 'Open_Product_Detail',
                                   parameters: <String,dynamic>{
                                     "product_name" : con.servicesResponse?.products![index].nameAr

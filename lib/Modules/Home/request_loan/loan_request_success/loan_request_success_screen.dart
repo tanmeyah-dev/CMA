@@ -31,8 +31,8 @@ class _LoanSuccessRequestScreenState extends StateMVC<LoanSuccessRequestScreen> 
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_loan_request_inside_cairo',
         parameters: <String,dynamic>{
           "title" :"open_loan_request_inside_cairo"

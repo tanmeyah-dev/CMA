@@ -114,12 +114,14 @@ class LoanRequestAmountController extends ControllerMVC {
     bool result = await checkGps();
     setState(() {});
     if (!result) {
-      if (context.mounted) AlertLocation.checkGpsWidget(
+      if (context.mounted) {
+        AlertLocation.checkGpsWidget(
         context: context, onDismiss: () {},);
+      }
       return;
     } else {
       LocationPermission permission = await Geolocator.requestPermission();
-      print("}}}}}}<>>>>>>>>>>>>>>" + permission.toString());
+      print("}}}}}}<>>>>>>>>>>>>>>$permission");
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
         await Geolocator.openAppSettings();
@@ -166,8 +168,8 @@ class LoanRequestAmountController extends ControllerMVC {
      loading = false;
    });
    if (result?.isCapital == true) {
-     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-     _analytics.logEvent(
+     final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+     analytics.logEvent(
          name: 'loan_submitted_from_cairo_successfully',
          parameters: <String,dynamic>{
            "title" :"loan_submitted_from_cairo_successfully"
@@ -175,8 +177,8 @@ class LoanRequestAmountController extends ControllerMVC {
      );
      Navigator.pushNamed(context, LoanSuccessRequestScreen.routeName);
    } else if (result?.isCapital == false) {
-     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-     _analytics.logEvent(
+     final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+     analytics.logEvent(
          name: 'loan_submitted_out_of_cairo_successfully',
          parameters: <String,dynamic>{
            "title" :"loan_submitted_out_of_cairo_successfully"

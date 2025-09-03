@@ -32,7 +32,7 @@ class PaymentMethodsScreen extends StatelessWidget {
                   ),
                   Container(
                     width: 328.w,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(AppAssets.IMG_AMOUNT_BACKGROUND),
                             fit: BoxFit.fill)),

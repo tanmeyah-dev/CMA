@@ -15,6 +15,7 @@ import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/custom_text.dart';
 import 'forget_password_controller.dart';
 import 'forgetpassword_steps/forget_password_step_one.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Widgets/simple_animations.dart';
 
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -36,8 +37,8 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_forget_password_screen',
         parameters: <String,dynamic>{
           "title" :"open_forget_password_screen"

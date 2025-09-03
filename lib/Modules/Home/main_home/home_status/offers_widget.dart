@@ -14,6 +14,7 @@ import '../../../../Widgets/custom_text.dart';
 import '../../../More/offer_detail/offer_details_screen.dart';
 import '../../offers/main_offers/main_offers_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 class OffersWidget extends StatelessWidget {
   HomeController con;
@@ -38,8 +39,8 @@ class OffersWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
+                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    analytics.logEvent(
                         name: 'request_view_all_offers',
                         parameters: <String,dynamic>{
                           "title" :"request_view_all_offers"
@@ -81,8 +82,8 @@ class OffersWidget extends StatelessWidget {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'open_offer_detail',
                           parameters: <String,dynamic>{
                             "title" :"open_offer_detail  ${i.nameAr}"

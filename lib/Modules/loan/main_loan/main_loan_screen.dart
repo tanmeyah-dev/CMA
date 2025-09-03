@@ -18,6 +18,7 @@ import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 
 class MainLoanScreen extends StatefulWidget {
@@ -38,8 +39,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_main_loan_screen',
         parameters: <String,dynamic>{
           "title" :"open_main_loan_screen"
@@ -222,8 +223,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                       radius: 16,
                                       title: "pay_now".tr,
                                       onTap: ()  {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
+                                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                        analytics.logEvent(
                                             name: 'request_pay',
                                             parameters: <String,dynamic>{
                                               "title" :"request_pay"
@@ -239,8 +240,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   child: Align(
                                     alignment: Alignment.bottomCenter,
                                     child: con.activeLoanModel!.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      analytics.logEvent(
                                           name: 'request_previous_loans',
                                           parameters: <String,dynamic>{
                                             "title" :"request_previous_loans"
@@ -281,8 +282,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                 child: Align(
                                   alignment: Alignment.bottomCenter,
                                   child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                    _analytics.logEvent(
+                                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                    analytics.logEvent(
                                         name: 'request_previous_loans',
                                         parameters: <String,dynamic>{
                                           "title" :"request_previous_loans"
@@ -371,16 +372,16 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
       required String routeName}) {
     return GestureDetector(
       onTap: () {
-        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
        if(routeName == AlreadyPaidScreen.routeName) {
-         _analytics.logEvent(
+         analytics.logEvent(
              name: 'request_paid_installment_screen',
              parameters: <String, dynamic>{
                "title": "request_paid_installment_screen"
              }
          );
        }else {
-         _analytics.logEvent(
+         analytics.logEvent(
              name: 'request_due_installment_screen',
              parameters: <String,dynamic>{
                "title" :"request_due_installment_screen"
@@ -417,7 +418,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                   child: Icon(
                     Icons.arrow_back_ios_new_rounded,
                     size: 8.sp,
-                    color: Color(0xFFFEFBE8),
+                    color: const Color(0xFFFEFBE8),
                   ),
                 ),
               ],

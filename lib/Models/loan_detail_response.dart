@@ -69,7 +69,7 @@ class ActiveLoan {
     numberOfNotPaidMonths: json["numberOfNotPaidMonths"],
     totalDueAmount: json["totalDueAmount"]?.toDouble(),
     dueInstallmentAmount: json["dueInstallmentAmount"].toDouble(),
-      penaltyAmount : json["penaltyAmount"] != null ? json["penaltyAmount"].toDouble() : null,
+      penaltyAmount : json["penaltyAmount"]?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {

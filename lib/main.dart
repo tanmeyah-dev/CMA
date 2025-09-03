@@ -18,6 +18,7 @@ import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Utilities/routing.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'Widgets/simple_animations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:dart_ping_ios/dart_ping_ios.dart';import 'package:firebase_analytics/firebase_analytics.dart';
@@ -31,7 +32,7 @@ Future<void> main() async {
 
   await SharedObj().init();
   DartPingIOS.register();
-  var pings = await Ping('gateway.tanmeyah.com',count: 4);
+  var pings = Ping('gateway.tanmeyah.com',count: 4);
   pings.stream.listen((ping) {
     print(">>>><<<<<");
     print(ping);
@@ -72,7 +73,7 @@ class _EntryPointState extends State<EntryPoint>  {
   @override
   Widget build(BuildContext context) {
 
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
     final appLan = Provider.of<AppLanguage>(context);
     appLan.fetchLocale();
     SystemChrome.setPreferredOrientations([
@@ -95,7 +96,7 @@ class _EntryPointState extends State<EntryPoint>  {
               ? 'تنميه'
               : "Tanmeyah",
           navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: _analytics),
+            FirebaseAnalyticsObserver(analytics: analytics),
           ],
           initialRoute: SplashScreen.routeName,
           // locale: appLan.appLocal,

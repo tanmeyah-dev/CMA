@@ -10,6 +10,7 @@ import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../Main/main_screen.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 
 
@@ -85,7 +86,7 @@ class ActiveLoanWidget extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFC34640),
+                      color: const Color(0xFFC34640),
                       borderRadius: BorderRadius.circular(16.sp),
                     ),
                     padding: EdgeInsets.all(12.w),

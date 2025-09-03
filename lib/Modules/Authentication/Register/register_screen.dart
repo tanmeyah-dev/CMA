@@ -21,6 +21,7 @@ import '../../../Widgets/skip_button.dart';
 import '../Terms/terms_screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Widgets/simple_animations.dart';
 
 
 class RegisterScreen extends StatefulWidget {
@@ -49,8 +50,8 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
     } else {
       con.editPhone = false;
     }
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_registration_screen',
         parameters: <String,dynamic>{
           "title" : "open_registration_screen"
@@ -73,8 +74,8 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 20.w),
                       child: SkipButton(
                           onTap: () {
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
+                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            analytics.logEvent(
                                 name: 'skip_registration_screen',
                                 parameters: <String,dynamic>{
                                   "title" : "skip_registration_screen"
@@ -143,11 +144,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
           Row(
             children: [
               AppTextRegular(
-                title: "${"full_name".tr}",
+                title: "full_name".tr,
                 color: ThemeClass.secondaryColor,
               ),
               SizedBox(width: 6.w,),
-              AppTextHint(title: "(باللغة العربية)"),
+              const AppTextHint(title: "(باللغة العربية)"),
             ],
           ),
           SizedBox(
@@ -419,7 +420,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             Row(
               children: [
                 Checkbox(
-                  shape: ContinuousRectangleBorder(),
+                  shape: const ContinuousRectangleBorder(),
                   value: con.accept,
                   onChanged: (value) {
                     con.accept = !con.accept;
@@ -433,8 +434,8 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             Row(children: [
               GestureDetector(
                   onTap: () {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
+                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    analytics.logEvent(
                         name: 'request_terms_screen',
                         parameters: <String,dynamic>{
                           "title" : "request_terms_screen"
@@ -449,8 +450,8 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               AppTextRegular(title: " ${"and".tr} ", fontSize: 12.sp),
               GestureDetector(
                   onTap: () {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
+                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    analytics.logEvent(
                         name: 'request_conditions_screen',
                         parameters: <String,dynamic>{
                           "title" : "request_conditions_screen"
@@ -481,8 +482,8 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               title: "save".tr,
               onTap: () async {
                   if (con.formKey.currentState!.validate()) {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
+                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    analytics.logEvent(
                         name: 'submit_registration_screen',
                         parameters: <String,dynamic>{
                           "title" : "submit_registration_screen"

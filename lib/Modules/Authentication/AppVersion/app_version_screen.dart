@@ -29,8 +29,8 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_update_version_screen',
         parameters: <String,dynamic>{
           "title" :"open_update_version_screen"
@@ -99,8 +99,8 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
   }
 
   moveToUpdate() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'submit_update_screen',
         parameters: <String,dynamic>{
           "title" :"submit_update_screen"

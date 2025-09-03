@@ -12,6 +12,7 @@ import '../../../../Widgets/country_code_widget.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../../Widgets/custom_textfield_widget.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 
 class ForgetPasswordStepOne extends StatefulWidget {
@@ -104,7 +105,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                         SizedBox(
                           width: 8.w,
                         ),
-                         FadeIn(
+                         const FadeIn(
                             delay: 2,
                             from: SlideFrom.TOP,
                             child: CountryCodeWidget()),

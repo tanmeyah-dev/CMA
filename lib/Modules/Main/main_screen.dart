@@ -32,8 +32,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     _selectedIndex = widget.index??0;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_landing_screen',
         parameters: <String,dynamic>{
           "title" :"open_landing_screen"

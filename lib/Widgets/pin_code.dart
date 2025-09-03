@@ -44,7 +44,7 @@ class PinCodeWidget extends StatelessWidget {
             inactiveColor: ThemeClass.textFieldBackgroundColor,
             selectedColor:  ThemeClass.secondaryColor,
             inactiveFillColor: ThemeClass.buttonNotActiveColor,
-            selectedFillColor: Color(0xFFF9F9F9),
+            selectedFillColor: const Color(0xFFF9F9F9),
           ),
           hintCharacter: " ",
           animationDuration: const Duration(milliseconds: 300),

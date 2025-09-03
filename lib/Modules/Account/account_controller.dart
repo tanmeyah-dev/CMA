@@ -96,8 +96,8 @@ class AccountController extends ControllerMVC {
     loading = false;
     setState(() {});
     if(result == true){
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'user_deactivate_account',
           parameters: <String,dynamic>{
             "title" :"user_deactivate_account"

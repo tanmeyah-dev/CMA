@@ -29,8 +29,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-     _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+     analytics.logEvent(
         name: 'open_onboarding_screen',
         parameters: <String,dynamic>{
           "title" : "open_onboarding_screen"
@@ -64,8 +64,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   left: 10.w,
                   child: SkipButton(
                     onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'skip_onboarding_screen',
                           parameters: <String,dynamic>{
                             "title" : "skip_onboarding_screen"
@@ -152,8 +152,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onTap: () async {
                 if (currentIndex == contents.length - 1) {
                   await SharedPref.saveWatchIntro();
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'complete_onboarding_screen',
                       parameters: <String,dynamic>{
                         "title" : "complete_onboarding_screen"

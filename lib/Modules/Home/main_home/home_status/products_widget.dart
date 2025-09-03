@@ -8,6 +8,7 @@ import '../../../../Widgets/custom_text.dart';
 import '../../../More/services_detail/services_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 
 class ProductsWidget extends StatelessWidget {
@@ -46,8 +47,8 @@ class ProductsWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'request_service',
                       parameters: <String,dynamic>{
                         "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"

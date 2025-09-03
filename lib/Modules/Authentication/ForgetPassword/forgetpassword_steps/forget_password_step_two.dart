@@ -3,11 +3,10 @@ import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/forget_password_c
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_button_widget.dart';
-import '../../../../Widgets/custom_text.dart';
 import '../../../../Widgets/pin_code.dart';
+import '../../../../Widgets/simple_animations.dart';
 
 class ForgetPasswordStepTwo extends StatefulWidget {
   ForgetPasswordController con;

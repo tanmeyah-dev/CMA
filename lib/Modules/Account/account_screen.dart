@@ -20,6 +20,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import '../Authentication/Login/login_screen.dart';
 import '../More/main_more/widget/logout_alert.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../Widgets/simple_animations.dart';
 
 
 class AccountScreen extends StatefulWidget {
@@ -123,8 +124,8 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                 textColor: ThemeClass.primaryColor,
                                 borderColor: ThemeClass.primaryColor,
                                 onTap: () {
-                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                  _analytics.logEvent(
+                                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                  analytics.logEvent(
                                       name: 'request_deactivate_account',
                                       parameters: <String,dynamic>{
                                         "title" :"request_deactivate_account"

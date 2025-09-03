@@ -22,6 +22,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'home_status/active_loan.dart';
 import 'home_status/offers_widget.dart';
 import 'home_status/products_widget.dart';
+import '../../../Widgets/simple_animations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -46,8 +47,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_home_screen',
         parameters: <String,dynamic>{
           "title" :"open_home_screen"
@@ -183,8 +184,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     fontWeight: FontWeight.bold,
                                     onTap: () async {
                                         if (con.isLogin)  {
-                                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                          _analytics.logEvent(
+                                          final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                          analytics.logEvent(
                                               name: 'request_loan_button',
                                               parameters: <String,dynamic>{
                                                 "title" :"request_loan_button"
@@ -299,8 +300,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     title: "ask_loan".tr,
                                     fontWeight: FontWeight.bold,
                                     onTap: () async {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      analytics.logEvent(
                                           name: 'open_nearest_branches',
                                           parameters: <String,dynamic>{
                                             "title" :"open_nearest_branches"
@@ -329,7 +330,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                       height: 16.h,
                     ),
                     (con.homeResponse?.offers != null &&
-                        con.homeResponse!.offers.length != 0) ? OffersWidget(con: con) : Container(),
+                        con.homeResponse!.offers.isNotEmpty) ? OffersWidget(con: con) : Container(),
                     (con.homeResponse?.products != null &&
                         con.homeResponse!.products.isNotEmpty) ? ProductsWidget(con: con,) : Container(),
                     SizedBox(

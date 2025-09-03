@@ -31,7 +31,7 @@ class HomeController extends ControllerMVC {
   HomeResponse? homeResponse;
 
   Position? currentPosition;
-  final RetryOptions _retryOptions = RetryOptions(
+  const RetryOptions _retryOptions = RetryOptions(
     maxAttempts: 3, // Maximum number of retry attempts
     delayFactor: Duration(seconds: 3), // Delay between retries
   );

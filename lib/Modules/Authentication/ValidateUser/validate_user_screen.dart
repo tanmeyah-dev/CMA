@@ -16,6 +16,7 @@ import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Widgets/simple_animations.dart';
 
 
 
@@ -37,8 +38,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_phone_number_screen',
         parameters: <String,dynamic>{
           "title" : "open_phone_number_screen"
@@ -166,8 +167,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                     width: 200,
                     title: "continue".tr,
                     onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'submit_phone_number_screen',
                           parameters: <String,dynamic>{
                             "title" : "submit_phone_number_screen"

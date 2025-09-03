@@ -46,7 +46,7 @@ class AlertLocation{
               ),
               SizedBox(height: 16.h,),
 
-              Text('برجاء التاكد من تفعيل خاصيه الموقع'),
+              const Text('برجاء التاكد من تفعيل خاصيه الموقع'),
               const Spacer(),
               // space10Horizontal,
               CustomButton(

@@ -45,8 +45,8 @@ class MoreController extends ControllerMVC {
       loading = false;
     });
 
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'submit_logout',
         parameters: <String,dynamic>{
           "title" :"submit_logout"
