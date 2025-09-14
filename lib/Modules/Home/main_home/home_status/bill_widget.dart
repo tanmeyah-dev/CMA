@@ -30,7 +30,7 @@ class BillWidget extends StatelessWidget {
                     child: Image.asset(AppAssets.IMG_CALL,width : 40.w,height: 40.h,),
                   ),
                   SizedBox(height: 6.h,),
-                  AppTextRegular(title: "GGGG" )
+                  const AppTextRegular(title: "GGGG" )
                 ],
               ),
             ],

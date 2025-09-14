@@ -40,8 +40,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
   void initState() {
     con.onConfirm = widget.onConfirm;
     con.phoneNumber = widget.phoneNumber;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_send_otp_screen',
         parameters: <String,dynamic>{
           "title" : "open_send_otp_screen"
@@ -138,8 +138,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
           InkWell(
               onTap: () {
                 if (con.activeResend == true) {
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'request_resend_otp_screen',
                       parameters: <String,dynamic>{
                         "title" : "request_resend_otp_screen"
@@ -178,8 +178,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
             title: "confirm".tr,
             onTap: () {
               if (con.formKey.currentState!.validate()) {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
+                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                analytics.logEvent(
                     name: 'submit_otp_screen',
                     parameters: <String,dynamic>{
                       "title" : "submit_otp_screen"

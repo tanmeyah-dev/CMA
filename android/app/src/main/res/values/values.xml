@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Firebase Configuration -->
+    <string name="default_web_client_id" translatable="false">310544200746-8e6c8cn1jo72o9gdvatfrrcfp2g0o42j.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://tanmeyahapp-default-rtdb.firebaseio.com</string>
+    <string name="gcm_default_sender_id" translatable="false">310544200746</string>
+    <string name="google_api_key" translatable="false">AIzaSyA37LfxmBnRCeH3ANZjtNsGiNftnp5iJgg</string>
+    <string name="google_app_id" translatable="false">1:310544200746:android:c7e29073d4ce39dbaeff53</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA37LfxmBnRCeH3ANZjtNsGiNftnp5iJgg</string>
+    <string name="google_storage_bucket" translatable="false">tanmeyahapp.appspot.com</string>
+    <string name="project_id" translatable="false">tanmeyahapp</string>
+</resources>
+

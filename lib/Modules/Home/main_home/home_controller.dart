@@ -8,9 +8,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Shared/shared_prefirences.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:location/location.dart';
-import '../../../Utilities/general_toast.dart';
 import 'package:retry/retry.dart';
-import 'package:http/http.dart' as http;
 
 
 
@@ -31,7 +29,7 @@ class HomeController extends ControllerMVC {
   HomeResponse? homeResponse;
 
   LocationData? currentPosition;
-  final RetryOptions _retryOptions = RetryOptions(
+  static const RetryOptions _retryOptions = RetryOptions(
     maxAttempts: 3, // Maximum number of retry attempts
     delayFactor: Duration(seconds: 3), // Delay between retries
   );

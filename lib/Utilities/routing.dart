@@ -13,7 +13,6 @@ import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Modules/More/offer_detail/offer_details_screen.dart';
 import 'package:Tanmeyah/Modules/More/services_detail/services_detail_screen.dart';
 import 'package:Tanmeyah/Modules/loan/already_paid/already_paid_screen.dart';
-import 'package:Tanmeyah/Modules/loan/main_loan/webview.dart';
 import 'package:Tanmeyah/Modules/loan/payment_methods/payment_methods_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_needed/payment_needed_screen.dart';
 import 'package:Tanmeyah/Utilities/no_internet.dart';

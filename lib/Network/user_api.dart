@@ -66,18 +66,17 @@ class UserApi {
     });
     var response = await http.post(Uri.parse("${API.baseServerURL}/api/v1/Identity/Login"), headers: headers,
         body: jsonEncode(loginForm.toJson()));
-    if (response == null) return false;
     var result = json.decode(utf8.decode(response.body.codeUnits));
-    print("<<<<<<<<<<<>>>>>>>>>>" + result.toString());
+    print("<<<<<<<<<<<>>>>>>>>>>$result");
     if( result["isSuccess"] == true  && result["code"] == "200") {
       Map<String, String> headers = response.headers;
       UserModel? userModel;
       String headerValue = headers['authorization'] ?? '';
-      print("NEEEEEEEE===>>>   ${headerValue}");
+      print("NEEEEEEEE===>>>   $headerValue");
       print("NEEEEEEEE===>>>   ${result["user"]["token"]}");
 
       userModel = UserModel.fromJson(result["user"]);
-      userModel..token = "Bearer $headerValue";
+      userModel.token = "Bearer $headerValue";
       SharedPref.saveUserObj(userModel: userModel);
       return true;
     } else {

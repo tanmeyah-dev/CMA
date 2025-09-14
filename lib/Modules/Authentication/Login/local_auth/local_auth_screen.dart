@@ -139,8 +139,8 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
         title: "confirm".tr,
         onTap: () {
           if (con.formKey.currentState!.validate()) {
-            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-            _analytics.logEvent(
+            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+            analytics.logEvent(
                 name: 'submit_biometric_login_screen',
                 parameters: <String,dynamic>{
                   "title" :"submit_biometric_login_screen"

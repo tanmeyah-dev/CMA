@@ -40,8 +40,8 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_contact_us_screen',
         parameters: <String,dynamic>{
           "title" :"open_contact_us_screen"
@@ -130,13 +130,13 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                                 borderSide: BorderSide(width: 1, color: ThemeClass.secondaryMediumColor),
                                 borderRadius: BorderRadius.circular(14.sp),
                               ),
-                              errorStyle: TextStyle(height: 1),
+                              errorStyle: const TextStyle(height: 1),
                               errorBorder:OutlineInputBorder(
                                 borderSide: BorderSide(width: 2, color: ThemeClass.primaryColor),
                                 borderRadius: BorderRadius.circular(14.sp),
                               ),
                               hoverColor: ThemeClass.primaryColor,
-                              border: OutlineInputBorder(),
+                              border: const OutlineInputBorder(),
                               hintText: 'أرسل استفسارك',
                               hintStyle: TextStyle(
                                   color: ThemeClass.borderColor
@@ -149,8 +149,8 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           ),
                           SizedBox(height: 6.h,),
                           CustomButton(title: "send".tr, onTap: (){
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
+                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            analytics.logEvent(
                                 name: 'submit_contact_us',
                                 parameters: <String,dynamic>{
                                   "title" :"submit_contact_us"

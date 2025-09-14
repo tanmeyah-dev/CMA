@@ -43,11 +43,11 @@ class MoreItemWidget extends StatelessWidget {
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: image == AppAssets.IMG_MORE_ABOUT ? Color(0xFFF3D4D2) : Color(0xFFE4E4E4),
+                color: image == AppAssets.IMG_MORE_ABOUT ? const Color(0xFFF3D4D2) : const Color(0xFFE4E4E4),
               ),
               child: Image.asset(
                 image,
-                color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xFF6A4B4C80) : ThemeClass.fontColor,
+                color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xff6a4b4c80) : ThemeClass.fontColor,
                 width: 24.w,
                 height: 24.h,
               ),

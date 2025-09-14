@@ -50,8 +50,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_loan_amount_screen',
         parameters: <String,dynamic>{
           "title" :"open_loan_amount_screen"
@@ -168,6 +168,7 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                   if(!regExp.hasMatch(value!)) {
                                     return "يجب ادخال ارقام فقط";
                                   }
+                                  return null;
                                 },
                                 //    var phoneRegExp = RegExp(r'^0|1[0125][0-9]{8}$');
                                 // validator: (value) {
@@ -264,8 +265,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                               context: context,
                                               isInitLocation: true);
                                         } else {
-                                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                          _analytics.logEvent(
+                                          final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                          analytics.logEvent(
                                               name: 'submit_loan_request',
                                               parameters: <String,dynamic>{
                                                 "title" :"submit_loan_request"

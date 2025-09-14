@@ -80,7 +80,7 @@ class ActiveLoanWidget extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFC34640),
+                      color: const Color(0xFFC34640),
                       borderRadius: BorderRadius.circular(16.sp),
                     ),
                     padding: EdgeInsets.all(12.w),

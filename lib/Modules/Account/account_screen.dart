@@ -101,8 +101,8 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                 textColor: ThemeClass.primaryColor,
                                 borderColor: ThemeClass.primaryColor,
                                 onTap: () {
-                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                  _analytics.logEvent(
+                                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                  analytics.logEvent(
                                       name: 'request_deactivate_account',
                                       parameters: <String,dynamic>{
                                         "title" :"request_deactivate_account"

@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, unnecessary_overrides
-import 'package:Tanmeyah/Models/terms_response.dart';
-import 'package:Tanmeyah/Network/terms_and_conditions_api.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 

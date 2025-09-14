@@ -124,7 +124,7 @@ class LoanRequestModel {
     numberOfNotPaidMonths = json['numberOfNotPaidMonths'];
     totalDueAmount = json['totalDueAmount'].toDouble();
     dueInstallmentAmount = json['dueInstallmentAmount'].toDouble();
-    lastPaidInstallmentAmount =  json["lastPaidInstallmentAmount"] != null ? json["lastPaidInstallmentAmount"].toDouble() : null;
+    lastPaidInstallmentAmount =  json["lastPaidInstallmentAmount"]?.toDouble();
     lastPaidInstallmentDate =  json["lastPaidInstallmentDate"];
   }
 

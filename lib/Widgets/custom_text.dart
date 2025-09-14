@@ -95,7 +95,7 @@ class AppTextRegular extends StatelessWidget {
           fontWeight: fontWeight??  FontWeight.w400,
           color: color ?? ThemeClass.fontColor,
       ),
-      maxLines: maxLines?? null,
+      maxLines: maxLines,
       textAlign: textAlign?? TextAlign.center,
     );
   }

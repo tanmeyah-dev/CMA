@@ -48,14 +48,14 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
 
   checkConnectivity() async {
 
-    print("<<<<<<>>>>>>>>>>>>>>>" +  SharedPref.getUserLatitude().toString());
-    print("<<<<<<>>>>>>>>>>>>>>>" +  SharedPref.getUserLongitude().toString());
+    print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLatitude()}");
+    print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLongitude()}");
     var result =  await Connectivity().checkConnectivity();
     print(result);
     if (result != ConnectivityResult.none) {
       await UserApi.getToken();
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-       _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+       analytics.logEvent(
         name: 'open_splash',
         parameters: <String,dynamic>{
           "title" : "Open_Splash_Screen"

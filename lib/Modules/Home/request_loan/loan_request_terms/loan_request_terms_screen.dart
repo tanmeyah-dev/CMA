@@ -33,8 +33,8 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_loan_terms_screen',
         parameters: <String,dynamic>{
           "title" :"open_loan_terms_screen"
@@ -125,7 +125,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                                     },
                                     activeColor: ThemeClass.primaryColor,
                                   ),
-                                  AppTextRegular(title: "نعم لدي مشروع قائم منذ ٦ اشهر"),
+                                  const AppTextRegular(title: "نعم لدي مشروع قائم منذ ٦ اشهر"),
                                 ],
                             ),
                           ],
@@ -143,8 +143,8 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               width: 216,
                               title: "start_ask_for_loan".tr, onTap: () {
                             if(con.accept) {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
+                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              analytics.logEvent(
                                   name: 'submit_start_request_loan',
                                   parameters: <String,dynamic>{
                                     "title" :"submit_start_request_loan"

@@ -150,8 +150,8 @@ class RegisterController extends ControllerMVC {
 
 
     if (result?.isSuccess == true && result?.user?.isActive == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'success_registration_screen',
           parameters: <String,dynamic>{
             "title" : "success_registration_screen"
@@ -164,8 +164,8 @@ class RegisterController extends ControllerMVC {
             (code) => onConfirm(code, context)
       ]);
     } else if (result?.isAlreadyMobileNumberExist == true ){
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'error_registration_screen',
           parameters: <String,dynamic>{
             "title" : "error_registration_screen"

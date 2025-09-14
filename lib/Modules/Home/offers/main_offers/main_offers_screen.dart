@@ -32,8 +32,8 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_offers_screen',
         parameters: <String,dynamic>{
           "title" :"open_offers_screen"
@@ -68,8 +68,8 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                       itemBuilder: (_, index) {
                         return GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
+                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              analytics.logEvent(
                                   name: 'open_offers_detail',
                                   parameters: <String,dynamic>{
                                     "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"

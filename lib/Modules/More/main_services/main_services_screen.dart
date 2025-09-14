@@ -36,8 +36,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_main_services_screen',
         parameters: <String,dynamic>{
           "title" :"open_main_services_screen"
@@ -82,8 +82,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
+                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              analytics.logEvent(
                                   name: 'Open_Product_Detail',
                                   parameters: <String,dynamic>{
                                     "product_name" : con.servicesResponse?.products![index].nameAr
