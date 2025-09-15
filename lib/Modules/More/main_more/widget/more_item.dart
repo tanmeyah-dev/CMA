@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:iconsax/iconsax.dart';
 
 class MoreItemWidget extends StatelessWidget {
 
@@ -13,7 +12,7 @@ class MoreItemWidget extends StatelessWidget {
    String title;
    bool hint;
    Function() onTap;
-   MoreItemWidget({required this.image, required this.title,required this.hint,required this.onTap,Key? key}) : super(key: key);
+   MoreItemWidget({required this.image, required this.title,required this.hint,required this.onTap,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +26,10 @@ class MoreItemWidget extends StatelessWidget {
           color: ThemeClass.termsBackground,
           borderRadius: BorderRadius.circular(16.sp),
         ),
-        padding: EdgeInsets.symmetric(vertical : 14.h,horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical : 8.h,horizontal: 8.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              image,
-              color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xFF6A4B4C80) : ThemeClass.fontColor,
-              width: 24.w,
-              height: 24.h,
-            ),
             Padding(
               padding: EdgeInsetsDirectional.only(start: 8.w),
               child: AppTextRegular(
@@ -45,9 +38,19 @@ class MoreItemWidget extends StatelessWidget {
                 fontSize: 18.sp,
               ),
             ),
-            Spacer(),
-            Icon(Icons.arrow_forward_ios_outlined,size: 20.sp,color: ThemeClass.borderColor,)
-
+            Container(
+              padding: EdgeInsets.all(8.w),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: image == AppAssets.IMG_MORE_ABOUT ? const Color(0xFFF3D4D2) : const Color(0xFFE4E4E4),
+              ),
+              child: Image.asset(
+                image,
+                color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xff6a4b4c80) : ThemeClass.fontColor,
+                width: 24.w,
+                height: 24.h,
+              ),
+            ),
           ],
         ),
       ),

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../Shared/shared_prefirences.dart';
-import '../../Authentication/Login/local_auth/user_secure_storage.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MoreController extends ControllerMVC {
@@ -45,8 +44,8 @@ class MoreController extends ControllerMVC {
       loading = false;
     });
 
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'submit_logout',
         parameters: <String,dynamic>{
           "title" :"submit_logout"

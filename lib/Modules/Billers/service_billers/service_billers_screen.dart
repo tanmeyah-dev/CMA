@@ -17,9 +17,9 @@ import '../../../Theme/app_assets.dart';
 class ServiceBillersScreen extends StatefulWidget {
   static const String routeName = "/serviceBillersScreen";
 
-   String title;
-   int billerId;
-  ServiceBillersScreen({ required this.billerId,required this.title, Key? key}) : super(key: key);
+  final String title;
+  final int billerId;
+  const ServiceBillersScreen({required this.billerId, required this.title, super.key});
 
   @override
   _MobileBillersScreenState createState() => _MobileBillersScreenState();
@@ -35,8 +35,8 @@ class _MobileBillersScreenState extends StateMVC<ServiceBillersScreen> {
   @override
   void initState() {
     con.billerId = widget.billerId;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_mobile_billers_screen',
         parameters: <String,dynamic>{
           "title" :"open_mobile_billers_screen"

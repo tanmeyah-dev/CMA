@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../Theme/app_assets.dart';
 import '../Utilities/helper.dart';
 import 'custom_button_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 
 
@@ -46,7 +45,7 @@ class AlertLocation{
               ),
               SizedBox(height: 16.h,),
 
-              Text('برجاء التاكد من تفعيل خاصيه الموقع'),
+              const Text('برجاء التاكد من تفعيل خاصيه الموقع'),
               const Spacer(),
               // space10Horizontal,
               CustomButton(
@@ -54,7 +53,7 @@ class AlertLocation{
                 height: 40.h,
                 fontSize: 14.sp,
                 onTap: () async {
-                  Geolocator.openLocationSettings();
+                  Location().requestService();
                   Navigator.of(context, rootNavigator: true).pop();
                 },
               ),

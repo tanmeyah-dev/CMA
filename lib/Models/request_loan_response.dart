@@ -56,7 +56,7 @@ class RequestLoanModel {
   factory RequestLoanModel.fromJson(Map<String, dynamic> json) => RequestLoanModel(
     id: json["id"]??"",
     userId: json["userId"]??"",
-    amount: json["amount"].toString()??"",
+    amount: json["amount"]?.toString() ?? "",
     requestDate: json["requestDate"]??"",
   );
 

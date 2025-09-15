@@ -4,7 +4,6 @@ import 'package:Tanmeyah/Models/get_all_services_response.dart';
 import 'package:Tanmeyah/Models/mobile_biller_response.dart';
 import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:flutter/cupertino.dart';
-import '../Models/services_model.dart';
 import 'api.dart';
 import 'network_methods.dart';
 
@@ -25,7 +24,7 @@ class BillersApi{
 
   static Future<MobileBillersResponse?> getBillers({required String billerID}) async {
     var response = await NetworkMethods.getRequest(
-      url: API.getBillers+"$billerID",
+      url: "${API.getBillers}$billerID",
     );
     if (response == null) return null;
     if (response["isSuccess"] == true) {
@@ -54,7 +53,7 @@ class BillersApi{
 
 
   static Future excuteDailyJob() async {
-    var response = await NetworkMethods.getRequest(
+    await NetworkMethods.getRequest(
       url: API.excuteDailyJob,
     );
 

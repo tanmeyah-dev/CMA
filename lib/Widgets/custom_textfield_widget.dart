@@ -60,7 +60,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? 366.w,
+      width: width ?? 350.w,
        // height: height ?? 48.h,
       child: TextFormField(
         onFieldSubmitted: onFieldSubmitted,
@@ -81,7 +81,7 @@ class CustomTextFieldWidget extends StatelessWidget {
             borderSide: BorderSide(width: 1, color: ThemeClass.secondaryMediumColor),
             borderRadius: BorderRadius.circular(14.sp),
           ),
-          errorStyle: TextStyle(height: 1),
+          errorStyle: const TextStyle(height: 1),
           errorBorder:OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: ThemeClass.primaryColor),
             borderRadius: BorderRadius.circular(14.sp),
@@ -93,7 +93,7 @@ class CustomTextFieldWidget extends StatelessWidget {
               minWidth: prefixIcon == null ? 0 : 35.w, maxHeight: 20.w),
           suffixIconConstraints: BoxConstraints(
               minWidth: suffixIcon == null ? 0 : 45.w, maxHeight: 40.h),
-          contentPadding: insidePadding ?? EdgeInsets.symmetric(vertical: 16.h,horizontal: 4.w),
+          contentPadding: insidePadding ?? EdgeInsets.symmetric(vertical: 12.h,horizontal: 4.w),
           fillColor: backGroundColor,
           filled: backGroundColor != null,
           hintText: hint,

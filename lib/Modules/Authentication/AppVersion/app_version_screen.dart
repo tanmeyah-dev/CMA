@@ -11,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../Login/local_auth/user_secure_storage.dart';
 
@@ -29,8 +28,8 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_update_version_screen',
         parameters: <String,dynamic>{
           "title" :"open_update_version_screen"
@@ -99,8 +98,8 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
   }
 
   moveToUpdate() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'submit_update_screen',
         parameters: <String,dynamic>{
           "title" :"submit_update_screen"

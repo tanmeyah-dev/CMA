@@ -20,9 +20,9 @@ import 'package:iconsax/iconsax.dart';
 class LoanCityScreen extends StatefulWidget {
   static const String routeName = "/loanCityScreen";
 
-  LoanCheckoutModel loanCheckoutModel;
+  final LoanCheckoutModel loanCheckoutModel;
 
-  LoanCityScreen({required this.loanCheckoutModel,Key? key}) : super(key: key);
+  const LoanCityScreen({required this.loanCheckoutModel, super.key});
 
   @override
   _LoanCityScreenState createState() => _LoanCityScreenState();
@@ -90,11 +90,9 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                                   (item) => item.id == selectedId,
                                 orElse: () => GovernmentModel(id: '', title: ''),
                             );
-                            if (selectedItem != null) {
-                              con.governmentTitle = selectedItem.title;
-                              con.getCityByGovernorat(governerateId: selectedId);
-                            }
-                            setState(() {});
+                            con.governmentTitle = selectedItem.title;
+                            con.getCityByGovernorat(governerateId: selectedId);
+                                                      setState(() {});
                           }
                         },
                         borderColor: Colors.grey,
@@ -140,7 +138,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                                 : null;
 
                             // Ensure `selectedItem` is not null before accessing properties
-                            if (selectedItem != null && selectedItem.id! != null) {
+                            if (selectedItem != null) {
                               con.cityTitle = selectedItem.nameAr; // ✅ Get the name/title safely
                             } else {
                               con.cityTitle = "Unknown"; // Provide a default fallback

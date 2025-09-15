@@ -2,17 +2,16 @@ import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Widgets/base_appbar.dart';
 
 class PaymentMethodsScreen extends StatelessWidget {
-  String amount;
+  final String amount;
   static const String routeName = "/paymentMethodScreen";
 
-  PaymentMethodsScreen({Key? key,required this.amount}) : super(key: key);
+  const PaymentMethodsScreen({super.key, required this.amount});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class PaymentMethodsScreen extends StatelessWidget {
                   ),
                   Container(
                     width: 328.w,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(AppAssets.IMG_AMOUNT_BACKGROUND),
                             fit: BoxFit.fill)),

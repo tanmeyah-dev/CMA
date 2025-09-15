@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Models/loan_checkout_model.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_controller.dart';
-import 'package:Tanmeyah/Shared/shard_obj.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
@@ -17,8 +16,8 @@ import '../../../../Utilities/loading_screen.dart';
 
 class LoanCheckoutScreen extends StatefulWidget {
   static const String routeName = "/loanCheckoutScreen";
-  LoanCheckoutModel loanCheckoutModel;
-  LoanCheckoutScreen({required this.loanCheckoutModel,Key? key}) : super(key: key);
+  final LoanCheckoutModel loanCheckoutModel;
+  const LoanCheckoutScreen({required this.loanCheckoutModel, super.key});
 
   @override
   _LoanCheckoutScreenState createState() => _LoanCheckoutScreenState();

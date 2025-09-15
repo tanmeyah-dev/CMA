@@ -69,7 +69,7 @@ class LoginAlert extends StatelessWidget {
                       child: Text(
                         "login_alert_des".tr,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: "DINNextLTArabic-Regular",
                             fontWeight: FontWeight.w500
                         ),

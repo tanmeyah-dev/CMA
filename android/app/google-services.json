@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "310544200746",
+    "firebase_url": "https://tanmeyahapp-default-rtdb.firebaseio.com",
     "project_id": "tanmeyahapp",
     "storage_bucket": "tanmeyahapp.appspot.com"
   },

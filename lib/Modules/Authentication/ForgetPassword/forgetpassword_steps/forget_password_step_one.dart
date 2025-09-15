@@ -27,7 +27,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
     return Form(
         key: widget.con.formKey,
         child: SizedBox(
-            height: 350.h,
+            height: 330.h,
             child: Column(children: [
               Expanded(
                 child: Column(
@@ -60,7 +60,6 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                         title: "phone_number".tr,
                         color: ThemeClass.secondaryColor,
                       ),
-
                     SizedBox(
                       height: 10.h,
                     ),
@@ -70,7 +69,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CustomTextFieldWidget(
-                                width: 275.w,
+                                width: 215.w,
                                 controller: widget.con.phoneController,
                                 hint: "phone_number".tr,
                                 textInputType: TextInputType.phone,
@@ -90,7 +89,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                         SizedBox(
                           width: 8.w,
                         ),
-                        CountryCodeWidget(),
+                        const CountryCodeWidget(),
                       ],
                     ),
                   ],
@@ -101,7 +100,7 @@ class _ForgetPasswordStepOneState extends State<ForgetPasswordStepOne> {
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
-                     Column(
+                      Column(
                             children: [
                               (widget.con.activeBtn1 == true &&
                                   widget.con.activeBtn12 == true)

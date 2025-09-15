@@ -1,51 +1,31 @@
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
-import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../Theme/app_assets.dart';
-import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../More/services_detail/services_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:iconsax/iconsax.dart';
 
 
 class ProductsWidget extends StatelessWidget {
-  HomeController con;
-  ProductsWidget({Key? key,required this.con}) : super(key: key);
+  final HomeController con;
+  const ProductsWidget({super.key, required this.con});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-         Padding(
+        Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: AppTextRegular(
-                      title: "services".tr,
-                      fontSize: 20.sp,
-                    )),
-              GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, MainServicesScreen.routeName);
-                },
-                child: Row(
-                  children: [
-                    AppTextMedium(title: "all_services_project".tr,color: ThemeClass.yellowColor,fontSize: 14.sp,fontWeight: FontWeight.w400,),
-                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.yellowColor,size: 16.sp,)
-                  ],
-                ),
-              ),
-              ],
-            ),
-          ),
-
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: AppTextRegular(
+                  title: "services".tr,
+                  fontSize: 20.sp,
+                )),
+        ),
         SizedBox(
           height: 16.h,
         ),
@@ -54,15 +34,15 @@ class ProductsWidget extends StatelessWidget {
           child: MasonryGridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: con.homeResponse!.products.length < 4 ? con.homeResponse?.products.length : 4,
+            itemCount: con.homeResponse?.products.length,
             crossAxisCount: 2,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'request_service',
                       parameters: <String,dynamic>{
                         "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"
@@ -73,14 +53,15 @@ class ProductsWidget extends StatelessWidget {
                       arguments: con
                           .homeResponse!.products[index]);
                 },
-                child:Container(
+                child:  Container(
                     width: 354.w,
                     padding: EdgeInsets.symmetric(
                         vertical: 22.h, horizontal: 30.w),
                     decoration: BoxDecoration(
                       borderRadius:
                       BorderRadius.circular(20.w),
-                      color: ThemeClass.greyBackgroundColor
+                      color: Color(con.homeResponse!
+                          .products[index].color!)
                           .withOpacity(0.1),
                     ),
                     child: Container(
@@ -100,13 +81,13 @@ class ProductsWidget extends StatelessWidget {
                             child: con
                                 .homeResponse!
                                 .products[index]
-                                .logo !=
+                                .imageUrl !=
                                 null
                                 ? Image.network(con
                                 .homeResponse!
                                 .products[index]
-                                .logo ??
-                                "",width: 50.w,height: 50.h,)
+                                .imageUrl ??
+                                "")
                                 : Image.asset(
                               AppAssets
                                   .IMG_SERVICES_PLACEHOLDER,
@@ -118,37 +99,23 @@ class ProductsWidget extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 10.h,
+                            height: 45.h,
                           ),
                           AppTextRegular(
-                            title: "تمويل",
-                            color: ThemeClass.secondaryColor,
-                            fontSize: 20.sp,
+                            title: con
+                                .homeResponse
+                                ?.products[index]
+                                .nameAr ??
+                                "",
+                            color: Color(con.homeResponse!
+                                .products[index].color!),
                             textAlign: TextAlign.start,
+
                           ),
-                          SizedBox(height: 6.h,),
-                          ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(16.w),
-                            child: con
-                                .homeResponse!
-                                .products[index]
-                                .titleImg !=
-                                null
-                                ? Image.network(con
-                                .homeResponse!
-                                .products[index]
-                                .titleImg ??
-                                "",width: 140.w,height: 32.h,fit: BoxFit.fill,)
-                                : Image.asset(
-                              AppAssets
-                                  .IMG_SERVICES_PLACEHOLDER,
-                              width: 140.w,height: 32.h,fit: BoxFit.fill,),
-                            ),
                         ],
                       ),
                     ),
-                  ),
+                ),
               );
             },
           ),

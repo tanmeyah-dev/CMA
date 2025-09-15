@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/Validator.dart';
-import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
 import 'package:Tanmeyah/Widgets/custom_textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class ValidateUserScreen extends StatefulWidget {
   static const String routeName = "/validateUser";
 
-  const ValidateUserScreen({Key? key}) : super(key: key);
+  const ValidateUserScreen({super.key});
 
   @override
   _ValidateUserScreenState createState() => _ValidateUserScreenState();
@@ -36,8 +35,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_phone_number_screen',
         parameters: <String,dynamic>{
           "title" : "open_phone_number_screen"
@@ -49,7 +48,6 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -70,9 +68,9 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                 key: con.formKey,
                 child: SingleChildScrollView(
                   child: Column(children: [
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 60.h),
                     image(),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     title(),
                     SizedBox(height: 79.h),
                     mobileTxtField(),
@@ -95,10 +93,10 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
   }
 
   Widget image() {
-    return  Image.asset(
+    return Image.asset(
         AppAssets.IMG_VALIDATE_USER,
-        height: 350.h,
-        width: 350.w,
+        height: 300.h,
+        width: 300.w,
         fit: BoxFit.fill,
     );
   }
@@ -121,7 +119,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                   setState(() { });
                 }
               },
-              width: 250.w,
+              width: 173.w,
               controller: con.phoneController,
               hint: "1xxxxxxxxxx",
               textInputType: TextInputType.phone,
@@ -137,20 +135,19 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
             ),
             const CountryCodeWidget(),
           ],
-        ),
+      ),
     );
   }
 
   Widget continueBtn() {
     return  Column(
-        children: [
-             con.activeBtn
+        children: [con.activeBtn
                 ? CustomButton(
-                    width: 300,
+                    width: 200,
                     title: "continue".tr,
                     onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'submit_phone_number_screen',
                           parameters: <String,dynamic>{
                             "title" : "submit_phone_number_screen"
@@ -161,14 +158,14 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                       }
                     },
                   ) : CustomButton(
-              width: 300,
+              width: 200,
               title: "continue".tr,
               onTap: () async {},
               color: ThemeClass.textFieldBackgroundColor,
               borderColor: ThemeClass.textFieldBackgroundColor,
               textColor: ThemeClass.hintColor,
               backgroundColor: ThemeClass.buttonNotActiveColor,
-            ),
+          ),
           SizedBox(height: 20.h,)
         ],
     );

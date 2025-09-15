@@ -3,13 +3,13 @@
 import 'package:Tanmeyah/Network/splash_api.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../../Shared/shared_prefirences.dart';
 import '../../../Utilities/general_toast.dart';
 
 class SplashController extends ControllerMVC {
-  Position? currentPosition;
+  LocationData? currentPosition;
 
   factory SplashController() {
     _this ??= SplashController._();
@@ -23,26 +23,30 @@ class SplashController extends ControllerMVC {
   bool? isUpToDate;
 
   Future<bool> handleLocationPermission(BuildContext context) async {
+    Location location = Location();
     bool serviceEnabled;
-    LocationPermission permission;
+    PermissionStatus permission;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location services are disabled. Please enable the services')));
-      return false;
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+                'Location services are disabled. Please enable the services')));
+        return false;
+      }
     }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
+    permission = await location.hasPermission();
+    if (permission == PermissionStatus.denied) {
+      permission = await location.requestPermission();
+      if (permission == PermissionStatus.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Location permissions are denied')));
         return false;
       }
     }
-    if (permission == LocationPermission.deniedForever) {
+    if (permission == PermissionStatus.deniedForever) {
       ToastHelper.showError(context,
           message: "يرجى تفعيل خاصية تحديد الموقع لتتمكن من طلب تمويل ");
     }
@@ -50,25 +54,25 @@ class SplashController extends ControllerMVC {
   }
 
   Future<bool> getCurrentPosition(BuildContext context) async {
-    bool result = false;
     final hasPermission = await handleLocationPermission(context);
     if (!hasPermission) {
       handleLocationPermission(context);
     }
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
+    
+    Location location = Location();
+    try {
+      LocationData position = await location.getLocation();
       setState(() {
         currentPosition = position;
         SharedPref.setUserLatitude(lat: currentPosition!.latitude.toString());
         SharedPref.setUserLongitude(
             long: currentPosition!.longitude.toString());
       });
-      return result = true;
-    }).catchError((e) {
+      return true;
+    } catch (e) {
       debugPrint(e.toString());
-      return result = false;
-    });
-    return result;
+      return false;
+    }
   }
 
   Future<bool> getAppVersion() async {

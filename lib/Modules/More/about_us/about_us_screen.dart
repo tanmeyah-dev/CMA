@@ -20,8 +20,8 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_about_us_screen',
         parameters: <String,dynamic>{
           "title" :"open_about_us_screen"

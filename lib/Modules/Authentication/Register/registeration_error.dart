@@ -12,8 +12,8 @@ import '../../../Theme/themeclass.dart';
 class RegistrationError extends StatelessWidget {
   static const routeName = "/registrationErrorScreen";
 
-  String phoneNumber;
-  RegistrationError({required this.phoneNumber,Key? key}) : super(key: key);
+  final String phoneNumber;
+  const RegistrationError({required this.phoneNumber, super.key});
 
   @override
   Widget build(BuildContext context) {

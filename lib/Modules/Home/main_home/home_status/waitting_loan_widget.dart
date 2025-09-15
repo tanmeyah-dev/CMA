@@ -10,8 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class WaitingLoanWidget extends StatelessWidget {
-  HomeController con;
-   WaitingLoanWidget({required this.con ,super.key});
+  final HomeController con;
+  const WaitingLoanWidget({required this.con, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class WaitingLoanWidget extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 8.h,left: 24.w,right: 12.w,bottom: 12.h),
                       decoration: BoxDecoration(
-                        color: Color(0xFF1D1D1D29),
+                        color: Color(0xff1d1d1d29),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(

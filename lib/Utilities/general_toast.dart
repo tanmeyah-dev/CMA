@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../Theme/themeclass.dart';
@@ -39,11 +38,11 @@ class ToastHelper {
       animation: StyledToastAnimation.slideFromBottom,
       reverseAnimation: StyledToastAnimation.fade,
       position: StyledToastPosition.bottom,
-      animDuration: Duration(seconds: 1),
-      duration: Duration(seconds: 4),
+      animDuration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 4),
       curve: Curves.elasticOut,
       reverseCurve: Curves.linear,
-      backgroundColor: Color(0xFFAC2734),
+      backgroundColor: const Color(0xFFAC2734),
       borderRadius: BorderRadius.circular(20.w),
       textStyle: TextStyle(
           color: ThemeClass.whiteColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 16.sp,fontWeight: FontWeight.w400),
@@ -58,11 +57,11 @@ class ToastHelper {
       animation: StyledToastAnimation.slideFromBottom,
       reverseAnimation: StyledToastAnimation.fade,
       position: StyledToastPosition.bottom,
-      animDuration: Duration(seconds: 1),
-      duration: Duration(seconds: 4),
+      animDuration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 4),
       curve: Curves.elasticOut,
       reverseCurve: Curves.linear,
-      backgroundColor:  Color(0xFF027243),
+      backgroundColor:  const Color(0xFF027243),
       borderRadius: BorderRadius.circular(10.w),
       textStyle: TextStyle(
           color: ThemeClass.whiteColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 16.sp,fontWeight: FontWeight.w400),
@@ -78,11 +77,11 @@ class ToastHelper {
       animation: StyledToastAnimation.slideFromBottom,
       reverseAnimation: StyledToastAnimation.fade,
       position: StyledToastPosition.bottom,
-      animDuration: Duration(seconds: 1),
-      duration: Duration(seconds: 4),
+      animDuration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 4),
       curve: Curves.elasticOut,
       reverseCurve: Curves.linear,
-      backgroundColor:  Color(0xFF0F61AC) ,
+      backgroundColor:  const Color(0xFF0F61AC) ,
       borderRadius: BorderRadius.circular(20.w),
       textStyle: TextStyle(
           color: ThemeClass.whiteColor,fontFamily: "DINNextLTArabic-Regular",fontSize: 16.sp,fontWeight: FontWeight.w400),

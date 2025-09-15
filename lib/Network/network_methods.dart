@@ -10,7 +10,6 @@ import '../Utilities/general_toast.dart';
 import 'api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 
 
@@ -152,10 +151,10 @@ class NetworkMethods {
 
 class MultipartRequest extends http.MultipartRequest {
   MultipartRequest(
-      String method,
-      Uri url, {
+      super.method,
+      super.url, {
         required this.onProgress,
-      }) : super(method, url);
+      });
   final void Function(int bytes, int totalBytes) onProgress;
 
   @override

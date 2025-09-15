@@ -21,7 +21,6 @@ import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/themeclass.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
-import '../../../Widgets/ticket_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
@@ -29,7 +28,7 @@ import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
 class MoreScreen extends StatefulWidget {
   static const String routeName = "/moreScreen";
 
-  const MoreScreen({Key? key}) : super(key: key);
+  const MoreScreen({super.key});
 
   @override
   _MoreScreenState createState() => _MoreScreenState();

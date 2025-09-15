@@ -2,7 +2,6 @@
 
 import 'package:Tanmeyah/Models/mobile_biller_response.dart';
 import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_controller.dart';
-import 'package:Tanmeyah/Modules/Billers/get_bill_inquiry/get_bill_inquiry_screen.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,8 +17,8 @@ import '../../../Theme/app_assets.dart';
 class BillersServicesScreen extends StatefulWidget {
   static const String routeName = "/billersServicesScreen";
 
-  Billers billers;
-  BillersServicesScreen({required this.billers, Key? key}) : super(key: key);
+  final Billers billers;
+  const BillersServicesScreen({required this.billers, super.key});
 
   @override
   _BillersServicesScreenState createState() => _BillersServicesScreenState();
@@ -35,8 +34,8 @@ class _BillersServicesScreenState extends StateMVC<BillersServicesScreen> {
   @override
   void initState() {
     con.billers = widget.billers;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_mobile_billers_screen',
         parameters: <String,dynamic>{
           "title" :"open_mobile_billers_screen"

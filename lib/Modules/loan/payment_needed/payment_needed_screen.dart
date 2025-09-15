@@ -29,8 +29,8 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_payment_needed_screen',
         parameters: <String,dynamic>{
           "title" :"open_payment_needed_screen"
@@ -67,7 +67,7 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
                         child: ListView.separated(
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
-                              width: 400.w,
+                              width: 328.w,
                               decoration: BoxDecoration(
                                 color: ThemeClass.needToPayBackground,
                                 borderRadius: BorderRadius.circular(12.sp),

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
-import 'package:iconsax/iconsax.dart';
 
 class UserDataWithEdit extends StatelessWidget {
   String title;
