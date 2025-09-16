@@ -7,7 +7,7 @@ import '../Theme/themeclass.dart';
 
 class SkipButton extends StatelessWidget {
   Function() onTap;
-   SkipButton({required this.onTap,Key? key}) : super(key: key);
+   SkipButton({required this.onTap,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SkipButton extends StatelessWidget {
       child: Text(
         "skip".tr,
         style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 20.sp,
             color: ThemeClass.fontColor,
         ),
       ),

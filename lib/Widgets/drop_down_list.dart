@@ -17,10 +17,10 @@ class CustomDropDownWidget<T> extends StatelessWidget {
   final String? Function(dynamic)? validate;
   final double? width;
 
-  const CustomDropDownWidget({Key? key,this.prefixIcon,
+  const CustomDropDownWidget({super.key,this.prefixIcon,
     this.selected,required this.onChange,
     required this.hint,this.validate,
-    required this.items, required this.borderColor,this.width}) : super(key: key);
+    required this.items, required this.borderColor,this.width});
 
   @override
   Widget build(BuildContext context) {

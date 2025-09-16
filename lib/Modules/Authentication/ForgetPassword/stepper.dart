@@ -9,7 +9,7 @@ import '../../../Widgets/custom_text.dart';
 class StepperWidget extends StatefulWidget {
   ForgetPasswordController con;
 
-  StepperWidget({required this.con, Key? key}) : super(key: key);
+  StepperWidget({required this.con, super.key});
 
   @override
   State<StepperWidget> createState() => _StepperWidgetState();

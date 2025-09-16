@@ -6,13 +6,13 @@ import '../Theme/app_assets.dart';
 import '../Theme/themeclass.dart';
 
 class CountryCodeWidget extends StatelessWidget {
-  const CountryCodeWidget({Key? key}) : super(key: key);
+  const CountryCodeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 89.w,
-      padding: EdgeInsets.symmetric(vertical : 10.h , horizontal: 8.w),
+      padding: EdgeInsets.symmetric(vertical : 14.h , horizontal: 8.w),
       decoration: BoxDecoration(
         color: ThemeClass.textfieldColor,
         borderRadius: BorderRadius.circular(14.w),
