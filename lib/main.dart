@@ -2,12 +2,12 @@
 
 import 'dart:io';
 
-import 'package:Tanmeyah/Utilities/update_app.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
 import 'Cache/app_languages.dart';
@@ -18,11 +18,11 @@ import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Utilities/routing.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Widgets/simple_animations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
-import 'package:dart_ping_ios/dart_ping_ios.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'firebase_options.dart';
 
 
 Future<void> main() async {
@@ -30,7 +30,10 @@ Future<void> main() async {
 
   // UpdateApp.startFlexibleUpdate();
 
-  await SharedObj().init();
+  // Don't initialize SharedPreferences here - it's too early in release mode
+  // It will be initialized lazily when first accessed
+  
+  // Initialize other services
   DartPingIOS.register();
   var pings = Ping('gateway.tanmeyah.com',count: 4);
   pings.stream.listen((ping) {
@@ -39,7 +42,13 @@ Future<void> main() async {
   });
   HttpOverrides.global = MyHttpOverrides();
 
-   await Firebase.initializeApp();
+  // Initialize Firebase with error handling
+  try {
+    await Firebase.initializeApp();
+    print('Firebase initialized successfully');
+  } catch (e) {
+    print('Firebase initialization error: $e');
+  }
 
   runApp(MultiProvider(
     providers: [

@@ -9,7 +9,6 @@ import '../../../../Utilities/Validator.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../../Widgets/custom_textfield_widget.dart';
-import 'package:iconsax/iconsax.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 class ForgetPasswordStepThree extends StatefulWidget {
@@ -31,19 +30,12 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
             Expanded(child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FadeIn(
-                  delay: 1,
-                  from: SlideFrom.LEFT,
-                  child: AppTextRegular(
+                AppTextRegular(
                     title: "new_password".tr,
                     color: ThemeClass.secondaryColor,
                   ),
-                ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                    delay: 0.5,
-                    from: SlideFrom.LEFT,
-                    child: CustomTextFieldWidget(
+                CustomTextFieldWidget(
                         onchange: (value) {
                           if (value.length > 8) {
                             widget.con.activeBtn31 = true;
@@ -62,26 +54,19 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                             setState(() {});
                           },
                           child: Icon(
-                            widget.con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+                            widget.con.showPassword ? Icons.visibility : Icons.visibility_off,
                             color: ThemeClass.secondaryColor,
                           ),
                         )
 
-                    )),
+                    ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                  delay: 1,
-                  from: SlideFrom.LEFT,
-                  child: AppTextRegular(
+                AppTextRegular(
                     title: "confirm_new_password".tr,
                     color: ThemeClass.secondaryColor,
-                  ),
                 ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                    delay: 1,
-                    from: SlideFrom.LEFT,
-                    child: CustomTextFieldWidget(
+                 CustomTextFieldWidget(
                         obscure: widget.con.showConfirmPassword,
                         controller: widget.con.confirmNewPasswordController,
                         hint: "confirm_new_password".tr,
@@ -102,17 +87,14 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                             setState(() {});
                           },
                           child: Icon(
-                            widget.con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+                            widget.con.showConfirmPassword ? Icons.visibility : Icons.visibility_off,
                             color: ThemeClass.secondaryColor,
                           ),
                         )
 
-                    )),
+                    ),
               ],),),
-            FadeIn(
-                delay: 1.5,
-                from: SlideFrom.BOTTOM,
-                child: Align(
+              Align(
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
@@ -139,7 +121,6 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                       SizedBox(height: 40.h,),
                     ],
                   ),
-                )
             ),
           ]),
         ));

@@ -20,8 +20,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../Widgets/simple_animations.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -43,13 +42,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_more_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_more_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_more_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_more_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -77,148 +76,124 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                         Column(
                           children: [
                             SizedBox(height: 20.h),
-                            FadeIn(
-                                delay: 1,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                             MoreItemWidget(
                                     image: AppAssets.IMG_MORE_SERVICES,
                                     title: "services".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_services_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_services_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_services_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_services_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(context, MainServicesScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 1.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_OFFERS,
                                     title: "offers".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_offers_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_request_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_offers_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_request_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context, MainOffersScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_CONTACT,
                                     title: "contact_us".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_contact_us_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_contact_us_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_contact_us_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_contact_us_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context, ContactUsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_BRANCHES,
                                     title: "branches".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_branches_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_branches_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_branches_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_branches_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context, BranchesScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_TERMS,
                                     title: "terms".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_terms_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_terms_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_terms_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_terms_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context, TermsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
-                            FadeIn(
-                                delay: 2.5,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_PRIVACY,
                                     title: "privacy".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_privacy_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_privacy_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_privacy_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_privacy_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context, ConditionsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
 
-                            FadeIn(
-                                delay: 3,
-                                from: SlideFrom.TOP,
-                                child: MoreItemWidget(
+                            MoreItemWidget(
                                     image: AppAssets.IMG_MORE_ABOUT,
                                     title: "about_us".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_about_us_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_about_us_screen"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_about_us_screen',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_about_us_screen"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context, AboutUsScreen.routeName);
-                                    })),
+                                    }),
                             SizedBox(height: 8.h),
 
                             SizedBox(height: 85.h),
                           ],
                         ),
                         con.guestMood
-                            ? FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
+                            ?  Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Column(
                                     children: [
@@ -236,12 +211,8 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       ),
                                     ],
                                   ),
-                                ),
                               )
-                            : FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
+                            :  Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Column(children: [
                                       CustomButton(
@@ -251,13 +222,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         textColor: ThemeClass.secondaryColor,
                                         borderColor: ThemeClass.secondaryColor,
                                         onTap: () {
-                                          final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                          analytics.logEvent(
-                                              name: 'request_logout',
-                                              parameters: <String,dynamic>{
-                                                "title" :"request_logout"
-                                              }
-                                          );
+                                          // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                          // analytics.logEvent(
+                                          //     name: 'request_logout',
+                                          //     parameters: <String,dynamic>{
+                                          //       "title" :"request_logout"
+                                          //     }
+                                          // );
                                           AnimatedAlertDialog(context,
                                               LogoutAlertWidget(message : "logout_alert".tr , onOkPressed: () {
                                             con.logout(context);
@@ -265,7 +236,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         },
                                       ),
                                       SizedBox(height: 8.h),
-                                    ])))
+                                    ]))
                       ])))))),
     );
   }

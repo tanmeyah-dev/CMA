@@ -13,7 +13,7 @@ import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_terms_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 
@@ -35,13 +35,13 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_loan_terms_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_terms_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_loan_terms_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_loan_terms_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -73,42 +73,23 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                         Column(
                           children: [
                             SizedBox(height: 30.h),
-                            FadeIn(
-                              delay: 1,
-                              from: SlideFrom.LEFT,
-                              child: bannerWidget(
+                             bannerWidget(
                                   title: "loan_term_1".tr,
                                   imageUrl: AppAssets.IMG_TERMS1),
-                            ),
                             SizedBox(height: 10.h),
-                            FadeIn(
-                              delay: 1.5,
-                              from: SlideFrom.LEFT,
-                              child: bannerWidget(
+                             bannerWidget(
                                   title: "loan_term_2".tr,
                                   imageUrl: AppAssets.IMG_TERMS2),
-                            ),
                             SizedBox(height: 10.h),
-                            FadeIn(
-                              delay: 2,
-                              from: SlideFrom.LEFT,
-                              child: bannerWidget(
+                            bannerWidget(
                                   title: "loan_term_3".tr,
                                   imageUrl: AppAssets.IMG_TERMS3),
-                            ),
                             SizedBox(height: 10.h),
-                            FadeIn(
-                              delay: 2.5,
-                              from: SlideFrom.LEFT,
-                              child: bannerWidget(
+                            bannerWidget(
                                   title: "loan_term_4".tr,
                                   imageUrl: AppAssets.IMG_TERMS4),
-                            ),
                             SizedBox(height: 16.h,),
-                            FadeIn(
-                              delay: 2.5,
-                              from: SlideFrom.LEFT,
-                              child: Row(
+                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Checkbox(
@@ -122,26 +103,18 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                                   ),
                                   AppTextRegular(title: "accept_terms".tr),
                                 ],
-                              ),
                             ),
                           ],
                         ),
                         SizedBox(height: 50.h,),
                         Column(
                           children: [
-                            FadeIn(
-                              delay: 2.5,
-                              from: SlideFrom.LEFT,
-                              child: bannerWidget(
+                             bannerWidget(
                                 title: "loan_term_5".tr,
                                 imageUrl: AppAssets.IMG_TERMS5,
-                              ),
                             ),
                             SizedBox(height: 16.h,),
-                            FadeIn(
-                              delay: 2.5,
-                              from: SlideFrom.LEFT,
-                              child: Row(
+                           Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Checkbox(
@@ -155,17 +128,13 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                                   ),
                                   const AppTextRegular(title: "نعم لدي مشروع قائم منذ ٦ اشهر"),
                                 ],
-                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  FadeIn(
-                    delay: 2,
-                    from: SlideFrom.BOTTOM,
-                    child: Align(
+                  Align(
                       alignment: Alignment.bottomCenter,
                       child: Column(
                         children: [
@@ -175,13 +144,13 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               width: 216,
                               title: "start_ask_for_loan".tr, onTap: () {
                             if(con.accept) {
-                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                              analytics.logEvent(
-                                  name: 'submit_start_request_loan',
-                                  parameters: <String,dynamic>{
-                                    "title" :"submit_start_request_loan"
-                                  }
-                              );
+                              // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              // analytics.logEvent(
+                              //     name: 'submit_start_request_loan',
+                              //     parameters: <String,dynamic>{
+                              //       "title" :"submit_start_request_loan"
+                              //     }
+                              // );
                                 Navigator.pushNamed(context, LoanRequestAmountScreen.routeName);
                             }else {
                               ToastHelper.showError(context ,message: "alert_accept_terms".tr);
@@ -198,7 +167,6 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
 
                         ],
                       ),
-                    ),
                   )
                 ],
               ),

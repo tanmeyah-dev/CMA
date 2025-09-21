@@ -13,7 +13,7 @@ import '../../../Utilities/loading_screen.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/pin_code.dart';
 import 'otp_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../Widgets/simple_animations.dart';
 
 
@@ -42,13 +42,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
   void initState() {
     con.onConfirm = widget.onConfirm;
     con.phoneNumber = widget.phoneNumber;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_send_otp_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_send_otp_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_send_otp_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_send_otp_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -80,10 +80,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                     SizedBox(height: 8.h),
                     otpDes(),
                     SizedBox(height: 40.h,),
-                    FadeIn(
-                        delay: 2,
-                        from: SlideFrom.LEFT,
-                        child: PinCodeWidget(controller: con.codeController, onChangeOTP: (value) {
+                     PinCodeWidget(controller: con.codeController, onChangeOTP: (value) {
                           if(value.length == 5) {
                             con.activeBtn = true;
                             setState(() { });
@@ -91,7 +88,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                             con.activeBtn = false;
                             setState(() { });
                           }
-                        },)),
+                        },),
                     SizedBox(height: 35.h),
                     timer(),
                     SizedBox(height: 85.h),
@@ -154,13 +151,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
           InkWell(
               onTap: () {
                 if (con.activeResend == true) {
-                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                  analytics.logEvent(
-                      name: 'request_resend_otp_screen',
-                      parameters: <String,dynamic>{
-                        "title" : "request_resend_otp_screen"
-                      }
-                  );
+                  // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  // analytics.logEvent(
+                  //     name: 'request_resend_otp_screen',
+                  //     parameters: <String,dynamic>{
+                  //       "title" : "request_resend_otp_screen"
+                  //     }
+                  // );
                     con.onResendCode(context);
                 }
               },
@@ -198,13 +195,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
             title: "confirm".tr,
             onTap: () {
               if (con.formKey.currentState!.validate()) {
-                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                analytics.logEvent(
-                    name: 'submit_otp_screen',
-                    parameters: <String,dynamic>{
-                      "title" : "submit_otp_screen"
-                    }
-                );
+                // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                // analytics.logEvent(
+                //     name: 'submit_otp_screen',
+                //     parameters: <String,dynamic>{
+                //       "title" : "submit_otp_screen"
+                //     }
+                // );
                 con.onConfirmPin();
               } else {
                 ToastHelper.showError(context,message: "otp_error".tr);

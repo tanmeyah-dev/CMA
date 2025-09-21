@@ -17,7 +17,8 @@ import '../Models/verify_otp_model.dart';
 import '../Shared/shared_prefirences.dart';
 import '../Utilities/general_toast.dart';
 import 'api.dart';
-import 'network_methods.dart';import 'package:http/http.dart' as http;
+import 'network_methods.dart';
+import 'package:http/http.dart' as http;
 
 
 class UserApi {
@@ -78,6 +79,8 @@ class UserApi {
       userModel = UserModel.fromJson(result["user"]);
       userModel.token = "Bearer $headerValue";
       SharedPref.saveUserObj(userModel: userModel);
+      // Clear auth header cache to ensure fresh token is used
+      NetworkMethods.clearAuthHeaderCache();
       return true;
     } else {
       ToastHelper.showError(context, message: result["message"]);

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../Login/local_auth/user_secure_storage.dart';
@@ -29,13 +29,13 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_update_version_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_update_version_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_update_version_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_update_version_screen"
+    //     }
+    // );
     UserSecureStorage.deleteData();
     super.initState();
   }
@@ -99,13 +99,13 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
   }
 
   moveToUpdate() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'submit_update_screen',
-        parameters: <String,dynamic>{
-          "title" :"submit_update_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'submit_update_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"submit_update_screen"
+    //     }
+    // );
     if (Platform.isAndroid || Platform.isIOS) {
       final appId = Platform.isAndroid ? 'com.tanmeyah.app' : '6450993566';
       final url = Uri.parse(

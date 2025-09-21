@@ -13,12 +13,10 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:iconsax/iconsax.dart';
-
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_textfield_widget.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 
@@ -40,13 +38,13 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_contact_us_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_contact_us_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_contact_us_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_contact_us_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -91,7 +89,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                                   ),
                                   alignment: Alignment.center ,
                                   padding: EdgeInsets.all(6.w),
-                                  child: Icon(Iconsax.send_2,color: ThemeClass.primaryColor,size: 20.sp,)),
+                                  child: Icon(Icons.send,color: ThemeClass.primaryColor,size: 20.sp,)),
                               SizedBox(width: 8.w,),
                               AppTextRegular(title: "ارسال رسالة نصية لتنميه",fontSize: 20.sp,),
 
@@ -149,13 +147,13 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           ),
                           SizedBox(height: 6.h,),
                           CustomButton(title: "send".tr, onTap: (){
-                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                            analytics.logEvent(
-                                name: 'submit_contact_us',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_contact_us"
-                                }
-                            );
+                            // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            // analytics.logEvent(
+                            //     name: 'submit_contact_us',
+                            //     parameters: <String,dynamic>{
+                            //       "title" :"submit_contact_us"
+                            //     }
+                            // );
                             if (con.formKey.currentState!.validate()) {
                               con.contactMessage(context: context);
                             } else {

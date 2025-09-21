@@ -11,7 +11,8 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../offers/main_offers/main_offers_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 class MainOffersScreen extends StatefulWidget {
@@ -33,13 +34,13 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_offers_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_offers_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_offers_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_offers_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -72,13 +73,13 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                           from: SlideFrom.BOTTOM,
                           child: GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                              analytics.logEvent(
-                                  name: 'open_offers_detail',
-                                  parameters: <String,dynamic>{
-                                    "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"
-                                  }
-                              );
+                              // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              // analytics.logEvent(
+                              //     name: 'open_offers_detail',
+                              //     parameters: <String,dynamic>{
+                              //       "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"
+                              //     }
+                              // );
                               Navigator.pushNamed(context, OfferDetailScreen.routeName,arguments: con.offersResponse?.offers[index].id);
                              },
                             child: Column(

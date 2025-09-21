@@ -13,8 +13,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_textfield_widget.dart';
 import 'local_auth_controller.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 
@@ -141,7 +140,7 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
                 setState(() {});
               },
               child: Icon(
-                con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+                con.showPassword ? Icons.visibility : Icons.visibility_off,
                 color: ThemeClass.secondaryColor,
               ),
             )
@@ -159,13 +158,13 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
         title: "confirm".tr,
         onTap: () {
           if (con.formKey.currentState!.validate()) {
-            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-            analytics.logEvent(
-                name: 'submit_biometric_login_screen',
-                parameters: <String,dynamic>{
-                  "title" :"submit_biometric_login_screen"
-                }
-            );
+            // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+            // analytics.logEvent(
+            //     name: 'submit_biometric_login_screen',
+            //     parameters: <String,dynamic>{
+            //       "title" :"submit_biometric_login_screen"
+            //     }
+            // );
              con.localAuthApi(context);
           }
         },

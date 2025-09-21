@@ -75,15 +75,29 @@ class HomeController extends ControllerMVC {
 
   Future getHome() async {
     UserModel? userModel = SharedPref.getUserObg();
+    
+    // Update loading state
     loading = true;
     setState(() {});
-    homeResponse = await HomeApi.getHomeData(nationalId: userModel?.nationalId ?? "");
-    if(SharedPref.getUserObg() != null) {isLogin = true;} else
-      {isLogin = false;}
-
-    loading = false;
-    setState(() {});
-}
+    
+    try {
+      // Perform network call in background
+      homeResponse = await HomeApi.getHomeData(nationalId: userModel?.nationalId ?? "");
+      
+      // Update login status
+      isLogin = SharedPref.getUserObg() != null;
+      
+      // Update UI state
+      loading = false;
+      setState(() {});
+    } catch (e) {
+      // Handle errors gracefully
+      loading = false;
+      setState(() {});
+      // Log error for debugging
+      debugPrint('Error fetching home data: $e');
+    }
+  }
 
   Future logout(BuildContext context) async {
     setState(() {

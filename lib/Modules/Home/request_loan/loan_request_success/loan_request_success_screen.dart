@@ -9,7 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
-import 'loan_request_success_controller.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'loan_request_success_controller.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class LoanSuccessRequestScreen extends StatefulWidget {
@@ -31,13 +32,13 @@ class _LoanSuccessRequestScreenState extends StateMVC<LoanSuccessRequestScreen> 
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_loan_request_inside_cairo',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_request_inside_cairo"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_loan_request_inside_cairo',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_loan_request_inside_cairo"
+    //     }
+    // );
     super.initState();
   }
 

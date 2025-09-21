@@ -43,14 +43,20 @@ class LoginController extends ControllerMVC {
   }
 
   Future<bool> getBiometricsData() async {
-    String? cachedPhone = await UserSecureStorage.getPhoneNumber();
-    String? cachedPassword = await UserSecureStorage.getPassword();
-    if (cachedPhone != null || cachedPassword != null) {
-      encryptedPhone = await UserSecureStorage.getPhoneNumber();
-      encryptedPassword = await UserSecureStorage.getPassword();
-      return true;
+      try {
+      String? cachedPhone = await UserSecureStorage.getPhoneNumber();
+      String? cachedPassword = await UserSecureStorage.getPassword();
+      if (cachedPhone != null || cachedPassword != null) {
+        encryptedPhone = await UserSecureStorage.getPhoneNumber();
+        encryptedPassword = await UserSecureStorage.getPassword();
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print('Error getting biometrics data: $e');
+      // Fallback: return false if secure storage fails
+      return false;
     }
-    return false;
   }
 
   Future logIn(BuildContext context) async {

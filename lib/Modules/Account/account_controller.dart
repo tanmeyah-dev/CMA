@@ -8,7 +8,7 @@ import '../../Models/government_model.dart';
 import '../../Models/user_model.dart';
 import '../../Shared/shared_prefirences.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 
@@ -96,13 +96,13 @@ class AccountController extends ControllerMVC {
     loading = false;
     setState(() {});
     if(result == true){
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'user_deactivate_account',
-          parameters: <String,dynamic>{
-            "title" :"user_deactivate_account"
-          }
-      );
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      // analytics.logEvent(
+      //     name: 'user_deactivate_account',
+      //     parameters: <String,dynamic>{
+      //       "title" :"user_deactivate_account"
+      //     }
+      // );
       await SharedPref.logOut();
       Modular.to.pushNamedAndRemoveUntil(
           "/loginScreen", (Route<dynamic> route) => false,

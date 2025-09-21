@@ -41,10 +41,7 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                FadeIn(
-                    delay: 2,
-                    from: SlideFrom.LEFT,
-                    child: PinCodeWidget(
+                PinCodeWidget(
                       controller: widget.con.codeController,
                       onChangeOTP: (value) {
                         if (value.length == 5) {
@@ -55,13 +52,9 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                           setState(() {});
                         }
                       },
-                    )),
+                    ),
                 SizedBox(height: 20.h),
-                FadeIn(
-                    delay: 1.0,
-                    from: SlideFrom.LEFT,
-                    child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       InkWell(
                           onTap: () {
                             if (widget.con.activeResend == true) {
@@ -83,13 +76,10 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                               fontWeight: FontWeight.w600,
                               fontSize: 14.sp,
                               color: ThemeClass.blackColor))
-                    ])),
+                    ]),
               ],
             )),
-            FadeIn(
-                delay: 1.5,
-                from: SlideFrom.LEFT,
-                child: Column(
+             Column(
                   children: [
                     widget.con.activeBtn2
                         ? CustomButton(
@@ -109,7 +99,7 @@ class _ForgetPasswordStepTwoState extends State<ForgetPasswordStepTwo> {
                     ),
                     SizedBox(height: 40.h,)
                   ],
-                ))
+                )
           ],
         ),
       ),

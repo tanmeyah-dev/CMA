@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Theme/themeclass.dart';
-import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
 
 class BaseAppBar extends PreferredSize {
   BaseAppBar.main(
@@ -52,7 +51,7 @@ class BaseAppBar extends PreferredSize {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 16.w),
                                   child: Icon(
-                                    Iconsax.notification,
+                                    Icons.notification_important_rounded,
                                     color: ThemeClass.fontColor,
                                   )),
                             ),

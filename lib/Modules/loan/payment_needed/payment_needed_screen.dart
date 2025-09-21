@@ -8,7 +8,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class PaymentNeededScreen extends StatefulWidget {
@@ -29,13 +29,13 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_payment_needed_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_payment_needed_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_payment_needed_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_payment_needed_screen"
+    //     }
+    // );
     super.initState();
   }
 

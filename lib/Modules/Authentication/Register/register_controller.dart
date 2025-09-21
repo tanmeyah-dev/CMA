@@ -10,7 +10,8 @@ import '../../../Models/registeration_response.dart';
 import '../../../Models/verify_otp_model.dart';
 import '../../../Network/user_api.dart';
 import '../../../Theme/themeclass.dart';
-import '../Login/login_screen.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import '../Login/login_screen.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class RegisterController extends ControllerMVC {
@@ -150,13 +151,13 @@ class RegisterController extends ControllerMVC {
 
 
     if (result?.isSuccess == true && result?.user?.isActive == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'success_registration_screen',
-          parameters: <String,dynamic>{
-            "title" : "success_registration_screen"
-          }
-      );
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      // analytics.logEvent(
+      //     name: 'success_registration_screen',
+      //     parameters: <String,dynamic>{
+      //       "title" : "success_registration_screen"
+      //     }
+      // );
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/loginScreen', (Route<dynamic> route) => false,arguments: "");
     } else if (result?.user?.isActive == false && result?.isAlreadyMobileNumberExist == false) {
@@ -164,13 +165,13 @@ class RegisterController extends ControllerMVC {
             (code) => onConfirm(code, context)
       ]);
     } else if (result?.isAlreadyMobileNumberExist == true ){
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'error_registration_screen',
-          parameters: <String,dynamic>{
-            "title" : "error_registration_screen"
-          }
-      );
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      // analytics.logEvent(
+      //     name: 'error_registration_screen',
+      //     parameters: <String,dynamic>{
+      //       "title" : "error_registration_screen"
+      //     }
+      // );
       Navigator.pushNamed(context, RegistrationError.routeName,arguments: phoneNumber);
     }
   }

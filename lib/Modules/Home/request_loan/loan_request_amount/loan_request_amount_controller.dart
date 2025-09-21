@@ -18,7 +18,7 @@ import '../loan_request_success/loan_request_success_screen.dart';
 import 'package:geolocator/geolocator.dart';
 // import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as permsion;
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 import 'package:url_launcher/url_launcher.dart';
@@ -137,12 +137,13 @@ class LoanRequestAmountController extends ControllerMVC {
     loading = true;
     setState(() { });
     Position? position = await getCurrentLocation(context);
-    if (position == null) return;
     setState(() {
       loading = false;
-      currentPosition = position;
+      if (position != null) {
+        currentPosition = position;
+      }
     });
-    if(isInit) applyForLoan(context);
+    if(position != null && isInit) applyForLoan(context);
  }
 
 
@@ -168,22 +169,22 @@ class LoanRequestAmountController extends ControllerMVC {
      loading = false;
    });
    if (result?.isCapital == true) {
-     final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-     analytics.logEvent(
-         name: 'loan_submitted_from_cairo_successfully',
-         parameters: <String,dynamic>{
-           "title" :"loan_submitted_from_cairo_successfully"
-         }
-     );
+     // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+     // analytics.logEvent(
+     //     name: 'loan_submitted_from_cairo_successfully',
+     //     parameters: <String,dynamic>{
+     //       "title" :"loan_submitted_from_cairo_successfully"
+     //     }
+     // );
      Navigator.pushNamed(context, LoanSuccessRequestScreen.routeName);
    } else if (result?.isCapital == false) {
-     final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-     analytics.logEvent(
-         name: 'loan_submitted_out_of_cairo_successfully',
-         parameters: <String,dynamic>{
-           "title" :"loan_submitted_out_of_cairo_successfully"
-         }
-     );
+     // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+     // analytics.logEvent(
+     //     name: 'loan_submitted_out_of_cairo_successfully',
+     //     parameters: <String,dynamic>{
+     //       "title" :"loan_submitted_out_of_cairo_successfully"
+     //     }
+     // );
      Navigator.pushNamed(context, LoanRequestOutOfCairoScreen.routeName,
          arguments: result?.branches);
    }

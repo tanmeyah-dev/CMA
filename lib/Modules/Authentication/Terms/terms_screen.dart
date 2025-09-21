@@ -7,7 +7,8 @@ import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import '../../../Theme/themeclass.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Theme/themeclass.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class TermsScreen extends StatefulWidget {
@@ -30,13 +31,13 @@ class _TermsScreenState extends StateMVC<TermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_terms_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_terms_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_terms_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_terms_screen"
+    //     }
+    // );
     super.initState();
   }
 

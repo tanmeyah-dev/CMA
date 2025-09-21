@@ -11,8 +11,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/base_appbar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:iconsax/iconsax.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class BranchesScreen extends StatefulWidget {
@@ -32,13 +31,13 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
   late BranchesController con;
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_branches_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_branches_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_branches_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_branches_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -81,7 +80,7 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
                           ),
                         ),
                         suffixIcon: Icon(
-                          Iconsax.search_normal_1,
+                          Icons.search_rounded,
                           color: ThemeClass.primaryColor,
                         ),
                         enabledBorder: OutlineInputBorder(

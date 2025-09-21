@@ -10,7 +10,7 @@ import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 
@@ -33,13 +33,13 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
   @override
   void initState() {
     con.offerId = widget.offerID;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_offer_detail_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_offer_detail_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"
+    //     }
+    // );
     super.initState();
   }
 
@@ -69,10 +69,7 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
                       SizedBox(
                         height: 16.h,
                       ),
-                      FadeIn(
-                        delay: 2,
-                        from: SlideFrom.TOP,
-                        child: Container(
+                      Container(
                           width: double.infinity,
                           height: 168.h,
                           decoration: BoxDecoration(
@@ -88,30 +85,21 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
                                     fit: BoxFit.fill),
                           ),
                         ),
-                      ),
                       SizedBox(
                         height: 10.h
                       ),
-                      FadeIn(
-                        delay: 1.5,
-                        from: SlideFrom.RIGHT,
-                        child: AppTextRegular(
+                       AppTextRegular(
                           title: con.offerModel?.nameAr??"",
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w500,
-                        ),
                       ),
                       SizedBox(
                           height: 10.h
                       ),
-                      FadeIn(
-                        delay: 2,
-                        from: SlideFrom.BOTTOM,
-                        child: AppTextRegular(
+                      AppTextRegular(
                           title: con.offerModel?.descriptionAr ?? "",
                           textAlign: TextAlign.start,
                         ),
-                      ),
                     ],
                   ),
                 ],

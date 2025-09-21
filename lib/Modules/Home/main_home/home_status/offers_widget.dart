@@ -2,7 +2,7 @@
 
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,10 +24,7 @@ class OffersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FadeIn(
-          delay: 1,
-          from: SlideFrom.BOTTOM,
-          child: Padding(
+         Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,13 +36,13 @@ class OffersWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                    analytics.logEvent(
-                        name: 'request_view_all_offers',
-                        parameters: <String,dynamic>{
-                          "title" :"request_view_all_offers"
-                        }
-                    );
+                    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    // analytics.logEvent(
+                    //     name: 'request_view_all_offers',
+                    //     parameters: <String,dynamic>{
+                    //       "title" :"request_view_all_offers"
+                    //     }
+                    // );
                     Navigator.pushNamed(context, MainOffersScreen.routeName);
                   },
                   child: Row(
@@ -63,7 +60,6 @@ class OffersWidget extends StatelessWidget {
                 ),
               ],
             ),
-          ),
         ) ,
 
         SizedBox(
@@ -82,13 +78,13 @@ class OffersWidget extends StatelessWidget {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () {
-                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                      analytics.logEvent(
-                          name: 'open_offer_detail',
-                          parameters: <String,dynamic>{
-                            "title" :"open_offer_detail  ${i.nameAr}"
-                          }
-                      );
+                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      // analytics.logEvent(
+                      //     name: 'open_offer_detail',
+                      //     parameters: <String,dynamic>{
+                      //       "title" :"open_offer_detail  ${i.nameAr}"
+                      //     }
+                      // );
                       Navigator.pushNamed(context,
                           OfferDetailScreen.routeName,
                           arguments: i.id);

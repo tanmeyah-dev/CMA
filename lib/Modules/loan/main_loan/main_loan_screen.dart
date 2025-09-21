@@ -17,7 +17,7 @@ import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 
@@ -39,13 +39,13 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_main_loan_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_main_loan_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_main_loan_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_main_loan_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -73,10 +73,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.TOP,
-                                  child: Container(
+                                 Container(
                                     width: 328.w,
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -105,13 +102,9 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                         ),
                                       ],
                                     ),
-                                  ),
                                 ),
                                 SizedBox(height: 8.h),
-                                FadeIn(
-                                    delay: 1,
-                                    from: SlideFrom.BOTTOM,
-                                    child: Row(
+                                Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,43 +206,36 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
 
                                           ]),
-                                        ])),
+                                        ]),
                                 SizedBox(height: 8.h,),
-                                FadeIn(
-                                  delay: 1.5,
-                                  from: SlideFrom.BOTTOM,
-                                  child: CustomButton(
+                                CustomButton(
                                       borderColor: ThemeClass.buttonNotActiveColor,
                                       radius: 16,
                                       title: "pay_now".tr,
                                       onTap: ()  {
-                                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                        analytics.logEvent(
-                                            name: 'request_pay',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_pay"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                        // analytics.logEvent(
+                                        //     name: 'request_pay',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_pay"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(context, PaymentMethodsScreen.routeName,arguments: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString());
-                                      }),
+                                      },
                                 ),
                                 SizedBox(height: 55.h,),
-                                FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.BOTTOM,
-                                  child: Align(
+                                Align(
                                     alignment: Alignment.bottomCenter,
                                     child: con.activeLoanModel!.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'request_previous_loans',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_previous_loans"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'request_previous_loans',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"request_previous_loans"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(context, PreviousLoanScreen.routeName);
                                     },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                                  ),
                                 ),
                                 SizedBox(height: 70.h,),
                               ],
@@ -259,39 +245,28 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
                           child: Column(
                             children: [
-                              FadeIn(
-                                delay: 1,
-                                from: SlideFrom.TOP,
-                                child: Image.asset(
+                              Image.asset(
                                   AppAssets.IMG_NO_LOAN,
                                   fit: BoxFit.fill,
                                   width: double.infinity,
                                   height: 328.h,
-                                ),
                               ),
                               SizedBox(height: 20.h,),
-                              FadeIn(
-                                  delay: 1,
-                                  from: SlideFrom.BOTTOM,
-                                  child: AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,)),
+                              AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,),
                               SizedBox(height: 170.h,),
                               (con.activeLoanModel?.havePreviousLoan != null) ?
-                              FadeIn(
-                                delay: 1,
-                                from: SlideFrom.BOTTOM,
-                                child: Align(
+                              Align(
                                   alignment: Alignment.bottomCenter,
                                   child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                    analytics.logEvent(
-                                        name: 'request_previous_loans',
-                                        parameters: <String,dynamic>{
-                                          "title" :"request_previous_loans"
-                                        }
-                                    );
+                                    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                    // analytics.logEvent(
+                                    //     name: 'request_previous_loans',
+                                    //     parameters: <String,dynamic>{
+                                    //       "title" :"request_previous_loans"
+                                    //     }
+                                    // );
                                     Navigator.pushNamed(context, PreviousLoanScreen.routeName);
                                   },width: 216.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                                ),
                               ) : Container()
                             ],
                           ),
@@ -300,35 +275,25 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: Padding(
+                       Padding(
                             padding: EdgeInsets.all(16.w),
-                            child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
+                            child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,),
                       ),
                       SizedBox(
                         height: 16.h,
                       ),
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.TOP,
-                        child: AppTextMedium(
+                       AppTextMedium(
                           title: "empty_loan".tr,
-                        ),
                       ),
                       SizedBox(height: 131.h,),
-                      FadeIn(
-                        delay: 1,
-                        from: SlideFrom.BOTTOM,
-                        child: CustomButton(
+                       CustomButton(
                             width: 216,
                             title: "login".tr,
                             onTap: () {
                               Navigator.pushNamed(
                                   context, LoginScreen.routeName,
                                   arguments: "");
-                            }),
+                            },
                       ),
                     ],
                   ),
@@ -372,21 +337,21 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
       required String routeName}) {
     return GestureDetector(
       onTap: () {
-        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+        // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
        if(routeName == AlreadyPaidScreen.routeName) {
-         analytics.logEvent(
-             name: 'request_paid_installment_screen',
-             parameters: <String, dynamic>{
-               "title": "request_paid_installment_screen"
-             }
-         );
+         // analytics.logEvent(
+         //     name: 'request_paid_installment_screen',
+         //     parameters: <String, dynamic>{
+         //       "title": "request_paid_installment_screen"
+         //     }
+         // );
        }else {
-         analytics.logEvent(
-             name: 'request_due_installment_screen',
-             parameters: <String,dynamic>{
-               "title" :"request_due_installment_screen"
-             }
-         );
+         // analytics.logEvent(
+         //     name: 'request_due_installment_screen',
+         //     parameters: <String,dynamic>{
+         //       "title" :"request_due_installment_screen"
+         //     }
+         // );
        }
         Navigator.pushNamed(context, routeName);
       },

@@ -5,7 +5,7 @@ import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class AboutUsScreen extends StatefulWidget {
@@ -20,13 +20,13 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_about_us_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_about_us_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_about_us_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_about_us_screen"
+    //     }
+    // );
     super.initState();
   }
 

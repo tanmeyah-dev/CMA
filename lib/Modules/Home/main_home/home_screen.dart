@@ -18,7 +18,7 @@ import '../request_loan/loan_request_out_of_cairo/loan_request_out_of_cairo_scre
 import 'home_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'home_status/active_loan.dart';
 import 'home_status/offers_widget.dart';
 import 'home_status/products_widget.dart';
@@ -47,13 +47,13 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_home_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_home_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_home_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_home_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -137,10 +137,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         : Container(),
                     SizedBox(height: 22.h),
                     (con.homeResponse?.loanRequest == null)
-                        ? FadeIn(
-                      delay: 1.5,
-                      from: SlideFrom.TOP,
-                      child:
+                        ?
                       (con.homeResponse?.canRequestLoan == true)
                           ? Container(
                         decoration: BoxDecoration(
@@ -184,13 +181,13 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     fontWeight: FontWeight.bold,
                                     onTap: () async {
                                         if (con.isLogin)  {
-                                          final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                          analytics.logEvent(
-                                              name: 'request_loan_button',
-                                              parameters: <String,dynamic>{
-                                                "title" :"request_loan_button"
-                                              }
-                                          );
+                                          // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                          // analytics.logEvent(
+                                          //     name: 'request_loan_button',
+                                          //     parameters: <String,dynamic>{
+                                          //       "title" :"request_loan_button"
+                                          //     }
+                                          // );
                                               Navigator.pushNamed(
                                                   context,
                                                   LoanRequestTermsScreen
@@ -300,13 +297,13 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     title: "ask_loan".tr,
                                     fontWeight: FontWeight.bold,
                                     onTap: () async {
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
-                                          name: 'open_nearest_branches',
-                                          parameters: <String,dynamic>{
-                                            "title" :"open_nearest_branches"
-                                          }
-                                      );
+                                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                      // analytics.logEvent(
+                                      //     name: 'open_nearest_branches',
+                                      //     parameters: <String,dynamic>{
+                                      //       "title" :"open_nearest_branches"
+                                      //     }
+                                      // );
                                       Navigator.pushNamed(
                                           context,
                                           LoanRequestOutOfCairoScreen
@@ -323,9 +320,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                             ),
                           ],
                         ),
-                      ),
-                    )
-                        : ActiveLoanWidget(con: con,),
+                      ) : ActiveLoanWidget(con: con,),
                     SizedBox(
                       height: 16.h,
                     ),

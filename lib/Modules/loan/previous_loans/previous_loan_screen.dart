@@ -9,7 +9,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 class PreviousLoanScreen extends StatefulWidget {
   static const String routeName = "/previousLoanScreen";
@@ -29,13 +29,13 @@ class _AlreadyPaidScreenState extends StateMVC<PreviousLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_previous_loans_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_previous_loans_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_previous_loans_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_previous_loans_screen"
+    //     }
+    // );
     super.initState();
   }
 

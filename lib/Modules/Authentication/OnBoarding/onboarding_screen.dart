@@ -10,7 +10,7 @@ import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import '../ValidateUser/validate_user_screen.dart';
 import 'content_model.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class OnBoardingScreen extends StatefulWidget {
@@ -29,13 +29,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-     analytics.logEvent(
-        name: 'open_onboarding_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_onboarding_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    //  analytics.logEvent(
+    //     name: 'open_onboarding_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_onboarding_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -64,13 +64,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   left: 10.w,
                   child: SkipButton(
                     onTap: () async {
-                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                      analytics.logEvent(
-                          name: 'skip_onboarding_screen',
-                          parameters: <String,dynamic>{
-                            "title" : "skip_onboarding_screen"
-                          }
-                      );
+                      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      // analytics.logEvent(
+                      //     name: 'skip_onboarding_screen',
+                      //     parameters: <String,dynamic>{
+                      //       "title" : "skip_onboarding_screen"
+                      //     }
+                      // );
                       await SharedPref.saveWatchIntro();
                       Navigator.pushNamed(
                           context, ValidateUserScreen.routeName);
@@ -152,13 +152,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onTap: () async {
                 if (currentIndex == contents.length - 1) {
                   await SharedPref.saveWatchIntro();
-                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                  analytics.logEvent(
-                      name: 'complete_onboarding_screen',
-                      parameters: <String,dynamic>{
-                        "title" : "complete_onboarding_screen"
-                      }
-                  );
+                  // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  // analytics.logEvent(
+                  //     name: 'complete_onboarding_screen',
+                  //     parameters: <String,dynamic>{
+                  //       "title" : "complete_onboarding_screen"
+                  //     }
+                  // );
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       ValidateUserScreen.routeName,
                       (Route<dynamic> route) => false);

@@ -19,8 +19,7 @@ import '../../../Widgets/custom_textfield_widget.dart';
 import '../../../Widgets/drop_down_list.dart';
 import '../../../Widgets/skip_button.dart';
 import '../Terms/terms_screen.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../Widgets/simple_animations.dart';
 
 
@@ -50,13 +49,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
     } else {
       con.editPhone = false;
     }
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_registration_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_registration_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_registration_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_registration_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -74,13 +73,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 20.w),
                       child: SkipButton(
                           onTap: () {
-                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                            analytics.logEvent(
-                                name: 'skip_registration_screen',
-                                parameters: <String,dynamic>{
-                                  "title" : "skip_registration_screen"
-                                }
-                            );
+                            // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            // analytics.logEvent(
+                            //     name: 'skip_registration_screen',
+                            //     parameters: <String,dynamic>{
+                            //       "title" : "skip_registration_screen"
+                            //     }
+                            // );
                             Navigator.of(context)
                                 .pushNamedAndRemoveUntil('/mainScreen',
                                     (Route<dynamic> route) => false);
@@ -135,10 +134,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
   }
 
   Widget fullNameTxtField() {
-    return FadeIn(
-      delay: 0.5,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -160,15 +156,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               validator: (value) =>
                   Validator.validateFullName(context, value!)),
         ],
-      ),
-    );
+      );
   }
 
   Widget nationalIdTxtField() {
-    return FadeIn(
-      delay: 1,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -190,15 +182,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   Validator.validateNationalId(context, value!),
               formatter: [LengthLimitingTextInputFormatter(14)]),
         ],
-      ),
-    );
+      );
   }
 
   Widget dateTimeWidget() {
-    return FadeIn(
-      delay: 1.5,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -225,20 +213,16 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   title: con.dateOfBirth??"",
                   )
                     : const AppTextHint(title: "0000-00-00"),
-                Icon(Iconsax.calendar5, color: ThemeClass.secondaryColor,),
+                Icon(Icons.calendar_month, color: ThemeClass.secondaryColor,),
               ],
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget phoneTxtField() {
-    return FadeIn(
-      delay: 2,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -271,15 +255,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             ],
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget emailTxtField() {
-    return FadeIn(
-      delay: 2.5,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -299,15 +279,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             hint: "example@example.com",
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget passwordTxtField() {
-    return FadeIn(
-      delay: 3,
-      from: SlideFrom.TOP,
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -325,20 +301,16 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                 con.showPassword = !con.showPassword;
                 setState(() { });
               },
-               child: Icon(con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,color: con.passwordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
+               child: Icon(con.showPassword ? Icons.visibility : Icons.visibility_off,color: con.passwordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
             ),
 
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget selectGovernment() {
-    return FadeIn(
-      delay: 3,
-      from: SlideFrom.TOP,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
             title: "government".tr,
@@ -366,22 +338,18 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               prefixIcon: Padding(
                 padding: EdgeInsets.only(left: 10.w),
                 child: Icon(
-                  Iconsax.arrow_down5,
+                  Icons.keyboard_arrow_down,
                   color: ThemeClass.secondaryColor,
                 ),
               ),
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget confirmPassTxtField() {
-    return FadeIn(
-      delay: 3,
-      from: SlideFrom.TOP,
-      child: Column(
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppTextRegular(
@@ -402,19 +370,15 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                 con.showConfirmPassword = !con.showConfirmPassword;
                 setState(() { });
               },
-              child: Icon(con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,color: con.confirmPasswordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
+              child: Icon(con.showConfirmPassword ? Icons.visibility : Icons.visibility_off,color: con.confirmPasswordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget registerDes() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Column(
+    return  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -434,13 +398,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             Row(children: [
               GestureDetector(
                   onTap: () {
-                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                    analytics.logEvent(
-                        name: 'request_terms_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "request_terms_screen"
-                        }
-                    );
+                    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    // analytics.logEvent(
+                    //     name: 'request_terms_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "request_terms_screen"
+                    //     }
+                    // );
                     Navigator.pushNamed(context, TermsScreen.routeName);
                   },
                   child: AppTextBold(
@@ -450,13 +414,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               AppTextRegular(title: " ${"and".tr} ", fontSize: 12.sp),
               GestureDetector(
                   onTap: () {
-                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                    analytics.logEvent(
-                        name: 'request_conditions_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "request_conditions_screen"
-                        }
-                    );
+                    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    // analytics.logEvent(
+                    //     name: 'request_conditions_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "request_conditions_screen"
+                    //     }
+                    // );
                     Navigator.pushNamed(context, ConditionsScreen.routeName);
                   },
                   child: AppTextBold(
@@ -466,14 +430,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               AppTextRegular(title: " ${"ours".tr} ", fontSize: 12.sp)
             ])
           ],
-        ));
+        );
   }
 
   Widget createBtn() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Align(
+    return  Align(
           alignment: Alignment.center,
           child:
           (con.selectedValue != null && con.accept == true ) ?
@@ -482,13 +443,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               title: "save".tr,
               onTap: () async {
                   if (con.formKey.currentState!.validate()) {
-                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                    analytics.logEvent(
-                        name: 'submit_registration_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "submit_registration_screen"
-                        }
-                    );
+                    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    // analytics.logEvent(
+                    //     name: 'submit_registration_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "submit_registration_screen"
+                    //     }
+                    // );
                     con.register(context);
                   }
                 }
@@ -506,14 +467,11 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
           )
 
           ,
-        ));
+        );
   }
 
   Widget loginDes() {
-    return FadeIn(
-        delay: 2,
-        from: SlideFrom.BOTTOM,
-        child: Padding(
+    return  Padding(
           padding: EdgeInsetsDirectional.only(start: 20.w),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -530,6 +488,6 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                         fontSize: 16.sp,
                         textDecoration: TextDecoration.underline))
               ]),
-        ));
+        );
   }
 }

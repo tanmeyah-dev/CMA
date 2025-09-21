@@ -13,7 +13,7 @@ import '../../../Widgets/custom_text.dart';
 import 'main_services_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../../Widgets/simple_animations.dart';
 
 
@@ -38,13 +38,13 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_main_services_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_main_services_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_main_services_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_main_services_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -84,22 +84,19 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                              analytics.logEvent(
-                                  name: 'Open_Product_Detail',
-                                  parameters: <String,dynamic>{
-                                    "product_name" : con.servicesResponse?.products![index].nameAr
-                                  }
-                              );
+                              // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              // analytics.logEvent(
+                              //     name: 'Open_Product_Detail',
+                              //     parameters: <String,dynamic>{
+                              //       "product_name" : con.servicesResponse?.products![index].nameAr
+                              //     }
+                              // );
                               Navigator.pushNamed(
                                   context, ServicesDetailScreen.routeName,
                                   arguments:
                                   con.servicesResponse!.products![index]);
                             },
-                            child: FadeIn(
-                              delay: 2,
-                              from: SlideFrom.BOTTOM,
-                              child: Container(
+                            child: Container(
                                 width: 354.w,
                                 decoration: BoxDecoration(
                                   borderRadius:
@@ -159,7 +156,6 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                   ),
                                 ),
                               ),
-                            ),
                           );
                         },
                       ),

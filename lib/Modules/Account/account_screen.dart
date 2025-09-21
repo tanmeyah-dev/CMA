@@ -19,7 +19,7 @@ import '../../Widgets/custom_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import '../Authentication/Login/login_screen.dart';
 import '../More/main_more/widget/logout_alert.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../Widgets/simple_animations.dart';
 
 
@@ -72,49 +72,31 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                   child: UserDataWidget(
                                       title: "full_name".tr,
                                       data: con.userModel?.fullName ?? "")),
-                              FadeIn(
-                                  delay: 1.2,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
+                              UserDataWidget(
                                       title: "id_num".tr,
-                                      data: con.userModel?.nationalId ?? "")),
-                              FadeIn(
-                                  delay: 1.5,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
+                                      data: con.userModel?.nationalId ?? ""),
+                              UserDataWidget(
                                       title: "birthday".tr,
                                       data: con.userModel?.birthDate
                                               .substring(0, 11) ??
-                                          "")),
-                              FadeIn(
-                                  delay: 1.8,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWidget(
+                                          ""),
+                              UserDataWidget(
                                       title: "phone_number".tr,
                                       data:
-                                          con.userModel?.mobileNumber ?? "")),
+                                          con.userModel?.mobileNumber ?? ""),
                               con.userModel?.email != null ?
-                              FadeIn(
-                                delay: 2,
-                                from: SlideFrom.LEFT,
-                                child: UserDataWithEdit(
+                              UserDataWithEdit(
                                     title: "email".tr,
                                     data: con.userModel?.email != null
                                         ? con.userModel!.email!
-                                        : "example@example.com"),
+                                        : "example@example.com"
                               ) : Container(),
-                              FadeIn(
-                                  delay: 2.2,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWithEdit(
+                              UserDataWithEdit(
                                       title: "government".tr,
-                                      data:  con.city != null ? con.city! : "القاهره")),
-                              FadeIn(
-                                  delay: 2.4,
-                                  from: SlideFrom.LEFT,
-                                  child: UserDataWithEdit(
+                                      data:  con.city != null ? con.city! : "القاهره"),
+                              UserDataWithEdit(
                                       title: "password".tr,
-                                      data: "*************")),
+                                      data: "*************"),
                               SizedBox(height: 16.h,),
                               !con.guestMood?
                               CustomButton(
@@ -124,13 +106,13 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                 textColor: ThemeClass.primaryColor,
                                 borderColor: ThemeClass.primaryColor,
                                 onTap: () {
-                                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                  analytics.logEvent(
-                                      name: 'request_deactivate_account',
-                                      parameters: <String,dynamic>{
-                                        "title" :"request_deactivate_account"
-                                      }
-                                  );
+                                  // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                  // analytics.logEvent(
+                                  //     name: 'request_deactivate_account',
+                                  //     parameters: <String,dynamic>{
+                                  //       "title" :"request_deactivate_account"
+                                  //     }
+                                  // );
                                   AnimatedAlertDialog(context,
                                       LogoutAlertWidget(message : "deactivate_message".tr ,onOkPressed: () {
                                         con.logout(context,con.userModel?.mobileNumber??"",con.userModel?.nationalId??"");
@@ -149,33 +131,23 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                         // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(height: 10.h),
-                          FadeIn(
-                            delay: 2,
-                            from: SlideFrom.TOP,
-                            child: Padding(
+                          Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: Image.asset(AppAssets.IMG_EMPTY_ACCOUNT,
                                   width: double.infinity,
                                   height: 357.h,
                                   fit: BoxFit.fill),
                             ),
-                          ),
                           SizedBox(height: 16.h),
-                          FadeIn(
-                              delay: 2,
-                              from: SlideFrom.TOP,
-                              child: Padding(
+                          Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 20.w),
                                   child: AppTextBold(
-                                      title: "guest_des".tr))),
+                                      title: "guest_des".tr)),
                            SizedBox(
                              height: 121.h,
                            ),
-                          FadeIn(
-                              delay: 2,
-                              from: SlideFrom.BOTTOM,
-                              child: CustomButton(
+                           CustomButton(
                                   width: 216,
                                   title: "login".tr,
                                   onTap: () async {
@@ -188,7 +160,7 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                                 ),
                                             maintainState:
                                                 false)); // await con.register(context);
-                                  })),
+                                  }),
                         ])),
               ))),
     );
