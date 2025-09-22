@@ -49,9 +49,6 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
 
   checkConnectivity() async {
     try {
-      // Initialize SharedPreferences lazily when first accessed
-      await SharedObj().init();
-      
       // Safely access SharedPreferences with error handling
       try {
         print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLatitude()}");
@@ -168,6 +165,7 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
     
     try {
       if (!SharedPref.isWatchIntro()) {
+        print(">>>>>>>>>>>>>GGGG + ${SharedPref.isWatchIntro()}");
         print('Navigating to onboarding screen');
         Navigator.of(context).pushReplacementNamed(OnBoardingScreen.routeName);
       } else if (SharedPref.isUserLogIn()) {

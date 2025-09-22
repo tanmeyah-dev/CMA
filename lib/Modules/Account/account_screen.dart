@@ -145,7 +145,7 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                   child: AppTextBold(
                                       title: "guest_des".tr)),
                            SizedBox(
-                             height: 121.h,
+                             height: 115.h,
                            ),
                            CustomButton(
                                   width: 216,

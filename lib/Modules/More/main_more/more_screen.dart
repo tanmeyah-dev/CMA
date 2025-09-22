@@ -189,7 +189,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     }),
                             SizedBox(height: 8.h),
 
-                            SizedBox(height: 85.h),
+                            SizedBox(height: 88.h),
                           ],
                         ),
                         con.guestMood

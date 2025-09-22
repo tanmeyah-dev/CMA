@@ -71,9 +71,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       //       "title" : "skip_onboarding_screen"
                       //     }
                       // );
-                      await SharedPref.saveWatchIntro();
-                      Navigator.pushNamed(
-                          context, ValidateUserScreen.routeName);
+                      try {
+                        await SharedPref.saveWatchIntro();
+                        // Wait a bit more to ensure persistence
+                        await Future.delayed(const Duration(milliseconds: 200));
+                        if (context.mounted) {
+                          Navigator.pushNamed(
+                              context, ValidateUserScreen.routeName);
+                        }
+                      } catch (e) {
+                        print('Error in skip onboarding: $e');
+                        // Navigate anyway to prevent user being stuck
+                        if (context.mounted) {
+                          Navigator.pushNamed(
+                              context, ValidateUserScreen.routeName);
+                        }
+                      }
                     },
                   ))
             ],
@@ -151,22 +164,37 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           GestureDetector(
               onTap: () async {
                 if (currentIndex == contents.length - 1) {
-                  await SharedPref.saveWatchIntro();
-                  // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                  // analytics.logEvent(
-                  //     name: 'complete_onboarding_screen',
-                  //     parameters: <String,dynamic>{
-                  //       "title" : "complete_onboarding_screen"
-                  //     }
-                  // );
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      ValidateUserScreen.routeName,
-                      (Route<dynamic> route) => false);
+                  try {
+                    await SharedPref.saveWatchIntro();
+                    // Wait a bit more to ensure persistence
+                    await Future.delayed(const Duration(milliseconds: 200));
+                    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    // analytics.logEvent(
+                    //     name: 'complete_onboarding_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "complete_onboarding_screen"
+                    //     }
+                    // );
+                    if (context.mounted) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          ValidateUserScreen.routeName,
+                          (Route<dynamic> route) => false);
+                    }
+                  } catch (e) {
+                    print('Error in complete onboarding: $e');
+                    // Navigate anyway to prevent user being stuck
+                    if (context.mounted) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          ValidateUserScreen.routeName,
+                          (Route<dynamic> route) => false);
+                    }
+                  }
+                } else {
+                  _controller.nextPage(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInQuad,
+                  );
                 }
-                _controller.nextPage(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInQuad,
-                );
               },
               child: Container(
                   width: 90.w,

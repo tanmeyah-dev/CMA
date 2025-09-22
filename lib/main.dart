@@ -16,6 +16,7 @@ import 'Cache/locales.dart';
 import 'Modules/Authentication/Splash/splash_screen.dart';
 import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Shared/shared_prefirences.dart';
 import 'Utilities/routing.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,16 +24,14 @@ import 'package:dart_ping/dart_ping.dart';
 import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'firebase_options.dart';
+import 'Shared/shard_obj.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedObj().init();
+  await SharedPref.logOut();
 
-  // UpdateApp.startFlexibleUpdate();
-
-  // Don't initialize SharedPreferences here - it's too early in release mode
-  // It will be initialized lazily when first accessed
-  
   // Initialize other services
   DartPingIOS.register();
   var pings = Ping('gateway.tanmeyah.com',count: 4);

@@ -57,59 +57,27 @@ class SharedPref {
   }
 
   static Future<void> saveWatchIntro() async {
-    try {
-      // Ensure SharedObj is initialized
-      await SharedObj().init();
       bool result = await SharedObj().setBool(_intro, true);
-      print('saveWatchIntro result: $result');
-      // Verify the value was saved
-      bool? savedValue = SharedObj().getBool(_intro);
-      print('saveWatchIntro verification: $savedValue');
-    } catch (e) {
-      print('Error saving watch intro: $e');
-    }
   }
 
   static bool isWatchIntro() {
-    try {
-      // Ensure SharedObj is initialized
-      SharedObj().init();
       bool? value = SharedObj().getBool(_intro);
       bool result = value ?? false;
-      print('isWatchIntro: $value -> $result');
       return result;
-    } catch (e) {
-      print('Error getting watch intro: $e');
-      return false;
-    }
   }
 
   static Future<void> saveAlreadyExist() async {
-    try {
-      // Ensure SharedObj is initialized
-      await SharedObj().init();
       bool result = await SharedObj().setBool(_alreadyExist, true);
       print('saveAlreadyExist result: $result');
       // Verify the value was saved
       bool? savedValue = SharedObj().getBool(_alreadyExist);
-      print('saveAlreadyExist verification: $savedValue');
-    } catch (e) {
-      print('Error saving already exist: $e');
-    }
   }
 
   static bool alreadyExist() {
-    try {
-      // Ensure SharedObj is initialized
-      SharedObj().init();
       bool? value = SharedObj().getBool(_alreadyExist);
       bool result = value ?? false;
       print('alreadyExist: $value -> $result');
       return result;
-    } catch (e) {
-      print('Error getting already exist: $e');
-      return false;
-    }
   }
 
   static Future<void> clearAlreadyExist() async {
@@ -133,21 +101,12 @@ class SharedPref {
   }
 
   static Future<void> clearLocation() async {
-    try {
       await SharedObj().remove(latitude);
       await SharedObj().remove(longitude);
-    } catch (e) {
-      print('Error clearing location: $e');
-    }
   }
 
 
   static String? getUserLongitude() {
-    try {
       return SharedObj().getString(longitude);
-    } catch (e) {
-      print('Error getting user longitude: $e');
-      return null;
-    }
   }
 }
