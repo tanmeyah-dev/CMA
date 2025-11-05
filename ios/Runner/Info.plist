@@ -2,27 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb142136432254883</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>142136432254883</string>
-	<key>FacebookClientToken</key>
-	<string>e3cebd475cccd5b2d795cbafcd8f6abe</string>
-	<key>FacebookDisplayName</key>
-	<string>TNM-APP</string>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<true/>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -43,12 +22,31 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb142136432254883</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
+	<key>FacebookAppID</key>
+	<string>142136432254883</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
+	<key>FacebookClientToken</key>
+	<string>e3cebd475cccd5b2d795cbafcd8f6abe</string>
+	<key>FacebookDisplayName</key>
+	<string>TNM-APP</string>
 	<key>FirebaseAnalyticsCollectionEnabled</key>
 	<true/>
-	<key>NSContactsUsageDescription</key>
-    <string>Tanmeyah requires contacts access to function properly.</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sms</string>
@@ -62,6 +60,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Tanmeyah requires access to the camera.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Tanmeyah requires contacts access to function properly.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Tanmeyah want to authent using face id?</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -76,6 +76,8 @@
 	<string>Tanmeyah requires access to the photo library.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

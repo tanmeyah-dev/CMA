@@ -40,13 +40,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
   void initState() {
     con.onConfirm = widget.onConfirm;
     con.phoneNumber = widget.phoneNumber;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_send_otp_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_send_otp_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_send_otp_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_send_otp_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -138,13 +138,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
           InkWell(
               onTap: () {
                 if (con.activeResend == true) {
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
-                      name: 'request_resend_otp_screen',
-                      parameters: <String,dynamic>{
-                        "title" : "request_resend_otp_screen"
-                      }
-                  );
+                  // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                  // _analytics.logEvent(
+                  //     name: 'request_resend_otp_screen',
+                  //     parameters: <String,dynamic>{
+                  //       "title" : "request_resend_otp_screen"
+                  //     }
+                  // );
                     con.onResendCode(context);
                 }
               },
@@ -178,13 +178,13 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
             title: "confirm".tr,
             onTap: () {
               if (con.formKey.currentState!.validate()) {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
-                    name: 'submit_otp_screen',
-                    parameters: <String,dynamic>{
-                      "title" : "submit_otp_screen"
-                    }
-                );
+                // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                // _analytics.logEvent(
+                //     name: 'submit_otp_screen',
+                //     parameters: <String,dynamic>{
+                //       "title" : "submit_otp_screen"
+                //     }
+                // );
                 con.onConfirmPin();
               } else {
                 ToastHelper.showError(context,message: "otp_error".tr);

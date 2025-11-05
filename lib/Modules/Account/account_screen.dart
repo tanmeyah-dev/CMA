@@ -100,13 +100,13 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                               textColor: ThemeClass.primaryColor,
                               borderColor: ThemeClass.primaryColor,
                               onTap: () {
-                                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                _analytics.logEvent(
-                                    name: 'request_deactivate_account',
-                                    parameters: <String,dynamic>{
-                                      "title" :"request_deactivate_account"
-                                    }
-                                );
+                                // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                // _analytics.logEvent(
+                                //     name: 'request_deactivate_account',
+                                //     parameters: <String,dynamic>{
+                                //       "title" :"request_deactivate_account"
+                                //     }
+                                // );
                                 AnimatedAlertDialog(context,
                                     LogoutAlertWidget(message : "deactivate_message".tr ,onOkPressed: () {
                                       con.logout(context,con.userModel?.mobileNumber??"",con.userModel?.nationalId??"");

@@ -23,8 +23,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
-
+import 'package:Iconsax/Iconsax.dart';
 class MoreScreen extends StatefulWidget {
   static const String routeName = "/moreScreen";
 
@@ -44,13 +43,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_more_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_more_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_more_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_more_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -113,13 +112,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       title: "offers".tr,
                                       hint: false,
                                       onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_offers_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_request_screen"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                        // _analytics.logEvent(
+                                        //     name: 'request_offers_screen',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_request_screen"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(
                                             context, MainOffersScreen.routeName);
                                       }),
@@ -129,13 +128,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       title: "contact_us".tr,
                                       hint: false,
                                       onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_contact_us_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_contact_us_screen"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                        // _analytics.logEvent(
+                                        //     name: 'request_contact_us_screen',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_contact_us_screen"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(
                                             context, ContactUsScreen.routeName);
                                       }),
@@ -145,13 +144,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       title: "branches".tr,
                                       hint: false,
                                       onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_branches_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_branches_screen"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                        // _analytics.logEvent(
+                                        //     name: 'request_branches_screen',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_branches_screen"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(
                                             context, BranchesScreen.routeName);
                                       }),
@@ -161,13 +160,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       title: "terms".tr,
                                       hint: false,
                                       onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_terms_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_terms_screen"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                        // _analytics.logEvent(
+                                        //     name: 'request_terms_screen',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_terms_screen"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(
                                             context, TermsScreen.routeName);
                                       }),
@@ -177,13 +176,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       title: "privacy".tr,
                                       hint: false,
                                       onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_privacy_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_privacy_screen"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                        // _analytics.logEvent(
+                                        //     name: 'request_privacy_screen',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_privacy_screen"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(
                                             context, ConditionsScreen.routeName);
                                       }),
@@ -193,13 +192,13 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       title: "about_us".tr,
                                       hint: false,
                                       onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_about_us_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_about_us_screen"
-                                            }
-                                        );
+                                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                        // _analytics.logEvent(
+                                        //     name: 'request_about_us_screen',
+                                        //     parameters: <String,dynamic>{
+                                        //       "title" :"request_about_us_screen"
+                                        //     }
+                                        // );
                                         Navigator.pushNamed(
                                             context, AboutUsScreen.routeName);
                                       }),
@@ -256,7 +255,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             AppTextRegular(title: "logout".tr,color: ThemeClass.whiteColor,),
-                                            Icon(Iconsax.logout5,color: ThemeClass.whiteColor,)
+                                            Icon(Iconsax.logout,color: ThemeClass.whiteColor,)
                                           ],
                                         ),
                                       ),

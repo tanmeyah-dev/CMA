@@ -13,8 +13,7 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:iconsax/iconsax.dart';
-
+import 'package:Iconsax/Iconsax.dart';
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_textfield_widget.dart';
@@ -40,13 +39,13 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_contact_us_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_contact_us_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_contact_us_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_contact_us_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -159,13 +158,13 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           ),
                           SizedBox(height: 6.h,),
                           CustomButton(title: "send".tr, onTap: (){
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'submit_contact_us',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_contact_us"
-                                }
-                            );
+                            // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                            // _analytics.logEvent(
+                            //     name: 'submit_contact_us',
+                            //     parameters: <String,dynamic>{
+                            //       "title" :"submit_contact_us"
+                            //     }
+                            // );
                             if (con.formKey.currentState!.validate()) {
                               con.contactMessage(context: context);
                             } else {
@@ -195,7 +194,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextFieldWidget(
-          width: 260.w,
+          width: 190.w,
           controller: con.phoneController,
           hint: "1xxxxxxxxxx",
           textInputType: TextInputType.phone,

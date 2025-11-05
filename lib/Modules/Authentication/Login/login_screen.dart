@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously, must_be_immutable
-import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_textfield_widget.dart';
@@ -9,10 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/Validator.dart';
-import '../../../Utilities/encreption.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/custom_text.dart';
 import '../../../Widgets/skip_button.dart';
@@ -22,9 +19,7 @@ import 'local_auth/local_auth_api.dart';
 import 'local_auth/local_auth_screen.dart';
 import 'login_controller.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-
+import 'package:Iconsax/Iconsax.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "/loginScreen";
@@ -46,13 +41,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   @override
   void initState() {
     checkAvailable();
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_login_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_login_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_login_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_login_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -97,13 +92,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 30.w),
                       child: SkipButton(
                           onTap: () {
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'skip_login_screen',
-                                parameters: <String,dynamic>{
-                                  "title" :"skip_login_screen"
-                                }
-                            );
+                            // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                            // _analytics.logEvent(
+                            //     name: 'skip_login_screen',
+                            //     parameters: <String,dynamic>{
+                            //       "title" :"skip_login_screen"
+                            //     }
+                            // );
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/mainScreen', (Route<dynamic> route) => false);
 
@@ -196,37 +191,33 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   }
 
   Widget phoneTxtField() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-         CustomTextFieldWidget(
-                controller: con.phoneController,
-                hint: "phone_number".tr,
-                textInputType: TextInputType.number,
-                 validator: (value) {
-                   String phone = value?.trim() ?? '';
-                   if (phone.isEmpty) {
-                     return "رقم الهاتف لا يمكن أن يكون فارغًا";
-                   }
-                   if (phone.length != 11) {
-                     return "رقم الهاتف يجب أن يحتوي على 11 رقمًا";
-                   }
-                   RegExp arabicTextOrDigits = RegExp(r'[\u0621-\u064A\u0660-\u0669]');
-                   if (arabicTextOrDigits.hasMatch(phone)) {
-                     return "يرجى إدخال الرقم باللغة الإنجليزية فقط";
-                   }
-                   RegExp phoneRegExp = RegExp(r'^(01)[0125][0-9]{8}$');
-                   if (!phoneRegExp.hasMatch(phone)) {
-                     return "رقم الهاتف غير صحيح";
-                   }
-                   return null;
-                 },
-                formatter: [
-                  LengthLimitingTextInputFormatter(11),
-                ]),
-      ],
+    return SizedBox(
+      width: double.infinity,
+      child: CustomTextFieldWidget(
+          controller: con.phoneController,
+          hint: "phone_number".tr,
+          textInputType: TextInputType.number,
+          validator: (value) {
+            String phone = value?.trim() ?? '';
+            if (phone.isEmpty) {
+              return "رقم الهاتف لا يمكن أن يكون فارغًا";
+            }
+            if (phone.length != 11) {
+              return "رقم الهاتف يجب أن يحتوي على 11 رقمًا";
+            }
+            RegExp arabicTextOrDigits = RegExp(r'[\u0621-\u064A\u0660-\u0669]');
+            if (arabicTextOrDigits.hasMatch(phone)) {
+              return "يرجى إدخال الرقم باللغة الإنجليزية فقط";
+            }
+            RegExp phoneRegExp = RegExp(r'^(01)[0125][0-9]{8}$');
+            if (!phoneRegExp.hasMatch(phone)) {
+              return "رقم الهاتف غير صحيح";
+            }
+            return null;
+          },
+          formatter: [
+            LengthLimitingTextInputFormatter(11),
+          ]),
     );
   }
 
@@ -243,7 +234,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                 setState(() {});
               },
               child: Icon(
-                con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+                con.showPassword ? Iconsax.eye : Iconsax.eye_slash,
                 color: ThemeClass.secondaryColor,
               ),
             ));
@@ -254,13 +245,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             alignment: AlignmentDirectional.centerEnd,
             child: AppTextUnderline(
               onTap: () {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                 _analytics.logEvent(
-                    name: 'request_forget_password',
-                    parameters: <String,dynamic>{
-                      "title" :"request_forget_password"
-                    }
-                );
+                // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                //  _analytics.logEvent(
+                //     name: 'request_forget_password',
+                //     parameters: <String,dynamic>{
+                //       "title" :"request_forget_password"
+                //     }
+                // );
                 Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
               },
               title: 'forget_password'.tr,
@@ -275,13 +266,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             title: "login".tr,
             onTap: () async {
               if (con.newFormKey.currentState!.validate()) {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                 _analytics.logEvent(
-                    name: 'submit_login_screen',
-                    parameters: <String,dynamic>{
-                      "title" :"submit_login_screen"
-                    }
-                );
+                // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                //  _analytics.logEvent(
+                //     name: 'submit_login_screen',
+                //     parameters: <String,dynamic>{
+                //       "title" :"submit_login_screen"
+                //     }
+                // );
                 con.logIn(context);
               } else {
                 setState(() {
@@ -308,13 +299,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
               (con.hasFingerPrint || con.hasFingerPrintForIOS)
                   ? GestureDetector(
                       onTap: () async {
-                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                        _analytics.logEvent(
-                            name: 'request_biometric_login_screen',
-                            parameters: <String,dynamic>{
-                              "title" :"request_biometric_login_screen"
-                            }
-                        );
+                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                        // _analytics.logEvent(
+                        //     name: 'request_biometric_login_screen',
+                        //     parameters: <String,dynamic>{
+                        //       "title" :"request_biometric_login_screen"
+                        //     }
+                        // );
                         bool result = await con.getBiometricsData();
                         if (!result) {
                           Navigator.pushNamed(
@@ -328,13 +319,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               con.passwordController.text =
                                   con.encryptedPassword!;
                             });
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'submit_biometric_login_screen',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_biometric_login_screen"
-                                }
-                            );
+                            // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                            // _analytics.logEvent(
+                            //     name: 'submit_biometric_login_screen',
+                            //     parameters: <String,dynamic>{
+                            //       "title" :"submit_biometric_login_screen"
+                            //     }
+                            // );
                             con.logIn(context);
                           }
                         }
@@ -357,13 +348,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       )):
               (con.hasFaceId || con.hasOldFaceVersion) ? GestureDetector(
                       onTap: () async {
-                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                        _analytics.logEvent(
-                            name: 'request_biometric_login_screen',
-                            parameters: <String,dynamic>{
-                              "title" :"request_biometric_login_screen"
-                            }
-                        );
+                        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                        // _analytics.logEvent(
+                        //     name: 'request_biometric_login_screen',
+                        //     parameters: <String,dynamic>{
+                        //       "title" :"request_biometric_login_screen"
+                        //     }
+                        // );
                         bool result = await con.getBiometricsData();
                         if (!result) {
                           Navigator.pushNamed(
@@ -377,13 +368,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               con.passwordController.text =
                                   con.encryptedPassword!;
                             });
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'submit_biometric_login_screen',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_biometric_login_screen"
-                                }
-                            );
+                            // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                            // _analytics.logEvent(
+                            //     name: 'submit_biometric_login_screen',
+                            //     parameters: <String,dynamic>{
+                            //       "title" :"submit_biometric_login_screen"
+                            //     }
+                            // );
                             con.logIn(context);
                           }
                         }
@@ -417,13 +408,13 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
           AppTextUnderline(
               title: "create_account".tr,
               onTap: () {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
-                    name: 'request_registration_screen',
-                    parameters: <String,dynamic>{
-                      "title" :"request_registration_screen"
-                    }
-                );
+                // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                // _analytics.logEvent(
+                //     name: 'request_registration_screen',
+                //     parameters: <String,dynamic>{
+                //       "title" :"request_registration_screen"
+                //     }
+                // );
                 Navigator.pushNamed(context, RegisterScreen.routeName,
                     arguments: "");
               },

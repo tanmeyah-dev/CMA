@@ -29,13 +29,13 @@ class _AlreadyPaidScreenState extends StateMVC<PreviousLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_previous_loans_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_previous_loans_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_previous_loans_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_previous_loans_screen"
+    //     }
+    // );
     super.initState();
   }
 

@@ -96,13 +96,13 @@ class AccountController extends ControllerMVC {
     loading = false;
     setState(() {});
     if(result == true){
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'user_deactivate_account',
-          parameters: <String,dynamic>{
-            "title" :"user_deactivate_account"
-          }
-      );
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      // analytics.logEvent(
+      //     name: 'user_deactivate_account',
+      //     parameters: <String,dynamic>{
+      //       "title" :"user_deactivate_account"
+      //     }
+      // );
       await SharedPref.logOut();
       Modular.to.pushNamedAndRemoveUntil(
           "/loginScreen", (Route<dynamic> route) => false,

@@ -15,8 +15,7 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/drop_down_list.dart';
 import 'loan_city_controller.dart';
-import 'package:iconsax/iconsax.dart';
-
+import 'package:Iconsax/Iconsax.dart';
 class LoanCityScreen extends StatefulWidget {
   static const String routeName = "/loanCityScreen";
 
@@ -106,7 +105,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                         prefixIcon: Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: Icon(
-                            Iconsax.arrow_down5,
+                            Iconsax.arrow_down,
                             color: ThemeClass.secondaryColor,
                           ),
                         ),
@@ -158,7 +157,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                         prefixIcon: Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: Icon(
-                            Iconsax.arrow_down5,
+                            Iconsax.arrow_down,
                             color: ThemeClass.secondaryColor,
                           ),
                         ),
@@ -178,7 +177,7 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                             children: [
                               AppTextHint(title: "choose_branch".tr),
                               Icon(
-                                Iconsax.arrow_down5,
+                                Iconsax.arrow_down,
                                 color: ThemeClass.secondaryColor,
                               ),
                             ],

@@ -21,8 +21,8 @@ import '../../../Utilities/general_toast.dart';
 import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';import 'package:iconsax/iconsax.dart';
-
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:Iconsax/Iconsax.dart';
 
 
 class MainLoanScreen extends StatefulWidget {
@@ -44,13 +44,13 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_main_loan_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_main_loan_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_main_loan_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_main_loan_screen"
+    //     }
+    // );
     _isExpanded = true;
     super.initState();
   }
@@ -84,7 +84,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                           });
                         },
                         child: Container(
-                            width: 400.w,
+                            width: 330.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                 BorderRadius.circular(16.sp),
@@ -133,7 +133,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                         ),
                       ),
                    Container(
-                        width: 400.w,
+                        width: 330.w,
                         alignment: Alignment.center,
                         padding: EdgeInsets.all(16.sp),
                         child: Row(
@@ -146,7 +146,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     AppTextRegular(title: "month_need".tr,color: ThemeClass.primaryColor,),
-                                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.primaryColor,size: 16.sp,)
+                                    Icon(Iconsax.arrow_square_left,color: ThemeClass.primaryColor,size: 16.sp,)
                                   ],
                                 ),
                                 Row(
@@ -190,7 +190,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 175.w,
+                                        width: 120.w,
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
@@ -428,13 +428,13 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     Align(
                         alignment: Alignment.bottomCenter,
                         child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                          _analytics.logEvent(
-                              name: 'request_previous_loans',
-                              parameters: <String,dynamic>{
-                                "title" :"request_previous_loans"
-                              }
-                          );
+                          // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                          // _analytics.logEvent(
+                          //     name: 'request_previous_loans',
+                          //     parameters: <String,dynamic>{
+                          //       "title" :"request_previous_loans"
+                          //     }
+                          // );
                           Navigator.pushNamed(context, PreviousLoanScreen.routeName);
                         },width: 318.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
                       ): Container()

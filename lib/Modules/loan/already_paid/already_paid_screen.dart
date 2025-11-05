@@ -9,8 +9,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'already_paid_controller.dart';
-import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
-
+import 'package:Iconsax/Iconsax.dart';
 class AlreadyPaidScreen extends StatefulWidget {
   static const String routeName = "/alreadyPaidScreen";
 
@@ -29,13 +28,13 @@ class _AlreadyPaidScreenState extends StateMVC<AlreadyPaidScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_already_paid_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_already_paid_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_already_paid_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_already_paid_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -78,7 +77,7 @@ class _AlreadyPaidScreenState extends StateMVC<AlreadyPaidScreen> {
                             children: [
                               Row(
                                 children: [
-                                   Icon(Iconsax.calendar5,color: ThemeClass.monthColor,),
+                                   Icon(Iconsax.calendar,color: ThemeClass.monthColor,),
                                   SizedBox(
                                     width: 11.w,
                                   ),

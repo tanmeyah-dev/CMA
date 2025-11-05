@@ -5,10 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Theme/themeclass.dart';
-import 'package:iconsax/iconsax.dart';
 import '../../Widgets/base_appbar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:Iconsax/Iconsax.dart';
 import '../Billers/service_types/all_service_types_screen.dart';
 
 class BillersAndServicesScreen extends StatefulWidget {
@@ -58,7 +56,7 @@ class _BillersAndServicesScreenState extends State<BillersAndServicesScreen> {
                                   color: ThemeClass.whiteColor,
                                   borderRadius: BorderRadius.all(Radius.circular(6.sp),),
                                 ),
-                                child: Icon(Iconsax.empty_wallet_add5,size: 48.sp,color: ThemeClass.primaryColor,),
+                                child: Icon(Iconsax.empty_wallet_add,size: 48.sp,color: ThemeClass.primaryColor,),
                               ),
                               SizedBox(width: 20.w,),
                               Column(

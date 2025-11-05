@@ -28,13 +28,13 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_update_version_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_update_version_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_update_version_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_update_version_screen"
+    //     }
+    // );
     UserSecureStorage.deleteData();
     super.initState();
   }
@@ -98,13 +98,13 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
   }
 
   moveToUpdate() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'submit_update_screen',
-        parameters: <String,dynamic>{
-          "title" :"submit_update_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'submit_update_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"submit_update_screen"
+    //     }
+    // );
     if (Platform.isAndroid || Platform.isIOS) {
       final appId = Platform.isAndroid ? 'com.tanmeyah.app' : '6450993566';
       final url = Uri.parse(

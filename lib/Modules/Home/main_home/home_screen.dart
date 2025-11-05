@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously
-import 'dart:math';
 import 'package:Tanmeyah/Modules/Home/main_home/home_status/waitting_loan_widget.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
@@ -9,7 +8,6 @@ import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:Tanmeyah/Widgets/login_alert_widget.dart';
-import 'package:Tanmeyah/Widgets/service_alert_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,16 +15,11 @@ import '../../../Theme/themeclass.dart';
 import '../../../Utilities/loading_screen.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
-import '../../Billers/service_billers/service_billers_screen.dart';
-import '../../Billers/service_types/all_service_types_screen.dart';
 import 'home_controller.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'home_status/active_loan.dart';
-import 'home_status/bill_widget.dart';
 import 'home_status/offers_widget.dart';
 import 'home_status/products_widget.dart';
-import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -51,13 +44,13 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_home_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_home_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_home_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_home_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -103,115 +96,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 alignment: AlignmentDirectional.centerStart,
                                     child: AppTextRegular(title: "hello".tr))),
                     SizedBox(height: 6.h,),
-                    (con.homeResponse?.loanRequest == null)
-                        ? (con.homeResponse?.canRequestLoan == true)
-                                 ? Stack(
-                                    children: [
-                                    Container(
-                                        decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(24.w),
-                                        color: ThemeClass.whiteColor
-                                        ),
-                                       margin: EdgeInsets.only(top : 16.w,right: 16.w,left: 16.w),
-                                       child: Row(
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                                Padding(padding: EdgeInsets.symmetric(horizontal: 2.w),
-                                                  child :  SharedPref.getUserObg() != null
-                                                   ?  AppTextBold(
-                                                 title:
-                                                 SharedPref.getUserObg()!.fullName,
-                                                 color: ThemeClass.secondaryColor,textAlign: TextAlign.start,)
-                                                   : AppTextBold(
-                                                    title:
-                                                    "عميل تنميه المميز",
-                                                    color: ThemeClass.secondaryColor,textAlign: TextAlign.start,),
-                                                ),
-                                                SizedBox(height: 20.h,),
-                                                Container(
-                                                  width: 398.w,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(24.sp),
-                                                    image: DecorationImage(
-                                                        image: AssetImage(AppAssets.IMG_HOME_BACKGROUND),
-                                                        fit: BoxFit.fill
-                                                    ),
-                                                  ),
-                                                  alignment: Alignment.centerRight,
-                                                  padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(height: 12.h,),
-                                                      SizedBox(
-                                                        width : 120.w,
-                                                        child: AppTextRegular(
-                                                          title: """اطلب
-تمويل مشروعك
-بكل سهولة
-                                                          """,
-                                                          color: ThemeClass.whiteColor,
-                                                          textAlign: TextAlign.start,
-                                                          fontSize: 18.sp,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                      CustomButton(
-                                                          width : 135,
-                                                          fontSize: 20.sp,
-                                                          backgroundColor:
-                                                          ThemeClass.whiteColor,
-                                                          textColor:
-                                                          ThemeClass.primaryColor,
-                                                          title: "ask_loan".tr,
-                                                          fontWeight: FontWeight.bold,
-                                                          onTap: () async {
-                                                            if (con.isLogin)  {
-                                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                                              _analytics.logEvent(
-                                                                  name: 'request_loan_button',
-                                                                  parameters: <String,dynamic>{
-                                                                    "title" :"request_loan_button"
-                                                                  }
-                                                              );
-                                                              Navigator.pushNamed(
-                                                                  context,
-                                                                  LoanRequestTermsScreen
-                                                                      .routeName);
-                                                            } else {
-                                                              AnimatedAlertDialog(
-                                                                  context, LoginAlert(
-                                                                  onLoginTaped:
-                                                                      () {
-                                                                    Navigator.of(context).pushNamedAndRemoveUntil(
-                                                                        '/loginScreen', (Route<dynamic> route) => false,arguments: "");
-                                                                  }));
-                                                            }
-                                                          }),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        ],
-                                    ),
-                                  ),
-                                    Positioned(
-                                      left: 16.w,
-                                      top: 20.h,
-                                      bottom: 20.h,
-                                      child: Image.asset(
-                                      AppAssets.IMG_HOME,
-                                      width: 220.w,
-                                      height: 222.h,
-                                      fit: BoxFit.fill,
-                                    ),)
-                                ],
-                              )
-                                : WaitingLoanWidget(con: con) : ActiveLoanWidget(con: con,),
+                    _buildHomeSection(),
                     SizedBox(
                       height: 16.h,
                     ),
@@ -296,5 +181,126 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildHomeSection() {
+    if (con.homeResponse?.loanRequest == null) {
+      if (con.homeResponse?.canRequestLoan == true) {
+        return Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24.w),
+                color: ThemeClass.whiteColor,
+              ),
+              margin: EdgeInsets.only(top: 16.w, right: 16.w, left: 16.w),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2.w),
+                          child: SharedPref.getUserObg() != null
+                              ? AppTextBold(
+                                  title: SharedPref.getUserObg()!.fullName,
+                                  color: ThemeClass.secondaryColor,
+                                  textAlign: TextAlign.start,
+                                )
+                              : AppTextBold(
+                                  title: "عميل تنميه المميز",
+                                  color: ThemeClass.secondaryColor,
+                                  textAlign: TextAlign.start,
+                                ),
+                        ),
+                        SizedBox(height: 20.h),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24.sp),
+                            image: DecorationImage(
+                              image: AssetImage(AppAssets.IMG_HOME_BACKGROUND),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 16.h),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 12.h),
+                              SizedBox(
+                                width: 120.w,
+                                child: AppTextRegular(
+                                  title: """اطلب
+تمويل مشروعك
+بكل سهولة
+                                  """,
+                                  color: ThemeClass.whiteColor,
+                                  textAlign: TextAlign.start,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              CustomButton(
+                                width: 135,
+                                fontSize: 20.sp,
+                                backgroundColor: ThemeClass.whiteColor,
+                                textColor: ThemeClass.primaryColor,
+                                title: "ask_loan".tr,
+                                fontWeight: FontWeight.bold,
+                                onTap: () async {
+                                  if (con.isLogin) {
+                                    Navigator.pushNamed(
+                                      context,
+                                      LoanRequestTermsScreen.routeName,
+                                    );
+                                  } else {
+                                    AnimatedAlertDialog(
+                                      context,
+                                      LoginAlert(
+                                        onLoginTaped: () {
+                                          Navigator.of(context)
+                                              .pushNamedAndRemoveUntil(
+                                            '/loginScreen',
+                                            (Route<dynamic> route) => false,
+                                            arguments: "",
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              left: 16.w,
+              top: 20.h,
+              bottom: 20.h,
+              child: Image.asset(
+                AppAssets.IMG_HOME,
+                width: 220.w,
+                height: 222.h,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ],
+        );
+      } else {
+        return WaitingLoanWidget(con: con);
+      }
+    } else {
+      return ActiveLoanWidget(con: con);
+    }
   }
 }

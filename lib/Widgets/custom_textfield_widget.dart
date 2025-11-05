@@ -60,7 +60,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? 350.w,
+      width: width ?? 300.w,
        // height: height ?? 48.h,
       child: TextFormField(
         onFieldSubmitted: onFieldSubmitted,

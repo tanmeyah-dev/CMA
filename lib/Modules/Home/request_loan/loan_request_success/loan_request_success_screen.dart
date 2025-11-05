@@ -12,7 +12,7 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_success_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:Iconsax/Iconsax.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -97,7 +97,7 @@ class _LoanSuccessRequestScreenState extends StateMVC<LoanSuccessRequestScreen> 
                                   widget.loanCheckoutResponse.loanRequestBranch?.distance != 0 ? AppTextHint(title: widget.loanCheckoutResponse.loanRequestBranch!.distanceText.toString()) : Container(),
                                 ],
                               ),
-                              Icon(Iconsax.arrow_square5,color: ThemeClass.primaryColor,),
+                              Icon(Iconsax.arrow_square,color: ThemeClass.primaryColor,),
                             ],
                           ),
                         ),

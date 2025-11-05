@@ -30,13 +30,13 @@ class _TermsScreenState extends StateMVC<TermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_terms_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_terms_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_terms_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_terms_screen"
+    //     }
+    // );
     super.initState();
   }
 

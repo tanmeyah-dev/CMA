@@ -18,13 +18,13 @@ class BranchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-        _analytics.logEvent(
-            name: 'open_branch_direction',
-            parameters: <String,dynamic>{
-              "title" :"open_branch_name  ${branchModel.nameAr}"
-            }
-        );
+        // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+        // _analytics.logEvent(
+        //     name: 'open_branch_direction',
+        //     parameters: <String,dynamic>{
+        //       "title" :"open_branch_name  ${branchModel.nameAr}"
+        //     }
+        // );
         openMap(branchModel.latitude!,branchModel.longitude!);
       },
       child: Container(

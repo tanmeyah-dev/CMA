@@ -7,7 +7,7 @@ import '../Home/main_home/home_screen.dart';
 import '../loan/main_loan/main_loan_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:Iconsax/Iconsax.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MainScreen extends StatefulWidget {
@@ -32,13 +32,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     _selectedIndex = widget.index??0;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_landing_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_landing_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_landing_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_landing_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -80,16 +80,16 @@ class _MainScreenState extends State<MainScreen> {
                 color: ThemeClass.hintColor,
                 tabs:  [
                   GButton(
-                    icon: _selectedIndex == 0 ? Iconsax.home_25 : Iconsax.home_2,
+                    icon: _selectedIndex == 0 ? Iconsax.home : Iconsax.home_2,
                   ),
                   GButton(
-                    icon: _selectedIndex == 1 ? Iconsax.empty_wallet5 :  Iconsax.empty_wallet,
+                    icon: _selectedIndex == 1 ? Iconsax.empty_wallet_add :  Iconsax.empty_wallet,
                   ),
                   GButton(
-                    icon:_selectedIndex == 2 ?  Iconsax.profile_circle5 : Iconsax.profile_circle,
+                    icon:_selectedIndex == 2 ?  Iconsax.profile_2user : Iconsax.profile_circle,
                   ),
                   GButton(
-                    icon: _selectedIndex == 3 ?   Iconsax.more_square5 : Iconsax.more_square,
+                    icon: _selectedIndex == 3 ?   Iconsax.more : Iconsax.more_square,
                   ),
                 ],
                 selectedIndex: _selectedIndex,

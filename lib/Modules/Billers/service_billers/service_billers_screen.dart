@@ -35,13 +35,13 @@ class _MobileBillersScreenState extends StateMVC<ServiceBillersScreen> {
   @override
   void initState() {
     con.billerId = widget.billerId;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_mobile_billers_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_mobile_billers_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_mobile_billers_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_mobile_billers_screen"
+    //     }
+    // );
     super.initState();
   }
 

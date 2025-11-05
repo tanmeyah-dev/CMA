@@ -56,13 +56,13 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_loan_amount_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_amount_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_loan_amount_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_loan_amount_screen"
+    //     }
+    // );
     super.initState();
   }
 

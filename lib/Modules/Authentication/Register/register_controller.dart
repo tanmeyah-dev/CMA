@@ -150,13 +150,13 @@ class RegisterController extends ControllerMVC {
 
 
     if (result?.isSuccess == true && result?.user?.isActive == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
-          name: 'success_registration_screen',
-          parameters: <String,dynamic>{
-            "title" : "success_registration_screen"
-          }
-      );
+      // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+      // _analytics.logEvent(
+      //     name: 'success_registration_screen',
+      //     parameters: <String,dynamic>{
+      //       "title" : "success_registration_screen"
+      //     }
+      // );
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/loginScreen', (Route<dynamic> route) => false,arguments: "");
     } else if (result?.user?.isActive == false && result?.isAlreadyMobileNumberExist == false) {
@@ -166,13 +166,13 @@ class RegisterController extends ControllerMVC {
     } else if (result?.isAlreadyMobileNumberExist == true ){
       print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
 
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
-          name: 'error_registration_screen',
-          parameters: <String,dynamic>{
-            "title" : "error_registration_screen"
-          }
-      );
+      // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+      // _analytics.logEvent(
+      //     name: 'error_registration_screen',
+      //     parameters: <String,dynamic>{
+      //       "title" : "error_registration_screen"
+      //     }
+      // );
       print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
       Navigator.pushNamed(context, RegistrationError.routeName,arguments: newMobile);
     }

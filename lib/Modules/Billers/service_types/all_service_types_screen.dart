@@ -38,13 +38,13 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_all_billers_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_all_billers_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_all_billers_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_all_billers_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -80,13 +80,13 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                        analytics.logEvent(
-                            name: 'request_service',
-                            parameters: <String,dynamic>{
-                              "title" :"request_service_with  ${con.getAllServicesResponse?.serviceTypes![index].serviceTypeName}"
-                            }
-                        );
+                        // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                        // analytics.logEvent(
+                        //     name: 'request_service',
+                        //     parameters: <String,dynamic>{
+                        //       "title" :"request_service_with  ${con.getAllServicesResponse?.serviceTypes![index].serviceTypeName}"
+                        //     }
+                        // );
                         if( SharedPref.getUserObg() != null) {
                           Navigator.pushNamed(context, ServiceBillersScreen.routeName,
                               arguments: [con.getAllServicesResponse?.serviceTypes![index].serviceTypeName,con.getAllServicesResponse?.serviceTypes![index].id]);

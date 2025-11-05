@@ -18,7 +18,7 @@ import '../../../Widgets/custom_textfield_widget.dart';
 import '../../../Widgets/drop_down_list.dart';
 import '../../../Widgets/skip_button.dart';
 import '../Terms/terms_screen.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:Iconsax/Iconsax.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 
@@ -48,13 +48,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
     } else {
       con.editPhone = false;
     }
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_registration_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_registration_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_registration_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_registration_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -72,13 +72,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 20.w),
                       child: SkipButton(
                           onTap: () {
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'skip_registration_screen',
-                                parameters: <String,dynamic>{
-                                  "title" : "skip_registration_screen"
-                                }
-                            );
+                            // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                            // _analytics.logEvent(
+                            //     name: 'skip_registration_screen',
+                            //     parameters: <String,dynamic>{
+                            //       "title" : "skip_registration_screen"
+                            //     }
+                            // );
                             Navigator.of(context)
                                 .pushNamedAndRemoveUntil('/mainScreen',
                                     (Route<dynamic> route) => false);
@@ -212,7 +212,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   title: con.dateOfBirth??"",
                   )
                     : const AppTextHint(title: "0000-00-00"),
-                Icon(Iconsax.calendar5, color: ThemeClass.secondaryColor,),
+                Icon(Iconsax.calendar, color: ThemeClass.secondaryColor,),
               ],
             ),
           ),
@@ -301,7 +301,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                 con.showPassword = !con.showPassword;
                 setState(() { });
               },
-               child: Icon(con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,color: con.passwordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
+               child: Icon(con.showPassword ? Iconsax.eye : Iconsax.eye_slash,color: con.passwordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
             ),
 
           ),
@@ -335,7 +335,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               prefixIcon: Padding(
                 padding: EdgeInsets.only(left: 10.w),
                 child: Icon(
-                  Iconsax.arrow_down5,
+                  Iconsax.arrow_down,
                   color: ThemeClass.secondaryColor,
                 ),
               ),
@@ -366,7 +366,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                 con.showConfirmPassword = !con.showConfirmPassword;
                 setState(() { });
               },
-              child: Icon(con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,color: con.confirmPasswordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
+              child: Icon(con.showConfirmPassword ? Iconsax.eye : Iconsax.eye_slash,color: con.confirmPasswordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
             ),
           ),
         ],
@@ -394,13 +394,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             Row(children: [
               GestureDetector(
                   onTap: () {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'request_terms_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "request_terms_screen"
-                        }
-                    );
+                    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                    // _analytics.logEvent(
+                    //     name: 'request_terms_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "request_terms_screen"
+                    //     }
+                    // );
                     Navigator.pushNamed(context, TermsScreen.routeName);
                   },
                   child: AppTextBold(
@@ -410,13 +410,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               AppTextRegular(title: " ${"and".tr} ", fontSize: 12.sp),
               GestureDetector(
                   onTap: () {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'request_conditions_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "request_conditions_screen"
-                        }
-                    );
+                    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                    // _analytics.logEvent(
+                    //     name: 'request_conditions_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "request_conditions_screen"
+                    //     }
+                    // );
                     Navigator.pushNamed(context, ConditionsScreen.routeName);
                   },
                   child: AppTextBold(
@@ -439,13 +439,13 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               title: "save".tr,
               onTap: () async {
                   if (con.formKey.currentState!.validate()) {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'submit_registration_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "submit_registration_screen"
-                        }
-                    );
+                    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                    // _analytics.logEvent(
+                    //     name: 'submit_registration_screen',
+                    //     parameters: <String,dynamic>{
+                    //       "title" : "submit_registration_screen"
+                    //     }
+                    // );
                     con.register(context);
                   }
                 }

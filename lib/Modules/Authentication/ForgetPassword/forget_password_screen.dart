@@ -35,13 +35,13 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_forget_password_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_forget_password_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_forget_password_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_forget_password_screen"
+    //     }
+    // );
     super.initState();
   }
 

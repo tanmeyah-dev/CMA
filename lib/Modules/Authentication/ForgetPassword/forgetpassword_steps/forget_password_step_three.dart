@@ -8,8 +8,8 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/Validator.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_text.dart';
-import '../../../../Widgets/custom_textfield_widget.dart';import 'package:iconsax/iconsax.dart';
-
+import '../../../../Widgets/custom_textfield_widget.dart';
+import 'package:Iconsax/Iconsax.dart';
 class ForgetPasswordStepThree extends StatefulWidget {
   ForgetPasswordController con;
    ForgetPasswordStepThree({required this.con,Key? key}) : super(key: key);
@@ -54,7 +54,7 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                             setState(() {});
                           },
                           child: Icon(
-                            widget.con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+                            widget.con.showPassword ? Iconsax.eye : Iconsax.eye_slash,
                             color: ThemeClass.secondaryColor,
                           ),
                         )
@@ -88,7 +88,7 @@ class _ForgetPasswordStepThreeState extends State<ForgetPasswordStepThree> {
                             setState(() {});
                           },
                           child: Icon(
-                            widget.con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+                            widget.con.showConfirmPassword ? Iconsax.eye : Iconsax.eye_slash,
                             color: ThemeClass.secondaryColor,
                           ),
                         )

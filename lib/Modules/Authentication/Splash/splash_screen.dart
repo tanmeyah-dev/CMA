@@ -5,7 +5,6 @@ import 'package:Tanmeyah/Modules/Authentication/Splash/splash_controller.dart';
 import 'package:Tanmeyah/Modules/Main/main_screen.dart';
 import 'package:Tanmeyah/Network/user_api.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
-import 'package:Tanmeyah/Utilities/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../../Shared/shared_prefirences.dart';
@@ -55,13 +54,13 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
     print(result);
     if (result != ConnectivityResult.none) {
       await UserApi.getToken();
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-       _analytics.logEvent(
-        name: 'open_splash',
-        parameters: <String,dynamic>{
-          "title" : "Open_Splash_Screen"
-        }
-      );
+      // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+      //  _analytics.logEvent(
+      //   name: 'open_splash',
+      //   parameters: <String,dynamic>{
+      //     "title" : "Open_Splash_Screen"
+      //   }
+      // );
       init();
     } else {
       Modular.to.pushNamedAndRemoveUntil(

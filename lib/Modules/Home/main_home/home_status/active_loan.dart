@@ -9,8 +9,7 @@ import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../Main/main_screen.dart';
-import 'package:iconsax/iconsax.dart';
-
+import 'package:Iconsax/Iconsax.dart';
 
 
 class ActiveLoanWidget extends StatelessWidget {
@@ -36,7 +35,7 @@ class ActiveLoanWidget extends StatelessWidget {
             ),
             SizedBox(height: 6.h,),
             Container(
-              width: 400.w,
+              width: 320.w,
               decoration: BoxDecoration(
                   borderRadius:
                   BorderRadius.circular(16.sp),
@@ -82,7 +81,7 @@ class ActiveLoanWidget extends StatelessWidget {
               ),
             ),
             Container(
-              width: 400.w,
+              width: 320.w,
               // decoration: BoxDecoration(
               //     borderRadius: BorderRadius.circular(24.sp)
               // ),
@@ -107,7 +106,7 @@ class ActiveLoanWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AppTextRegular(title: "month_need".tr,color: ThemeClass.primaryColor,fontSize: 16.sp,),
-                          Icon(Iconsax.arrow_square_left5,color: ThemeClass.primaryColor,size: 16.sp,)
+                          Icon(Iconsax.arrow_square_left,color: ThemeClass.primaryColor,size: 16.sp,)
                         ],
                       ),
                       Row(

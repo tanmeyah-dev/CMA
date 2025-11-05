@@ -34,13 +34,13 @@ class OffersWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'request_view_all_offers',
-                        parameters: <String,dynamic>{
-                          "title" :"request_view_all_offers"
-                        }
-                    );
+                    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                    // _analytics.logEvent(
+                    //     name: 'request_view_all_offers',
+                    //     parameters: <String,dynamic>{
+                    //       "title" :"request_view_all_offers"
+                    //     }
+                    // );
                     Navigator.pushNamed(context, MainOffersScreen.routeName);
                   },
                   child: Row(
@@ -73,13 +73,13 @@ class OffersWidget extends StatelessWidget {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
-                          name: 'open_offer_detail',
-                          parameters: <String,dynamic>{
-                            "title" :"open_offer_detail  ${i.nameAr}"
-                          }
-                      );
+                      // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                      // _analytics.logEvent(
+                      //     name: 'open_offer_detail',
+                      //     parameters: <String,dynamic>{
+                      //       "title" :"open_offer_detail  ${i.nameAr}"
+                      //     }
+                      // );
                       Navigator.pushNamed(context,
                           OfferDetailScreen.routeName,
                           arguments: i.id);

@@ -41,13 +41,13 @@ class ProductsWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                  analytics.logEvent(
-                      name: 'request_service',
-                      parameters: <String,dynamic>{
-                        "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"
-                      }
-                  );
+                  // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  // analytics.logEvent(
+                  //     name: 'request_service',
+                  //     parameters: <String,dynamic>{
+                  //       "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"
+                  //     }
+                  // );
                   Navigator.pushNamed(context,
                       ServicesDetailScreen.routeName,
                       arguments: con

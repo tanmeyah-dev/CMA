@@ -32,13 +32,13 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_offers_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_offers_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_offers_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_offers_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -68,13 +68,13 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                       itemBuilder: (_, index) {
                         return  GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
-                                  name: 'open_offers_detail',
-                                  parameters: <String,dynamic>{
-                                    "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"
-                                  }
-                              );
+                              // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                              // _analytics.logEvent(
+                              //     name: 'open_offers_detail',
+                              //     parameters: <String,dynamic>{
+                              //       "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"
+                              //     }
+                              // );
                               Navigator.pushNamed(context, OfferDetailScreen.routeName,arguments: con.offersResponse?.offers[index].id);
                              },
                             child: Column(

@@ -25,7 +25,7 @@ class NetworkMethods {
         BuildContext? context}) async {
 
     var checkConnection = await Connectivity().checkConnectivity();
-    if(checkConnection != ConnectivityResult.none) {
+    if(!checkConnection.contains(ConnectivityResult.none)) {
       debugPrint(body.toString());
       debugPrint(customUrl??"${API.baseURL}$url");
 
@@ -80,6 +80,7 @@ class NetworkMethods {
     else {
       Modular.to.pushNamedAndRemoveUntil(
           "/noInternetScreen", (Route<dynamic> route) => false,);
+      return null;
     }
 
 
@@ -90,7 +91,7 @@ class NetworkMethods {
     Map<String, String>? headers,
   }) async {
     var checkConnection = await Connectivity().checkConnectivity();
-    if(checkConnection != ConnectivityResult.none) {
+    if(!checkConnection.contains(ConnectivityResult.none)) {
     debugPrint('${API.baseURL}$url');
     var request = http.Request('GET', Uri.parse('${API.baseURL}$url'));
       request.headers.addAll({
@@ -142,6 +143,7 @@ class NetworkMethods {
     } else {
       Modular.to.popAndPushNamed(
         "/noInternetScreen");
+      return null;
     }
 
   }

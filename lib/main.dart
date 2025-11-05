@@ -2,6 +2,10 @@
 
 import 'dart:io';
 
+import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/forget_password_screen.dart';
+import 'package:Tanmeyah/Modules/Authentication/Login/login_screen.dart';
+import 'package:Tanmeyah/Modules/Authentication/Register/register_screen.dart';
+import 'package:Tanmeyah/Modules/Main/main_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,9 +24,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Utilities/routing.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'firebase_options.dart';
+import 'Network/fcm_background_handler.dart';
+import 'Utilities/firebase_operation.dart';
 
 
 Future<void> main() async {
@@ -53,6 +60,24 @@ Future<void> main() async {
        options: DefaultFirebaseOptions.currentPlatform,
      );
      print('Firebase initialized successfully');
+     
+     // Initialize Firebase Messaging
+     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+     initializeNotifications();
+     await FireBaseOperations.init();
+     
+     // Request notification permissions
+     NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+       alert: true,
+       badge: true,
+       sound: true,
+     );
+     print('User granted permission: ${settings.authorizationStatus}');
+     
+     // Get FCM token
+     String? token = await FirebaseMessaging.instance.getToken();
+     print('FCM Token: $token');
+     
    } catch (e) {
      print('Firebase initialization error: $e');
      // Continue without Firebase for now
@@ -116,7 +141,7 @@ class _EntryPointState extends State<EntryPoint>  {
             FirebaseAnalyticsObserver(analytics: analytics),
             BotToastNavigatorObserver(),
           ],
-          initialRoute: SplashScreen.routeName,
+          initialRoute: MainScreen.routeName,
           // locale: appLan.appLocal,
           locale: appLan.appLocal,
           supportedLocales: Languages.values.map((e) => Locale(e.name)).toList(),

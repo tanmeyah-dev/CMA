@@ -29,13 +29,13 @@ class _ConditionsScreenState extends StateMVC<ConditionsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_conditions_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_conditions_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_conditions_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" : "open_conditions_screen"
+    //     }
+    // );
     super.initState();
   }
 

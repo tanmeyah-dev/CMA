@@ -33,13 +33,13 @@ class _LoanRequestOutOfCairoScreenState extends StateMVC<LoanRequestOutOfCairoSc
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_loan_request_out_of_cairo',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_request_out_of_cairo"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_loan_request_out_of_cairo',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_loan_request_out_of_cairo"
+    //     }
+    // );
 
 
     super.initState();

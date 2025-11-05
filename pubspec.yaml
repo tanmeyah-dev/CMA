@@ -36,10 +36,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.32.0
-  # firebase_messaging: ^14.7.10  # Temporarily disabled to test core Firebase
-  firebase_analytics: ^10.7.0
-
+  firebase_core: ^4.2.0
+  firebase_messaging: ^16.0.3
+  firebase_analytics: ^12.0.3
+  flutter_local_notifications: ^19.5.0
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +76,6 @@ dev_dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   google_nav_bar: ^5.0.6
   carousel_slider: ^5.1.1
-  iconsax: ^0.0.8
   flutter_staggered_grid_view: ^0.7.0
   shimmer: ^3.0.0
   awesome_snackbar_content: ^0.1.0
@@ -93,11 +92,12 @@ dev_dependencies:
   retry: ^3.1.1
   dart_ping: ^9.0.1
   dart_ping_ios: ^4.0.2
-  location: ^8.0.1
+  location: ^6.0.1
   sizer: ^3.0.5
   flutter_cache_manager: ^3.3.1
   facebook_app_events: ^0.20.1
   adjust_sdk: ^4.38.0
+  Iconsax: ^0.0.8
   #  app_settings: ^4.1.0
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

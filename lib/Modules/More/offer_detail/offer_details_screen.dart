@@ -31,13 +31,13 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
   @override
   void initState() {
     con.offerId = widget.offerID;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_offer_detail_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_offer_detail_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"
+    //     }
+    // );
     super.initState();
   }
 

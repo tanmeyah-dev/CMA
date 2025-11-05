@@ -168,13 +168,13 @@ class ForgetPasswordController extends ControllerMVC {
       loading = false;
     });
     if (result) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'success_reset_password_screen',
-          parameters: <String,dynamic>{
-            "title" :"success_reset_password_screen"
-          }
-      );
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      // analytics.logEvent(
+      //     name: 'success_reset_password_screen',
+      //     parameters: <String,dynamic>{
+      //       "title" :"success_reset_password_screen"
+      //     }
+      // );
       UserSecureStorage.deleteData();
       stepOne = false;
       stepTwo = false;

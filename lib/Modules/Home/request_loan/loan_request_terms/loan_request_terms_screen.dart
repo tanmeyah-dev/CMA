@@ -33,13 +33,13 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_loan_terms_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_terms_screen"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_loan_terms_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_loan_terms_screen"
+    //     }
+    // );
     super.initState();
   }
 
@@ -142,13 +142,13 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               width: 382.w,
                               title: "start_ask_for_loan".tr, onTap: () {
                             if(con.accept) {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
-                                  name: 'submit_start_request_loan',
-                                  parameters: <String,dynamic>{
-                                    "title" :"submit_start_request_loan"
-                                  }
-                              );
+                              // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                              // _analytics.logEvent(
+                              //     name: 'submit_start_request_loan',
+                              //     parameters: <String,dynamic>{
+                              //       "title" :"submit_start_request_loan"
+                              //     }
+                              // );
                                 Navigator.pushNamed(context, LoanRequestAmountScreen.routeName);
                             }else {
                               ToastHelper.showError(context ,message: "alert_accept_terms".tr);

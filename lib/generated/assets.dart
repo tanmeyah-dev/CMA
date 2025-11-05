@@ -20,6 +20,7 @@ class Assets {
   static const String authWarning = 'assets/images/auth/warning.png';
   static const String authWrongNum = 'assets/images/auth/wrong_num.png';
   static const String fontsDINNextLTArabicRegular = 'assets/fonts/DINNextLTArabic-Regular.ttf';
+  static const String fontsIconsax = 'assets/fonts/Iconsax.ttf';
   static const String homeActiveLoan = 'assets/images/home/active_loan.png';
   static const String homeAlert = 'assets/images/home/alert.png';
   static const String homeAmount = 'assets/images/home/amount.png';

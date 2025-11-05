@@ -1,7 +1,7 @@
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Theme/themeclass.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:Iconsax/Iconsax.dart';
 import '../../../../Shared/shared_prefirences.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Widgets/custom_text.dart';
@@ -93,7 +93,7 @@ class WaitingLoanWidget extends StatelessWidget {
                                 color: ThemeClass.whiteColor,),
                             ],
                           ),
-                          Icon(Iconsax.arrow_square5, color: ThemeClass.whiteColor,),
+                          Icon(Iconsax.arrow_square, color: ThemeClass.whiteColor,),
                         ],
                       ),
                     )

@@ -44,13 +44,13 @@ class MoreController extends ControllerMVC {
       loading = false;
     });
 
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'submit_logout',
-        parameters: <String,dynamic>{
-          "title" :"submit_logout"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'submit_logout',
+    //     parameters: <String,dynamic>{
+    //       "title" :"submit_logout"
+    //     }
+    // );
     Modular.to.pushNamedAndRemoveUntil(
         "/loginScreen", (Route<dynamic> route) => false,
         arguments: "");

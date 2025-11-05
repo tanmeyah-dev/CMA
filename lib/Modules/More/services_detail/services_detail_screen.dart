@@ -40,13 +40,13 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_services_detail_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_services_detail_screen ${con.serviceDetailModel?.nameAr}"
-        }
-    );
+    // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    // _analytics.logEvent(
+    //     name: 'open_services_detail_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_services_detail_screen ${con.serviceDetailModel?.nameAr}"
+    //     }
+    // );
     con.serviceId = widget.serviceDetailModel.id;
     super.initState();
   }

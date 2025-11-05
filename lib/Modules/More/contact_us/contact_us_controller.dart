@@ -69,13 +69,13 @@ class ContactUsController extends ControllerMVC {
     loading = false;
     setState(() {});
     if (contactUsResponse?.isSuccess == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'submit_contact_us_successfully',
-          parameters: <String,dynamic>{
-            "title" :"submit_contact_us_successfully"
-          }
-      );
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      // analytics.logEvent(
+      //     name: 'submit_contact_us_successfully',
+      //     parameters: <String,dynamic>{
+      //       "title" :"submit_contact_us_successfully"
+      //     }
+      // );
 
       ToastHelper.showSuccess(context, message: contactUsResponse?.message??"");
       phoneController.text = "";

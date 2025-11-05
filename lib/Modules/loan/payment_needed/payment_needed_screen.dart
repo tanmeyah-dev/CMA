@@ -29,13 +29,13 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_payment_needed_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_payment_needed_screen"
-        }
-    );
+    // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // analytics.logEvent(
+    //     name: 'open_payment_needed_screen',
+    //     parameters: <String,dynamic>{
+    //       "title" :"open_payment_needed_screen"
+    //     }
+    // );
     super.initState();
   }
 
