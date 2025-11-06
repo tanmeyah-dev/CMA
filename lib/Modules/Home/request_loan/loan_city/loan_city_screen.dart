@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Models/government_model.dart';
+import '../../../../Models/governorates_response.dart';
 import '../../../../Models/loan_checkout_model.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
@@ -80,31 +81,31 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                       SizedBox(height: 8.h,),
                       CustomDropDownWidget<String>(
                         hint: "choose_gov".tr,
-                        selected: con.governmentsIds.any((item) => item.id == con.selectedGovernmentId)
+                        selected: con.governoratesList?.any((item) => item.id.toString() == con.selectedGovernmentId) ?? false
                             ? con.selectedGovernmentId
                             : null,
                         onChange: (String? selectedId) {
                           if (selectedId != null) {
                             con.selectedGovernmentId = selectedId;
-                            final selectedItem = con.governmentsIds.firstWhere(
-                                  (item) => item.id == selectedId,
-                                orElse: () => GovernmentModel(id: '', title: ''),
+                            final selectedItem = con.governoratesList?.firstWhere(
+                                  (item) => item.id.toString() == selectedId,
+                                orElse: () => Governorates(id: null, name: null),
                             );
-                            if (selectedItem != null) {
-                              con.governmentTitle = selectedItem.title;
-                              con.getCityByGovernorat(governerateId: selectedId);
+                            if (selectedItem != null && selectedItem.id != null) {
+                              con.governmentTitle = selectedItem.name ?? "";
+                              con.getCityByGovernment(governmentId: selectedId);
                             }
                             setState(() {});
                           }
                         },
                         borderColor: Colors.grey,
-                        items: con.governmentsIds.map((item) {
+                        items: con.governoratesList?.map((item) {
                           return DropdownMenuItem<String>(
-                            value: item.id,
-                            child: Text(item.title,
+                            value: item.id?.toString(),
+                            child: Text(item.name ?? "",
                                 style: TextStyle(fontSize: 16.sp, height: -0.2)),
                           );
-                        }).toList(),
+                        }).toList() ?? [],
                         prefixIcon: Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: Icon(

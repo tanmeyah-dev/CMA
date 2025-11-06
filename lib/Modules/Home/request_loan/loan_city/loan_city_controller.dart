@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:intl/intl.dart';
 import '../../../../Models/government_model.dart';
+import '../../../../Models/governorates_response.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Widgets/alert_for_location.dart';
 import '../../../../Widgets/animated_alert.dart';
@@ -48,6 +49,7 @@ class LoanCityController extends ControllerMVC {
   @override
   void initState() {
     super.initState();
+    getGovernment();
   }
 
   @override
@@ -62,34 +64,7 @@ class LoanCityController extends ControllerMVC {
   String? selectedCityId;
   String? cityTitle;
   List<BranchModel>? branchList;
-
-  List<GovernmentModel> governmentsIds = [
-    GovernmentModel(id: "1", title: 'القاهرة'),
-    GovernmentModel(id: "2", title: 'الفيوم'),
-    GovernmentModel(id: "61", title: 'كفر الشيخ'),
-    GovernmentModel(id: "62", title: 'الاسكندرية'),
-    GovernmentModel(id: "63", title: 'بني سويف'),
-    GovernmentModel(id: "64", title: 'الغربية'),
-    GovernmentModel(id: "65", title: 'الدقهلية'),
-    GovernmentModel(id: "66", title: 'الشرقية'),
-    GovernmentModel(id: "67", title: 'البحيرة'),
-    GovernmentModel(id: "68", title: 'الوادي الجديد'),
-    GovernmentModel(id: "69", title: 'البحر الاحمر'),
-    GovernmentModel(id: "70", title: 'سوهاج'),
-    GovernmentModel(id: "71", title: 'اسوان'),
-    GovernmentModel(id: "72", title: 'اسيوط'),
-    GovernmentModel(id: "73", title: 'قنا'),
-    GovernmentModel(id: "74", title: 'المنيا'),
-    GovernmentModel(id: "75", title: 'الجيزه'),
-    GovernmentModel(id: "76", title: 'مرسي مطروح'),
-    GovernmentModel(id: "79", title: 'دمياط'),
-    GovernmentModel(id: "81", title: 'القليوبيه'),
-    GovernmentModel(id: "101", title: 'المنوفيه'),
-    GovernmentModel(id: "121", title: 'السويس'),
-    GovernmentModel(id: "141", title: 'بورسعيد'),
-    GovernmentModel(id: "161", title: 'الاسماعليه'),
-    GovernmentModel(id: "162", title: 'الاقصر'),
-  ];
+  List<Governorates>? governoratesList;
 
 
   // String getSelectedGovernmentTitle() {
@@ -100,11 +75,24 @@ class LoanCityController extends ControllerMVC {
   //   return selectedItem.title.isNotEmpty ? selectedItem.title : "choose_gov".tr; // ✅ Default if empty
   // }
 
-  Future getCityByGovernorat({required String governerateId}) async {
+  Future getGovernment() async {
     loading = true;
     setState(() {
     });
-    cityResponse = await CityApi.getCityByGovernerate(governorateId: governerateId);
+    governoratesList = await CityApi.getGovernment();
+    print("?????????????? Governorates List: ${governoratesList?.map((e) => e.toString()).join(', ') ?? 'null'}");
+    print("?????????????? Total count: ${governoratesList?.length ?? 0}");
+    loading = false;
+    setState(() {
+    });
+  }
+
+
+  Future getCityByGovernment({required String governmentId}) async {
+    loading = true;
+    setState(() {
+    });
+    cityResponse = await CityApi.getCityByGovernerate(governorateId: governmentId);
     branchList = cityResponse?.branches;
     loading = false;
     setState(() {
