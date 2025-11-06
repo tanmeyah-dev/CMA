@@ -204,14 +204,14 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
             if (phone.isEmpty) {
               return "رقم الهاتف لا يمكن أن يكون فارغًا";
             }
-            if (phone.length != 11) {
+            if (phone.length <= 9) {
               return "رقم الهاتف يجب أن يحتوي على 11 رقمًا";
             }
             RegExp arabicTextOrDigits = RegExp(r'[\u0621-\u064A\u0660-\u0669]');
             if (arabicTextOrDigits.hasMatch(phone)) {
               return "يرجى إدخال الرقم باللغة الإنجليزية فقط";
             }
-            RegExp phoneRegExp = RegExp(r'^(01)[0125][0-9]{8}$');
+            RegExp phoneRegExp = RegExp(r'^(0?1)[0125][0-9]{8}$');
             if (!phoneRegExp.hasMatch(phone)) {
               return "رقم الهاتف غير صحيح";
             }

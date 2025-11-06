@@ -30,7 +30,7 @@ class ActiveLoanWidget extends StatelessWidget {
               child: Padding(padding: EdgeInsets.symmetric(horizontal: 18.w),
                 child :  AppTextBold(
                   title:
-                  SharedPref.getUserObg()!.fullName,
+                  SharedPref.getUserObg()?.fullName ?? "",
                   color: ThemeClass.secondaryColor,textAlign: TextAlign.start,)
               ),
             ),
@@ -114,7 +114,7 @@ class ActiveLoanWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          AppTextBold(title: con.homeResponse!.loanRequest!.dueInstallmentAmount.toString()),
+                          AppTextBold(title: con.homeResponse?.loanRequest?.dueInstallmentAmount.toString() ?? "0"),
                           SizedBox(width: 4.w,),
                           AppTextRegular(title: "ج. م",color: ThemeClass.primaryColor,fontSize: 14.sp,)
                         ],
