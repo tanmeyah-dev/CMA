@@ -11,7 +11,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/base_appbar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BranchesScreen extends StatefulWidget {
   static const String routeName = "/branchesScreen";

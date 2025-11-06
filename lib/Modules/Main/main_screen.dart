@@ -7,7 +7,7 @@ import '../Home/main_home/home_screen.dart';
 import '../loan/main_loan/main_loan_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MainScreen extends StatefulWidget {

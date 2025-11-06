@@ -13,7 +13,7 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_textfield_widget.dart';

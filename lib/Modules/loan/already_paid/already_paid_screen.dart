@@ -9,7 +9,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'already_paid_controller.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 class AlreadyPaidScreen extends StatefulWidget {
   static const String routeName = "/alreadyPaidScreen";
 

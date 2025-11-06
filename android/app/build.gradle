@@ -1,9 +1,7 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
 }
-
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -13,10 +11,25 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-//def flutterRoot = localProperties.getProperty('flutter.sdk')
-//if (flutterRoot == null) {
-//    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-//}
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+// Configure Flutter source directory for old-style apply
+def flutterProjectRoot = rootProject.projectDir.parentFile
+project.ext.flutter = [
+    source: flutterProjectRoot.absolutePath
+]
+
+// Apply Flutter plugin using old-style apply
+// NOTE: The new declarative plugin system (dev.flutter.flutter-gradle-plugin) requires
+// Flutter source directory to be available during plugin application, but the flutter
+// extension block is evaluated after the plugin applies, causing "Must provide Flutter 
+// source directory" errors. This is a known issue with Flutter 3.24.3 on custom branches.
+// We'll migrate to the new plugin system when upgrading to an official Flutter version
+// that properly supports it. See: https://flutter.dev/to/flutter-gradle-plugin-apply
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
@@ -64,7 +77,7 @@ android {
         applicationId "com.tanmeyah.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 23
         targetSdk 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -89,10 +102,6 @@ android {
         }
     }
     namespace 'com.tanmeyah.app'
-}
-
-flutter {
-    source '../..'
 }
 
 dependencies {

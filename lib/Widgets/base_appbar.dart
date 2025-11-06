@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Theme/themeclass.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 class BaseAppBar extends PreferredSize {
   BaseAppBar.main(
       {String title = "",

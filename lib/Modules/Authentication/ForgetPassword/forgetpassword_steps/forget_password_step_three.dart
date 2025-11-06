@@ -9,7 +9,7 @@ import '../../../../Utilities/Validator.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_text.dart';
 import '../../../../Widgets/custom_textfield_widget.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 class ForgetPasswordStepThree extends StatefulWidget {
   ForgetPasswordController con;
    ForgetPasswordStepThree({required this.con,Key? key}) : super(key: key);

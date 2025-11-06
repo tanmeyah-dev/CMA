@@ -18,8 +18,7 @@ import '../../../Widgets/custom_textfield_widget.dart';
 import '../../../Widgets/drop_down_list.dart';
 import '../../../Widgets/skip_button.dart';
 import '../Terms/terms_screen.dart';
-import 'package:Iconsax/Iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:iconsax/iconsax.dart';
 
 
 class RegisterScreen extends StatefulWidget {
@@ -230,22 +229,21 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
           ),
           SizedBox(height: 10.h,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
             children: [
-              con.editPhone
-                  ? CustomTextFieldWidget(
-                  width: 270.w, hint: con.phone, enable: false)
-                  : CustomTextFieldWidget(
-                width: 270.w,
-                hint: "phone_number".tr,
-                controller: con.numberController,
-                validator: (value) => Validator.validatePhone(context, value!),
-                textInputType: TextInputType.phone,
-                formatter: [
-                  LengthLimitingTextInputFormatter(11),
-                ],
+              Expanded(
+                child: con.editPhone
+                    ? CustomTextFieldWidget(
+                    hint: con.phone, enable: false)
+                    : CustomTextFieldWidget(
+                  hint: "phone_number".tr,
+                  controller: con.numberController,
+                  validator: (value) => Validator.validatePhone(context, value!),
+                  textInputType: TextInputType.phone,
+                  formatter: [
+                    LengthLimitingTextInputFormatter(11),
+                  ],
+                ),
               ),
               SizedBox(
                 width: 8.w,
@@ -388,10 +386,12 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   },
                   activeColor: ThemeClass.primaryColor,
                 ),
-                AppTextRegular(title: "register_des".tr, fontSize: 12.sp),
+                Flexible(
+                  child: AppTextRegular(title: "register_des".tr, fontSize: 12.sp),
+                ),
               ],
             ),
-            Row(children: [
+            Wrap(children: [
               GestureDetector(
                   onTap: () {
                     // final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;

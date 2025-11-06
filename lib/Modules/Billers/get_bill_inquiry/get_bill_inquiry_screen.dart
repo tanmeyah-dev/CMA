@@ -20,7 +20,7 @@
 // import '../../../Models/mobile_biller_response.dart';
 // import '../../../Theme/app_assets.dart';
 // import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:Iconsax/Iconsax.dart';
+// import 'package:iconsax/iconsax.dart';
 // import '../../../Utilities/Validator.dart';
 // import '../../../Widgets/custom_textfield_widget.dart';
 //

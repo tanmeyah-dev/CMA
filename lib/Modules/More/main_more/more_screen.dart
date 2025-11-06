@@ -23,7 +23,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 class MoreScreen extends StatefulWidget {
   static const String routeName = "/moreScreen";
 
@@ -212,7 +212,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         context, FAQScreen.routeName);
                                   }),
                             SizedBox(height: 8.h),
-                            !con.guestMood ?   SizedBox(height: 140.h) : SizedBox(height: 220.h,),
+                            !con.guestMood ?   SizedBox(height: 20.h) : SizedBox(height: 110.h,),
                           ],
                         ),
                             con.guestMood

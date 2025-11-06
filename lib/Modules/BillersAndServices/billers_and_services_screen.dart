@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Theme/themeclass.dart';
 import '../../Widgets/base_appbar.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 import '../Billers/service_types/all_service_types_screen.dart';
 
 class BillersAndServicesScreen extends StatefulWidget {

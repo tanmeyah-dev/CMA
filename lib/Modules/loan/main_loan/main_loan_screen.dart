@@ -1,8 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
-import 'dart:ffi';
-
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
-import 'package:Tanmeyah/Modules/loan/payment_methods/payment_methods_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_needed/payment_needed_screen.dart';
 import 'package:Tanmeyah/Modules/loan/previous_loans/previous_loan_screen.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
@@ -17,12 +14,10 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Theme/themeclass.dart';
-import '../../../Utilities/general_toast.dart';
 import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 
 
 class MainLoanScreen extends StatefulWidget {
@@ -112,7 +107,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                           title: con.activeLoanModel?.activeLoan
                                               ?.totalAmount
                                               .toString() ??
-                                              "0000",
+                                              "",
                                           color: ThemeClass.whiteColor,
                                           fontWeight: FontWeight.w700,
                                           fontSize: 36.sp,
@@ -146,7 +141,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     AppTextRegular(title: "month_need".tr,color: ThemeClass.primaryColor,),
-                                    Icon(Iconsax.arrow_square_left,color: ThemeClass.primaryColor,size: 16.sp,)
+                                    SizedBox(width: 4.w,),
+                                    Icon(Iconsax.arrow_square_left5,color: ThemeClass.primaryColor,size: 16.sp,)
                                   ],
                                 ),
                                 Row(
@@ -189,8 +185,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   padding: EdgeInsets.all(12.sp),
                                   child: Row(
                                     children: [
-                                      SizedBox(
-                                        width: 120.w,
+                                      Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
@@ -198,8 +193,11 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                             Row(
                                               textBaseline: TextBaseline.alphabetic,
                                               crossAxisAlignment: CrossAxisAlignment.end,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                Flexible(
+                                                  child: AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                ),
                                                 SizedBox(width: 4.w,),
                                                 AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
                                               ],
@@ -208,19 +206,13 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                         ),
                                       ),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      SizedBox(
-                                        width: 175.w,
-                                        child:  Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                      SizedBox(width: 8.w,),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(width: 16.w,),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                AppTextRegular(title: "date_of_pay".tr),
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
-                                              ],
-                                            ),
+                                            AppTextRegular(title: "date_of_pay".tr),
+                                            AppTextBold(title: con.activeLoanModel?.activeLoan?.lastPaidInstallmentDate.toString()??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
                                           ],
                                         ),
                                       )
@@ -235,49 +227,59 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   ),
                                   padding: EdgeInsets.all(12.sp),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      GestureDetector(
-                                        onTap : (){
-                                          Navigator.pushNamed(context, AlreadyPaidScreen.routeName);
-                                        },
-                                        child: SizedBox(
-                                          width: 160.w,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  AppTextRegular(title: "paided".tr),
-                                                  AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfpaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
-                                                ],
-                                              ),
-                                              Spacer(),
-                                              Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
-                                            ],
+                                      Expanded(
+                                        child: GestureDetector(
+                                          behavior: HitTestBehavior.opaque,
+                                          onTap : (){
+                                            Navigator.pushNamed(context, AlreadyPaidScreen.routeName);
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Flexible(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      AppTextRegular(title: "paided".tr),
+                                                      AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfpaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
+                                      SizedBox(width: 8.w,),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      GestureDetector(
-                                        onTap: (){
-                                          Navigator.pushNamed(context, PaymentNeededScreen.routeName);
-                                        },
-                                        child: SizedBox(
-                                          width: 160.w,
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  AppTextRegular(title: "remaining".tr),
-                                                  AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfNotPaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
-                                                ],
-                                              ),
-                                              Spacer(),
-                                              Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
-                                            ],
+                                      SizedBox(width: 8.w,),
+                                      Expanded(
+                                        child: GestureDetector(
+                                          behavior: HitTestBehavior.opaque,
+                                          onTap: (){
+                                            Navigator.pushNamed(context, PaymentNeededScreen.routeName);
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Flexible(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      AppTextRegular(title: "remaining".tr),
+                                                      AppTextBold(title: con.activeLoanModel?.activeLoan?.numberOfNotPaidMonths.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Icon(Iconsax.arrow_square_left,color: ThemeClass.borderColor,)
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       )
@@ -292,10 +294,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   ),
                                   padding: EdgeInsets.all(12.sp),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(
-                                        width: 115.w,
+                                      Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
@@ -304,8 +304,11 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               textBaseline: TextBaseline.alphabetic,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                Flexible(
+                                                  child: AppTextBold(title: con.activeLoanModel?.activeLoan?.paidAmount.toString()??"0",color: ThemeClass.greenColor,fontSize: 16.sp,),
+                                                ),
                                                 SizedBox(width: 4.w,),
                                                 AppTextRegular(title: "ج. م",color: ThemeClass.greenColor,fontSize: 14.sp,)
                                               ],
@@ -313,11 +316,9 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                           ],
                                         ),
                                       ),
-                                      Spacer(),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      SizedBox(
-                                        width: 115.w,
-                                        child:  Column(
+                                      Expanded(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             AppTextRegular(title: "remaining".tr),
@@ -325,8 +326,11 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               textBaseline: TextBaseline.alphabetic,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.totalDueAmount.toString()??"0",color: ThemeClass.secondaryColor,fontSize: 16.sp,),
+                                                Flexible(
+                                                  child: AppTextBold(title: con.activeLoanModel?.activeLoan?.totalDueAmount.toString()??"0",color: ThemeClass.secondaryColor,fontSize: 16.sp,),
+                                                ),
                                                 SizedBox(width: 4.w,),
                                                 AppTextRegular(title: "ج. م",color: ThemeClass.secondaryColor,fontSize: 14.sp,)
                                               ],
@@ -334,11 +338,9 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                           ],
                                         ),
                                       ),
-                                      Spacer(),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
-                                      SizedBox(
-                                        width: 115.w,
-                                        child:  Column(
+                                      Expanded(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             AppTextRegular(title: "tex_amount".tr),
@@ -346,8 +348,11 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               textBaseline: TextBaseline.alphabetic,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.penaltyAmount.toString()??"0",color: ThemeClass.orangeColor,fontSize: 16.sp,),
+                                                Flexible(
+                                                  child: AppTextBold(title: con.activeLoanModel?.activeLoan?.penaltyAmount.toString()??"0",color: ThemeClass.orangeColor,fontSize: 16.sp,),
+                                                ),
                                                 SizedBox(width: 4.w,),
                                                 AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
                                               ],
@@ -367,17 +372,19 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                   padding: EdgeInsets.all(12.sp),
                                   child: Row(
                                     children: [
-                                      SizedBox(
-                                        width: 175.w,
-                                        child:    Column(
+                                      Expanded(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             AppTextRegular(title: "next_installment".tr),
                                             Row(
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               textBaseline: TextBaseline.alphabetic,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                AppTextBold(title: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString()??"0",fontSize: 16.sp,),
+                                                Flexible(
+                                                  child: AppTextBold(title: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString()??"0",fontSize: 16.sp,),
+                                                ),
                                                 SizedBox(width: 4.w,),
                                                 AppTextRegular(title: "ج. م",color: ThemeClass.orangeColor,fontSize: 14.sp,)
                                               ],
@@ -386,13 +393,15 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                         ),
                                       ),
                                       Container(color: ThemeClass.borderColor,height: 30.h,width: 1.w,),
-                                      SizedBox(width: 16.w,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AppTextRegular(title: "due_date".tr),
-                                          AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
-                                        ],
+                                      SizedBox(width: 8.w,),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AppTextRegular(title: "due_date".tr),
+                                            AppTextBold(title: con.activeLoanModel?.activeLoan?.nextInstallmentDate??"0",color: ThemeClass.blackColor,fontSize: 16.sp,),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),

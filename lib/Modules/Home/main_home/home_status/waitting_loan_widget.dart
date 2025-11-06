@@ -1,7 +1,7 @@
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Theme/themeclass.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../../../Shared/shared_prefirences.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Widgets/custom_text.dart';

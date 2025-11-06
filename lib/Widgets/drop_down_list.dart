@@ -33,7 +33,7 @@ class CustomDropDownWidget<T> extends StatelessWidget {
       child: DropdownButtonFormField<T>(
         validator: validate,
         iconSize: 0.0,
-        initialValue: selected,
+        value: selected,
         decoration: InputDecoration(
           errorStyle: const TextStyle(height: 0),
           contentPadding: EdgeInsets.symmetric(vertical: 12.h,horizontal: 10.w),

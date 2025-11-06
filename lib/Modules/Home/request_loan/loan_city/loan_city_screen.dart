@@ -15,7 +15,7 @@ import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/drop_down_list.dart';
 import 'loan_city_controller.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 class LoanCityScreen extends StatefulWidget {
   static const String routeName = "/loanCityScreen";
 

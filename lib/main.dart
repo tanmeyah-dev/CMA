@@ -141,7 +141,7 @@ class _EntryPointState extends State<EntryPoint>  {
             FirebaseAnalyticsObserver(analytics: analytics),
             BotToastNavigatorObserver(),
           ],
-          initialRoute: MainScreen.routeName,
+          initialRoute: SplashScreen.routeName,
           // locale: appLan.appLocal,
           locale: appLan.appLocal,
           supportedLocales: Languages.values.map((e) => Locale(e.name)).toList(),

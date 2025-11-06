@@ -22,8 +22,66 @@ allprojects {
 }
 
 rootProject.buildDir = '../build'
+
+// Define Flutter properties for plugins that need them
+def flutterProperties = [
+    compileSdkVersion: 36,
+    minSdkVersion: 21,
+    targetSdkVersion: 36
+]
+
+rootProject.ext.flutter = flutterProperties
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+    
+    // Make flutter properties available at project level
+    project.ext.flutter = flutterProperties
+    
+    // Inject flutter extension into android extension using metaClass
+    // This must happen before the plugin's build.gradle evaluates its android block
+    project.plugins.whenPluginAdded { plugin ->
+        if (plugin.class.simpleName.contains('Library') || 
+            plugin.class.simpleName.contains('Android')) {
+            // Inject flutter extension when android extension is created
+            project.android {
+                project.android.metaClass.getFlutter = { ->
+                    return [
+                        compileSdkVersion: flutterProperties.compileSdkVersion,
+                        minSdkVersion: flutterProperties.minSdkVersion,
+                        targetSdkVersion: flutterProperties.targetSdkVersion
+                    ]
+                }
+            }
+        }
+    }
+    
+    // Inject flutter extension after evaluation as well
+    project.afterEvaluate { proj ->
+        if (proj.hasProperty('android')) {
+            def android = proj.android
+            
+            // Inject flutter extension using metaClass
+            android.metaClass.getFlutter = { ->
+                return [
+                    compileSdkVersion: flutterProperties.compileSdkVersion,
+                    minSdkVersion: flutterProperties.minSdkVersion,
+                    targetSdkVersion: flutterProperties.targetSdkVersion
+                ]
+            }
+            
+            // Ensure compileSdkVersion is set correctly
+            try {
+                def currentSdk = android.compileSdkVersion
+                if (currentSdk == null || currentSdk.toString().contains('flutter')) {
+                    android.compileSdkVersion = flutterProperties.compileSdkVersion
+                }
+            } catch (Exception e) {
+                // Force set if there was an error accessing it
+                android.compileSdkVersion = flutterProperties.compileSdkVersion
+            }
+        }
+    }
 }
 subprojects {
     project.evaluationDependsOn(':app')

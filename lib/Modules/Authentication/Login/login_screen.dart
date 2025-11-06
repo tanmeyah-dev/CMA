@@ -19,7 +19,7 @@ import 'local_auth/local_auth_api.dart';
 import 'local_auth/local_auth_screen.dart';
 import 'login_controller.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "/loginScreen";
@@ -129,7 +129,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 186.h),
+                                    SizedBox(height: 130.h),
                                     image(),
                                     SizedBox(height: 100.h),
                                     Row(

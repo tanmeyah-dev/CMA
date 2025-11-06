@@ -12,7 +12,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_textfield_widget.dart';
 import 'local_auth_controller.dart';
-import 'package:Iconsax/Iconsax.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 
