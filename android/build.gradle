@@ -22,6 +22,53 @@ allprojects {
 }
 
 rootProject.buildDir = '../build'
+
+// Define Flutter properties for subprojects that expect them.
+def flutterProperties = [
+    compileSdkVersion: 35,
+    minSdkVersion    : 21,
+    targetSdkVersion : 34
+]
+
+rootProject.ext.flutter = flutterProperties
+
+// Make the flutter properties available to every project as early as possible.
+gradle.beforeProject { proj ->
+    proj.ext.flutter = flutterProperties
+}
+
+gradle.allprojects { proj ->
+    // Provide an android.flutter getter as soon as the Android plugin is applied.
+    def attachFlutterExtension = {
+        def androidExt = proj.extensions.findByName('android')
+        if (androidExt != null) {
+            if (!androidExt.metaClass.respondsTo(androidExt, "getFlutter")) {
+                androidExt.metaClass.getFlutter = { -> flutterProperties }
+            }
+
+            // Ensure sane defaults if the plugin forgot to set them.
+            try {
+                if (androidExt.compileSdkVersion == null || androidExt.compileSdkVersion.toString() == 'null') {
+                    androidExt.compileSdkVersion flutterProperties.compileSdkVersion
+                }
+            } catch (ignored) {
+                try {
+                    androidExt.compileSdkVersion flutterProperties.compileSdkVersion
+                } catch (allIgnored) {}
+            }
+
+            try {
+                if (androidExt.defaultConfig?.minSdkVersion == null) {
+                    androidExt.defaultConfig.minSdkVersion flutterProperties.minSdkVersion
+                }
+            } catch (ignored) {}
+        }
+    }
+
+    proj.plugins.withId('com.android.application') { attachFlutterExtension.call() }
+    proj.plugins.withId('com.android.library') { attachFlutterExtension.call() }
+}
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
