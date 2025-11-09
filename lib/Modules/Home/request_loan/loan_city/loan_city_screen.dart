@@ -9,7 +9,6 @@ import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import '../../../../Models/government_model.dart';
 import '../../../../Models/governorates_response.dart';
 import '../../../../Models/loan_checkout_model.dart';
 import '../../../../Theme/themeclass.dart';
@@ -21,7 +20,7 @@ import 'package:iconsax/iconsax.dart';
 class LoanCityScreen extends StatefulWidget {
   static const String routeName = "/loanCityScreen";
 
-  LoanCheckoutModel loanCheckoutModel;
+  final LoanCheckoutModel loanCheckoutModel;
 
   LoanCityScreen({required this.loanCheckoutModel,Key? key}) : super(key: key);
 
@@ -67,143 +66,149 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               alignment: Alignment.topRight,
               color: ThemeClass.whiteColor,
-              child: SingleChildScrollView(
-                child:  Form(
-                  key: con.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 40.h,),
-                      AppTextRegular(title: "nearest_branch".tr,fontSize: 20.sp,),
-                      SizedBox(height: 4.h,),
-                      Divider(),
-                      AppTextRegular(title: "choose_gov".tr,fontSize: 16.sp,),
-                      SizedBox(height: 8.h,),
-                      CustomDropDownWidget<String>(
-                        hint: "choose_gov".tr,
-                        selected: con.governoratesList?.any((item) => item.id.toString() == con.selectedGovernmentId) ?? false
-                            ? con.selectedGovernmentId
-                            : null,
-                        onChange: (String? selectedId) {
-                          if (selectedId != null) {
-                            con.selectedGovernmentId = selectedId;
-                            final selectedItem = con.governoratesList?.firstWhere(
-                                  (item) => item.id.toString() == selectedId,
-                                orElse: () => Governorates(id: null, name: null),
-                            );
-                            if (selectedItem != null && selectedItem.id != null) {
-                              con.governmentTitle = selectedItem.name ?? "";
-                              con.getCityByGovernment(governmentId: selectedId);
-                            }
-                            setState(() {});
-                          }
-                        },
-                        borderColor: Colors.grey,
-                        items: con.governoratesList?.map((item) {
-                          return DropdownMenuItem<String>(
-                            value: item.id?.toString(),
-                            child: Text(item.name ?? "",
-                                style: TextStyle(fontSize: 16.sp, height: -0.2)),
-                          );
-                        }).toList() ?? [],
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: Icon(
-                            Iconsax.arrow_down5,
-                            color: ThemeClass.secondaryColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 16.h,),
-                      AppTextRegular(title: "choose_branch".tr,fontSize: 16.sp,),
-                      SizedBox(height: 8.h,),
-                      con.selectedGovernmentId != null ?
-                      CustomDropDownWidget<String>(
-                        hint: "choose_branch".tr,
-                        validate: (value) {
-                          if (value == null || value.isEmpty) {
-                            return  ToastHelper.showError(context,message: "برجاء اختيار الفرع");
-                          }
-                          return null;
-                        },
-                        selected: con.branchList?.any((item) => item.id == con.selectedCityId) ?? false
-                            ? con.selectedCityId // ✅ Assign only if it exists
-                            : null, // ✅ Prevents error if it doesn’t exist
-                        onChange: (String? selectedId) {
-                          if (selectedId != null) {
-                            con.selectedCityId = selectedId;
-                            // Ensure `branches` is not null before calling `firstWhere`
-                            final selectedItem = con.cityResponse?.branches != null
-                                ? con.cityResponse!.branches!.firstWhere(
-                                  (item) => item.id == selectedId,
-                              orElse: () => BranchModel(id: '', nameAr: ''),
-                            )
-                                : null;
-
-                            // Ensure `selectedItem` is not null before accessing properties
-                            if (selectedItem != null && selectedItem.id! != null) {
-                              con.cityTitle = selectedItem.nameAr; // ✅ Get the name/title safely
-                            } else {
-                              con.cityTitle = "Unknown"; // Provide a default fallback
-                            }
-
-                            setState(() {});
-                          }
-                        },
-                        borderColor: Colors.grey,
-                        items:  con.branchList?.map((item) {
-                          return DropdownMenuItem<String>(
-                            value: item.id.toString(),
-                            child: Text(item.nameAr??"",
-                                style: TextStyle(fontSize: 16.sp, height: -0.2)),
-                          );
-                        }).toList() ?? [],
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: Icon(
-                            Iconsax.arrow_down5,
-                            color: ThemeClass.secondaryColor,
-                          ),
-                        ),
-                      ) : GestureDetector(
-                        onTap: (){
-                          ToastHelper.showError(context,message: "برجاء اختيار المحافظه اولا");
-                        },
-                        child: Container(
-                          width: 385.w,
-                          padding: EdgeInsets.only(left: 20.w,right: 10.h,top: 12.h,bottom: 12.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.w),
-                            border: Border.all(color: ThemeClass.hintColor),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppTextHint(title: "choose_branch".tr),
-                              Icon(
-                                Iconsax.arrow_down5,
-                                color: ThemeClass.secondaryColor,
+              child: Form(
+                key: con.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 40.h,),
+                            AppTextRegular(title: "nearest_branch".tr,fontSize: 20.sp,),
+                            SizedBox(height: 4.h,),
+                            Divider(),
+                            AppTextRegular(title: "choose_gov".tr,fontSize: 16.sp,),
+                            SizedBox(height: 8.h,),
+                            CustomDropDownWidget<String>(
+                              hint: "choose_gov".tr,
+                              selected: con.governoratesList?.any((item) => item.id.toString() == con.selectedGovernmentId) ?? false
+                                  ? con.selectedGovernmentId
+                                  : null,
+                              onChange: (String? selectedId) {
+                                if (selectedId != null) {
+                                  con.selectedGovernmentId = selectedId;
+                                  final selectedItem = con.governoratesList?.firstWhere(
+                                        (item) => item.id.toString() == selectedId,
+                                      orElse: () => Governorates(id: null, name: null),
+                                  );
+                                  if (selectedItem != null && selectedItem.id != null) {
+                                    con.governmentTitle = selectedItem.name ?? "";
+                                    con.getCityByGovernment(governmentId: selectedId);
+                                  }
+                                  setState(() {});
+                                }
+                              },
+                              borderColor: Colors.grey,
+                              items: con.governoratesList?.map((item) {
+                                return DropdownMenuItem<String>(
+                                  value: item.id?.toString(),
+                                  child: Text(item.name ?? "",
+                                      style: TextStyle(fontSize: 16.sp, height: -0.2)),
+                                );
+                              }).toList() ?? [],
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: Icon(
+                                  Iconsax.arrow_down5,
+                                  color: ThemeClass.secondaryColor,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(height: 16.h,),
+                            AppTextRegular(title: "choose_branch".tr,fontSize: 16.sp,),
+                            SizedBox(height: 8.h,),
+                            con.selectedGovernmentId != null ?
+                            CustomDropDownWidget<String>(
+                              hint: "choose_branch".tr,
+                              validate: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return  ToastHelper.showError(context,message: "برجاء اختيار الفرع");
+                                }
+                                return null;
+                              },
+                              selected: con.branchList?.any((item) => item.id == con.selectedCityId) ?? false
+                                  ? con.selectedCityId
+                                  : null,
+                              onChange: (String? selectedId) {
+                                if (selectedId != null) {
+                                  con.selectedCityId = selectedId;
+                                  final selectedItem = con.cityResponse?.branches != null
+                                      ? con.cityResponse!.branches!.firstWhere(
+                                        (item) => item.id == selectedId,
+                                    orElse: () => BranchModel(id: '', nameAr: ''),
+                                  )
+                                      : null;
+
+                                  if (selectedItem != null && selectedItem.id != null && selectedItem.id!.isNotEmpty) {
+                                    con.cityTitle = selectedItem.nameAr;
+                                  } else {
+                                    con.cityTitle = "Unknown";
+                                  }
+
+                                  setState(() {});
+                                }
+                              },
+                              borderColor: Colors.grey,
+                              items:  con.branchList?.map((item) {
+                                return DropdownMenuItem<String>(
+                                  value: item.id.toString(),
+                                  child: Text(item.nameAr??"",
+                                      style: TextStyle(fontSize: 16.sp, height: -0.2)),
+                                );
+                              }).toList() ?? [],
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: Icon(
+                                  Iconsax.arrow_down5,
+                                  color: ThemeClass.secondaryColor,
+                                ),
+                              ),
+                            ) : GestureDetector(
+                              onTap: (){
+                                ToastHelper.showError(context,message: "برجاء اختيار المحافظه اولا");
+                              },
+                              child: Container(
+                                width: 385.w,
+                                padding: EdgeInsets.only(left: 20.w,right: 10.h,top: 12.h,bottom: 12.h),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15.w),
+                                  border: Border.all(color: ThemeClass.hintColor),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AppTextHint(title: "choose_branch".tr),
+                                    Icon(
+                                      Iconsax.arrow_down5,
+                                      color: ThemeClass.secondaryColor,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 430.h,),
-                      Center(child: CustomButton(title: "next".tr, onTap: (){
-                        if (con.formKey.currentState!.validate()) {
-                          if(con.selectedGovernmentId != null && con.selectedCityId != null){
-                            widget.loanCheckoutModel.govId = con.selectedGovernmentId.toString();
-                            widget.loanCheckoutModel.branchId = con.selectedCityId.toString();
-                            widget.loanCheckoutModel.govTitle = con.governmentTitle;
-                            widget.loanCheckoutModel.branchTitle = con.cityTitle;
-                            Navigator.pushNamed(context, LoanCheckoutScreen.routeName,arguments: widget.loanCheckoutModel);
-                          }else {
-                            ToastHelper.showError(context,message: "برجاء اختيار الفرع");
-                          }
+                    ),
+                    SizedBox(height: 24.h,),
+                    Center(child: CustomButton(title: "next".tr, onTap: (){
+                      if (con.formKey.currentState!.validate()) {
+                        if(con.selectedGovernmentId != null && con.selectedCityId != null){
+                          widget.loanCheckoutModel.govId = con.selectedGovernmentId.toString();
+                          widget.loanCheckoutModel.branchId = con.selectedCityId.toString();
+                          widget.loanCheckoutModel.govTitle = con.governmentTitle;
+                          widget.loanCheckoutModel.branchTitle = con.cityTitle;
+                          Navigator.pushNamed(context, LoanCheckoutScreen.routeName,arguments: widget.loanCheckoutModel);
+                        }else {
+                          ToastHelper.showError(context,message: "برجاء اختيار الفرع");
                         }
-                      },width: 385.w),),
-                    ],
-                  ),
+                      }
+                    },width: 385.w),),
+                    SizedBox(height: 24.h,),
+                  ],
                 ),
               ),
             ),
