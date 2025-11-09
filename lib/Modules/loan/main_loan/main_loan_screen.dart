@@ -1,8 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
-import 'dart:ffi';
-
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
-import 'package:Tanmeyah/Modules/loan/payment_methods/payment_methods_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_needed/payment_needed_screen.dart';
 import 'package:Tanmeyah/Modules/loan/previous_loans/previous_loan_screen.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
@@ -17,7 +14,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Theme/themeclass.dart';
-import '../../../Utilities/general_toast.dart';
 import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
@@ -238,6 +234,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       GestureDetector(
+                                        behavior: HitTestBehavior.opaque,
                                         onTap : (){
                                           Navigator.pushNamed(context, AlreadyPaidScreen.routeName);
                                         },
@@ -261,6 +258,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                       ),
                                       Container(color: ThemeClass.borderColor,height: 40.h,width: 1.w,),
                                       GestureDetector(
+                                        behavior: HitTestBehavior.opaque,
                                         onTap: (){
                                           Navigator.pushNamed(context, PaymentNeededScreen.routeName);
                                         },

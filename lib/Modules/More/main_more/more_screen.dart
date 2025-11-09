@@ -263,7 +263,6 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                       ),
                                     )
                                 ),
-                            SizedBox(height: 15.h,),
                             AppTextHint(title: "App Version 1.1.0")
                       ])))))),
     );
