@@ -64,10 +64,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
         body: SafeArea(
           child: LoadingScreen(
             loading: con.loading,
-            child: SingleChildScrollView(
-              child:  con.isLogin
-                  ? (con.activeLoanModel?.activeLoan != null)
-                  ? Container(
+            child: con.isLogin
+                ? ((con.activeLoanModel?.activeLoan != null)
+                    ? SingleChildScrollView(
+                        child: Container(
                 padding: EdgeInsets.all(10.w),
                 child: Column(
                   children: [
@@ -404,66 +404,97 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
                   ],
                 ),
-              )
-                  : Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
-                child: Column(
-                  children: [
-                    Image.asset(
-                        AppAssets.IMG_NO_LOAN,
-                        fit: BoxFit.fill,
-                        width: 320.w,
-                        height: 320.h,
-                    ),
-                    SizedBox(height: 40.h,),
-                    AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
-                    SizedBox(height: 160.h,),
-                    (con.canRequestLoan == true) ? CustomButton(title: "start_ask_loan".tr, onTap: (){
-                      Navigator.pushNamed(context, LoanRequestTermsScreen.routeName);
-                    },fontWeight : FontWeight.w600,width: 318.w,backgroundColor: Color(0xFFF9E2E1), textColor: ThemeClass.primaryColor,borderColor: Colors.transparent,) : Container(),
-                    SizedBox(height: 20.h,),
-                    (con.activeLoanModel?.havePreviousLoan != null) ?
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                          _analytics.logEvent(
-                              name: 'request_previous_loans',
-                              parameters: <String,dynamic>{
-                                "title" :"request_previous_loans"
-                              }
-                          );
-                          Navigator.pushNamed(context, PreviousLoanScreen.routeName);
-                        },width: 318.w,backgroundColor: Colors.transparent, textColor: ThemeClass.primaryColor,) : Container(),
-                      ): Container()
-                  ],
-                ),
-              )
-                  : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                   Padding(
-                        padding: EdgeInsets.all(16.w),
-                        child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
-                  SizedBox(
-                    height: 16.h,
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                        AppAssets.IMG_NO_LOAN,
+                                        fit: BoxFit.fill,
+                                        width: 320.w,
+                                        height: 320.h,
+                                    ),
+                                    SizedBox(height: 40.h,),
+                                    AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
+                                    SizedBox(height: 160.h,),
+                                    (con.canRequestLoan == true) ? CustomButton(title: "start_ask_loan".tr, onTap: (){
+                                      Navigator.pushNamed(context, LoanRequestTermsScreen.routeName);
+                                    },fontWeight : FontWeight.w600,width: 318.w,backgroundColor: Color(0xFFF9E2E1), textColor: ThemeClass.primaryColor,borderColor: Colors.transparent,) : Container(),
+                                    SizedBox(height: 20.h,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          if (con.activeLoanModel?.havePreviousLoan == true)
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).padding.bottom + 90.h, 
+                                left: 16.w, 
+                                right: 16.w
+                              ),
+                              child: CustomButton(
+                                title: "previous_loan".tr,
+                                onTap: (){
+                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                  _analytics.logEvent(
+                                      name: 'request_previous_loans',
+                                      parameters: <String,dynamic>{
+                                        "title" :"request_previous_loans"
+                                      }
+                                  );
+                                  Navigator.pushNamed(context, PreviousLoanScreen.routeName);
+                                },
+                                width: 318.w,
+                                backgroundColor: Colors.transparent,
+                                textColor: ThemeClass.primaryColor,
+                              ),
+                            ),
+                        ],
+                      ))
+                : Column(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(16.w),
+                                child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
+                              SizedBox(
+                                height: 16.h,
+                              ),
+                              AppTextMedium(
+                                  title: "empty_loan".tr,
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).padding.bottom + 90.h, 
+                          top: 16.h
+                        ),
+                        child: CustomButton(
+                          width: 216,
+                          title: "login".tr,
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, LoginScreen.routeName,
+                                arguments: "");
+                          }),
+                      ),
+                    ],
                   ),
-                  AppTextMedium(
-                      title: "empty_loan".tr,
-                    ),
-                  SizedBox(height: 230.h,),
-                  CustomButton(
-                        width: 216,
-                        title: "login".tr,
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, LoginScreen.routeName,
-                              arguments: "");
-                        }),
-                ],
-              ),
-            )
           ),
         ),
       ),

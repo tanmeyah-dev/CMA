@@ -21,7 +21,6 @@ import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/themeclass.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
-import '../../../Widgets/ticket_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
@@ -74,171 +73,179 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                       color: ThemeClass.whiteColor,
                       width: double.infinity,
                       height: double.infinity,
-                      child: SingleChildScrollView(
-                          child: Column(children: [
-                            Column(
-                          children: [
-                            !con.guestMood ?  GestureDetector(
-                                onTap: (){
-                                  Navigator.pushNamed(context, AccountScreen.routeName);
-                                },
-                                child: Container(
-                                  width: 400.w,
-                                  decoration: BoxDecoration(
-                                      color: ThemeClass.profileBackground,
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(16.sp),topRight: Radius.circular(40.sp),bottomLeft: Radius.circular(16.sp),bottomRight: Radius.circular(16.sp))
-                                  ),
-                                  padding: EdgeInsets.all(12.w),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(AppAssets.IMG_PROFILE,width: 50.w,height: 50.h,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 200.w,
-                                            child: AppTextBold(title: "${SharedPref.getUserObg()?.fullName}",color: ThemeClass.profileContainer,maxLines: 1,textAlign: TextAlign.start,),
-                                          ),
-                                          AppTextRegular(title: "${SharedPref.getUserObg()?.mobileNumber}")
-                                        ],
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  !con.guestMood ?  GestureDetector(
+                                      onTap: (){
+                                        Navigator.pushNamed(context, AccountScreen.routeName);
+                                      },
+                                      child: Container(
+                                        width: 400.w,
+                                        decoration: BoxDecoration(
+                                            color: ThemeClass.profileBackground,
+                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(16.sp),topRight: Radius.circular(40.sp),bottomLeft: Radius.circular(16.sp),bottomRight: Radius.circular(16.sp))
+                                        ),
+                                        padding: EdgeInsets.all(12.w),
+                                        child: Row(
+                                          children: [
+                                            Image.asset(AppAssets.IMG_PROFILE,width: 50.w,height: 50.h,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 200.w,
+                                                  child: AppTextBold(title: "${SharedPref.getUserObg()?.fullName}",color: ThemeClass.profileContainer,maxLines: 1,textAlign: TextAlign.start,),
+                                                ),
+                                                AppTextRegular(title: "${SharedPref.getUserObg()?.mobileNumber}")
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Icon(Icons.arrow_forward_ios_outlined,size: 20.sp,color: ThemeClass.profileContainer.withOpacity(0.4),)
+                                          ],
+                                        ),
                                       ),
-                                      Spacer(),
-                                      Icon(Icons.arrow_forward_ios_outlined,size: 20.sp,color: ThemeClass.profileContainer.withOpacity(0.4),)
-                                    ],
-                                  ),
-                                ),
-                            ) : Container(),
-                              SizedBox(height: 8.h),
-                             MoreItemWidget(
-                                      image: AppAssets.IMG_MORE_OFFERS,
-                                      title: "offers".tr,
-                                      hint: false,
-                                      onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_offers_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_request_screen"
-                                            }
-                                        );
-                                        Navigator.pushNamed(
-                                            context, MainOffersScreen.routeName);
-                                      }),
-                              SizedBox(height: 8.h),
-                               MoreItemWidget(
-                                      image: AppAssets.IMG_MORE_CONTACT,
-                                      title: "contact_us".tr,
-                                      hint: false,
-                                      onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_contact_us_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_contact_us_screen"
-                                            }
-                                        );
-                                        Navigator.pushNamed(
-                                            context, ContactUsScreen.routeName);
-                                      }),
-                              SizedBox(height: 8.h),
-                             MoreItemWidget(
-                                      image: AppAssets.IMG_MORE_BRANCHES,
-                                      title: "branches".tr,
-                                      hint: false,
-                                      onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_branches_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_branches_screen"
-                                            }
-                                        );
-                                        Navigator.pushNamed(
-                                            context, BranchesScreen.routeName);
-                                      }),
-                              SizedBox(height: 8.h),
-                               MoreItemWidget(
-                                      image: AppAssets.IMG_MORE_TERMS,
-                                      title: "terms".tr,
-                                      hint: false,
-                                      onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_terms_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_terms_screen"
-                                            }
-                                        );
-                                        Navigator.pushNamed(
-                                            context, TermsScreen.routeName);
-                                      }),
-                              SizedBox(height: 8.h),
-                               MoreItemWidget(
-                                      image: AppAssets.IMG_MORE_PRIVACY,
-                                      title: "privacy".tr,
-                                      hint: false,
-                                      onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_privacy_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_privacy_screen"
-                                            }
-                                        );
-                                        Navigator.pushNamed(
-                                            context, ConditionsScreen.routeName);
-                                      }),
-                               SizedBox(height: 8.h),
-                               MoreItemWidget(
-                                      image: AppAssets.IMG_MORE_ABOUT,
-                                      title: "about_us".tr,
-                                      hint: false,
-                                      onTap: () {
-                                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                        _analytics.logEvent(
-                                            name: 'request_about_us_screen',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_about_us_screen"
-                                            }
-                                        );
-                                        Navigator.pushNamed(
-                                            context, AboutUsScreen.routeName);
-                                      }),
-                              SizedBox(height: 8.h),
-                              MoreItemWidget(
-                                  image: AppAssets.IMG_MORE_FAQ,
-                                  title: "faq".tr,
-                                  hint: false,
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, FAQScreen.routeName);
-                                  }),
-                            SizedBox(height: 8.h),
-                            !con.guestMood ?   SizedBox(height: 140.h) : SizedBox(height: 220.h,),
-                          ],
-                        ),
-                            con.guestMood
-                               ?  Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Column(
-                                    children: [
-                                      CustomButton(
-                                        width: 216,
-                                        title: "login".tr,
+                                  ) : Container(),
+                                    SizedBox(height: 8.h),
+                                   MoreItemWidget(
+                                            image: AppAssets.IMG_MORE_OFFERS,
+                                            title: "offers".tr,
+                                            hint: false,
+                                            onTap: () {
+                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                              _analytics.logEvent(
+                                                  name: 'request_offers_screen',
+                                                  parameters: <String,dynamic>{
+                                                    "title" :"request_request_screen"
+                                                  }
+                                              );
+                                              Navigator.pushNamed(
+                                                  context, MainOffersScreen.routeName);
+                                            }),
+                                    SizedBox(height: 8.h),
+                                     MoreItemWidget(
+                                            image: AppAssets.IMG_MORE_CONTACT,
+                                            title: "contact_us".tr,
+                                            hint: false,
+                                            onTap: () {
+                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                              _analytics.logEvent(
+                                                  name: 'request_contact_us_screen',
+                                                  parameters: <String,dynamic>{
+                                                    "title" :"request_contact_us_screen"
+                                                  }
+                                              );
+                                              Navigator.pushNamed(
+                                                  context, ContactUsScreen.routeName);
+                                            }),
+                                    SizedBox(height: 8.h),
+                                   MoreItemWidget(
+                                            image: AppAssets.IMG_MORE_BRANCHES,
+                                            title: "branches".tr,
+                                            hint: false,
+                                            onTap: () {
+                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                              _analytics.logEvent(
+                                                  name: 'request_branches_screen',
+                                                  parameters: <String,dynamic>{
+                                                    "title" :"request_branches_screen"
+                                                  }
+                                              );
+                                              Navigator.pushNamed(
+                                                  context, BranchesScreen.routeName);
+                                            }),
+                                    SizedBox(height: 8.h),
+                                     MoreItemWidget(
+                                            image: AppAssets.IMG_MORE_TERMS,
+                                            title: "terms".tr,
+                                            hint: false,
+                                            onTap: () {
+                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                              _analytics.logEvent(
+                                                  name: 'request_terms_screen',
+                                                  parameters: <String,dynamic>{
+                                                    "title" :"request_terms_screen"
+                                                  }
+                                              );
+                                              Navigator.pushNamed(
+                                                  context, TermsScreen.routeName);
+                                            }),
+                                    SizedBox(height: 8.h),
+                                     MoreItemWidget(
+                                            image: AppAssets.IMG_MORE_PRIVACY,
+                                            title: "privacy".tr,
+                                            hint: false,
+                                            onTap: () {
+                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                              _analytics.logEvent(
+                                                  name: 'request_privacy_screen',
+                                                  parameters: <String,dynamic>{
+                                                    "title" :"request_privacy_screen"
+                                                  }
+                                              );
+                                              Navigator.pushNamed(
+                                                  context, ConditionsScreen.routeName);
+                                            }),
+                                     SizedBox(height: 8.h),
+                                     MoreItemWidget(
+                                            image: AppAssets.IMG_MORE_ABOUT,
+                                            title: "about_us".tr,
+                                            hint: false,
+                                            onTap: () {
+                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                                              _analytics.logEvent(
+                                                  name: 'request_about_us_screen',
+                                                  parameters: <String,dynamic>{
+                                                    "title" :"request_about_us_screen"
+                                                  }
+                                              );
+                                              Navigator.pushNamed(
+                                                  context, AboutUsScreen.routeName);
+                                            }),
+                                    SizedBox(height: 8.h),
+                                    MoreItemWidget(
+                                        image: AppAssets.IMG_MORE_FAQ,
+                                        title: "faq".tr,
+                                        hint: false,
                                         onTap: () {
                                           Navigator.pushNamed(
-                                              context, LoginScreen.routeName,
-                                              arguments: "");
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height: 8.h,
-                                      ),
-                                    ],
+                                              context, FAQScreen.routeName);
+                                        }),
+                                ],
+                              ),
+                            ),
+                          ),
+                          con.guestMood
+                            ? Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 16.h),
+                                    child: CustomButton(
+                                      width: 216,
+                                      title: "login".tr,
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, LoginScreen.routeName,
+                                            arguments: "");
+                                      },
+                                    ),
                                   ),
+                                  SizedBox(height: 8.h),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context).padding.bottom + 90.h,
+                                    ),
+                                    child: AppTextHint(title: "App Version 2.0.0"),
+                                  ),
+                                ],
                               )
-                               :  Align(
-                                    alignment: Alignment.bottomCenter,
+                            : Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 16.h),
                                     child: GestureDetector(
                                       onTap: (){
                                         AnimatedAlertDialog(context,
@@ -261,10 +268,23 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                           ],
                                         ),
                                       ),
-                                    )
-                                ),
-                            AppTextHint(title: "App Version 1.1.0")
-                      ])))))),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context).padding.bottom + 90.h,
+                                    ),
+                                    child: AppTextHint(title: "App Version 2.0.0"),
+                                  ),
+                                ],
+                              ),
+                        ],
+                      ),
+                  ),
+              ),
+          ),
+        ),
     );
   }
 
