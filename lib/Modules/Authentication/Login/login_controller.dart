@@ -24,10 +24,9 @@ class LoginController extends ControllerMVC {
   bool hasFingerPrint = false;
   bool hasOldFaceVersion = false;
   bool hasFingerPrintForIOS = false;
-  String? encryptedPhone, encryptedPassword,phoneNumber;
+  String? encryptedPhone, encryptedPassword, phoneNumber;
 
   late TextEditingController phoneController, passwordController;
-  GlobalKey<FormState> newFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -56,21 +55,20 @@ class LoginController extends ControllerMVC {
   }
 
   Future logIn(BuildContext context) async {
-
     // LoginForm loginForm = LoginForm(
     //     phoneNumber: "01033103360", password: passwordController.text);
     // bool response = await UserApi.httpGet(context, loginForm: loginForm);
 
-    if(!phoneController.text.startsWith("0")) {
+    if (!phoneController.text.startsWith("0")) {
       phoneNumber = "0${phoneController.text}";
-      setState(() { });
+      setState(() {});
     } else {
       phoneNumber = phoneController.text;
-      setState(() { });
+      setState(() {});
     }
 
-    LoginForm loginForm = LoginForm(
-        phoneNumber: phoneNumber!, password: passwordController.text);
+    LoginForm loginForm =
+        LoginForm(phoneNumber: phoneNumber!, password: passwordController.text);
     setState(() {
       loading = true;
     });
@@ -84,5 +82,5 @@ class LoginController extends ControllerMVC {
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/mainScreen', (Route<dynamic> route) => false);
     }
-   }
+  }
 }

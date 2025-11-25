@@ -42,6 +42,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   }
 
   late LoginController con;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -88,6 +89,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
         onWillPop: () async => false,
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
+            resizeToAvoidBottomInset: false,
             extendBodyBehindAppBar: true,
             appBar: BaseAppBar.main(
                 isBackButtonVisible: false,
@@ -130,7 +132,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       ),
                       child: SingleChildScrollView(
                           child: Form(
-                              key: con.newFormKey,
+                              key: _formKey,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -274,7 +276,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             width: 230,
             title: "login".tr,
             onTap: () async {
-              if (con.newFormKey.currentState!.validate()) {
+              if (_formKey.currentState!.validate()) {
                 final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                  _analytics.logEvent(
                     name: 'submit_login_screen',

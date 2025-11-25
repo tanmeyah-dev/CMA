@@ -21,7 +21,6 @@ import '../Terms/terms_screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   static const String routeName = "/register";
 
@@ -51,10 +50,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_registration_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_registration_screen"
-        }
-    );
+        parameters: <String, dynamic>{"title": "open_registration_screen"});
     super.initState();
   }
 
@@ -70,20 +66,17 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                 actions: [
                   Padding(
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 20.w),
-                      child: SkipButton(
-                          onTap: () {
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'skip_registration_screen',
-                                parameters: <String,dynamic>{
-                                  "title" : "skip_registration_screen"
-                                }
-                            );
-                            Navigator.of(context)
-                                .pushNamedAndRemoveUntil('/mainScreen',
-                                    (Route<dynamic> route) => false);
-                          }
-                            ))
+                      child: SkipButton(onTap: () {
+                        final FirebaseAnalytics _analytics =
+                            FirebaseAnalytics.instance;
+                        _analytics.logEvent(
+                            name: 'skip_registration_screen',
+                            parameters: <String, dynamic>{
+                              "title": "skip_registration_screen"
+                            });
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/mainScreen', (Route<dynamic> route) => false);
+                      }))
                 ]),
             body: LoadingScreen(
               loading: con.loading,
@@ -121,9 +114,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                                   SizedBox(height: 30.h),
                                   createBtn(),
                                   SizedBox(height: 12.h),
-                                  !con.editPhone
-                                      ? loginDes()
-                                      : Container(),
+                                  !con.editPhone ? loginDes() : Container(),
                                   SharedPref.isWatchIntro()
                                       ? SizedBox(height: 30.h)
                                       : Container()
@@ -133,357 +124,379 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
   }
 
   Widget fullNameTxtField() {
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              AppTextRegular(
-                title: "${"full_name".tr}",
-                color: ThemeClass.secondaryColor,
-              ),
-              SizedBox(width: 6.w,),
-              AppTextHint(title: "(باللغة العربية)"),
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextFieldWidget(
-              controller: con.fullNameController,
-              hint: "full_name".tr,
-              validator: (value) =>
-                  Validator.validateFullName(context, value!)),
-        ],
-      );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            AppTextRegular(
+              title: "${"full_name".tr}",
+              color: ThemeClass.secondaryColor,
+            ),
+            SizedBox(
+              width: 6.w,
+            ),
+            AppTextHint(title: "(باللغة العربية)"),
+          ],
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        CustomTextFieldWidget(
+            width: double.infinity,
+            controller: con.fullNameController,
+            hint: "full_name".tr,
+            validator: (value) => Validator.validateFullName(context, value!)),
+      ],
+    );
   }
 
   Widget nationalIdTxtField() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextRegular(
-            title: "id_num".tr,
-            color: ThemeClass.secondaryColor,
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextFieldWidget(
-              textInputType: TextInputType.number,
-              controller: con.nationalIdController,
-              onchange: (value) {
-                con.calc(nationalId : value);
-                setState(() {});
-              },
-              hint: "id_num".tr,
-              validator: (value) =>
-                  Validator.validateNationalId(context, value!),
-              formatter: [LengthLimitingTextInputFormatter(14)]),
-        ],
-      );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextRegular(
+          title: "id_num".tr,
+          color: ThemeClass.secondaryColor,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        CustomTextFieldWidget(
+            width: double.infinity,
+            textInputType: TextInputType.number,
+            controller: con.nationalIdController,
+            onchange: (value) {
+              con.calc(nationalId: value);
+              setState(() {});
+            },
+            hint: "id_num".tr,
+            validator: (value) => Validator.validateNationalId(context, value!),
+            formatter: [LengthLimitingTextInputFormatter(14)]),
+      ],
+    );
   }
 
   Widget dateTimeWidget() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextRegular(
-            title: "birthday".tr,
-            color: ThemeClass.secondaryColor,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextRegular(
+          title: "birthday".tr,
+          color: ThemeClass.secondaryColor,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: ThemeClass.textfieldColor,
+            borderRadius: BorderRadius.circular(10.w),
+            border: Border.all(color: Colors.grey.withOpacity(0.2)),
           ),
-          SizedBox(
-            height: 10.h,
+          width: double.infinity,
+          height: 46.h,
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              con.nationalIdController.text.length > 7
+                  ? AppTextRegular(
+                      title: con.dateOfBirth ?? "",
+                    )
+                  : const AppTextHint(title: "0000-00-00"),
+              Icon(
+                Iconsax.calendar5,
+                color: ThemeClass.secondaryColor,
+              ),
+            ],
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: ThemeClass.textfieldColor,
-              borderRadius: BorderRadius.circular(10.w),
-              border: Border.all(color: Colors.grey.withOpacity(0.2)),
-            ),
-            width: double.infinity,
-            height: 46.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                con.nationalIdController.text.length > 7
-                    ? AppTextRegular(
-                  title: con.dateOfBirth??"",
-                  )
-                    : const AppTextHint(title: "0000-00-00"),
-                Icon(Iconsax.calendar5, color: ThemeClass.secondaryColor,),
-              ],
-            ),
-          ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   Widget phoneTxtField() {
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextRegular(
-            title: "phone_number".tr,
-            color: ThemeClass.secondaryColor,
-          ),
-          SizedBox(height: 10.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              con.editPhone
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextRegular(
+          title: "phone_number".tr,
+          color: ThemeClass.secondaryColor,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: con.editPhone
                   ? CustomTextFieldWidget(
-                  width: 270.w, hint: con.phone, enable: false)
+                      width: double.infinity, hint: con.phone, enable: false)
                   : CustomTextFieldWidget(
-                width: 270.w,
-                hint: "phone_number".tr,
-                controller: con.numberController,
-                validator: (value) => Validator.validatePhone(context, value!),
-                textInputType: TextInputType.phone,
-                formatter: [
-                  LengthLimitingTextInputFormatter(11),
-                ],
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              const CountryCodeWidget(),
-            ],
-          ),
-        ],
-      );
+                      width: double.infinity,
+                      hint: "phone_number".tr,
+                      controller: con.numberController,
+                      validator: (value) =>
+                          Validator.validatePhone(context, value!),
+                      textInputType: TextInputType.phone,
+                      formatter: [
+                        LengthLimitingTextInputFormatter(11),
+                      ],
+                    ),
+            ),
+            SizedBox(
+              width: 8.w,
+            ),
+            const CountryCodeWidget(),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget emailTxtField() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              AppTextRegular(
-                title: "email".tr,
-                color: ThemeClass.secondaryColor,
-              ),
-              SizedBox(width: 8.w,),
-              AppTextHint(title: "*(${"optional".tr})"),
-            ],
-          ),
-          SizedBox(height: 10.h,),
-          CustomTextFieldWidget(
-            isDense: false,
-            controller: con.emailController,
-            hint: "example@example.com",
-            validator: (value) => Validator.validateEmail(value!),
-          ),
-        ],
-      );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            AppTextRegular(
+              title: "email".tr,
+              color: ThemeClass.secondaryColor,
+            ),
+            SizedBox(
+              width: 8.w,
+            ),
+            AppTextHint(title: "*(${"optional".tr})"),
+          ],
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        CustomTextFieldWidget(
+          width: double.infinity,
+          isDense: false,
+          controller: con.emailController,
+          hint: "example@example.com",
+          validator: (value) => Validator.validateEmail(value!),
+        ),
+      ],
+    );
   }
 
   Widget passwordTxtField() {
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextRegular(
-            title: "password".tr,
-            color: ThemeClass.secondaryColor,
-          ),
-          SizedBox(height: 10.h,),
-          CustomTextFieldWidget(
-            obscure: con.showPassword,
-            controller: con.passwordController,
-            hint: "password".tr,
-            validator: (value) => Validator.validatePassword(context, value!),
-            suffixIcon: GestureDetector(
-              onTap: (){
-                con.showPassword = !con.showPassword;
-                setState(() { });
-              },
-               child: Icon(con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,color: con.passwordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextRegular(
+          title: "password".tr,
+          color: ThemeClass.secondaryColor,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        CustomTextFieldWidget(
+          width: double.infinity,
+          obscure: con.showPassword,
+          controller: con.passwordController,
+          hint: "password".tr,
+          validator: (value) => Validator.validatePassword(context, value!),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              con.showPassword = !con.showPassword;
+              setState(() {});
+            },
+            child: Icon(
+              con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+              color: con.passwordController.text == ""
+                  ? ThemeClass.hintColor
+                  : ThemeClass.secondaryColor,
             ),
-
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   Widget selectGovernment() {
-    return  Column(crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextRegular(
-            title: "government".tr,
-            color: ThemeClass.secondaryColor,
-          ),
-          SizedBox(height: 10.h,),
-           CustomDropDownWidget<String>(
-              hint: "المحافظه",
-              selected: con.selectedValue,
-              onChange: (v) {
-                con.selectedValue = v!;
-                setState(() {});
-              },
-              borderColor: Colors.grey,
-              items: con.governmentsIds.map((item) {
-                return DropdownMenuItem<String>(
-                      value: item.id,
-                  child: Text(item.title,
-                      style: TextStyle(fontSize: 16.sp, height: -0.2)),
-                );
-              }).toList(),
-              prefixIcon: Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: Icon(
-                  Iconsax.arrow_down5,
-                  color: ThemeClass.secondaryColor,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextRegular(
+          title: "government".tr,
+          color: ThemeClass.secondaryColor,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: CustomDropDownWidget<String>(
+            hint: "المحافظه",
+            selected: con.selectedValue,
+            onChange: (v) {
+              con.selectedValue = v!;
+              setState(() {});
+            },
+            borderColor: Colors.grey,
+            items: con.governmentsIds.map((item) {
+              return DropdownMenuItem<String>(
+                value: item.id,
+                child: Text(item.title,
+                    style: TextStyle(fontSize: 16.sp, height: -0.2)),
+              );
+            }).toList(),
+            prefixIcon: Padding(
+              padding: EdgeInsets.only(left: 10.w),
+              child: Icon(
+                Iconsax.arrow_down5,
+                color: ThemeClass.secondaryColor,
               ),
             ),
-        ],
-      );
+          ),
+        ),
+      ],
+    );
   }
 
   Widget confirmPassTxtField() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextRegular(
-            title: "confirm_password".tr,
-            color: ThemeClass.secondaryColor,
-          ),
-          SizedBox(height: 10.h,),
-          CustomTextFieldWidget(
-            obscure: con.showConfirmPassword,
-            controller: con.confirmPasswordController,
-            hint: "confirm_password".tr,
-            validator: (value) =>
-                Validator.matchPasswords(context,
-                    con.passwordController.text,
-                    con.confirmPasswordController.text),
-            suffixIcon: GestureDetector(
-              onTap: (){
-                con.showConfirmPassword = !con.showConfirmPassword;
-                setState(() { });
-              },
-              child: Icon(con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,color: con.confirmPasswordController.text == "" ? ThemeClass.hintColor: ThemeClass.secondaryColor,),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextRegular(
+          title: "confirm_password".tr,
+          color: ThemeClass.secondaryColor,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        CustomTextFieldWidget(
+          width: double.infinity,
+          obscure: con.showConfirmPassword,
+          controller: con.confirmPasswordController,
+          hint: "confirm_password".tr,
+          validator: (value) => Validator.matchPasswords(context,
+              con.passwordController.text, con.confirmPasswordController.text),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              con.showConfirmPassword = !con.showConfirmPassword;
+              setState(() {});
+            },
+            child: Icon(
+              con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+              color: con.confirmPasswordController.text == ""
+                  ? ThemeClass.hintColor
+                  : ThemeClass.secondaryColor,
             ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   Widget registerDes() {
-    return  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Checkbox(
-                  shape: ContinuousRectangleBorder(),
-                  value: con.accept,
-                  onChanged: (value) {
-                    con.accept = !con.accept;
-                    setState(() {});
-                  },
-                  activeColor: ThemeClass.primaryColor,
-                ),
-                AppTextRegular(title: "register_des".tr, fontSize: 12.sp),
-              ],
+            Checkbox(
+              shape: ContinuousRectangleBorder(),
+              value: con.accept,
+              onChanged: (value) {
+                con.accept = !con.accept;
+                setState(() {});
+              },
+              activeColor: ThemeClass.primaryColor,
             ),
-            Row(children: [
-              GestureDetector(
-                  onTap: () {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'request_terms_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "request_terms_screen"
-                        }
-                    );
-                    Navigator.pushNamed(context, TermsScreen.routeName);
-                  },
-                  child: AppTextBold(
-                      title: "terms".tr,
-                      fontSize: 12.sp,
-                      textDecoration: TextDecoration.underline)),
-              AppTextRegular(title: " ${"and".tr} ", fontSize: 12.sp),
-              GestureDetector(
-                  onTap: () {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'request_conditions_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "request_conditions_screen"
-                        }
-                    );
-                    Navigator.pushNamed(context, ConditionsScreen.routeName);
-                  },
-                  child: AppTextBold(
-                      title: "privacy".tr,
-                      fontSize: 12.sp,
-                      textDecoration: TextDecoration.underline)),
-              AppTextRegular(title: " ${"ours".tr} ", fontSize: 12.sp)
-            ])
+            AppTextRegular(title: "register_des".tr, fontSize: 12.sp),
           ],
-        );
+        ),
+        Row(children: [
+          GestureDetector(
+              onTap: () {
+                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                _analytics.logEvent(
+                    name: 'request_terms_screen',
+                    parameters: <String, dynamic>{
+                      "title": "request_terms_screen"
+                    });
+                Navigator.pushNamed(context, TermsScreen.routeName);
+              },
+              child: AppTextBold(
+                  title: "terms".tr,
+                  fontSize: 12.sp,
+                  textDecoration: TextDecoration.underline)),
+          AppTextRegular(title: " ${"and".tr} ", fontSize: 12.sp),
+          GestureDetector(
+              onTap: () {
+                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+                _analytics.logEvent(
+                    name: 'request_conditions_screen',
+                    parameters: <String, dynamic>{
+                      "title": "request_conditions_screen"
+                    });
+                Navigator.pushNamed(context, ConditionsScreen.routeName);
+              },
+              child: AppTextBold(
+                  title: "privacy".tr,
+                  fontSize: 12.sp,
+                  textDecoration: TextDecoration.underline)),
+          AppTextRegular(title: " ${"ours".tr} ", fontSize: 12.sp)
+        ])
+      ],
+    );
   }
 
   Widget createBtn() {
     return Align(
-          alignment: Alignment.center,
-          child:
-          (con.selectedValue != null && con.accept == true ) ?
-          CustomButton(
+      alignment: Alignment.center,
+      child: (con.selectedValue != null && con.accept == true)
+          ? CustomButton(
               width: 216,
               title: "save".tr,
               onTap: () async {
-                  if (con.formKey.currentState!.validate()) {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
-                        name: 'submit_registration_screen',
-                        parameters: <String,dynamic>{
-                          "title" : "submit_registration_screen"
-                        }
-                    );
-                    con.register(context);
-                  }
+                if (con.formKey.currentState!.validate()) {
+                  final FirebaseAnalytics _analytics =
+                      FirebaseAnalytics.instance;
+                  _analytics.logEvent(
+                      name: 'submit_registration_screen',
+                      parameters: <String, dynamic>{
+                        "title": "submit_registration_screen"
+                      });
+                  con.register(context);
                 }
-              ) :
-          CustomButton(
+              })
+          : CustomButton(
               width: 216,
               title: "save".tr,
               onTap: () async {},
-            color: ThemeClass.textFieldBackgroundColor,
-            borderColor:
-            ThemeClass.textFieldBackgroundColor,
-            textColor: ThemeClass.hintColor,
-            backgroundColor:
-            ThemeClass.buttonNotActiveColor,
-          )
-
-          ,
-        );
+              color: ThemeClass.textFieldBackgroundColor,
+              borderColor: ThemeClass.textFieldBackgroundColor,
+              textColor: ThemeClass.hintColor,
+              backgroundColor: ThemeClass.buttonNotActiveColor,
+            ),
+    );
   }
 
   Widget loginDes() {
     return Padding(
-          padding: EdgeInsetsDirectional.only(start: 20.w),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppTextRegular(title: "have_account".tr, fontSize: 12.sp),
-                GestureDetector(
-                    onTap: () {
-                      // Navigator.pushNamed(context, LoginScreen.routeName,
-                      //     arguments: "");
-                      Navigator.pop(context);
-                    },
-                    child: AppTextBold(
-                        title: " ${"login".tr}",
-                        fontSize: 16.sp,
-                        textDecoration: TextDecoration.underline))
-              ]),
-        );
+      padding: EdgeInsetsDirectional.only(start: 20.w),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        AppTextRegular(title: "have_account".tr, fontSize: 12.sp),
+        GestureDetector(
+            onTap: () {
+              // Navigator.pushNamed(context, LoginScreen.routeName,
+              //     arguments: "");
+              Navigator.pop(context);
+            },
+            child: AppTextBold(
+                title: " ${"login".tr}",
+                fontSize: 16.sp,
+                textDecoration: TextDecoration.underline))
+      ]),
+    );
   }
 }
