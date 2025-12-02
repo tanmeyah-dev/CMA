@@ -18,7 +18,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_textfield_widget.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 
@@ -40,11 +40,10 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_contact_us_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_contact_us_screen"
+        parameters: <String, Object>{
+          "title": "open_contact_us_screen"
         }
     );
     super.initState();
@@ -149,10 +148,9 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           ),
                           SizedBox(height: 6.h,),
                           CustomButton(title: "send".tr, onTap: (){
-                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                            analytics.logEvent(
+                            FirebaseHelper.logEvent(
                                 name: 'submit_contact_us',
-                                parameters: <String,dynamic>{
+                                parameters: <String, Object>{
                                   "title" :"submit_contact_us"
                                 }
                             );

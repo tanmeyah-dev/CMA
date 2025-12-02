@@ -8,7 +8,7 @@ import '../loan/main_loan/main_loan_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../Utilities/firebase_helper.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = "/mainScreen";
@@ -32,11 +32,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     _selectedIndex = widget.index??0;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_landing_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_landing_screen"
+        parameters: <String, Object>{
+          "title": "open_landing_screen"
         }
     );
     super.initState();

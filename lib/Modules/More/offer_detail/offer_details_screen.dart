@@ -9,7 +9,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class OfferDetailScreen extends StatefulWidget {
@@ -31,10 +31,9 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
   @override
   void initState() {
     con.offerId = widget.offerID;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_offer_detail_screen',
-        parameters: <String,dynamic>{
+        parameters: <String, Object>{
           "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"
         }
     );

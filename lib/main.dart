@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:Tanmeyah/Utilities/update_app.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,9 @@ import 'Utilities/routing.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
-import 'package:dart_ping_ios/dart_ping_ios.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'firebase_options.dart';
 
 
 Future<void> main() async {
@@ -38,7 +38,27 @@ Future<void> main() async {
   });
   HttpOverrides.global = MyHttpOverrides();
 
-   await Firebase.initializeApp();
+  // Initialize Firebase with error handling
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    print('Firebase initialization error (ignored): $e');
+    // Try to initialize with a minimal default app to prevent "no-app" errors
+    try {
+      if (Firebase.apps.isEmpty) {
+        // Create a minimal default app if possible
+        await Firebase.initializeApp(
+          name: '[DEFAULT]',
+          options: DefaultFirebaseOptions.currentPlatform,
+        );
+      }
+    } catch (e2) {
+      print('Firebase fallback initialization also failed (ignored): $e2');
+      // Continue app execution even if Firebase fails to initialize
+    }
+  }
 
   runApp(MultiProvider(
     providers: [
@@ -72,7 +92,12 @@ class _EntryPointState extends State<EntryPoint>  {
   @override
   Widget build(BuildContext context) {
 
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    FirebaseAnalytics? _analytics;
+    try {
+      _analytics = FirebaseAnalytics.instance;
+    } catch (e) {
+      print('FirebaseAnalytics initialization error (ignored): $e');
+    }
     final appLan = Provider.of<AppLanguage>(context);
     appLan.fetchLocale();
     SystemChrome.setPreferredOrientations([
@@ -94,9 +119,11 @@ class _EntryPointState extends State<EntryPoint>  {
           title: appLan.appLanguage == Languages.ar
               ? 'تنميه'
               : "Tanmeyah",
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: _analytics),
-          ],
+          navigatorObservers: _analytics != null
+              ? [
+                  FirebaseAnalyticsObserver(analytics: _analytics),
+                ]
+              : [],
           initialRoute: SplashScreen.routeName,
           // locale: appLan.appLocal,
           locale: appLan.appLocal,

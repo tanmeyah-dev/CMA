@@ -7,7 +7,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 import 'already_paid_controller.dart';
 import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
 
@@ -29,11 +29,10 @@ class _AlreadyPaidScreenState extends StateMVC<AlreadyPaidScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_already_paid_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_already_paid_screen"
+        parameters: <String, Object>{
+          "title": "open_already_paid_screen"
         }
     );
     super.initState();

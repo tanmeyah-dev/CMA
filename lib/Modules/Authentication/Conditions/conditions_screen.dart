@@ -8,7 +8,7 @@ import '../../../Widgets/base_appbar.dart';
 import '../../../Widgets/custom_text.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class ConditionsScreen extends StatefulWidget {
@@ -29,10 +29,9 @@ class _ConditionsScreenState extends StateMVC<ConditionsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_conditions_screen',
-        parameters: <String,dynamic>{
+        parameters: <String, Object>{
           "title" : "open_conditions_screen"
         }
     );

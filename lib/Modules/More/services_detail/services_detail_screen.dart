@@ -11,7 +11,8 @@ import '../../../Models/services_model.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 
@@ -35,11 +36,10 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_services_detail_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_services_detail_screen ${con.serviceDetailModel?.nameAr}"
+        parameters: <String, Object>{
+          "title": "open_services_detail_screen ${con.serviceDetailModel?.nameAr ?? ""}"
         }
     );
     con.serviceId = widget.serviceDetailModel.id;

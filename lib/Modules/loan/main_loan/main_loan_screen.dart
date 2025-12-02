@@ -16,7 +16,7 @@ import '../../../Utilities/general_toast.dart';
 import '../../Authentication/Login/login_screen.dart';
 import '../already_paid/already_paid_screen.dart';
 import 'main_loan_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 
 
 class MainLoanScreen extends StatefulWidget {
@@ -37,11 +37,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_main_loan_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_main_loan_screen"
+        parameters: <String, Object>{
+          "title": "open_main_loan_screen"
         }
     );
     super.initState();
@@ -211,11 +210,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                       radius: 16,
                                       title: "pay_now".tr,
                                       onTap: ()  {
-                                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                        analytics.logEvent(
+                                        FirebaseHelper.logEvent(
                                             name: 'request_pay',
-                                            parameters: <String,dynamic>{
-                                              "title" :"request_pay"
+                                            parameters: <String, Object>{
+                                              "title": "request_pay"
                                             }
                                         );
                                         Navigator.pushNamed(context, PaymentMethodsScreen.routeName,arguments: con.activeLoanModel?.activeLoan?.dueInstallmentAmount.toString());
@@ -225,11 +223,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                 Align(
                                     alignment: Alignment.bottomCenter,
                                     child: con.activeLoanModel!.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                      analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_previous_loans',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_previous_loans"
+                                          parameters: <String, Object>{
+                                            "title": "request_previous_loans"
                                           }
                                       );
                                       Navigator.pushNamed(context, PreviousLoanScreen.routeName);
@@ -256,11 +253,10 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                               Align(
                                   alignment: Alignment.bottomCenter,
                                   child: con.activeLoanModel?.havePreviousLoan == true ?  CustomButton(title: "previous_loan".tr, onTap: (){
-                                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                    analytics.logEvent(
+                                    FirebaseHelper.logEvent(
                                         name: 'request_previous_loans',
-                                        parameters: <String,dynamic>{
-                                          "title" :"request_previous_loans"
+                                        parameters: <String, Object>{
+                                          "title": "request_previous_loans"
                                         }
                                     );
                                     Navigator.pushNamed(context, PreviousLoanScreen.routeName);
@@ -335,19 +331,18 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
       required String routeName}) {
     return GestureDetector(
       onTap: () {
-        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
        if(routeName == AlreadyPaidScreen.routeName) {
-         analytics.logEvent(
+         FirebaseHelper.logEvent(
              name: 'request_paid_installment_screen',
-             parameters: <String, dynamic>{
+             parameters: <String, Object>{
                "title": "request_paid_installment_screen"
              }
          );
        }else {
-         analytics.logEvent(
+         FirebaseHelper.logEvent(
              name: 'request_due_installment_screen',
-             parameters: <String,dynamic>{
-               "title" :"request_due_installment_screen"
+             parameters: <String, Object>{
+               "title": "request_due_installment_screen"
              }
          );
        }

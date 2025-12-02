@@ -19,7 +19,7 @@ import '../../../Theme/themeclass.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
 import '../../Home/offers/main_offers/main_offers_screen.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
 
 class MoreScreen extends StatefulWidget {
@@ -41,11 +41,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_more_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_more_screen"
+        parameters: <String, Object>{
+          "title": "open_more_screen"
         }
     );
     super.initState();
@@ -80,11 +79,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "services".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_services_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_services_screen"
+                                          parameters: <String, Object>{
+                                            "title": "request_services_screen"
                                           }
                                       );
                                       Navigator.pushNamed(context, MainServicesScreen.routeName);
@@ -95,11 +93,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "offers".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_offers_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_request_screen"
+                                          parameters: <String, Object>{
+                                            "title": "request_request_screen"
                                           }
                                       );
                                       Navigator.pushNamed(
@@ -111,11 +108,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "contact_us".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_contact_us_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_contact_us_screen"
+                                          parameters: <String, Object>{
+                                            "title": "request_contact_us_screen"
                                           }
                                       );
                                       Navigator.pushNamed(
@@ -127,11 +123,9 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "branches".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics
-                                          .instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_branches_screen',
-                                          parameters: <String, dynamic>{
+                                          parameters: <String, Object>{
                                             "title": "request_branches_screen"
                                           }
                                       );
@@ -144,11 +138,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "terms".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_terms_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_terms_screen"
+                                          parameters: <String, Object>{
+                                            "title": "request_terms_screen"
                                           }
                                       );
                                       Navigator.pushNamed(
@@ -160,11 +153,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "privacy".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_privacy_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_privacy_screen"
+                                          parameters: <String, Object>{
+                                            "title": "request_privacy_screen"
                                           }
                                       );
                                       Navigator.pushNamed(
@@ -176,11 +168,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                     title: "about_us".tr,
                                     hint: false,
                                     onTap: () {
-                                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                      _analytics.logEvent(
+                                      FirebaseHelper.logEvent(
                                           name: 'request_about_us_screen',
-                                          parameters: <String,dynamic>{
-                                            "title" :"request_about_us_screen"
+                                          parameters: <String, Object>{
+                                            "title": "request_about_us_screen"
                                           }
                                       );
                                       Navigator.pushNamed(
@@ -221,11 +212,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         textColor: ThemeClass.secondaryColor,
                                         borderColor: ThemeClass.secondaryColor,
                                         onTap: () {
-                                          final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                          _analytics.logEvent(
+                                          FirebaseHelper.logEvent(
                                               name: 'request_logout',
-                                              parameters: <String,dynamic>{
-                                                "title" :"request_logout"
+                                              parameters: <String, Object>{
+                                                "title": "request_logout"
                                               }
                                           );
                                           AnimatedAlertDialog(context,

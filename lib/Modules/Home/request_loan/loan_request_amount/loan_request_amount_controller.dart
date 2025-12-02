@@ -17,7 +17,7 @@ import '../loan_request_out_of_cairo/loan_request_out_of_cairo_screen.dart';
 import '../loan_request_success/loan_request_success_screen.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as permsion;
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 
 
 import 'package:url_launcher/url_launcher.dart';
@@ -168,23 +168,21 @@ class LoanRequestAmountController extends ControllerMVC {
    setState(() {
      loading = false;
    });
-   if (result?.isCapital == true) {
-     final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-     analytics.logEvent(
-         name: 'loan_submitted_from_cairo_successfully',
-         parameters: <String,dynamic>{
-           "title" :"loan_submitted_from_cairo_successfully"
-         }
-     );
-     Navigator.pushNamed(context, LoanSuccessRequestScreen.routeName);
-   } else if (result?.isCapital == false) {
-     final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-     analytics.logEvent(
-         name: 'loan_submitted_out_of_cairo_successfully',
-         parameters: <String,dynamic>{
-           "title" :"loan_submitted_out_of_cairo_successfully"
-         }
-     );
+  if (result?.isCapital == true) {
+    FirebaseHelper.logEvent(
+        name: 'loan_submitted_from_cairo_successfully',
+        parameters: <String, Object>{
+          "title": "loan_submitted_from_cairo_successfully"
+        }
+    );
+    Navigator.pushNamed(context, LoanSuccessRequestScreen.routeName);
+  } else if (result?.isCapital == false) {
+    FirebaseHelper.logEvent(
+        name: 'loan_submitted_out_of_cairo_successfully',
+        parameters: <String, Object>{
+          "title": "loan_submitted_out_of_cairo_successfully"
+        }
+    );
      Navigator.pushNamed(context, LoanRequestOutOfCairoScreen.routeName,
          arguments: result?.branches);
    }

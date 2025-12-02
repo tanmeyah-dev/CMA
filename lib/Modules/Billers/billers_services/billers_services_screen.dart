@@ -9,7 +9,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../Theme/app_assets.dart';
@@ -34,10 +34,9 @@ class _BillersServicesScreenState extends StateMVC<BillersServicesScreen> {
   @override
   void initState() {
     con.billers = widget.billers;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_mobile_billers_screen',
-        parameters: <String,dynamic>{
+        parameters: <String, Object>{
           "title" :"open_mobile_billers_screen"
         }
     );

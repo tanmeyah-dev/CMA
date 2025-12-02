@@ -11,7 +11,9 @@ import '../../../../Utilities/Validator.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_button_widget.dart';
 import '../../../../Widgets/custom_textfield_widget.dart';
-import 'local_auth_controller.dart';import 'package:iconsax/iconsax.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'local_auth_controller.dart';
+import 'package:iconsax/iconsax.dart';
+import '../../../../Utilities/firebase_helper.dart';
 
 
 
@@ -139,10 +141,9 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
         title: "confirm".tr,
         onTap: () {
           if (con.formKey.currentState!.validate()) {
-            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-            analytics.logEvent(
+            FirebaseHelper.logEvent(
                 name: 'submit_biometric_login_screen',
-                parameters: <String,dynamic>{
+                parameters: <String, Object>{
                   "title" :"submit_biometric_login_screen"
                 }
             );

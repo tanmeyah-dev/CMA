@@ -10,7 +10,8 @@ import '../../../Models/registeration_response.dart';
 import '../../../Models/verify_otp_model.dart';
 import '../../../Network/user_api.dart';
 import '../../../Theme/themeclass.dart';
-import '../Login/login_screen.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import '../Login/login_screen.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class RegisterController extends ControllerMVC {
@@ -150,11 +151,10 @@ class RegisterController extends ControllerMVC {
 
 
     if (result?.isSuccess == true && result?.user?.isActive == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'success_registration_screen',
-          parameters: <String,dynamic>{
-            "title" : "success_registration_screen"
+          parameters: <String, Object>{
+            "title": "success_registration_screen"
           }
       );
       Navigator.of(context)
@@ -164,10 +164,9 @@ class RegisterController extends ControllerMVC {
             (code) => onConfirm(code, context)
       ]);
     } else if (result?.isAlreadyMobileNumberExist == true ){
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'error_registration_screen',
-          parameters: <String,dynamic>{
+          parameters: <String, Object>{
             "title" : "error_registration_screen"
           }
       );

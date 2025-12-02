@@ -5,7 +5,6 @@ import 'package:Tanmeyah/Modules/Authentication/Splash/splash_controller.dart';
 import 'package:Tanmeyah/Modules/Main/main_screen.dart';
 import 'package:Tanmeyah/Network/user_api.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
-import 'package:Tanmeyah/Utilities/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../../Shared/shared_prefirences.dart';
@@ -15,7 +14,7 @@ import '../OnBoarding/onboarding_screen.dart';
 import '../ValidateUser/validate_user_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 
@@ -54,12 +53,12 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
     print(result);
     if (result != ConnectivityResult.none) {
       await UserApi.getToken();
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-       analytics.logEvent(
+      // Use helper to safely log analytics event
+      await FirebaseHelper.logEvent(
         name: 'open_splash',
-        parameters: <String,dynamic>{
-          "title" : "Open_Splash_Screen"
-        }
+        parameters: <String, Object>{
+          "title": "Open_Splash_Screen"
+        },
       );
       init();
     } else {

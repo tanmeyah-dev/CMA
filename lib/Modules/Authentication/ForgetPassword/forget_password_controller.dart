@@ -6,7 +6,8 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Models/reset_password_model.dart';
 import '../../../Models/verify_otp_model.dart';
 import '../../../Network/user_api.dart';
-import '../Login/local_auth/user_secure_storage.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import '../Login/local_auth/user_secure_storage.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class ForgetPasswordController extends ControllerMVC {
@@ -168,10 +169,9 @@ class ForgetPasswordController extends ControllerMVC {
       loading = false;
     });
     if (result) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'success_reset_password_screen',
-          parameters: <String,dynamic>{
+          parameters: <String, Object>{
             "title" :"success_reset_password_screen"
           }
       );

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 
@@ -18,11 +18,10 @@ class BranchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-        analytics.logEvent(
+        FirebaseHelper.logEvent(
             name: 'open_branch_direction',
-            parameters: <String,dynamic>{
-              "title" :"open_branch_name  ${branchModel.nameAr}"
+            parameters: <String, Object>{
+              "title": "open_branch_name  ${branchModel.nameAr}"
             }
         );
         openMap(branchModel.latitude!,branchModel.longitude!);

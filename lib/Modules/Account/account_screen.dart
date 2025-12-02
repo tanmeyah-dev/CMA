@@ -18,7 +18,7 @@ import '../../Widgets/custom_button_widget.dart';
 import '../../Widgets/custom_text.dart';
 import '../Authentication/Login/login_screen.dart';
 import '../More/main_more/widget/logout_alert.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../Utilities/firebase_helper.dart';
 
 
 class AccountScreen extends StatefulWidget {
@@ -101,11 +101,10 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                 textColor: ThemeClass.primaryColor,
                                 borderColor: ThemeClass.primaryColor,
                                 onTap: () {
-                                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                  analytics.logEvent(
+                                  FirebaseHelper.logEvent(
                                       name: 'request_deactivate_account',
-                                      parameters: <String,dynamic>{
-                                        "title" :"request_deactivate_account"
+                                      parameters: <String, Object>{
+                                        "title": "request_deactivate_account"
                                       }
                                   );
                                   AnimatedAlertDialog(context,

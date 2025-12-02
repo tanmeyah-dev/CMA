@@ -11,7 +11,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/base_appbar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 import 'package:iconsax/iconsax.dart';
 
 
@@ -32,11 +32,10 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
   late BranchesController con;
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_branches_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_branches_screen"
+        parameters: <String, Object>{
+          "title": "open_branches_screen"
         }
     );
     super.initState();

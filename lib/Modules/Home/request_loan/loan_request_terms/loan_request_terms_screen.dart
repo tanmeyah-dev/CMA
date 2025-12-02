@@ -12,7 +12,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_terms_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 
 
 class LoanRequestTermsScreen extends StatefulWidget {
@@ -33,11 +33,10 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_loan_terms_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_terms_screen"
+        parameters: <String, Object>{
+          "title": "open_loan_terms_screen"
         }
     );
     super.initState();
@@ -143,11 +142,10 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               width: 216,
                               title: "start_ask_for_loan".tr, onTap: () {
                             if(con.accept) {
-                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                              analytics.logEvent(
+                              FirebaseHelper.logEvent(
                                   name: 'submit_start_request_loan',
-                                  parameters: <String,dynamic>{
-                                    "title" :"submit_start_request_loan"
+                                  parameters: <String, Object>{
+                                    "title": "submit_start_request_loan"
                                   }
                               );
                                 Navigator.pushNamed(context, LoanRequestAmountScreen.routeName);

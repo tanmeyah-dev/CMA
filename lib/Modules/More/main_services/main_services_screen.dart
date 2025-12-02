@@ -12,7 +12,7 @@ import '../../../Theme/themeclass.dart';
 import '../../../Widgets/custom_text.dart';
 import 'main_services_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class MainServicesScreen extends StatefulWidget {
@@ -36,11 +36,10 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_main_services_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_main_services_screen"
+        parameters: <String, Object>{
+          "title": "open_main_services_screen"
         }
     );
     super.initState();
@@ -82,11 +81,10 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                              analytics.logEvent(
+                              FirebaseHelper.logEvent(
                                   name: 'Open_Product_Detail',
-                                  parameters: <String,dynamic>{
-                                    "product_name" : con.servicesResponse?.products![index].nameAr
+                                  parameters: <String, Object>{
+                                    "product_name": con.servicesResponse?.products![index].nameAr ?? ""
                                   }
                               );
                               Navigator.pushNamed(

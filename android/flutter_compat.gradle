@@ -1,0 +1,3 @@
+// Flutter compatibility script for plugins that need flutter.compileSdkVersion
+// This script is now handled in the main build.gradle file
+

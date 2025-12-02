@@ -16,7 +16,7 @@ import '../../../../Utilities/Validator.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_amount_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 
 class LoanRequestAmountScreen extends StatefulWidget {
   static const String routeName = "/loanAmountScreen";
@@ -50,11 +50,10 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_loan_amount_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_amount_screen"
+        parameters: <String, Object>{
+          "title": "open_loan_amount_screen"
         }
     );
     super.initState();
@@ -265,11 +264,10 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                               context: context,
                                               isInitLocation: true);
                                         } else {
-                                          final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                                          analytics.logEvent(
+                                          FirebaseHelper.logEvent(
                                               name: 'submit_loan_request',
-                                              parameters: <String,dynamic>{
-                                                "title" :"submit_loan_request"
+                                              parameters: <String, Object>{
+                                                "title": "submit_loan_request"
                                               }
                                           );
                                           con.applyForLoan(context);

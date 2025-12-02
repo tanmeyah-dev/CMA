@@ -14,7 +14,7 @@ import '../../../Widgets/custom_text.dart';
 import 'validate_user_controller.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 
@@ -36,11 +36,10 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_phone_number_screen',
-        parameters: <String,dynamic>{
-          "title" : "open_phone_number_screen"
+        parameters: <String, Object>{
+          "title": "open_phone_number_screen"
         }
     );
     super.initState();
@@ -148,10 +147,9 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                     width: 200,
                     title: "continue".tr,
                     onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      FirebaseHelper.logEvent(
                           name: 'submit_phone_number_screen',
-                          parameters: <String,dynamic>{
+                          parameters: <String, Object>{
                             "title" : "submit_phone_number_screen"
                           }
                       );

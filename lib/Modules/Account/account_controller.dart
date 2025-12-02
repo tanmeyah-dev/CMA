@@ -8,7 +8,7 @@ import '../../Models/government_model.dart';
 import '../../Models/user_model.dart';
 import '../../Shared/shared_prefirences.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../Utilities/firebase_helper.dart';
 
 
 
@@ -96,10 +96,9 @@ class AccountController extends ControllerMVC {
     loading = false;
     setState(() {});
     if(result == true){
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'user_deactivate_account',
-          parameters: <String,dynamic>{
+          parameters: <String, Object>{
             "title" :"user_deactivate_account"
           }
       );

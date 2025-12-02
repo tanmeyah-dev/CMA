@@ -8,7 +8,7 @@ import '../../../Network/user_api.dart';
 import '../Login/login_screen.dart';
 import '../OTP/otp_screen.dart';
 import '../Register/register_screen.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 class ValidateUserController extends ControllerMVC {
   // singleton
@@ -79,20 +79,18 @@ class ValidateUserController extends ControllerMVC {
       loading = false;
     });
     if (result?.alreadyExists == true && result?.isSuccess == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'success_phone_number_screen',
-          parameters: <String,dynamic>{
-            "title" : "success_phone_number_screen"
+          parameters: <String, Object>{
+            "title": "success_phone_number_screen"
           }
       );
       Navigator.pushNamed(
           context, LoginScreen.routeName, arguments: phoneController.text);
     } else if (result?.alreadyExists == false && result?.isSuccess == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'success_phone_number_screen',
-          parameters: <String,dynamic>{
+          parameters: <String, Object>{
             "title" : "success_phone_number_screen"
           }
       );

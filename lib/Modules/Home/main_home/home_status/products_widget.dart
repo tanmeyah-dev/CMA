@@ -1,6 +1,6 @@
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Widgets/custom_text.dart';
@@ -41,10 +41,9 @@ class ProductsWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                  analytics.logEvent(
+                  FirebaseHelper.logEvent(
                       name: 'request_service',
-                      parameters: <String,dynamic>{
+                      parameters: <String, Object>{
                         "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"
                       }
                   );

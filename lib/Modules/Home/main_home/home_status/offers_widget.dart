@@ -2,7 +2,7 @@
 
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,11 +34,10 @@ class OffersWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                    analytics.logEvent(
+                    FirebaseHelper.logEvent(
                         name: 'request_view_all_offers',
-                        parameters: <String,dynamic>{
-                          "title" :"request_view_all_offers"
+                        parameters: <String, Object>{
+                          "title": "request_view_all_offers"
                         }
                     );
                     Navigator.pushNamed(context, MainOffersScreen.routeName);
@@ -74,11 +73,10 @@ class OffersWidget extends StatelessWidget {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () {
-                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                      analytics.logEvent(
+                      FirebaseHelper.logEvent(
                           name: 'open_offer_detail',
-                          parameters: <String,dynamic>{
-                            "title" :"open_offer_detail  ${i.nameAr}"
+                          parameters: <String, Object>{
+                            "title": "open_offer_detail  ${i.nameAr}"
                           }
                       );
                       Navigator.pushNamed(context,

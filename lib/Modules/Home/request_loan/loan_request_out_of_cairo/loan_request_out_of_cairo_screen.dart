@@ -12,7 +12,7 @@ import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_out_of_cairo_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../../Utilities/firebase_helper.dart';
 
 
 class LoanRequestOutOfCairoScreen extends StatefulWidget {
@@ -34,11 +34,10 @@ class _LoanRequestOutOfCairoScreenState extends StateMVC<LoanRequestOutOfCairoSc
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_loan_request_out_of_cairo',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_request_out_of_cairo"
+        parameters: <String, Object>{
+          "title": "open_loan_request_out_of_cairo"
         }
     );
 

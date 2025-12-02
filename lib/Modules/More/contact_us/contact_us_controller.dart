@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../Network/contact_us_api.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 
@@ -69,10 +69,9 @@ class ContactUsController extends ControllerMVC {
     loading = false;
     setState(() {});
     if (contactUsResponse?.isSuccess == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
+      FirebaseHelper.logEvent(
           name: 'submit_contact_us_successfully',
-          parameters: <String,dynamic>{
+          parameters: <String, Object>{
             "title" :"submit_contact_us_successfully"
           }
       );

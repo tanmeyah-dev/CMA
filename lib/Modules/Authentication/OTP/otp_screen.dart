@@ -12,7 +12,7 @@ import '../../../Utilities/loading_screen.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/pin_code.dart';
 import 'otp_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class OtpScreen extends StatefulWidget {
@@ -40,10 +40,9 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
   void initState() {
     con.onConfirm = widget.onConfirm;
     con.phoneNumber = widget.phoneNumber;
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_send_otp_screen',
-        parameters: <String,dynamic>{
+        parameters: <String, Object>{
           "title" : "open_send_otp_screen"
         }
     );
@@ -138,10 +137,9 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
           InkWell(
               onTap: () {
                 if (con.activeResend == true) {
-                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                  analytics.logEvent(
+                  FirebaseHelper.logEvent(
                       name: 'request_resend_otp_screen',
-                      parameters: <String,dynamic>{
+                      parameters: <String, Object>{
                         "title" : "request_resend_otp_screen"
                       }
                   );
@@ -178,10 +176,9 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
             title: "confirm".tr,
             onTap: () {
               if (con.formKey.currentState!.validate()) {
-                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                analytics.logEvent(
+                FirebaseHelper.logEvent(
                     name: 'submit_otp_screen',
-                    parameters: <String,dynamic>{
+                    parameters: <String, Object>{
                       "title" : "submit_otp_screen"
                     }
                 );

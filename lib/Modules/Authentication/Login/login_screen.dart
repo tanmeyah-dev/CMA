@@ -23,7 +23,7 @@ import 'local_auth/local_auth_screen.dart';
 import 'login_controller.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import '../../../Utilities/firebase_helper.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -46,11 +46,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   @override
   void initState() {
     checkAvailable();
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
+    FirebaseHelper.logEvent(
         name: 'open_login_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_login_screen"
+        parameters: <String, Object>{
+          "title": "open_login_screen"
         }
     );
     super.initState();
@@ -96,11 +95,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 30.w),
                       child: SkipButton(
                           onTap: () {
-                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                            analytics.logEvent(
+                            FirebaseHelper.logEvent(
                                 name: 'skip_login_screen',
-                                parameters: <String,dynamic>{
-                                  "title" :"skip_login_screen"
+                                parameters: <String, Object>{
+                                  "title": "skip_login_screen"
                                 }
                             );
                             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -228,11 +226,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             alignment: AlignmentDirectional.centerEnd,
             child: AppTextUnderline(
               onTap: () {
-                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                 analytics.logEvent(
+                FirebaseHelper.logEvent(
                     name: 'request_forget_password',
-                    parameters: <String,dynamic>{
-                      "title" :"request_forget_password"
+                    parameters: <String, Object>{
+                      "title": "request_forget_password"
                     }
                 );
                 Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
@@ -249,11 +246,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             title: "login".tr,
             onTap: () async {
               if (con.newFormKey.currentState!.validate()) {
-                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                 analytics.logEvent(
+                FirebaseHelper.logEvent(
                     name: 'submit_login_screen',
-                    parameters: <String,dynamic>{
-                      "title" :"submit_login_screen"
+                    parameters: <String, Object>{
+                      "title": "submit_login_screen"
                     }
                 );
                 con.logIn(context);
@@ -282,11 +278,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
               (con.hasFingerPrint || con.hasFingerPrintForIOS)
                   ? GestureDetector(
                       onTap: () async {
-                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                        analytics.logEvent(
+                        FirebaseHelper.logEvent(
                             name: 'request_biometric_login_screen',
-                            parameters: <String,dynamic>{
-                              "title" :"request_biometric_login_screen"
+                            parameters: <String, Object>{
+                              "title": "request_biometric_login_screen"
                             }
                         );
                         bool result = await con.getBiometricsData();
@@ -302,11 +297,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               con.passwordController.text =
                                   con.encryptedPassword!;
                             });
-                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                            analytics.logEvent(
+                            FirebaseHelper.logEvent(
                                 name: 'submit_biometric_login_screen',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_biometric_login_screen"
+                                parameters: <String, Object>{
+                                  "title": "submit_biometric_login_screen"
                                 }
                             );
                             con.logIn(context);
@@ -331,11 +325,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       )):
               (con.hasFaceId || con.hasOldFaceVersion) ? GestureDetector(
                       onTap: () async {
-                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                        analytics.logEvent(
+                        FirebaseHelper.logEvent(
                             name: 'request_biometric_login_screen',
-                            parameters: <String,dynamic>{
-                              "title" :"request_biometric_login_screen"
+                            parameters: <String, Object>{
+                              "title": "request_biometric_login_screen"
                             }
                         );
                         bool result = await con.getBiometricsData();
@@ -351,11 +344,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               con.passwordController.text =
                                   con.encryptedPassword!;
                             });
-                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                            analytics.logEvent(
+                            FirebaseHelper.logEvent(
                                 name: 'submit_biometric_login_screen',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_biometric_login_screen"
+                                parameters: <String, Object>{
+                                  "title": "submit_biometric_login_screen"
                                 }
                             );
                             con.logIn(context);
@@ -391,11 +383,10 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
           AppTextUnderline(
               title: "create_account".tr,
               onTap: () {
-                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-                analytics.logEvent(
+                FirebaseHelper.logEvent(
                     name: 'request_registration_screen',
-                    parameters: <String,dynamic>{
-                      "title" :"request_registration_screen"
+                    parameters: <String, Object>{
+                      "title": "request_registration_screen"
                     }
                 );
                 Navigator.pushNamed(context, RegisterScreen.routeName,
