@@ -1,7 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Modules/More/contact_us/contact_us_controller.dart';
-import 'package:Tanmeyah/Theme/app_assets.dart';
-import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
@@ -12,7 +10,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../Utilities/Validator.dart';
@@ -20,7 +17,7 @@ import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_textfield_widget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-
+import '../../../Widgets/drop_down_list.dart';
 
 class ContactUsScreen extends StatefulWidget {
   static const String routeName = "/contactUsScreen";
@@ -43,10 +40,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_contact_us_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_contact_us_screen"
-        }
-    );
+        parameters: <String, dynamic>{"title": "open_contact_us_screen"});
     super.initState();
   }
 
@@ -70,7 +64,9 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 16.h,),
+                  SizedBox(
+                    height: 16.h,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       color: ThemeClass.secondaryLightColor.withOpacity(0.1),
@@ -85,19 +81,30 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           Row(
                             children: [
                               Container(
-                                  decoration : BoxDecoration(
-                                      color: ThemeClass.secondaryLightColor.withOpacity(0.4),
+                                  decoration: BoxDecoration(
+                                    color: ThemeClass.secondaryLightColor
+                                        .withOpacity(0.4),
                                     shape: BoxShape.circle,
                                   ),
-                                  alignment: Alignment.center ,
+                                  alignment: Alignment.center,
                                   padding: EdgeInsets.all(6.w),
-                                  child: Icon(Iconsax.send_2,color: ThemeClass.primaryColor,size: 30.sp,)),
-                              SizedBox(width: 8.w,),
-                              AppTextRegular(title: "ارسال رسالة نصية لتنميه",fontSize: 24.sp,),
-
+                                  child: Icon(
+                                    Iconsax.send_2,
+                                    color: ThemeClass.primaryColor,
+                                    size: 30.sp,
+                                  )),
+                              SizedBox(
+                                width: 8.w,
+                              ),
+                              AppTextRegular(
+                                title: "ارسال رسالة نصية لتنميه",
+                                fontSize: 24.sp,
+                              ),
                             ],
                           ),
-                          SizedBox(height: 20.h,),
+                          SizedBox(
+                            height: 20.h,
+                          ),
                           nameTxtField(),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,15 +113,65 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                                 title: "phone_number".tr,
                                 color: ThemeClass.secondaryColor,
                               ),
-                              SizedBox(height: 8.h,),
+                              SizedBox(
+                                height: 8.h,
+                              ),
                               mobileTxtField(),
                             ],
+                          ),
+
+                          AppTextRegular(
+                            title: "استفسارك بخصوص",
+                            color: ThemeClass.secondaryColor,
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          CustomDropDownWidget<String>(
+                            hint: "استفسارك بخصوص",
+                            selected: (con.selectChoose == null ||
+                                    con.selectChoose!.isEmpty)
+                                ? null
+                                : con.selectChoose,
+                            onChange: (String? selectedId) {
+                              con.selectChoose = selectedId;
+                              setState(() {});
+                            },
+                            validate: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'يرجى اختيار تخصص الاستفسار';
+                              }
+                              return null;
+                            },
+                            borderColor: Colors.grey,
+                            items: con.contactListResponse?.contactUsLookups
+                                    ?.map((item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item.id?.toString(),
+                                    child: Text(item.text ?? "",
+                                        style: TextStyle(
+                                            fontSize: 16.sp, height: -0.2)),
+                                  );
+                                }).toList() ??
+                                [],
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: Icon(
+                                Iconsax.arrow_down5,
+                                color: ThemeClass.secondaryColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.h,
                           ),
                           AppTextRegular(
                             title: "أرسل استفسارك",
                             color: ThemeClass.secondaryColor,
                           ),
-                          SizedBox(height: 6.h,),
+                          SizedBox(
+                            height: 6.h,
+                          ),
                           TextFormField(
                             controller: con.messageController,
                             textInputAction: TextInputAction.newline,
@@ -122,18 +179,28 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                             maxLines: 8,
                             maxLength: 200,
                             decoration: InputDecoration(
-                              helperText: ' ', // keep space reserved for error/helper text
+                              helperText:
+                                  ' ', // keep space reserved for error/helper text
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(14.sp),
-                                borderSide: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2)),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: Colors.grey.withOpacity(0.2)),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(width: 1, color: ThemeClass.secondaryMediumColor),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: ThemeClass.secondaryMediumColor),
                                 borderRadius: BorderRadius.circular(14.sp),
                               ),
-                              errorStyle: TextStyle(height: 1.5, fontSize: 12, color: ThemeClass.primaryColor), // fixed height & font
+                              errorStyle: TextStyle(
+                                  height: 1.5,
+                                  fontSize: 12,
+                                  color: ThemeClass
+                                      .primaryColor), // fixed height & font
                               errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2, color: ThemeClass.primaryColor),
+                                borderSide: BorderSide(
+                                    width: 2, color: ThemeClass.primaryColor),
                                 borderRadius: BorderRadius.circular(14.sp),
                               ),
                               hoverColor: ThemeClass.primaryColor,
@@ -142,7 +209,8 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                               hintStyle: TextStyle(
                                 color: ThemeClass.borderColor,
                               ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 13.h),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10.h, vertical: 13.h),
                             ),
                             validator: (value) {
                               if (value == null || value.trim().isEmpty) {
@@ -157,21 +225,25 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 6.h,),
-                          CustomButton(title: "send".tr, onTap: (){
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
-                                name: 'submit_contact_us',
-                                parameters: <String,dynamic>{
-                                  "title" :"submit_contact_us"
+                          SizedBox(
+                            height: 6.h,
+                          ),
+                          CustomButton(
+                              title: "send".tr,
+                              onTap: () {
+                                final FirebaseAnalytics _analytics =
+                                    FirebaseAnalytics.instance;
+                                _analytics.logEvent(
+                                    name: 'submit_contact_us',
+                                    parameters: <String, dynamic>{
+                                      "title": "submit_contact_us"
+                                    });
+                                if (con.formKey.currentState!.validate()) {
+                                  con.contactMessage(context: context);
+                                } else {
+                                  con.autoValidate = true;
                                 }
-                            );
-                            if (con.formKey.currentState!.validate()) {
-                              con.contactMessage(context: context);
-                            } else {
-                              con.autoValidate = true;
-                            }
-                          }),
+                              }),
                         ],
                       ),
                     ),
@@ -216,7 +288,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
               return "رقم الهاتف غير صحيح";
             }
             return null;
-            },
+          },
           formatter: [
             LengthLimitingTextInputFormatter(11),
           ],
@@ -227,7 +299,6 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
     );
   }
 
-
   Widget nameTxtField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,7 +307,9 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
           title: "الاسم",
           color: ThemeClass.secondaryColor,
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
         CustomTextFieldWidget(
           isDense: false,
           controller: con.fullName,
@@ -246,5 +319,4 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
       ],
     );
   }
-
 }

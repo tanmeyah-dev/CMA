@@ -7,55 +7,66 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../Shared/shared_prefirences.dart';
 import '../Utilities/general_toast.dart';
+import '../Utilities/device_id_helper.dart';
 import 'api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 
-
-
 class NetworkMethods {
-
-  
   static Future postRequestAsRow(
       {required String url,
-        String? customUrl,
-        required Map body,
-        Map<String, String>? headers,
-        BuildContext? context}) async {
-
+      String? customUrl,
+      required Map body,
+      Map<String, String>? headers,
+      BuildContext? context}) async {
     var checkConnection = await Connectivity().checkConnectivity();
-    if(checkConnection != ConnectivityResult.none) {
+    if (checkConnection != ConnectivityResult.none) {
       debugPrint(body.toString());
-      debugPrint(customUrl??"${API.baseURL}$url");
+      debugPrint(customUrl ?? "${API.baseURL}$url");
 
       var request = http.Request(
         'POST',
-        Uri.parse(customUrl??'${API.baseURL}$url'),
+        Uri.parse(customUrl ?? '${API.baseURL}$url'),
       );
       request.body = json.encode(body);
 
       headers ??= {};
 
+      // Get device ID - ensure it's always included
+      String deviceId = await DeviceIdHelper.getDeviceId();
+
+      // Add standard headers
       headers.addAll({
         'Content-Type': 'application/json',
-        "Accept" : "application/json",
-        "Authorization" : (SharedPref.getUserObg() == null) ? "${SharedPref.getGuestToken()}" : "${SharedPref.getUserObg()?.token}",
+        "Accept": "application/json",
+        "Authorization": (SharedPref.getUserObg() == null)
+            ? "${SharedPref.getGuestToken()}"
+            : "${SharedPref.getUserObg()?.token}",
       });
+
+      // Add device ID last to ensure it's always present (even if custom headers try to override)
+       headers["Device-Id"] = deviceId;
+
       debugPrint(headers.toString());
       request.headers.addAll(headers);
       try {
         http.StreamedResponse response =
-        await request.send().timeout(const Duration(seconds: 100));
+            await request.send().timeout(const Duration(seconds: 100));
         String result = await response.stream.bytesToString();
         log(response.statusCode.toString());
         log("api response >>>>>>>>>>>>>>>>>>>>>>>>:${result.toString()}");
-        if(response.statusCode == 401){
+        if (response.statusCode == 401) {
           await SharedPref.logOut();
           Modular.to.pushNamedAndRemoveUntil(
               "/loginScreen", (Route<dynamic> route) => false,
               arguments: "");
+        }
+        if (response.statusCode == 429) {
+          BotToast.showText(
+              text:
+                  "لقد استنفذت الحد الاقصي من المحاولات .. برجاء المحاوله لاحقا");
+          return null;
         }
         try {
           return json.decode(result);
@@ -63,27 +74,27 @@ class NetworkMethods {
           log("cccccccccsdsdsdsdsd$e");
           return null;
         }
-      }
-      on TimeoutException catch (_) {
+      } on TimeoutException catch (_) {
         log("⏰ Request timed out");
         if (context != null) {
-         return ToastHelper.showError(context, message: "Request timed out. Please try again.");
+          return ToastHelper.showError(context,
+              message: "Request timed out. Please try again.");
         }
         return null;
       } catch (e) {
-        BotToast.showText(text:"برجاء التحقق من الاتصال بالانترنت");
+        BotToast.showText(text: "برجاء التحقق من الاتصال بالانترنت");
         if (context != null) {
-         return  ToastHelper.showError(context, message: "Something went wrong. Please try again.");
+          return ToastHelper.showError(context,
+              message: "Something went wrong. Please try again.");
         }
         return null;
       }
-    }
-    else {
+    } else {
       Modular.to.pushNamedAndRemoveUntil(
-          "/noInternetScreen", (Route<dynamic> route) => false,);
+        "/noInternetScreen",
+        (Route<dynamic> route) => false,
+      );
     }
-
-
   }
 
   static Future getRequest({
@@ -91,71 +102,84 @@ class NetworkMethods {
     Map<String, String>? headers,
   }) async {
     var checkConnection = await Connectivity().checkConnectivity();
-    if(checkConnection != ConnectivityResult.none) {
-    debugPrint('${API.baseURL}$url');
-    var request = http.Request('GET', Uri.parse('${API.baseURL}$url'));
+    if (checkConnection != ConnectivityResult.none) {
+      debugPrint('${API.baseURL}$url');
+      var request = http.Request('GET', Uri.parse('${API.baseURL}$url'));
+
+      // Get device ID - ensure it's always included
+      String deviceId = await DeviceIdHelper.getDeviceId();
+
+      // Add standard headers
       request.headers.addAll({
         'Content-Type': 'application/json',
-        "Accept" : "application/json",
-        "Authorization" : (SharedPref.getUserObg() == null) ? "${SharedPref.getGuestToken()}" : "${SharedPref.getUserObg()?.token}",
+        "Accept": "application/json",
+        "Authorization": (SharedPref.getUserObg() == null)
+            ? "${SharedPref.getGuestToken()}"
+            : "${SharedPref.getUserObg()?.token}",
       });
-    if (headers != null) request.headers.addAll(headers);
-    http.StreamedResponse response;
-    try {
-      response =
-      await request.send().timeout(const Duration(seconds: 10));
-      String result = await response.stream.bytesToString();
-      log(response.statusCode.toString());
-      log(result.toString());
-      if(response.statusCode == 401){
-        await SharedPref.logOut();
-        Modular.to.pushNamedAndRemoveUntil(
-            "/loginScreen", (Route<dynamic> route) => false,
-            arguments: "");
-      }
+
+      // Add custom headers if provided
+      if (headers != null) request.headers.addAll(headers);
+
+      // Add device ID last to ensure it's always present (even if custom headers try to override)
+      request.headers["Device-Id"] = deviceId;
+      http.StreamedResponse response;
       try {
-        return json.decode(result);
+        response = await request.send().timeout(const Duration(seconds: 10));
+        String result = await response.stream.bytesToString();
+        log(response.statusCode.toString());
+        log(result.toString());
+        if (response.statusCode == 401) {
+          await SharedPref.logOut();
+          Modular.to.pushNamedAndRemoveUntil(
+              "/loginScreen", (Route<dynamic> route) => false,
+              arguments: "");
+        }
+        if (response.statusCode == 429) {
+          BotToast.showText(
+              text:
+                  "لقد استنفذت الحد الاقصي من المحاولات .. برجاء المحاوله لاحقا");
+          return null;
+        }
+        try {
+          return json.decode(result);
+        } catch (e) {
+          log("❌ JSON decoding error: $e");
+          return null;
+        }
+      } on TimeoutException catch (_) {
+        log("⏰ Request timed out");
+        // if (context != null) {
+        //   ToastHelper.showError(context, message: "Request timed out. Please try again.");
+        // }
+        return null;
+      } on SocketException catch (_) {
+        log("❌ Socket/network error");
+        BotToast.showText(text: "برجاء التحقق من الاتصال بالانترنت");
+        // if (context != null) {
+        //   ToastHelper.showError(context, message: "Network error. Please check your connection.");
+        // }
+        return null;
       } catch (e) {
-        log("❌ JSON decoding error: $e");
+        log("❌ Unexpected error: $e");
+        // if (context != null) {
+        //   ToastHelper.showError(context, message: "An unexpected error occurred.");
+        // }
         return null;
       }
-    } on TimeoutException catch (_) {
-      log("⏰ Request timed out");
-      // if (context != null) {
-      //   ToastHelper.showError(context, message: "Request timed out. Please try again.");
-      // }
-      return null;
-    }  on SocketException catch (_) {
-      log("❌ Socket/network error");
-      BotToast.showText(text:"برجاء التحقق من الاتصال بالانترنت");
-      // if (context != null) {
-      //   ToastHelper.showError(context, message: "Network error. Please check your connection.");
-      // }
-      return null;
-    } catch (e) {
-      log("❌ Unexpected error: $e");
-      // if (context != null) {
-      //   ToastHelper.showError(context, message: "An unexpected error occurred.");
-      // }
-      return null;
-    }
       // return json.decode(result);
     } else {
-      Modular.to.popAndPushNamed(
-        "/noInternetScreen");
+      Modular.to.popAndPushNamed("/noInternetScreen");
     }
-
   }
-
-
 }
 
 class MultipartRequest extends http.MultipartRequest {
   MultipartRequest(
-      String method,
-      Uri url, {
-        required this.onProgress,
-      }) : super(method, url);
+    String method,
+    Uri url, {
+    required this.onProgress,
+  }) : super(method, url);
   final void Function(int bytes, int totalBytes) onProgress;
 
   @override

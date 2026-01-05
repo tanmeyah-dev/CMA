@@ -2,14 +2,18 @@ class ContactUsModel{
   String phoneNumber;
   String name;
   String message;
-  ContactUsModel({required this.phoneNumber,required this.name,required this.message});
+  String? lookupId;
+  ContactUsModel({required this.phoneNumber,required this.name,required this.message, this.lookupId});
 
-  Map<String, String> toJson() {
-    Map<String, String> body = {
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> body = {
       "customerName": name,
       "phone": phoneNumber,
       "message": message,
     };
+    if (lookupId != null && lookupId!.isNotEmpty) {
+      body["lookupId"] = lookupId;
+    }
     return body;
   }
 

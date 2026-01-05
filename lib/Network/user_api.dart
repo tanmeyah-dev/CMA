@@ -16,8 +16,10 @@ import '../Models/user_model.dart';
 import '../Models/verify_otp_model.dart';
 import '../Shared/shared_prefirences.dart';
 import '../Utilities/general_toast.dart';
+import '../Utilities/device_id_helper.dart';
 import 'api.dart';
 import 'network_methods.dart';import 'package:http/http.dart' as http;
+import 'package:bot_toast/bot_toast.dart';
 
 
 class UserApi {
@@ -58,15 +60,22 @@ class UserApi {
 
 
   static Future<bool> loginWithInginex(BuildContext context,{required LoginForm loginForm}) async {
+    // Get device ID
+    String deviceId = await DeviceIdHelper.getDeviceId();
+    
     Map<String, String>? headers = {};
     headers.addAll({
       'Content-Type': 'application/json',
       "Accept": "application/json",
       "Authorization": "${SharedPref.getGuestToken()}",
+      "Device-Id": deviceId,
     });
     var response = await http.post(Uri.parse("${API.baseServerURL}/api/v1/Identity/Login"), headers: headers,
         body: jsonEncode(loginForm.toJson()));
-    if (response == null) return false;
+    if(response.statusCode == 429){
+      BotToast.showText(text:"لقد استنفذت الحد الاقصي من المحاولات .. برجاء المحاوله لاحقا");
+      return false;
+    }
     var result = json.decode(utf8.decode(response.bodyBytes));
     print("<<<<<<<<<<<>>>>>>>>>>" + result.toString());
     if( result["isSuccess"] == true  && result["code"] == "200") {

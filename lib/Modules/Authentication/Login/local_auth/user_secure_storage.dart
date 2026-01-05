@@ -28,6 +28,8 @@ class UserSecureStorage {
   }
 
   static Future deleteData() async {
-    await _storage.deleteAll();
+    // Only delete specific keys, not all storage (to preserve device ID)
+    await _storage.delete(key: _keyPhone);
+    await _storage.delete(key: _keyPassword);
   }
 }
