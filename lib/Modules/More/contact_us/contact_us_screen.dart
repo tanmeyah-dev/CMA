@@ -119,7 +119,6 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                               mobileTxtField(),
                             ],
                           ),
-
                           AppTextRegular(
                             title: "استفسارك بخصوص",
                             color: ThemeClass.secondaryColor,
@@ -127,38 +126,41 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           SizedBox(
                             height: 8.h,
                           ),
-                          CustomDropDownWidget<String>(
-                            hint: "استفسارك بخصوص",
-                            selected: (con.selectChoose == null ||
-                                    con.selectChoose!.isEmpty)
-                                ? null
-                                : con.selectChoose,
-                            onChange: (String? selectedId) {
-                              con.selectChoose = selectedId;
-                              setState(() {});
-                            },
-                            validate: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى اختيار تخصص الاستفسار';
-                              }
-                              return null;
-                            },
-                            borderColor: Colors.grey,
-                            items: con.contactListResponse?.contactUsLookups
-                                    ?.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id?.toString(),
-                                    child: Text(item.text ?? "",
-                                        style: TextStyle(
-                                            fontSize: 16.sp, height: -0.2)),
-                                  );
-                                }).toList() ??
-                                [],
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.only(left: 10.w),
-                              child: Icon(
-                                Iconsax.arrow_down5,
-                                color: ThemeClass.secondaryColor,
+                          Padding(
+                            padding: EdgeInsets.all(4.w),
+                            child: CustomDropDownWidget<String>(
+                              hint: "استفسارك بخصوص",
+                              selected: (con.selectChoose == null ||
+                                      con.selectChoose!.isEmpty)
+                                  ? null
+                                  : con.selectChoose,
+                              onChange: (String? selectedId) {
+                                con.selectChoose = selectedId;
+                                setState(() {});
+                              },
+                              validate: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'يرجى اختيار تخصص الاستفسار';
+                                }
+                                return null;
+                              },
+                              borderColor: Colors.grey,
+                              items: con.contactListResponse?.contactUsLookups
+                                      ?.map((item) {
+                                    return DropdownMenuItem<String>(
+                                      value: item.id?.toString(),
+                                      child: Text(item.text ?? "",
+                                          style: TextStyle(
+                                              fontSize: 16.sp, height: -0.2)),
+                                    );
+                                  }).toList() ??
+                                  [],
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: Icon(
+                                  Iconsax.arrow_down5,
+                                  color: ThemeClass.secondaryColor,
+                                ),
                               ),
                             ),
                           ),
