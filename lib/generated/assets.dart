@@ -19,6 +19,9 @@ class Assets {
   static const String authVersion = 'assets/images/auth/version.png';
   static const String authWarning = 'assets/images/auth/warning.png';
   static const String authWrongNum = 'assets/images/auth/wrong_num.png';
+  static const String contactFace = 'assets/images/contact/face.png';
+  static const String contactInsta = 'assets/images/contact/insta.png';
+  static const String contactWhats = 'assets/images/contact/whats.png';
   static const String fontsDINNextLTArabicRegular = 'assets/fonts/DINNextLTArabic-Regular.ttf';
   static const String homeActiveLoan = 'assets/images/home/active_loan.png';
   static const String homeAlert = 'assets/images/home/alert.png';

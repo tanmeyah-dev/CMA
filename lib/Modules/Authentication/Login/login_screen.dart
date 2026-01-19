@@ -89,7 +89,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
         onWillPop: () async => false,
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
-            resizeToAvoidBottomInset: false,
             extendBodyBehindAppBar: true,
             appBar: BaseAppBar.main(
                 isBackButtonVisible: false,

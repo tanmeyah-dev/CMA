@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Modules/More/contact_us/contact_us_controller.dart';
+import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
@@ -18,6 +19,7 @@ import '../../../Widgets/custom_textfield_widget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import '../../../Widgets/drop_down_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsScreen extends StatefulWidget {
   static const String routeName = "/contactUsScreen";
@@ -79,6 +81,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                   decoration: BoxDecoration(
@@ -96,9 +99,13 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                               SizedBox(
                                 width: 8.w,
                               ),
-                              AppTextRegular(
-                                title: "ارسال رسالة نصية لتنميه",
-                                fontSize: 24.sp,
+                              Expanded(
+                                child: AppTextRegular(
+                                  title:
+                                      "للشكاوى، المقترحات والاستفسارات المتعلقة بالشركة أو الشركاء الإستراتيجيين يمكنك التواصل معنا:",
+                                  fontSize: 22.sp,
+                                  textAlign: TextAlign.start,
+                                ),
                               ),
                             ],
                           ),
@@ -253,6 +260,61 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildSocialIcon(
+                        AppAssets.IMG_WHATS,
+                        onTap: () async {
+                          final url = Uri.parse('https://wa.me/201148544878');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url,
+                                mode: LaunchMode.externalApplication);
+                          }
+                        },
+                      ),
+                      _buildDivider(),
+                      _buildSocialIcon(
+                        AppAssets.IMG_INSTA,
+                        onTap: () async {
+                          final url = Uri.parse(
+                              'https://www.instagram.com/tanmeyahegypt?igsh=MWF6MW92dm9jM3luOA==');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url,
+                                mode: LaunchMode.externalApplication);
+                          }
+                        },
+                      ),
+                      _buildDivider(),
+                      _buildSocialIcon(
+                        AppAssets.IMG_FACE,
+                        onTap: () async {
+                          final url = Uri.parse(
+                              'https://www.facebook.com/share/1CGabAhVrp/');
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url,
+                                mode: LaunchMode.externalApplication);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  AppTextUnderline(
+                    title: "www.tanmeyah.com",
+                    onTap: () async {
+                      final url = Uri.parse('https://www.tanmeyah.com');
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url,
+                            mode: LaunchMode.externalApplication);
+                      }
+                    },
+                    color: ThemeClass.primaryColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
                 ],
               ),
             ),
@@ -319,6 +381,35 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
           validator: (value) => Validator.validateFullName(context, value!),
         ),
       ],
+    );
+  }
+
+  Widget _buildSocialIcon(String assetPath, {VoidCallback? onTap}) {
+    Widget icon = Image.asset(
+      assetPath,
+      width: 30.w,
+      height: 30.h,
+      fit: BoxFit.contain,
+    );
+
+    if (onTap != null) {
+      return GestureDetector(
+        onTap: onTap,
+        child: icon,
+      );
+    }
+
+    return icon;
+  }
+
+  Widget _buildDivider() {
+    return SizedBox(
+      height: 30.h,
+      child: VerticalDivider(
+        width: 16.w,
+        thickness: 1,
+        color: ThemeClass.borderColor,
+      ),
     );
   }
 }

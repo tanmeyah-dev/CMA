@@ -74,6 +74,8 @@
 	<string>Tanmeyah does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Tanmeyah requires access to the photo library.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Tanmeyah needs access to your local network for debugging and development purposes.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

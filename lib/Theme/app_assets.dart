@@ -92,4 +92,9 @@ class AppAssets {
   static const IMG_MORE_ABOUT = "assets/images/more/more_item/info.png";
   static const IMG_CONTACT = "assets/images/contact.png";
   static const IMG_PROFILE = "assets/images/auth/profile.png";
+
+
+  static const IMG_FACE = "assets/images/contact/face.png";
+  static const IMG_INSTA = "assets/images/contact/insta.png";
+  static const IMG_WHATS = "assets/images/contact/whats.png";
 }

@@ -143,14 +143,16 @@ class AppTextUnderline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = color ?? ThemeClass.fontColor;
     return GestureDetector(
       onTap: onTap,
       child: Text(
         title,
         style: TextStyle(
             fontSize: fontSize ?? 16.sp,
-            color: color ?? ThemeClass.fontColor,
+            color: textColor,
             decoration: TextDecoration.underline,
+            decorationColor: textColor,
             fontWeight: fontWeight?? FontWeight.w400,
         ),
       ),

@@ -416,28 +416,28 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                     constraints: BoxConstraints(
                                       minHeight: constraints.maxHeight,
                                     ),
-                                    child: IntrinsicHeight(
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                                AppAssets.IMG_NO_LOAN,
-                                                fit: BoxFit.fill,
-                                                width: 320.w,
-                                                height: 320.h,
-                                            ),
-                                            SizedBox(height: 40.h,),
-                                            AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
-                                            SizedBox(height: 160.h,),
-                                            (con.canRequestLoan == true) ? CustomButton(title: "start_ask_loan".tr, onTap: (){
-                                              Navigator.pushNamed(context, LoanRequestTermsScreen.routeName);
-                                            },fontWeight : FontWeight.w600,width: 318.w,backgroundColor: Color(0xFFF9E2E1), textColor: ThemeClass.primaryColor,borderColor: Colors.transparent,) : Container(),
-                                            SizedBox(height: 20.h,),
-                                          ],
-                                        ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Image.asset(
+                                              AppAssets.IMG_NO_LOAN,
+                                              fit: BoxFit.fill,
+                                              width: 320.w,
+                                              height: 320.h,
+                                          ),
+                                          SizedBox(height: 40.h,),
+                                          AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
+                                          SizedBox(height: 160.h,),
+                                          (con.canRequestLoan == true) ? CustomButton(title: "start_ask_loan".tr, onTap: (){
+                                            Navigator.pushNamed(context, LoanRequestTermsScreen.routeName);
+                                          },fontWeight : FontWeight.w600,width: 318.w,backgroundColor: Color(0xFFF9E2E1), textColor: ThemeClass.primaryColor,borderColor: Colors.transparent,) : Container(),
+                                          SizedBox(height: 20.h,),
+                                        ],
                                       ),
                                     ),
                                   ),

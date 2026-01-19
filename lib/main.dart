@@ -11,6 +11,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ import 'Utilities/routing.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
-import 'package:dart_ping_ios/dart_ping_ios.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:bot_toast/bot_toast.dart';
 
@@ -36,16 +37,50 @@ Future<void> main() async {
 
   // UpdateApp.startFlexibleUpdate();
 
-  await SharedObj().init();
-  DartPingIOS.register();
-  var pings = await Ping('gateway.tanmeyah.com',count: 4);
-  pings.stream.listen((ping) {
-    print(">>>><<<<<");
-    print(ping);
-  });
+  try {
+    await SharedObj().init();
+  } catch (e) {
+    debugPrint('Error initializing SharedObj: $e');
+  }
+
+  try {
+    DartPingIOS.register();
+    // Ping operation wrapped in try-catch to prevent crashes
+    var pings = Ping('gateway.tanmeyah.com', count: 4);
+    pings.stream
+        .timeout(
+      const Duration(seconds: 10),
+      onTimeout: (sink) {
+        debugPrint('Ping operation timed out');
+        sink.close();
+      },
+    )
+        .listen(
+      (ping) {
+        debugPrint(">>>><<<<<");
+        debugPrint(ping.toString());
+      },
+      onError: (error) {
+        debugPrint('Ping error: $error');
+      },
+      onDone: () {
+        debugPrint('Ping stream completed');
+      },
+      cancelOnError: true,
+    );
+  } catch (e) {
+    debugPrint('Error setting up ping: $e');
+    // Continue app initialization even if ping fails
+  }
+
   HttpOverrides.global = MyHttpOverrides();
 
-   await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    debugPrint('Error initializing Firebase: $e');
+    // Decide if you want to continue or exit
+  }
 
   runApp(MultiProvider(
     providers: [

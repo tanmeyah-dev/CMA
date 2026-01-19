@@ -43,8 +43,11 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
 
   @override
   void initState() {
-    checkConnectivity();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 500));
+      await checkConnectivity();
+    });
   }
 
   checkConnectivity() async {

@@ -5,10 +5,17 @@ buildscript {
         mavenCentral()
     }
 
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.tools.build:gradle:8.6.0'
+            force 'com.android.tools.build:builder:8.6.0'
+            force 'com.android.tools.build:bundletool:1.17.2'
+        }
+    }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.4.1'
         // START: FlutterFire Configuration
-        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.gms:google-services:4.4.2'
         // END: FlutterFire Configuration
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -19,6 +26,12 @@ allprojects {
         google()
         mavenCentral()
     }
+    
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.tools.build:gradle:8.6.0'
+        }
+    }
 }
 
 rootProject.buildDir = '../build'
@@ -26,7 +39,7 @@ rootProject.buildDir = '../build'
 // Define Flutter properties for subprojects that expect them.
 def flutterProperties = [
     compileSdkVersion: 35,
-    minSdkVersion    : 21,
+    minSdkVersion    : 23,
     targetSdkVersion : 34
 ]
 
@@ -35,9 +48,31 @@ rootProject.ext.flutter = flutterProperties
 // Make the flutter properties available to every project as early as possible.
 gradle.beforeProject { proj ->
     proj.ext.flutter = flutterProperties
+    
+    // Force AGP version for plugin buildscripts as early as possible
+    try {
+        proj.buildscript.configurations.all {
+            resolutionStrategy {
+                force 'com.android.tools.build:gradle:8.6.0'
+                force 'com.android.tools.build:builder:8.6.0'
+                force 'com.android.tools.build:bundletool:1.17.2'
+            }
+        }
+    } catch (ignored) {
+        // Some projects might not have buildscript yet
+    }
 }
 
 gradle.allprojects { proj ->
+    // Force AGP version for all projects including plugins
+    proj.buildscript.configurations.all {
+        resolutionStrategy {
+            force 'com.android.tools.build:gradle:8.6.0'
+            force 'com.android.tools.build:builder:8.6.0'
+            force 'com.android.tools.build:bundletool:1.17.2'
+        }
+    }
+    
     // Provide an android.flutter getter as soon as the Android plugin is applied.
     def attachFlutterExtension = {
         def androidExt = proj.extensions.findByName('android')
@@ -71,6 +106,19 @@ gradle.allprojects { proj ->
 
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+    
+    // Force all subprojects to use the newer AGP version
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.configurations.all {
+                resolutionStrategy {
+                    force 'com.android.tools.build:gradle:8.6.0'
+                    force 'com.android.tools.build:builder:8.6.0'
+                    force 'com.android.tools.build:bundletool:1.17.2'
+                }
+            }
+        }
+    }
 }
 subprojects {
     project.evaluationDependsOn(':app')
