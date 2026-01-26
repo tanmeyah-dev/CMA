@@ -73,13 +73,17 @@ class SplashController extends ControllerMVC {
 
   Future<bool> getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version =  packageInfo.version;
-    isUpToDate = await SplashApi.sendVersion(version);
-    print("MMMMMM$isUpToDate");
-    if (isUpToDate == true) {
-      return false;
+    String version = packageInfo.version;
+    bool? forcedUpdateRequired = await SplashApi.sendVersion(version);
+    isUpToDate = forcedUpdateRequired;
+    debugPrint("Version check result - Forced update required: $forcedUpdateRequired");
+    
+    // If forced update is required (true), return false to show update screen
+    // If no forced update needed (false) or API failed (null), return true to continue
+    if (forcedUpdateRequired == true) {
+      return false; // Show AppVersionScreen
     } else {
-      return true;
+      return true; // Continue with normal flow
     }
   }
 }
