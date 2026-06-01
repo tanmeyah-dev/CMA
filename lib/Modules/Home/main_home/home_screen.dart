@@ -54,7 +54,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_home_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_home_screen"
         }
     );
@@ -173,7 +173,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                                               _analytics.logEvent(
                                                                   name: 'request_loan_button',
-                                                                  parameters: <String,dynamic>{
+                                                                  parameters: <String,Object>{
                                                                     "title" :"request_loan_button"
                                                                   }
                                                               );
@@ -230,7 +230,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                     //           final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                     //           _analytics.logEvent(
                     //           name: 'request_view_all_offers',
-                    //           parameters: <String,dynamic>{
+                    //           parameters: <String,Object>{
                     //           "title" :"request_view_all_offers"
                     //           }
                     //           );

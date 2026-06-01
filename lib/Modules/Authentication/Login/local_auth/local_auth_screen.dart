@@ -158,7 +158,7 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
             final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
             _analytics.logEvent(
                 name: 'submit_biometric_login_screen',
-                parameters: <String,dynamic>{
+                parameters: <String,Object>{
                   "title" :"submit_biometric_login_screen"
                 }
             );

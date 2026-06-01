@@ -43,7 +43,7 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_services_detail_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_services_detail_screen ${con.serviceDetailModel?.nameAr}"
         }
     );

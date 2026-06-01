@@ -171,7 +171,7 @@ class ForgetPasswordController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'success_reset_password_screen',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" :"success_reset_password_screen"
           }
       );

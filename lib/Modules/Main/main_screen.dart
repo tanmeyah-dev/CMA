@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_landing_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_landing_screen"
         }
     );

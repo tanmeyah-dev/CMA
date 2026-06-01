@@ -99,7 +99,7 @@ class ContactUsController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'submit_contact_us_successfully',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" :"submit_contact_us_successfully"
           }
       );

@@ -32,7 +32,7 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_update_version_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_update_version_screen"
         }
     );
@@ -102,7 +102,7 @@ class _AppVersionScreenState extends State<AppVersionScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'submit_update_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"submit_update_screen"
         }
     );

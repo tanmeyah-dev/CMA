@@ -32,7 +32,7 @@ class _AlreadyPaidScreenState extends StateMVC<AlreadyPaidScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_already_paid_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_already_paid_screen"
         }
     );

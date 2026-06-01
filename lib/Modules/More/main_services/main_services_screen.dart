@@ -39,7 +39,7 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_main_services_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_main_services_screen"
         }
     );
@@ -85,8 +85,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                               _analytics.logEvent(
                                   name: 'Open_Product_Detail',
-                                  parameters: <String,dynamic>{
-                                    "product_name" : con.servicesResponse?.products![index].nameAr
+                                  parameters: <String,Object>{
+                                    "product_name": con.servicesResponse?.products![index].nameAr ?? '',
                                   }
                               );
                               Navigator.pushNamed(

@@ -43,7 +43,7 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_all_billers_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_all_billers_screen"
         }
     );
@@ -85,7 +85,7 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
                         final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                         _analytics.logEvent(
                             name: 'request_service',
-                            parameters: <String,dynamic>{
+                            parameters: <String,Object>{
                               "title" :"request_service_with  ${con.getAllServicesResponse?.serviceTypes![index].serviceTypeName}"
                             }
                         );

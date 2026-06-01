@@ -38,7 +38,7 @@ class _MobileBillersScreenState extends StateMVC<ServiceBillersScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_mobile_billers_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_mobile_billers_screen"
         }
     );

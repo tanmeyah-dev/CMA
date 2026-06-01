@@ -39,7 +39,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_phone_number_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "open_phone_number_screen"
         }
     );
@@ -152,7 +152,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                       _analytics.logEvent(
                           name: 'submit_phone_number_screen',
-                          parameters: <String,dynamic>{
+                          parameters: <String,Object>{
                             "title" : "submit_phone_number_screen"
                           }
                       );

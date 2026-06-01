@@ -32,7 +32,7 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_payment_needed_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_payment_needed_screen"
         }
     );

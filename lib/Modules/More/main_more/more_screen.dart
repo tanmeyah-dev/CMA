@@ -47,7 +47,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_more_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_more_screen"
         }
     );
@@ -118,7 +118,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                               _analytics.logEvent(
                                                   name: 'request_offers_screen',
-                                                  parameters: <String,dynamic>{
+                                                  parameters: <String,Object>{
                                                     "title" :"request_request_screen"
                                                   }
                                               );
@@ -134,7 +134,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                               _analytics.logEvent(
                                                   name: 'request_contact_us_screen',
-                                                  parameters: <String,dynamic>{
+                                                  parameters: <String,Object>{
                                                     "title" :"request_contact_us_screen"
                                                   }
                                               );
@@ -150,7 +150,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                               _analytics.logEvent(
                                                   name: 'request_branches_screen',
-                                                  parameters: <String,dynamic>{
+                                                  parameters: <String,Object>{
                                                     "title" :"request_branches_screen"
                                                   }
                                               );
@@ -166,7 +166,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                               _analytics.logEvent(
                                                   name: 'request_terms_screen',
-                                                  parameters: <String,dynamic>{
+                                                  parameters: <String,Object>{
                                                     "title" :"request_terms_screen"
                                                   }
                                               );
@@ -182,7 +182,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                               _analytics.logEvent(
                                                   name: 'request_privacy_screen',
-                                                  parameters: <String,dynamic>{
+                                                  parameters: <String,Object>{
                                                     "title" :"request_privacy_screen"
                                                   }
                                               );
@@ -198,7 +198,7 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                               _analytics.logEvent(
                                                   name: 'request_about_us_screen',
-                                                  parameters: <String,dynamic>{
+                                                  parameters: <String,Object>{
                                                     "title" :"request_about_us_screen"
                                                   }
                                               );

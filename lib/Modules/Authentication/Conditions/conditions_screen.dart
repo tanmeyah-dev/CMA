@@ -32,7 +32,7 @@ class _ConditionsScreenState extends StateMVC<ConditionsScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_conditions_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "open_conditions_screen"
         }
     );

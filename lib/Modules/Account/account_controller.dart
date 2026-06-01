@@ -99,7 +99,7 @@ class AccountController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'user_deactivate_account',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" :"user_deactivate_account"
           }
       );

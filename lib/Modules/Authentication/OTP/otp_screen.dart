@@ -43,7 +43,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_send_otp_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "open_send_otp_screen"
         }
     );
@@ -141,7 +141,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                   _analytics.logEvent(
                       name: 'request_resend_otp_screen',
-                      parameters: <String,dynamic>{
+                      parameters: <String,Object>{
                         "title" : "request_resend_otp_screen"
                       }
                   );
@@ -181,7 +181,7 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
                 final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                 _analytics.logEvent(
                     name: 'submit_otp_screen',
-                    parameters: <String,dynamic>{
+                    parameters: <String,Object>{
                       "title" : "submit_otp_screen"
                     }
                 );

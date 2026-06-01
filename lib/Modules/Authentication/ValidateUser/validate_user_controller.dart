@@ -82,7 +82,7 @@ class ValidateUserController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'success_phone_number_screen',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" : "success_phone_number_screen"
           }
       );
@@ -92,7 +92,7 @@ class ValidateUserController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'success_phone_number_screen',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" : "success_phone_number_screen"
           }
       );

@@ -35,7 +35,7 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_offers_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_offers_screen"
         }
     );
@@ -71,7 +71,7 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                               _analytics.logEvent(
                                   name: 'open_offers_detail',
-                                  parameters: <String,dynamic>{
+                                  parameters: <String,Object>{
                                     "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"
                                   }
                               );

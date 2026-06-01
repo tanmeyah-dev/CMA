@@ -61,7 +61,7 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
        _analytics.logEvent(
         name: 'open_splash',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "Open_Splash_Screen"
         }
       );

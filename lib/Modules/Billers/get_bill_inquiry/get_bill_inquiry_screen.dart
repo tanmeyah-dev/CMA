@@ -50,7 +50,7 @@
 //     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 //     _analytics.logEvent(
 //         name: 'open_get_bill_inquiry_screen',
-//         parameters: <String,dynamic>{
+//         parameters: <String,Object>{
 //           "title" :"open_get_bill_inquiry_screen"
 //         }
 //     );

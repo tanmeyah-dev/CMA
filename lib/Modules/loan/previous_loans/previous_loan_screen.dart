@@ -32,7 +32,7 @@ class _AlreadyPaidScreenState extends StateMVC<PreviousLoanScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_previous_loans_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_previous_loans_screen"
         }
     );
