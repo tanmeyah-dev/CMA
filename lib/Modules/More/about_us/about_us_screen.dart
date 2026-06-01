@@ -23,7 +23,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_about_us_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_about_us_screen"
         }
     );

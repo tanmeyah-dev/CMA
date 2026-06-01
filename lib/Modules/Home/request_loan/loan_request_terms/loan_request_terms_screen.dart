@@ -36,7 +36,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_loan_terms_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_loan_terms_screen"
         }
     );
@@ -145,7 +145,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                               _analytics.logEvent(
                                   name: 'submit_start_request_loan',
-                                  parameters: <String,dynamic>{
+                                  parameters: <String,Object>{
                                     "title" :"submit_start_request_loan"
                                   }
                               );

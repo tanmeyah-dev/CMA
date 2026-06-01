@@ -43,7 +43,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_contact_us_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_contact_us_screen"
         }
     );
@@ -152,7 +152,7 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                             final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                             _analytics.logEvent(
                                 name: 'submit_contact_us',
-                                parameters: <String,dynamic>{
+                                parameters: <String,Object>{
                                   "title" :"submit_contact_us"
                                 }
                             );

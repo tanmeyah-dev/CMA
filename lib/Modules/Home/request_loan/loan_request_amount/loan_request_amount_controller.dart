@@ -16,7 +16,6 @@ import 'package:geolocator/geolocator.dart';
 // import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as permsion;
 
-
 import 'package:url_launcher/url_launcher.dart';
 
 class LoanRequestAmountController extends ControllerMVC {
@@ -46,10 +45,8 @@ class LoanRequestAmountController extends ControllerMVC {
   String? selectedTitle;
   // LocationData? locationData;
 
-
   late TextEditingController loanAmount;
   final GlobalKey<FormState> formKey = GlobalKey();
-
 
   @override
   void initState() {
@@ -66,10 +63,7 @@ class LoanRequestAmountController extends ControllerMVC {
     super.dispose();
   }
 
-
   static Future<Position?> getCurrentLocation(BuildContext context) async {
-
-
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       // ToastHelper.showError(message: 'Location services are disabled.');
@@ -94,7 +88,6 @@ class LoanRequestAmountController extends ControllerMVC {
         desiredAccuracy: LocationAccuracy.low);
   }
 
-
   // bool checkApproveLocation(BuildContext context) async {
   //   bool result = await checkGps();
   //   if(result) return true;
@@ -114,13 +107,16 @@ class LoanRequestAmountController extends ControllerMVC {
     }
   }
 
-
-  checkLocation({required BuildContext context, bool isInitLocation = false}) async {
+  checkLocation(
+      {required BuildContext context, bool isInitLocation = false}) async {
     bool result = await checkGps();
     setState(() {});
     if (!result) {
-      if (context.mounted) AlertLocation.checkGpsWidget(
-        context: context, onDismiss: () {},);
+      if (context.mounted)
+        AlertLocation.checkGpsWidget(
+          context: context,
+          onDismiss: () {},
+        );
       return;
     } else {
       LocationPermission permission = await Geolocator.requestPermission();
@@ -131,23 +127,22 @@ class LoanRequestAmountController extends ControllerMVC {
         return;
       } else if (permission == LocationPermission.always ||
           permission == LocationPermission.whileInUse) {
-          submitLoan(context:context,isInit: isInitLocation);
+        submitLoan(context: context, isInit: isInitLocation);
       }
     }
   }
 
   submitLoan({required BuildContext context, bool isInit = false}) async {
     loading = true;
-    setState(() { });
+    setState(() {});
     Position? position = await getCurrentLocation(context);
     if (position == null) return;
     setState(() {
       loading = false;
       currentPosition = position;
     });
-    if(isInit) applyForLoan(context);
- }
-
+    if (isInit) applyForLoan(context);
+  }
 
   Future getLoanProducts() async {
     loading = true;
@@ -157,31 +152,27 @@ class LoanRequestAmountController extends ControllerMVC {
     setState(() {});
   }
 
+  applyForLoan(BuildContext context) async {
+    final now = DateTime.now();
+    String formatter = DateFormat('yyyy-MM-dd').format(now);
 
- applyForLoan(BuildContext context) async{
-   final now = DateTime.now();
-   String formatter = DateFormat('yyyy-MM-dd').format(now);
+    SharedPref.setUserLongitude(long: currentPosition!.longitude.toString());
+    SharedPref.setUserLatitude(lat: currentPosition!.latitude.toString());
 
-   SharedPref.setUserLongitude(long: currentPosition!.longitude.toString());
-   SharedPref.setUserLatitude(lat: currentPosition!.latitude.toString());
-
-   RequestLoanModel requestLoanModel = RequestLoanModel(
-       userId: SharedPref.getUserObg()!.id.toString(),
-       amount: loanAmount.text,
-       requestDate: formatter,
-       latitude: currentPosition?.latitude.toString()??"",
-       longitude: currentPosition?.longitude.toString() ?? "");
-   setState(() {
-     loading = true;
-   });
-   // SubmitLoanResponse? result = await RequestLoanApi.requestLoan(
-   //     context, requestLoanModel: requestLoanModel);
-   setState(() {
-     loading = false;
-   });
-   // Navigator.pushNamed(context, CheckoutSc.routeName);
- }
-
+    RequestLoanModel requestLoanModel = RequestLoanModel(
+        userId: SharedPref.getUserObg()!.id.toString(),
+        amount: loanAmount.text,
+        requestDate: formatter,
+        latitude: currentPosition?.latitude.toString() ?? "",
+        longitude: currentPosition?.longitude.toString() ?? "");
+    setState(() {
+      loading = true;
+    });
+    // SubmitLoanResponse? result = await RequestLoanApi.requestLoan(
+    //     context, requestLoanModel: requestLoanModel);
+    setState(() {
+      loading = false;
+    });
+    // Navigator.pushNamed(context, CheckoutSc.routeName);
+  }
 }
-
-

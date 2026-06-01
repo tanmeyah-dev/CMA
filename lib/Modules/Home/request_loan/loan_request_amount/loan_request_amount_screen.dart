@@ -20,6 +20,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../Billers/checkout/checkout_screen.dart';
 import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
+import 'loan_vlens_sdk_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class LoanRequestAmountScreen extends StatefulWidget {
@@ -59,10 +60,7 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_loan_amount_screen',
-        parameters: <String,dynamic>{
-          "title" :"open_loan_amount_screen"
-        }
-    );
+        parameters: <String, Object>{"title": "open_loan_amount_screen"});
     super.initState();
   }
 
@@ -105,154 +103,266 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               color: ThemeClass.whiteColor,
-              child:  Form(
+              child: Form(
                 key: con.formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      children: [
-                        Image.asset(
-                          AppAssets.IMG_AMOUNT,
-                          width: 366.w,
-                          height: 320.h,
-                        ),
-                    SizedBox(
-                          height: 16.h,
-                        ),
-                    Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 25.w),
-                          child: AppTextMedium(title: con.loanProductsResponse?.title??"",),
-                        ),
-                    SizedBox(height: 30.h,),
-                    (con.loanProductsResponse?.loanRequestProducts != null && con.loanProductsResponse!.loanRequestProducts!.isNotEmpty)?
-                    SizedBox(height: 210.h,
-                        child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: con.loanProductsResponse?.loanRequestProducts?.length,
-                    itemBuilder: (context, index) {
-                    return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (_selectedIndex == index) {
-                          _selectedIndex = null;
-                        } else {
-                          _selectedIndex = index;
-                          con.selectedValue =  con.loanProductsResponse!.loanRequestProducts![index].id;
-                          con.selectedTitle = con.loanProductsResponse!.loanRequestProducts![index].name;
-                        }
-                      });
-                    },
-                    child: Container(
-                    margin: EdgeInsets.all(8.r),
-                    padding: EdgeInsets.all(16.r),
-                    decoration: BoxDecoration(
-                            color: _selectedIndex == index ? ThemeClass.selectBackground : ThemeClass.whiteColor,
-                            borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Row(
-                    children: [
-                    SizedBox(width: 16.w),
-                      Container(
-                        padding: EdgeInsets.all(1.w),
-                        width: 24.w,
-                        height: 24.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: con.accept ? ThemeClass.profileContainer : Colors.grey, // border color
-                            width: 2.w,),),
-                        child: _selectedIndex == index ?
-                        Container(
-                                decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                  color: ThemeClass.profileContainer,),) : null,),
-                        SizedBox(width: 5.w,),
-                        AppTextRegular(title: con.loanProductsResponse!.loanRequestProducts![index].name??"",color: _selectedIndex == index ?ThemeClass.profileContainer : ThemeClass.blackColor,fontWeight: _selectedIndex == index ? FontWeight.w700 : FontWeight.w400,),
-                    ],
-                    ),
-                    ));}),) : Container(),
-                    SizedBox(height: 30.h,),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _selectedIndex != null
-                          ? Column(
-                        children: [
-                          CustomButton(
-                            width: 385.w,
-                            title: "next".tr,
-                            onTap: () {
-                              print("SELECTED " + con.selectedValue.toString());
-                              if (con.currentPosition == null) {
-                                con.checkLocation(
-                                    context: context,
-                                    isInitLocation: true);
-                              } else {
-                                LoanCheckoutModel? loanCheckoutModel = LoanCheckoutModel();
-                                loanCheckoutModel.latitude = con.currentPosition?.latitude.toString();
-                                loanCheckoutModel.longitude = con.currentPosition?.longitude.toString();
-                                loanCheckoutModel.amount = con.selectedValue;
-                                loanCheckoutModel.amountTitle = con.selectedTitle;
-                                loanCheckoutModel.branchTitle = con.selectedTitle;
-                                Navigator.pushNamed(context, LoanCityScreen.routeName,arguments: loanCheckoutModel);
-                                // con.applyForLoan(context);
-                              }
-                            },
-                            color: ThemeClass.textFieldBackgroundColor,
-                            borderColor:
-                            ThemeClass.textFieldBackgroundColor,
-                            textColor: ThemeClass.whiteColor,
-                            backgroundColor:
-                            ThemeClass.primaryColor,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                          Image.asset(
+                            AppAssets.IMG_AMOUNT,
+                            width: 366.w,
+                            height: 320.h,
                           ),
                           SizedBox(
                             height: 16.h,
                           ),
-                        ],
-                      )
-                          : Column(
-                        children: [
-                          CustomButton(
-                            width: 385.w,
-                            title: "next".tr,
-                            backgroundColor:
-                            ThemeClass.buttonNotActiveColor,
-                            borderColor: ThemeClass.buttonNotActiveColor,
-                            onTap: () {
-                              if (con.formKey.currentState!.validate()) {
-                                if (con.loanAmount.text.isNotEmpty &&
-                                    con.loanAmount.text.length > 3) {
-                                  if (con.currentPosition == null) {
-                                    con.checkLocation(
-                                        context: context,
-                                        isInitLocation: true);
-                                  } else {
-                                    con.applyForLoan(context);
-                                  }
-                                } else {
-                                  ToastHelper.showError(context,
-                                      message: "enter_amount".tr);
-                                }
-                              } else {
-                                setState(() {
-                                  con.autoValidate = true;
-                                });
-                              }
-                            },
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 25.w),
+                            child: AppTextMedium(
+                              title: con.loanProductsResponse?.title ?? "",
+                            ),
                           ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          (con.loanProductsResponse?.loanRequestProducts !=
+                                      null &&
+                                  con.loanProductsResponse!.loanRequestProducts!
+                                      .isNotEmpty)
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: con.loanProductsResponse!
+                                          .loanRequestProducts!.length +
+                                      1,
+                                  itemBuilder: (context, index) {
+                                    final products = con
+                                        .loanProductsResponse!
+                                        .loanRequestProducts!;
+                                    if (index == products.length) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(
+                                          top: 8.h,
+                                          left: 8.r,
+                                          right: 8.r,
+                                        ),
+                                        child: CustomButton(
+                                          width: 385.w,
+                                          title: 'Vlens SDK',
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute<void>(
+                                                builder: (_) =>
+                                                    const LoanVlensSdkScreen(),
+                                              ),
+                                            );
+                                          },
+                                          color: ThemeClass
+                                              .textFieldBackgroundColor,
+                                          borderColor: ThemeClass
+                                              .textFieldBackgroundColor,
+                                          textColor: ThemeClass.whiteColor,
+                                          backgroundColor:
+                                              ThemeClass.primaryColor,
+                                        ),
+                                      );
+                                    }
+                                    return GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                if (_selectedIndex == index) {
+                                                  _selectedIndex = null;
+                                                } else {
+                                                  _selectedIndex = index;
+                                                  con.selectedValue = con
+                                                      .loanProductsResponse!
+                                                      .loanRequestProducts![
+                                                          index]
+                                                      .id;
+                                                  con.selectedTitle = con
+                                                      .loanProductsResponse!
+                                                      .loanRequestProducts![
+                                                          index]
+                                                      .name;
+                                                }
+                                              });
+                                            },
+                                            child: Container(
+                                              margin: EdgeInsets.all(8.r),
+                                              padding: EdgeInsets.all(16.r),
+                                              decoration: BoxDecoration(
+                                                color: _selectedIndex == index
+                                                    ? ThemeClass
+                                                        .selectBackground
+                                                    : ThemeClass.whiteColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 16.w),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.all(1.w),
+                                                    width: 24.w,
+                                                    height: 24.h,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        color: con.accept
+                                                            ? ThemeClass
+                                                                .profileContainer
+                                                            : Colors
+                                                                .grey, // border color
+                                                        width: 2.w,
+                                                      ),
+                                                    ),
+                                                    child:
+                                                        _selectedIndex == index
+                                                            ? Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: ThemeClass
+                                                                      .profileContainer,
+                                                                ),
+                                                              )
+                                                            : null,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  AppTextRegular(
+                                                    title: con
+                                                            .loanProductsResponse!
+                                                            .loanRequestProducts![
+                                                                index]
+                                                            .name ??
+                                                        "",
+                                                    color: _selectedIndex ==
+                                                            index
+                                                        ? ThemeClass
+                                                            .profileContainer
+                                                        : ThemeClass.blackColor,
+                                                    fontWeight:
+                                                        _selectedIndex == index
+                                                            ? FontWeight.w700
+                                                            : FontWeight.w400,
+                                                  ),
+                                                ],
+                                              ),
+                                            ));
+                                  },
+                                )
+                              : Container(),
                           SizedBox(
                             height: 16.h,
                           ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                 ],
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 16.h),
+                      child: _selectedIndex != null
+                          ? Column(
+                                    children: [
+                                      CustomButton(
+                                        width: 385.w,
+                                        title: "next".tr,
+                                        onTap: () {
+                                          print("SELECTED " +
+                                              con.selectedValue.toString());
+                                          if (con.currentPosition == null) {
+                                            con.checkLocation(
+                                                context: context,
+                                                isInitLocation: true);
+                                          } else {
+                                            LoanCheckoutModel?
+                                                loanCheckoutModel =
+                                                LoanCheckoutModel();
+                                            loanCheckoutModel.latitude = con
+                                                .currentPosition?.latitude
+                                                .toString();
+                                            loanCheckoutModel.longitude = con
+                                                .currentPosition?.longitude
+                                                .toString();
+                                            loanCheckoutModel.amount =
+                                                con.selectedValue;
+                                            loanCheckoutModel.amountTitle =
+                                                con.selectedTitle;
+                                            loanCheckoutModel.branchTitle =
+                                                con.selectedTitle;
+                                            Navigator.pushNamed(context,
+                                                LoanCityScreen.routeName,
+                                                arguments: loanCheckoutModel);
+                                            // con.applyForLoan(context);
+                                          }
+                                        },
+                                        color:
+                                            ThemeClass.textFieldBackgroundColor,
+                                        borderColor:
+                                            ThemeClass.textFieldBackgroundColor,
+                                        textColor: ThemeClass.whiteColor,
+                                        backgroundColor:
+                                            ThemeClass.primaryColor,
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      CustomButton(
+                                        width: 385.w,
+                                        title: "next".tr,
+                                        backgroundColor:
+                                            ThemeClass.buttonNotActiveColor,
+                                        borderColor:
+                                            ThemeClass.buttonNotActiveColor,
+                                        onTap: () {
+                                          if (con.formKey.currentState!
+                                              .validate()) {
+                                            if (con.loanAmount.text
+                                                    .isNotEmpty &&
+                                                con.loanAmount.text.length >
+                                                    3) {
+                                              if (con.currentPosition == null) {
+                                                con.checkLocation(
+                                                    context: context,
+                                                    isInitLocation: true);
+                                              } else {
+                                                con.applyForLoan(context);
+                                              }
+                                            } else {
+                                              ToastHelper.showError(context,
+                                                  message: "enter_amount".tr);
+                                            }
+                                          } else {
+                                            setState(() {
+                                              con.autoValidate = true;
+                                            });
+                                          }
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                    ],
+                                  ),
+                    ),
+                  ],
                 ),
-             ] ),
+              ),
             ),
           ),
         ),
       ),
-    ),);
+    );
   }
 }

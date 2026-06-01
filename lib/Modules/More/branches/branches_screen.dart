@@ -35,7 +35,7 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_branches_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_branches_screen"
         }
     );

@@ -51,7 +51,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_registration_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "open_registration_screen"
         }
     );
@@ -75,7 +75,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                             final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                             _analytics.logEvent(
                                 name: 'skip_registration_screen',
-                                parameters: <String,dynamic>{
+                                parameters: <String,Object>{
                                   "title" : "skip_registration_screen"
                                 }
                             );
@@ -396,7 +396,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                     _analytics.logEvent(
                         name: 'request_terms_screen',
-                        parameters: <String,dynamic>{
+                        parameters: <String,Object>{
                           "title" : "request_terms_screen"
                         }
                     );
@@ -412,7 +412,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                     _analytics.logEvent(
                         name: 'request_conditions_screen',
-                        parameters: <String,dynamic>{
+                        parameters: <String,Object>{
                           "title" : "request_conditions_screen"
                         }
                     );
@@ -441,7 +441,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                     _analytics.logEvent(
                         name: 'submit_registration_screen',
-                        parameters: <String,dynamic>{
+                        parameters: <String,Object>{
                           "title" : "submit_registration_screen"
                         }
                     );

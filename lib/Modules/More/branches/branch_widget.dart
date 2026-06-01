@@ -21,7 +21,7 @@ class BranchWidget extends StatelessWidget {
         final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
         _analytics.logEvent(
             name: 'open_branch_direction',
-            parameters: <String,dynamic>{
+            parameters: <String,Object>{
               "title" :"open_branch_name  ${branchModel.nameAr}"
             }
         );

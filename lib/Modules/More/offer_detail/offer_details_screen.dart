@@ -34,7 +34,7 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_offer_detail_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"
         }
     );

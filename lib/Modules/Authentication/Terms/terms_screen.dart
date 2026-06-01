@@ -33,7 +33,7 @@ class _TermsScreenState extends StateMVC<TermsScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_terms_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "open_terms_screen"
         }
     );

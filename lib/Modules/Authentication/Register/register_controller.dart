@@ -153,7 +153,7 @@ class RegisterController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'success_registration_screen',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" : "success_registration_screen"
           }
       );
@@ -167,7 +167,7 @@ class RegisterController extends ControllerMVC {
       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
       _analytics.logEvent(
           name: 'error_registration_screen',
-          parameters: <String,dynamic>{
+          parameters: <String,Object>{
             "title" : "error_registration_screen"
           }
       );

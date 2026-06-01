@@ -17,7 +17,9 @@ import '../Models/verify_otp_model.dart';
 import '../Shared/shared_prefirences.dart';
 import '../Utilities/general_toast.dart';
 import 'api.dart';
-import 'network_methods.dart';import 'package:http/http.dart' as http;
+import 'network_methods.dart';
+import 'package:http/http.dart' as http;
+import 'response_body_decoder.dart';
 
 
 class UserApi {
@@ -66,8 +68,8 @@ class UserApi {
     });
     var response = await http.post(Uri.parse("${API.baseServerURL}/api/v1/Identity/Login"), headers: headers,
         body: jsonEncode(loginForm.toJson()));
-    if (response == null) return false;
-    var result = json.decode(utf8.decode(response.body.codeUnits));
+    final body = decodeHttpBodyBytes(response.bodyBytes, response.headers);
+    var result = json.decode(body);
     print("<<<<<<<<<<<>>>>>>>>>>" + result.toString());
     if( result["isSuccess"] == true  && result["code"] == "200") {
       Map<String, String> headers = response.headers;

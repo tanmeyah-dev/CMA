@@ -103,7 +103,7 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                                 final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                                 _analytics.logEvent(
                                     name: 'request_deactivate_account',
-                                    parameters: <String,dynamic>{
+                                    parameters: <String,Object>{
                                       "title" :"request_deactivate_account"
                                     }
                                 );

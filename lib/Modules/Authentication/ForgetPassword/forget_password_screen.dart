@@ -38,7 +38,7 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
     _analytics.logEvent(
         name: 'open_forget_password_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" :"open_forget_password_screen"
         }
     );

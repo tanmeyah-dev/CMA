@@ -32,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
      _analytics.logEvent(
         name: 'open_onboarding_screen',
-        parameters: <String,dynamic>{
+        parameters: <String,Object>{
           "title" : "open_onboarding_screen"
         }
     );
@@ -67,7 +67,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                       _analytics.logEvent(
                           name: 'skip_onboarding_screen',
-                          parameters: <String,dynamic>{
+                          parameters: <String,Object>{
                             "title" : "skip_onboarding_screen"
                           }
                       );
@@ -156,7 +156,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                   _analytics.logEvent(
                       name: 'complete_onboarding_screen',
-                      parameters: <String,dynamic>{
+                      parameters: <String,Object>{
                         "title" : "complete_onboarding_screen"
                       }
                   );

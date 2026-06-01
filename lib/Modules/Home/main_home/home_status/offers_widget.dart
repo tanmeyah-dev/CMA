@@ -37,7 +37,7 @@ class OffersWidget extends StatelessWidget {
                     final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                     _analytics.logEvent(
                         name: 'request_view_all_offers',
-                        parameters: <String,dynamic>{
+                        parameters: <String,Object>{
                           "title" :"request_view_all_offers"
                         }
                     );
@@ -76,7 +76,7 @@ class OffersWidget extends StatelessWidget {
                       final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
                       _analytics.logEvent(
                           name: 'open_offer_detail',
-                          parameters: <String,dynamic>{
+                          parameters: <String,Object>{
                             "title" :"open_offer_detail  ${i.nameAr}"
                           }
                       );
