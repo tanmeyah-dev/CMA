@@ -19,9 +19,12 @@ class NetworkMethods {
       String? customUrl,
       required Map body,
       Map<String, String>? headers,
-      BuildContext? context}) async {
-    var checkConnection = await Connectivity().checkConnectivity();
-    if (checkConnection != ConnectivityResult.none) {
+      BuildContext? context,
+      bool suppressAuthRedirect = false}) async {
+    final checkConnection = await Connectivity().checkConnectivity();
+    final hasConnection = checkConnection
+        .any((result) => result != ConnectivityResult.none);
+    if (hasConnection) {
       debugPrint(body.toString());
       debugPrint(customUrl ?? "${API.baseURL}$url");
 
@@ -54,11 +57,12 @@ class NetworkMethods {
         String result = await response.stream.bytesToString();
         log(response.statusCode.toString());
         log("api response >>>>>>>>>>>>>>>>>>>>>>>>:${result.toString()}");
-        if (response.statusCode == 401) {
+        if (response.statusCode == 401 && !suppressAuthRedirect) {
           await SharedPref.logOut();
           Modular.to.pushNamedAndRemoveUntil(
-              "/loginScreen", (Route<dynamic> route) => false,
-              arguments: "");
+            "/validateUser",
+            (Route<dynamic> route) => false,
+          );
         }
         if (response.statusCode == 429) {
           BotToast.showText(
@@ -98,9 +102,12 @@ class NetworkMethods {
   static Future getRequest({
     required String url,
     Map<String, String>? headers,
+    bool suppressAuthRedirect = false,
   }) async {
-    var checkConnection = await Connectivity().checkConnectivity();
-    if (checkConnection != ConnectivityResult.none) {
+    final checkConnection = await Connectivity().checkConnectivity();
+    final hasConnection = checkConnection
+        .any((result) => result != ConnectivityResult.none);
+    if (hasConnection) {
       debugPrint('${API.baseURL}$url');
       var request = http.Request('GET', Uri.parse('${API.baseURL}$url'));
 
@@ -125,11 +132,12 @@ class NetworkMethods {
         String result = await response.stream.bytesToString();
         log(response.statusCode.toString());
         log(result.toString());
-        if (response.statusCode == 401) {
+        if (response.statusCode == 401 && !suppressAuthRedirect) {
           await SharedPref.logOut();
           Modular.to.pushNamedAndRemoveUntil(
-              "/loginScreen", (Route<dynamic> route) => false,
-              arguments: "");
+            "/validateUser",
+            (Route<dynamic> route) => false,
+          );
         }
         if (response.statusCode == 429) {
           BotToast.showText(

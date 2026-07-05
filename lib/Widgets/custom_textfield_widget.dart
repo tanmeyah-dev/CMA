@@ -27,9 +27,11 @@ class CustomTextFieldWidget extends StatelessWidget {
   final void Function()? onTap;
   final List<TextInputFormatter>? formatter;
   final double? suffixWidth;
+  final BoxConstraints? prefixIconConstraints;
+  final TextAlign? textAlign;
 
   const CustomTextFieldWidget({
-    Key? key,
+    super.key,
     this.isDense,
     this.style,
     this.onchange,
@@ -55,7 +57,9 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.onTap,
     this.formatter,
     this.suffixWidth = 30,
-  }) : super(key: key);
+    this.prefixIconConstraints,
+    this.textAlign,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +93,11 @@ class CustomTextFieldWidget extends StatelessWidget {
           disabledBorder: InputBorder.none,
           border: InputBorder.none,
           isDense: isDense ?? false,
-          prefixIconConstraints: BoxConstraints(
-              minWidth: prefixIcon == null ? 0 : 35.w, maxHeight: 20.w),
+          prefixIconConstraints: prefixIconConstraints ??
+              BoxConstraints(
+                minWidth: prefixIcon == null ? 0 : 35.w,
+                maxHeight: prefixIcon == null ? 0 : 48.h,
+              ),
           suffixIconConstraints: BoxConstraints(
               minWidth: suffixIcon == null ? 0 : 45.w, maxHeight: 40.h),
           contentPadding: insidePadding ?? EdgeInsets.symmetric(vertical: 16.h,horizontal: 4.w),
@@ -101,7 +108,7 @@ class CustomTextFieldWidget extends StatelessWidget {
               ? SizedBox(
                   width: 10.w,
                 )
-              : SizedBox(width: 30.w, child: prefixIcon),
+              : prefixIcon,
           suffixIcon: suffixIcon == null
               ? SizedBox(
                   width: 5.w,
@@ -123,6 +130,7 @@ class CustomTextFieldWidget extends StatelessWidget {
         textCapitalization: TextCapitalization.words,
         maxLines: maxLine ?? 1,
         keyboardType: textInputType,
+        textAlign: textAlign ?? TextAlign.start,
         style: style ??
             TextStyle(
               fontSize: 16.sp,

@@ -6,13 +6,42 @@ import '../Theme/app_assets.dart';
 import '../Theme/themeclass.dart';
 
 class CountryCodeWidget extends StatelessWidget {
-  const CountryCodeWidget({Key? key}) : super(key: key);
+  final bool inline;
+
+  const CountryCodeWidget({super.key, this.inline = false});
 
   @override
   Widget build(BuildContext context) {
+    final codeLabel = AppTextMedium(
+      title: inline ? '+20' : '20+',
+      color: ThemeClass.fontColor,
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w400,
+    );
+
+    final flag = Image.asset(
+      AppAssets.IMG_FLAG,
+      width: 24.w,
+      height: 16.h,
+    );
+
+    if (inline) {
+      return Padding(
+        padding: EdgeInsetsDirectional.only(start: 12.w, end: 8.w),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            codeLabel,
+            SizedBox(width: 6.w),
+            flag,
+          ],
+        ),
+      );
+    }
+
     return Container(
       width: 89.w,
-      padding: EdgeInsets.symmetric(vertical : 14.h , horizontal: 8.w),
+      padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 8.w),
       decoration: BoxDecoration(
         color: ThemeClass.textfieldColor,
         borderRadius: BorderRadius.circular(14.w),
@@ -21,9 +50,9 @@ class CountryCodeWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(AppAssets.IMG_FLAG,width: 24.w,height: 16.h,),
-          SizedBox(width: 6.w,),
-          AppTextMedium(title: "20+",color: ThemeClass.fontColor,fontSize: 16.sp,fontWeight: FontWeight.w400,),
+          flag,
+          SizedBox(width: 6.w),
+          codeLabel,
         ],
       ),
     );

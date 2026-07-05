@@ -1,23 +1,19 @@
-// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously, unrelated_type_equality_checks
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously
 import 'dart:async';
 import 'package:Tanmeyah/Modules/Authentication/AppVersion/app_version_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Splash/splash_controller.dart';
 import 'package:Tanmeyah/Modules/Main/main_screen.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
-import 'package:Tanmeyah/Utilities/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/themeclass.dart';
-import '../Login/login_screen.dart';
 import '../OnBoarding/onboarding_screen.dart';
 import '../ValidateUser/validate_user_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 
 class SplashScreen extends StatefulWidget {
   static String routeName = "/splashScreen";
@@ -29,16 +25,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends StateMVC<SplashScreen> {
-
-
   _SplashScreenState() : super(SplashController()) {
-    con = SplashController();
+    con = controller as SplashController;
   }
 
   late SplashController con;
 
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _hasNavigated = false;
 
   @override
   void initState() {
@@ -49,70 +43,90 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
     });
   }
 
-  checkConnectivity() async {
+  Future<void> checkConnectivity() async {
+    final results = await Connectivity().checkConnectivity();
+    final hasConnection =
+        results.any((result) => result != ConnectivityResult.none);
 
-    print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLatitude()}");
-    print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLongitude()}");
-    var result =  await Connectivity().checkConnectivity();
-    print(result);
-    if (result != ConnectivityResult.none) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-       analytics.logEvent(
-        name: 'open_splash',
-        parameters: <String,Object>{
-          "title" : "Open_Splash_Screen"
-        }
-      );
-      init();
-    } else {
-      Modular.to.pushNamedAndRemoveUntil(
-        "/noInternetScreen", (Route<dynamic> route) => false,);
+    if (!hasConnection) {
+      _navigate('/noInternetScreen');
+      return;
     }
+
+    FirebaseAnalytics.instance.logEvent(
+      name: 'open_splash',
+      parameters: <String, Object>{'title': 'Open_Splash_Screen'},
+    );
+    await init();
   }
 
-  Future init() async {
-    SharedPref.logOut();
-    SharedPref.clearLocation();
-    Future.delayed(Duration.zero,() {
-       con.getCurrentPosition(context);
-      con.getAppVersion().then((value) async {
-        if(value == false) {
-          Navigator.pushNamed(context, AppVersionScreen.routeName);
-        }
-        else {
-          await Future.delayed(const Duration(milliseconds: 2200));
-          if (!SharedPref.isWatchIntro()) {
-            Navigator.of(context).pushReplacementNamed(OnBoardingScreen.routeName);
-          } else if (SharedPref.isUserLogIn()) {
-            Modular.to.pushNamed(MainScreen.routeName);
-          } else if(SharedPref.alreadyExist()) {
-            Modular.to.pushNamed(LoginScreen.routeName,arguments: "");
-          } else {
-            Modular.to.pushNamed(ValidateUserScreen.routeName);
-          }
-        }
-      });
-    });
+  Future<void> init() async {
+    if (_hasNavigated) return;
+
+    final isLoggedIn = SharedPref.isUserLogIn();
+
+    await SharedPref.clearLocation();
+    if (!isLoggedIn) {
+      await SharedPref.logOut();
+    }
+
+    unawaited(con.getCurrentPosition(context));
+
+    final isUpToDate = await con.getAppVersion();
+    if (!mounted || _hasNavigated || !_isOnSplashRoute) return;
+
+    if (isUpToDate == false) {
+      _navigate(AppVersionScreen.routeName);
+      return;
+    }
+
+    await Future.delayed(const Duration(milliseconds: 2200));
+    if (!mounted || _hasNavigated || !_isOnSplashRoute) return;
+
+    if (!SharedPref.isWatchIntro()) {
+      _navigate(OnBoardingScreen.routeName);
+      return;
+    }
+
+    if (isLoggedIn) {
+      _navigate(MainScreen.routeName);
+      return;
+    }
+
+    _navigate(ValidateUserScreen.routeName);
+  }
+
+  bool get _isOnSplashRoute {
+    final path = Modular.to.path;
+    return path == SplashScreen.routeName || path == '/';
+  }
+
+  void _navigate(String route, {Object? arguments}) {
+    if (_hasNavigated || !mounted || !_isOnSplashRoute) return;
+    _hasNavigated = true;
+    Modular.to.pushNamedAndRemoveUntil(
+      route,
+      (Route<dynamic> _) => false,
+      arguments: arguments,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-       return Scaffold(
-                  backgroundColor: ThemeClass.whiteColor,
-                  key: _scaffoldKey,
-                  body: Center(
-                    child: Hero(
-                      tag: 'gifHero',
-                      child: Image.asset(
-                        AppAssets.IMG_SPLASH,
-                        width: 280.w,
-                        height: 280.h,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    )
-                  )
-                // );
-        // }
-        );
+    return Scaffold(
+      backgroundColor: ThemeClass.whiteColor,
+      key: _scaffoldKey,
+      body: Center(
+        child: Hero(
+          tag: 'gifHero',
+          child: Image.asset(
+            AppAssets.IMG_SPLASH,
+            width: 280.w,
+            height: 280.h,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+      ),
+    );
   }
 }

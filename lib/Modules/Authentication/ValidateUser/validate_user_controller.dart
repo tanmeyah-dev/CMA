@@ -11,7 +11,6 @@ import '../Register/register_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class ValidateUserController extends ControllerMVC {
-  // singleton
   factory ValidateUserController() {
     _this ??= ValidateUserController._();
     return _this!;
@@ -21,8 +20,8 @@ class ValidateUserController extends ControllerMVC {
 
   ValidateUserController._();
 
-  bool loading = false,
-      autoValidate = false,activeBtn = false;
+  bool loading = false;
+  bool activeBtn = false;
 
   String? phoneNumber;
 
@@ -39,63 +38,91 @@ class ValidateUserController extends ControllerMVC {
   void dispose() {
     phoneController.dispose();
     activeBtn = false;
-
     super.dispose();
   }
 
-  Future validateUser(BuildContext context) async {
-    await UserSecureStorage.deleteData();
-    if(!phoneController.text.startsWith("0")) {
-      phoneNumber = "0${phoneController.text}";
-      setState(() { });
-    } else {
-      phoneNumber = phoneController.text;
-      setState(() {});
-    }
+  void resetForm() {
+    phoneController.clear();
+    activeBtn = false;
+    phoneNumber = null;
+    loading = false;
+  }
+
+  String _normalizePhone(String input) {
+    final trimmed = input.trim();
+    return trimmed.startsWith('0') ? trimmed : '0$trimmed';
+  }
+
+  void _logAnalytics(String name) {
+    FirebaseAnalytics.instance.logEvent(
+      name: name,
+      parameters: <String, Object>{'title': name},
+    );
+  }
+
+  Future<void> validateUser(BuildContext context) async {
+    if (!formKey.currentState!.validate()) return;
+
+    phoneNumber = _normalizePhone(phoneController.text);
     loading = true;
     setState(() {});
-    ValidateUserResponse? result = await UserApi.validateUser(context,phone: phoneNumber!);
-    loading = false;
-    setState(() {});
-    if (result?.isSuccess == true) {
-      if (result?.isReviewerUser == true) {
-        Navigator.pushNamed(context, LoginScreen.routeName , arguments: phoneNumber);
-      } else {
-        Navigator.pushNamed(context, OtpScreen.routeName, arguments: [
-          phoneNumber!,
-              (code) => onConfirm(code, context)
-        ]);
+
+    try {
+      await UserSecureStorage.deleteData();
+      final ValidateUserResponse? result =
+          await UserApi.validateUser(context, phone: phoneNumber!);
+      if (!context.mounted) return;
+
+      if (result?.isSuccess != true) {
+        _logAnalytics('error_phone_number_screen');
+        return;
       }
+
+      if (result?.isReviewerUser == true) {
+        Navigator.pushNamed(
+          context,
+          LoginScreen.routeName,
+          arguments: phoneNumber,
+        );
+      } else {
+        Navigator.pushNamed(
+          context,
+          OtpScreen.routeName,
+          arguments: [
+            phoneNumber!,
+            (String code) => onConfirm(code, context),
+          ],
+        );
+      }
+    } finally {
+      loading = false;
+      if (context.mounted) setState(() {});
     }
   }
 
-  Future onConfirm(String code, BuildContext context) async {
-    setState(() {
-      loading = true;
-    });
-    VerifyOtpModel? result = await UserApi.otp(context,
-      phone: phoneNumber!,
-      code: code,
-    );
-    setState(() {
-      loading = false;
-    });
-    if (result?.isSuccess == true) {
-      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-      analytics.logEvent(
-          name: 'success_phone_number_screen',
-          parameters: <String,Object>{
-            "title" : "success_phone_number_screen"
-          }
+  Future<void> onConfirm(String code, BuildContext context) async {
+    loading = true;
+    setState(() {});
+
+    try {
+      final VerifyOtpModel? result = await UserApi.otp(
+        context,
+        phone: phoneNumber!,
+        code: code,
       );
-      if (result?.registeredUser == true) {
-        Navigator.pushNamed(
-            context, LoginScreen.routeName, arguments: phoneController.text);
-      } else {
-        Navigator.pushNamed(
-            context, RegisterScreen.routeName, arguments: phoneController.text);
-      }
+      if (!context.mounted) return;
+
+      if (result?.isSuccess != true) return;
+
+      _logAnalytics('success_phone_number_screen');
+
+      final route = result?.registeredUser == true
+          ? LoginScreen.routeName
+          : RegisterScreen.routeName;
+      Navigator.pushNamed(context, route, arguments: phoneNumber);
+    } finally {
+      loading = false;
+      if (context.mounted) setState(() {});
     }
   }
 }
-

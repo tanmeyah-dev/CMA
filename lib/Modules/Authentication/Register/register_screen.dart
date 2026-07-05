@@ -3,12 +3,12 @@ import 'package:Tanmeyah/Modules/Authentication/Conditions/conditions_screen.dar
 import 'package:Tanmeyah/Modules/Authentication/Register/register_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
-import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Shared/shared_prefirences.dart';
+import '../../../Theme/app_assets.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/Validator.dart';
 import '../../../Widgets/country_code_widget.dart';
@@ -26,7 +26,7 @@ class RegisterScreen extends StatefulWidget {
 
   String phoneNumber;
 
-  RegisterScreen({Key? key, required this.phoneNumber}) : super(key: key);
+  RegisterScreen({super.key, required this.phoneNumber});
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -34,50 +34,90 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends StateMVC<RegisterScreen> {
   _RegisterScreenState() : super(RegisterController()) {
-    con = RegisterController();
+    con = controller as RegisterController;
   }
 
   late RegisterController con;
 
   @override
   void initState() {
-    if (widget.phoneNumber != "") {
-      con.phone = widget.phoneNumber;
-      con.editPhone = true;
-    } else {
-      con.editPhone = false;
-    }
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_registration_screen',
-        parameters: <String, Object>{"title": "open_registration_screen"});
     super.initState();
+    con.setupSession(phoneNumberArg: widget.phoneNumber);
+    FirebaseAnalytics.instance.logEvent(
+      name: 'open_registration_screen',
+      parameters: <String, Object>{'title': 'open_registration_screen'},
+    );
+  }
+
+  Future<void> _onRegister() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    FirebaseAnalytics.instance.logEvent(
+      name: 'submit_registration_screen',
+      parameters: <String, Object>{'title': 'submit_registration_screen'},
+    );
+    await con.register(context);
+  }
+
+  void _onNationalIdChanged(String value) {
+    con.calc(nationalId: value);
+  }
+
+  void _logAnalytics(String name) {
+    FirebaseAnalytics.instance.logEvent(
+      name: name,
+      parameters: <String, Object>{'title': name},
+    );
+  }
+
+  PreferredSizeWidget _buildRegisterAppBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: SizedBox(
+            height: kToolbarHeight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'new_account'.tr,
+                  style: TextStyle(
+                    color: ThemeClass.primaryColor,
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SkipButton(
+                  onTap: () {
+                    _logAnalytics('skip_registration_screen');
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/mainScreen',
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final buttonWidth = 1.sw - 44.w;
+    final topPadding = MediaQuery.paddingOf(context).top + kToolbarHeight;
+
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
-            appBar: BaseAppBar.main(
-                title: "create_account".tr,
-                isBackButtonVisible: false,
-                actions: [
-                  Padding(
-                      padding: EdgeInsetsDirectional.only(top: 16.h, end: 20.w),
-                      child: SkipButton(onTap: () {
-                        final FirebaseAnalytics _analytics =
-                            FirebaseAnalytics.instance;
-                        _analytics.logEvent(
-                            name: 'skip_registration_screen',
-                            parameters: <String, Object>{
-                              "title": "skip_registration_screen"
-                            });
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/mainScreen', (Route<dynamic> route) => false);
-                      }))
-                ]),
+            extendBodyBehindAppBar: true,
+            appBar: _buildRegisterAppBar(),
             body: LoadingScreen(
               loading: con.loading,
               child: GestureDetector(
@@ -87,6 +127,12 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                       height: double.infinity,
                       alignment: Alignment.topCenter,
                       padding: EdgeInsets.symmetric(horizontal: 22.w),
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AppAssets.IMG_LOGIN_BACK),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                       child: SingleChildScrollView(
                           child: Form(
                               key: con.formKey,
@@ -94,7 +140,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 10.h),
+                                  SizedBox(height: topPadding + 8.h),
                                   fullNameTxtField(),
                                   SizedBox(height: 10.h),
                                   nationalIdTxtField(),
@@ -112,7 +158,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                                   confirmPassTxtField(),
                                   registerDes(),
                                   SizedBox(height: 30.h),
-                                  createBtn(),
+                                  createBtn(buttonWidth),
                                   SizedBox(height: 12.h),
                                   !con.editPhone ? loginDes() : Container(),
                                   SharedPref.isWatchIntro()
@@ -130,7 +176,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
         Row(
           children: [
             AppTextRegular(
-              title: "${"full_name".tr}",
+              title: "full_name".tr,
               color: ThemeClass.secondaryColor,
             ),
             SizedBox(
@@ -166,10 +212,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
             width: double.infinity,
             textInputType: TextInputType.number,
             controller: con.nationalIdController,
-            onchange: (value) {
-              con.calc(nationalId: value);
-              setState(() {});
-            },
+            onchange: _onNationalIdChanged,
             hint: "id_num".tr,
             validator: (value) => Validator.validateNationalId(context, value!),
             formatter: [LengthLimitingTextInputFormatter(14)]),
@@ -178,38 +221,50 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
   }
 
   Widget dateTimeWidget() {
+    final hasDate = con.nationalIdController.text.length > 7;
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AppTextRegular(
-          title: "birthday".tr,
+          title: 'birthday'.tr,
           color: ThemeClass.secondaryColor,
+          textAlign: TextAlign.right,
         ),
-        SizedBox(
-          height: 10.h,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: ThemeClass.textfieldColor,
-            borderRadius: BorderRadius.circular(10.w),
-            border: Border.all(color: Colors.grey.withOpacity(0.2)),
-          ),
-          width: double.infinity,
-          height: 46.h,
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              con.nationalIdController.text.length > 7
-                  ? AppTextRegular(
-                      title: con.dateOfBirth ?? "",
-                    )
-                  : const AppTextHint(title: "0000-00-00"),
-              Icon(
-                Iconsax.calendar5,
-                color: ThemeClass.secondaryColor,
-              ),
-            ],
+        SizedBox(height: 10.h),
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+            decoration: BoxDecoration(
+              color: ThemeClass.whiteColor,
+              borderRadius: BorderRadius.circular(14.sp),
+              border: Border.all(color: Colors.grey.withOpacity(0.2)),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Iconsax.calendar5,
+                  color: ThemeClass.secondaryColor,
+                  size: 20.sp,
+                ),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: Text(
+                    hasDate ? (con.dateOfBirth ?? '') : '0000-00-00',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: hasDate
+                          ? ThemeClass.blackColor
+                          : const Color(0xFFCCCBCB),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -218,41 +273,72 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
 
   Widget phoneTxtField() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AppTextRegular(
-          title: "phone_number".tr,
+          title: 'phone_number'.tr,
           color: ThemeClass.secondaryColor,
+          textAlign: TextAlign.right,
         ),
-        SizedBox(
-          height: 10.h,
+        SizedBox(height: 10.h),
+        con.editPhone
+            ? _buildReadOnlyPhoneField(con.displayPhone)
+            : Directionality(
+                textDirection: TextDirection.ltr,
+                child: CustomTextFieldWidget(
+                  width: double.infinity,
+                  hint: '1xxxxxxxxx',
+                  controller: con.numberController,
+                  validator: (value) =>
+                      Validator.validatePhone(context, value),
+                  textInputType: TextInputType.phone,
+                  textAlign: TextAlign.right,
+                  backGroundColor: ThemeClass.whiteColor,
+                  formatter: [
+                    LengthLimitingTextInputFormatter(11),
+                  ],
+                  prefixIcon: const CountryCodeWidget(inline: true),
+                  prefixIconConstraints: BoxConstraints(
+                    minWidth: 88.w,
+                    minHeight: 48.h,
+                  ),
+                ),
+              ),
+      ],
+    );
+  }
+
+  Widget _buildReadOnlyPhoneField(String phone) {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 14.h),
+        decoration: BoxDecoration(
+          color: ThemeClass.whiteColor,
+          borderRadius: BorderRadius.circular(14.sp),
+          border: Border.all(color: Colors.grey.withOpacity(0.2)),
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
+            const CountryCodeWidget(inline: true),
             Expanded(
-              child: con.editPhone
-                  ? CustomTextFieldWidget(
-                      width: double.infinity, hint: con.phone, enable: false)
-                  : CustomTextFieldWidget(
-                      width: double.infinity,
-                      hint: "phone_number".tr,
-                      controller: con.numberController,
-                      validator: (value) =>
-                          Validator.validatePhone(context, value!),
-                      textInputType: TextInputType.phone,
-                      formatter: [
-                        LengthLimitingTextInputFormatter(11),
-                      ],
-                    ),
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(end: 12.w),
+                child: Text(
+                  phone,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                    color: ThemeClass.blackColor,
+                  ),
+                ),
+              ),
             ),
-            SizedBox(
-              width: 8.w,
-            ),
-            const CountryCodeWidget(),
           ],
         ),
-      ],
+      ),
     );
   }
 
@@ -417,12 +503,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
         Row(children: [
           GestureDetector(
               onTap: () {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
-                    name: 'request_terms_screen',
-                    parameters: <String, Object>{
-                      "title": "request_terms_screen"
-                    });
+                _logAnalytics('request_terms_screen');
                 Navigator.pushNamed(context, TermsScreen.routeName);
               },
               child: AppTextBold(
@@ -432,12 +513,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
           AppTextRegular(title: " ${"and".tr} ", fontSize: 12.sp),
           GestureDetector(
               onTap: () {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
-                    name: 'request_conditions_screen',
-                    parameters: <String, Object>{
-                      "title": "request_conditions_screen"
-                    });
+                _logAnalytics('request_conditions_screen');
                 Navigator.pushNamed(context, ConditionsScreen.routeName);
               },
               child: AppTextBold(
@@ -450,34 +526,17 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
     );
   }
 
-  Widget createBtn() {
-    return Align(
-      alignment: Alignment.center,
-      child: (con.selectedValue != null && con.accept == true)
-          ? CustomButton(
-              width: 216,
-              title: "save".tr,
-              onTap: () async {
-                if (con.formKey.currentState!.validate()) {
-                  final FirebaseAnalytics _analytics =
-                      FirebaseAnalytics.instance;
-                  _analytics.logEvent(
-                      name: 'submit_registration_screen',
-                      parameters: <String, Object>{
-                        "title": "submit_registration_screen"
-                      });
-                  con.register(context);
-                }
-              })
-          : CustomButton(
-              width: 216,
-              title: "save".tr,
-              onTap: () async {},
-              color: ThemeClass.textFieldBackgroundColor,
-              borderColor: ThemeClass.textFieldBackgroundColor,
-              textColor: ThemeClass.hintColor,
-              backgroundColor: ThemeClass.buttonNotActiveColor,
-            ),
+  Widget createBtn(double buttonWidth) {
+    return CustomButton(
+      width: buttonWidth,
+      title: 'save'.tr,
+      onTap: con.canSubmit ? _onRegister : () {},
+      color: con.canSubmit ? null : ThemeClass.textFieldBackgroundColor,
+      borderColor:
+          con.canSubmit ? null : ThemeClass.textFieldBackgroundColor,
+      textColor: con.canSubmit ? null : ThemeClass.hintColor,
+      backgroundColor:
+          con.canSubmit ? null : ThemeClass.buttonNotActiveColor,
     );
   }
 
@@ -487,11 +546,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         AppTextRegular(title: "have_account".tr, fontSize: 12.sp),
         GestureDetector(
-            onTap: () {
-              // Navigator.pushNamed(context, LoginScreen.routeName,
-              //     arguments: "");
-              Navigator.pop(context);
-            },
+            onTap: () => Navigator.pop(context),
             child: AppTextBold(
                 title: " ${"login".tr}",
                 fontSize: 16.sp,

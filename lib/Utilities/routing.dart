@@ -17,7 +17,6 @@ import 'package:Tanmeyah/Modules/More/main_services/main_services_screen.dart';
 import 'package:Tanmeyah/Modules/More/offer_detail/offer_details_screen.dart';
 import 'package:Tanmeyah/Modules/More/services_detail/services_detail_screen.dart';
 import 'package:Tanmeyah/Modules/loan/already_paid/already_paid_screen.dart';
-import 'package:Tanmeyah/Modules/loan/main_loan/webview.dart';
 import 'package:Tanmeyah/Modules/loan/payment_methods/payment_methods_screen.dart';
 import 'package:Tanmeyah/Modules/loan/payment_needed/payment_needed_screen.dart';
 import 'package:Tanmeyah/Utilities/no_internet.dart';
@@ -32,7 +31,6 @@ import '../Modules/Authentication/Register/register_screen.dart';
 import '../Modules/Authentication/Splash/splash_screen.dart';
 import '../Modules/Authentication/Terms/terms_screen.dart';
 import '../Modules/Authentication/ValidateUser/validate_user_screen.dart';
-import '../Modules/Billers/get_bill_inquiry/get_bill_inquiry_screen.dart';
 import '../Modules/Billers/service_billers/service_billers_screen.dart';
 import '../Modules/Billers/service_types/all_service_types_screen.dart';
 import '../Modules/Home/main_home/home_screen.dart';
@@ -42,7 +40,6 @@ import '../Modules/Main/main_screen.dart';
 import '../Modules/More/main_more/more_screen.dart';
 import '../Modules/loan/main_loan/main_loan_screen.dart';
 import '../Modules/loan/previous_loans/previous_loan_screen.dart';
-import '../Widgets/ticket_alert.dart';
 
 class AppModule extends Module {
   @override
@@ -183,7 +180,7 @@ class AppModule extends Module {
         duration: const Duration(milliseconds: 300)),
     ChildRoute(RegisterScreen.routeName,
         child: (_, args) => RegisterScreen(
-              phoneNumber: args.data,
+              phoneNumber: args.data?.toString() ?? '',
             ),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 300)),

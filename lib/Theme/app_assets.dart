@@ -16,7 +16,7 @@ class AppAssets {
   static const IMG_ONBOARDING_4 = "assets/images/onboarding/onboarding4.png";
   static const IMG_ONBOARDING_5 = "assets/images/onboarding/onboarding5.png";
 
-  static const IMG_VALIDATE_USER = "assets/images/auth/validate.gif";
+  static const IMG_VALIDATE_USER = "assets/images/auth/validate.png";
   static const IMG_FACE_ID = "assets/images/auth/face_id.png";
   static const IMG_FINGERPRINT = "assets/images/auth/touch_id.png";
   static const IMG_WRONG_NUM = "assets/images/auth/wrong_num.png";
@@ -48,7 +48,7 @@ class AppAssets {
 
   static const IMG_BIOMETRIC = "assets/images/auth/biometric.gif";
 
-  static const IMG_OTP = "assets/images/auth/otp.gif";
+  static const IMG_OTP = "assets/images/auth/otp.png";
 
   static const IMG_LOGIN = "assets/images/auth/signin.gif";
   static const IMG_LOGIN_BACK = "assets/images/auth/login_back.png";

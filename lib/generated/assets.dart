@@ -10,12 +10,12 @@ class Assets {
   static const String authLocatoin = 'assets/images/auth/locatoin.png';
   static const String authLoginBack = 'assets/images/auth/login_back.png';
   static const String authLogout = 'assets/images/auth/logout.png';
-  static const String authOtp = 'assets/images/auth/otp.gif';
+  static const String authOtp = 'assets/images/auth/otp.png';
   static const String authProfile = 'assets/images/auth/profile.png';
   static const String authSignin = 'assets/images/auth/signin.gif';
   static const String authSuccess = 'assets/images/auth/success.gif';
   static const String authTouchId = 'assets/images/auth/touch_id.png';
-  static const String authValidate = 'assets/images/auth/validate.gif';
+  static const String authValidate = 'assets/images/auth/validate.png';
   static const String authVersion = 'assets/images/auth/version.png';
   static const String authWarning = 'assets/images/auth/warning.png';
   static const String authWrongNum = 'assets/images/auth/wrong_num.png';

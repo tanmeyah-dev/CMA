@@ -44,6 +44,9 @@ class BaseAppBar extends PreferredSize {
                 if (!enableSearch)
                   AppBar(
                     titleSpacing: 0,
+                    scrolledUnderElevation: 0,
+                    surfaceTintColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
                     actions: (actions == null && enableNotification == true)
                         ? [
                             GestureDetector(
@@ -96,6 +99,9 @@ class BaseAppBar extends PreferredSize {
                           AppBar(
                             centerTitle: centerTitle,
                             backgroundColor: backgroundColor,
+                            scrolledUnderElevation: 0,
+                            surfaceTintColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
                             title: Text(
                               title,
                               overflow: TextOverflow.ellipsis,

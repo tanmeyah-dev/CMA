@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/Validator.dart';
-import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
 import 'package:Tanmeyah/Widgets/custom_textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +15,10 @@ import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-
-
 class ValidateUserScreen extends StatefulWidget {
   static const String routeName = "/validateUser";
 
-  const ValidateUserScreen({Key? key}) : super(key: key);
+  const ValidateUserScreen({super.key});
 
   @override
   _ValidateUserScreenState createState() => _ValidateUserScreenState();
@@ -29,28 +26,42 @@ class ValidateUserScreen extends StatefulWidget {
 
 class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
   _ValidateUserScreenState() : super(ValidateUserController()) {
-    con = ValidateUserController();
+    con = controller as ValidateUserController;
   }
 
   late ValidateUserController con;
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
-        name: 'open_phone_number_screen',
-        parameters: <String,Object>{
-          "title" : "open_phone_number_screen"
-        }
-    );
     super.initState();
+    con.resetForm();
+    FirebaseAnalytics.instance.logEvent(
+      name: 'open_phone_number_screen',
+      parameters: <String, Object>{'title': 'open_phone_number_screen'},
+    );
   }
 
+  void _onPhoneChanged(String value) {
+    final isValid = Validator.validatePhone(context, value) == null;
+    if (con.activeBtn != isValid) {
+      con.activeBtn = isValid;
+      setState(() {});
+    }
+  }
+
+  Future<void> _onContinue() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    FirebaseAnalytics.instance.logEvent(
+      name: 'submit_phone_number_screen',
+      parameters: <String, Object>{'title': 'submit_phone_number_screen'},
+    );
+    if (con.formKey.currentState!.validate()) {
+      await con.validateUser(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     return WillPopScope(
       onWillPop: () async => false,
       child: LoadingScreen(
@@ -58,9 +69,7 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
         child: Scaffold(
           backgroundColor: ThemeClass.whiteColor,
           body: GestureDetector(
-            onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Container(
               width: double.infinity,
               height: double.infinity,
@@ -69,16 +78,18 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
               child: Form(
                 key: con.formKey,
                 child: SingleChildScrollView(
-                  child: Column(children: [
-                    SizedBox(height: 100.h),
-                    image(),
-                    SizedBox(height: 20.h),
-                    title(),
-                    SizedBox(height: 79.h),
-                    mobileTxtField(),
-                    SizedBox(height: 160.h,),
-                    continueBtn()
-                  ],),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 100.h),
+                      image(),
+                      SizedBox(height: 20.h),
+                      title(),
+                      SizedBox(height: 79.h),
+                      _phoneFieldSection(),
+                      SizedBox(height: 160.h),
+                      _phoneFieldSection(child: continueBtn()),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -89,88 +100,73 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
   }
 
   Widget title() {
-    return AppTextMedium(
-          title: "enter_number".tr,
-        );
+    return AppTextMedium(title: "enter_number".tr);
   }
 
   Widget image() {
-    return  Image.asset(
-        AppAssets.IMG_VALIDATE_USER,
-        height: 350.h,
-        width: 350.w,
-        fit: BoxFit.fill,
+    return Image.asset(
+      AppAssets.IMG_VALIDATE_USER,
+      height: 320.h,
+      width: 320.w,
+      fit: BoxFit.fill,
     );
   }
 
-  Widget mobileTxtField() {
+  Widget _phoneFieldSection({Widget? child}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
-      child:  Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomTextFieldWidget(
-              onchange: (value){
-                if(value.length == 11 || value.length == 10){
-                  con.activeBtn = true;
-                  setState(() { });
-                } else {
-                  con.activeBtn = false;
-                  setState(() { });
-                }
-              },
-              width: 250.w,
-              controller: con.phoneController,
-              hint: "1xxxxxxxxxx",
-              textInputType: TextInputType.phone,
-              validator: (value) {
-                 return Validator.validatePhone(context,value);
-              },
-              formatter: [
-                LengthLimitingTextInputFormatter(11),
-              ],
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            const CountryCodeWidget(),
-          ],
-        ),
+      child: child ??
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              AppTextRegular(
+                title: 'phone_number'.tr,
+                color: ThemeClass.secondaryColor,
+                textAlign: TextAlign.right,
+              ),
+              SizedBox(height: 10.h),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: CustomTextFieldWidget(
+                  onchange: _onPhoneChanged,
+                  width: double.infinity,
+                  controller: con.phoneController,
+                  hint: '1xxxxxxxxx',
+                  textInputType: TextInputType.phone,
+                  validator: (value) => Validator.validatePhone(context, value),
+                  formatter: [
+                    LengthLimitingTextInputFormatter(11),
+                  ],
+                  prefixIcon: const CountryCodeWidget(inline: true),
+                  prefixIconConstraints: BoxConstraints(
+                    minWidth: 88.w,
+                    minHeight: 48.h,
+                  ),
+                ),
+              ),
+            ],
+          ),
     );
   }
 
   Widget continueBtn() {
-    return  Column(
-        children: [
-             con.activeBtn
-                ? CustomButton(
-                    width: 300,
-                    title: "continue".tr,
-                    onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
-                          name: 'submit_phone_number_screen',
-                          parameters: <String,Object>{
-                            "title" : "submit_phone_number_screen"
-                          }
-                      );
-                      if (con.formKey.currentState!.validate()) {
-                         con.validateUser(context);
-                      }
-                    },
-                  ) : CustomButton(
-              width: 300,
-              title: "continue".tr,
-              onTap: () async {},
-              color: ThemeClass.textFieldBackgroundColor,
-              borderColor: ThemeClass.textFieldBackgroundColor,
-              textColor: ThemeClass.hintColor,
-              backgroundColor: ThemeClass.buttonNotActiveColor,
-            ),
-          SizedBox(height: 20.h,)
-        ],
+  final buttonWidth = 1.sw - 80.w;
+
+    return Column(
+      children: [
+        CustomButton(
+          width: buttonWidth,
+          title: 'continue'.tr,
+          onTap: con.activeBtn ? _onContinue : () {},
+          color: con.activeBtn ? null : ThemeClass.textFieldBackgroundColor,
+          borderColor:
+              con.activeBtn ? null : ThemeClass.textFieldBackgroundColor,
+          textColor: con.activeBtn ? null : ThemeClass.hintColor,
+          backgroundColor:
+              con.activeBtn ? null : ThemeClass.buttonNotActiveColor,
+        ),
+        SizedBox(height: 20.h),
+      ],
     );
   }
 }

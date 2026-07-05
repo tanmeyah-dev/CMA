@@ -15,9 +15,10 @@ class SplashApi{
     var response = await NetworkMethods.postRequestAsRow(
       url: API.checkVersion,
       body: {
-        "version" : version,
-         "platform" : platform
+        "version": version,
+        "platform": platform,
       },
+      suppressAuthRedirect: true,
     );
     if (response == null) return null;
     if (response["isSuccess"] == true && response["newUpdateAvailable"] == true && response["isForcedUpdate"] == true){
