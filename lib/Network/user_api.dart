@@ -11,7 +11,6 @@ import 'package:Tanmeyah/Models/terms_response.dart';
 import 'package:Tanmeyah/Models/validate_user_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../Models/session_token_model.dart';
 import '../Models/user_model.dart';
 import '../Models/verify_otp_model.dart';
 import '../Shared/shared_prefirences.dart';
@@ -25,24 +24,6 @@ import 'response_body_decoder.dart';
 
 
 class UserApi {
-  static Future<SessionToken?> getToken() async {
-    var response = await NetworkMethods.postRequestAsRow(
-      url: API.token,
-      body: {
-          "UserName": "\$2a\$10\$oCBmRosDIQOW3JCyddMOnexv0BW85s.7Ao3XfvxP..0QngN4FupES",
-          "Password": "\$2a\$10\$jzDQNjvTVyD07xvJ5bGNyOIMcZiQCOvoxNgwq89WNtrzwEqny6G6m"
-      }
-    );
-    if (response == null) return null;
-    if (response["isSuccess"] == true) {
-      SharedPref.saveToken(sessionToken: response["token"]);
-      return SessionToken.fromJson(response);
-    } else {
-      //ToastHelper.showError(context , message: response["message"]);
-      return null;
-    }
-  }
-
   static Future<ValidateUserResponse?> validateUser(BuildContext context,{required String phone}) async {
     var response = await NetworkMethods.postRequestAsRow(
       url: API.validateUser,
@@ -51,7 +32,8 @@ class UserApi {
       },
     );
     if (response == null) return null;
-    if (response["isSuccess"] == true) {
+    final isSuccess = response["success"] == true || response["isSuccess"] == true;
+    if (isSuccess) {
        ToastHelper.showSuccess(context , message: response["message"]);
         return ValidateUserResponse.fromJson(response);
     } else {
@@ -69,10 +51,10 @@ class UserApi {
     headers.addAll({
       'Content-Type': 'application/json',
       "Accept": "application/json",
-      "Authorization": "${SharedPref.getGuestToken()}",
+      "Authorization": SharedPref.getUserObg()?.token ?? "",
       "Device-Id": deviceId,
     });
-    var response = await http.post(Uri.parse("${API.baseServerURL}/api/v1/Identity/Login"), headers: headers,
+    var response = await http.post(Uri.parse("${API.JavaBaseServerURL}/api/v1/Identity/Login"), headers: headers,
         body: jsonEncode(loginForm.toJson()));
     if (response.statusCode == 429) {
       BotToast.showText(
@@ -81,16 +63,16 @@ class UserApi {
     }
     final body = decodeHttpBodyBytes(response.bodyBytes, response.headers);
     var result = json.decode(body);
-    print("<<<<<<<<<<<>>>>>>>>>>" + result.toString());
+    print("<<<<<<<<<<<>>>>>>>>>>$result");
     if( result["isSuccess"] == true  && result["code"] == "200") {
       Map<String, String> headers = response.headers;
       UserModel? userModel;
       String headerValue = headers['authorization'] ?? '';
-      print("NEEEEEEEE===>>>   ${headerValue}");
+      print("NEEEEEEEE===>>>   $headerValue");
       print("NEEEEEEEE===>>>   ${result["user"]["token"]}");
 
       userModel = UserModel.fromJson(result["user"]);
-      userModel..token = "Bearer $headerValue";
+      userModel.token = "Bearer $headerValue";
       SharedPref.saveUserObj(userModel: userModel);
       return true;
     } else {
@@ -144,19 +126,17 @@ class UserApi {
       url: API.verifyOtp,
       body: {
         'mobileNumber': phone,
-        'otp': code,
+        'otpCode': code,
       },
     );
     if (response == null) return null;
     debugPrint(response.toString());
-    if (response["isSuccess"] == true && response["alreadyExists"] == true) {
+    final isSuccess = response["success"] == true || response["isSuccess"] == true;
+    if (isSuccess) {
+      ToastHelper.showSuccess(context, message: response["message"]);
       return VerifyOtpModel.fromJson(response);
-    } else if (response["isSuccess"] == true) {
-      ToastHelper.showError(context , message: response["message"]);
-      return VerifyOtpModel.fromJson(response);
-    }
-    else {
-      ToastHelper.showError(context ,message: response["message"]);
+    } else {
+      ToastHelper.showError(context, message: response["message"]);
       return null;
     }
   }

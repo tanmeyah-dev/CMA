@@ -40,9 +40,7 @@ class NetworkMethods {
       headers.addAll({
         'Content-Type': 'application/json',
         "Accept": "application/json",
-        "Authorization": (SharedPref.getUserObg() == null)
-            ? "${SharedPref.getGuestToken()}"
-            : "${SharedPref.getUserObg()?.token}",
+        "Authorization": SharedPref.getUserObg()?.token ?? "",
       });
 
       // Add device ID last to ensure it's always present (even if custom headers try to override)
@@ -113,9 +111,7 @@ class NetworkMethods {
       request.headers.addAll({
         'Content-Type': 'application/json',
         "Accept": "application/json",
-        "Authorization": (SharedPref.getUserObg() == null)
-            ? "${SharedPref.getGuestToken()}"
-            : "${SharedPref.getUserObg()?.token}",
+        "Authorization": SharedPref.getUserObg()?.token ?? "",
       });
 
       // Add custom headers if provided
@@ -176,10 +172,10 @@ class NetworkMethods {
 
 class MultipartRequest extends http.MultipartRequest {
   MultipartRequest(
-    String method,
-    Uri url, {
+    super.method,
+    super.url, {
     required this.onProgress,
-  }) : super(method, url);
+  });
   final void Function(int bytes, int totalBytes) onProgress;
 
   @override

@@ -3,7 +3,7 @@ class BillerServicesResponse {
   List<String>? perviousBillingAccounts;
   bool? isSuccess;
   String? code;
-  Null? message;
+  Null message;
 
   BillerServicesResponse(
       {this.services,

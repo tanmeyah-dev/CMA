@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:Tanmeyah/Modules/Authentication/AppVersion/app_version_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Splash/splash_controller.dart';
 import 'package:Tanmeyah/Modules/Main/main_screen.dart';
-import 'package:Tanmeyah/Network/user_api.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/no_internet.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SplashScreen extends StatefulWidget {
   static String routeName = "/splashScreen";
 
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -52,14 +51,13 @@ class _SplashScreenState extends StateMVC<SplashScreen> {
 
   checkConnectivity() async {
 
-    print("<<<<<<>>>>>>>>>>>>>>>" +  SharedPref.getUserLatitude().toString());
-    print("<<<<<<>>>>>>>>>>>>>>>" +  SharedPref.getUserLongitude().toString());
+    print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLatitude()}");
+    print("<<<<<<>>>>>>>>>>>>>>>${SharedPref.getUserLongitude()}");
     var result =  await Connectivity().checkConnectivity();
     print(result);
     if (result != ConnectivityResult.none) {
-      await UserApi.getToken();
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-       _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+       analytics.logEvent(
         name: 'open_splash',
         parameters: <String,Object>{
           "title" : "Open_Splash_Screen"

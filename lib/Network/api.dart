@@ -1,14 +1,14 @@
 class API{
 
 
-         static const String baseServerURL = "https://gateway.tanmeyah.com";
+         // static const String baseServerURL = "https://gateway.tanmeyah.com";
+          static const String JavaBaseServerURL = "https://192.168.51.201:8084";
          // static const String baseServerURL = "https://dotnett-qc.tanmeyah.lan:8102";
-         static const String baseURL = "$baseServerURL/api/v1/";
+         static const String baseURL = "$JavaBaseServerURL/cma/api/";
 
   //=========================== api parameters ====================================
-  static const String token = "Identity/Token";
-  static const String validateUser = "Identity/SendOTP";
-  static const String verifyOtp = "Identity/VerifyOTP";
+  static const String validateUser = "auth/otp/request";
+  static const String verifyOtp = "auth/otp/verify";
   static const String deactivateUser = "Identity/DeactiveUser";
   static const String otpForgetPassword = "Identity/VerifyPhoneNumber";
   static const String login = "Identity/Login";

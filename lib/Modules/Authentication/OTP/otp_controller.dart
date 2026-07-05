@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../Network/user_api.dart';
 
@@ -18,9 +19,9 @@ class OtpController extends ControllerMVC {
 
   OtpController._();
 
-  late GlobalKey<FormState> formKey;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late TextEditingController codeController;
+  final TextEditingController codeController = TextEditingController();
   bool loading = false,
       autoValidate = false,
       showConfirmPassword = true,
@@ -34,11 +35,13 @@ class OtpController extends ControllerMVC {
 
   @override
   void initState() {
+    timer?.cancel();
     formKey = GlobalKey<FormState>();
-    codeController = TextEditingController();
     codeController.clear();
+    SmsAutoFill().listenForCode(smsCodeRegexPattern: '\\d{5}');
     startTimer();
     activeResend = false;
+    activeBtn = false;
     start = 30;
     super.initState();
   }
@@ -46,7 +49,7 @@ class OtpController extends ControllerMVC {
   @override
   void dispose() {
     timer?.cancel();
-    codeController.dispose();
+    SmsAutoFill().unregisterListener();
     super.dispose();
   }
 
@@ -76,7 +79,9 @@ class OtpController extends ControllerMVC {
     setState(() {
       loading = true;
     });
+    await SmsAutoFill().listenForCode(smsCodeRegexPattern: '\\d{5}');
     await UserApi.validateUser(context,phone: phoneNumber!);
+    timer?.cancel();
     activeResend = false;
     start = 30;
     startTimer();

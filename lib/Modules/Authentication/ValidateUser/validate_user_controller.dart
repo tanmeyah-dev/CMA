@@ -57,13 +57,15 @@ class ValidateUserController extends ControllerMVC {
     ValidateUserResponse? result = await UserApi.validateUser(context,phone: phoneNumber!);
     loading = false;
     setState(() {});
-    if (result?.isReviewerUser == false) {
-      Navigator.pushNamed(context, OtpScreen.routeName, arguments: [
-        phoneNumber!,
-            (code) => onConfirm(code, context)
-      ]);
-    } else if(result?.isReviewerUser == true){
+    if (result?.isSuccess == true) {
+      if (result?.isReviewerUser == true) {
         Navigator.pushNamed(context, LoginScreen.routeName , arguments: phoneNumber);
+      } else {
+        Navigator.pushNamed(context, OtpScreen.routeName, arguments: [
+          phoneNumber!,
+              (code) => onConfirm(code, context)
+        ]);
+      }
     }
   }
 
@@ -78,26 +80,21 @@ class ValidateUserController extends ControllerMVC {
     setState(() {
       loading = false;
     });
-    if (result?.alreadyExists == true && result?.isSuccess == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+    if (result?.isSuccess == true) {
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'success_phone_number_screen',
           parameters: <String,Object>{
             "title" : "success_phone_number_screen"
           }
       );
-      Navigator.pushNamed(
-          context, LoginScreen.routeName, arguments: phoneController.text);
-    } else if (result?.alreadyExists == false && result?.isSuccess == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
-          name: 'success_phone_number_screen',
-          parameters: <String,Object>{
-            "title" : "success_phone_number_screen"
-          }
-      );
-      Navigator.pushNamed(
-          context, RegisterScreen.routeName, arguments: phoneController.text);
+      if (result?.registeredUser == true) {
+        Navigator.pushNamed(
+            context, LoginScreen.routeName, arguments: phoneController.text);
+      } else {
+        Navigator.pushNamed(
+            context, RegisterScreen.routeName, arguments: phoneController.text);
+      }
     }
   }
 }

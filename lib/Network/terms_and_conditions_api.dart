@@ -18,7 +18,7 @@ class TermsAndConditionsApi{
     http.Response response = await http.get(url,headers: {
       'Content-Type': 'application/json',
       "Accept" : "application/json",
-      "Authorization" : (SharedPref.getUserObg() == null) ? "${SharedPref.getGuestToken()}" : "${SharedPref.getUserObg()?.token}",
+      "Authorization" : SharedPref.getUserObg()?.token ?? "",
       "Device-Id": deviceId,
     });
     if(response.statusCode == 429){
@@ -47,7 +47,7 @@ class TermsAndConditionsApi{
     http.Response response = await http.get(url,headers: {
       'Content-Type': 'application/json',
       "Accept" : "application/json",
-      "Authorization" : (SharedPref.getUserObg() == null) ? "${SharedPref.getGuestToken()}" : "${SharedPref.getUserObg()?.token}",
+      "Authorization" : SharedPref.getUserObg()?.token ?? "",
       "Device-Id": deviceId,
     });
     if(response.statusCode == 429){

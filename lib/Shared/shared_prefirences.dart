@@ -3,7 +3,6 @@ import 'package:Tanmeyah/Shared/shard_obj.dart';
 import '../Models/user_model.dart';
 
 class SharedPref {
-  static const String _guestToken = "guestToken";
   static const String _userObj = "userObj";
   static const String _language = "language_code";
   static const String _intro = "intro";
@@ -11,20 +10,6 @@ class SharedPref {
   static const String latitude = "latitude";
   static const String longitude = "longitude";
   static const String canRequestLoan = "canRequestLoan";
-
-  static Future<bool?> saveToken({required String sessionToken}) async {
-    return await SharedObj()
-        .prefs
-        ?.setString(_guestToken, jsonEncode(sessionToken));
-  }
-
-
-  static String? getGuestToken() {
-    String? guestToken = SharedObj().prefs?.getString(_guestToken);
-    if (guestToken == null) return null;
-    return jsonDecode(guestToken);
-  }
-
 
   static Future<bool?> saveUserObj({required UserModel userModel}) async {
     return await SharedObj()

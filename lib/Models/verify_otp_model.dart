@@ -1,39 +1,50 @@
-// To parse this JSON data, do
-//
-//     final verifyOtpModel = verifyOtpModelFromJson(jsonString);
+class VerifyOtpData {
+  String? prospectToken;
+  bool? registeredUser;
 
-// ignore_for_file: prefer_if_null_operators
+  VerifyOtpData({this.prospectToken, this.registeredUser});
 
-import 'dart:convert';
+  factory VerifyOtpData.fromJson(Map<String, dynamic> json) => VerifyOtpData(
+        prospectToken: json['prospectToken'],
+        registeredUser: json['registeredUser'],
+      );
 
-VerifyOtpModel verifyOtpModelFromJson(String str) => VerifyOtpModel.fromJson(json.decode(str));
-
-String verifyOtpModelToJson(VerifyOtpModel data) => json.encode(data.toJson());
+  Map<String, dynamic> toJson() => {
+        'prospectToken': prospectToken,
+        'registeredUser': registeredUser,
+      };
+}
 
 class VerifyOtpModel {
   VerifyOtpModel({
-     this.alreadyExists,
-     this.isSuccess,
-     this.code,
-     this.message,
+    this.success,
+    this.message,
+    this.data,
+    this.timestamp,
   });
 
-  bool? alreadyExists;
-  bool? isSuccess;
-  String? code;
+  bool? success;
   String? message;
+  VerifyOtpData? data;
+  String? timestamp;
+
+  bool get isSuccess => success == true;
+  bool? get registeredUser => data?.registeredUser;
+  String? get prospectToken => data?.prospectToken;
 
   factory VerifyOtpModel.fromJson(Map<String, dynamic> json) => VerifyOtpModel(
-    alreadyExists: json["alreadyExists"],
-    isSuccess: json["isSuccess"],
-    code: json["code"],
-    message: json["message"] != null ? json["message"] : null,
-  );
+        success: json['success'] ?? json['isSuccess'],
+        message: json['message'],
+        data: json['data'] != null
+            ? VerifyOtpData.fromJson(json['data'])
+            : null,
+        timestamp: json['timestamp'],
+      );
 
   Map<String, dynamic> toJson() => {
-    "alreadyExists": alreadyExists,
-    "isSuccess": isSuccess,
-    "code": code,
-    "message": message,
-  };
+        'success': success,
+        'message': message,
+        'data': data?.toJson(),
+        'timestamp': timestamp,
+      };
 }
