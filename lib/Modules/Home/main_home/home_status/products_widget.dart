@@ -14,7 +14,7 @@ import 'package:iconsax/iconsax.dart';
 
 class ProductsWidget extends StatelessWidget {
   HomeController con;
-  ProductsWidget({Key? key,required this.con}) : super(key: key);
+  ProductsWidget({super.key,required this.con});
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,8 @@ class ProductsWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'request_service',
                       parameters: <String,Object>{
                         "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"

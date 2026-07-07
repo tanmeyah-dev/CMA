@@ -118,14 +118,14 @@ class LoanRequestModel {
       });
 
   LoanRequestModel.fromJson(Map<String, dynamic> json){
-    totalAmount = json['totalAmount'] != null ?  json['totalAmount'].toDouble() : null;
+    totalAmount = json['totalAmount']?.toDouble();
     paidAmount = json['totalAmount'] != null ? json['paidAmount'].toDouble() : null;
     nextInstallmentDate = json['nextInstallmentDate'];
     numberOfpaidMonths = json['numberOfpaidMonths'];
     numberOfNotPaidMonths = json['numberOfNotPaidMonths'];
     totalDueAmount = json['totalAmount'] != null ? json['totalDueAmount'].toDouble(): null;
     dueInstallmentAmount = json['totalAmount'] != null ? json['dueInstallmentAmount'].toDouble() : null;
-    lastPaidInstallmentAmount =  json["lastPaidInstallmentAmount"] != null ? json["lastPaidInstallmentAmount"].toDouble() : null;
+    lastPaidInstallmentAmount =  json["lastPaidInstallmentAmount"]?.toDouble();
     lastPaidInstallmentDate =  json["lastPaidInstallmentDate"];
   }
 

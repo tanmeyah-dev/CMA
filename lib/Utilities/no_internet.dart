@@ -11,7 +11,7 @@ import '../Widgets/custom_text.dart';
 
 class NoInternetScreen extends StatefulWidget {
   static const String routeName = "/noInternetScreen";
-  const NoInternetScreen({Key? key}) : super(key: key);
+  const NoInternetScreen({super.key});
 
   @override
   State<NoInternetScreen> createState() => _NoInternetScreenState();

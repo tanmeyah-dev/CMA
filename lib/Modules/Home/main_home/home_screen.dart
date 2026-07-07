@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously
-import 'dart:math';
 import 'package:Tanmeyah/Modules/Home/main_home/home_status/waitting_loan_widget.dart';
 import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_terms/loan_request_terms_screen.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
@@ -9,29 +8,23 @@ import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
 import 'package:Tanmeyah/Widgets/login_alert_widget.dart';
-import 'package:Tanmeyah/Widgets/service_alert_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/loading_screen.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/animated_alert.dart';
-import '../../Billers/service_billers/service_billers_screen.dart';
-import '../../Billers/service_types/all_service_types_screen.dart';
 import 'home_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'home_status/active_loan.dart';
-import 'home_status/bill_widget.dart';
 import 'home_status/offers_widget.dart';
 import 'home_status/products_widget.dart';
-import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -51,8 +44,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_home_screen',
         parameters: <String,Object>{
           "title" :"open_home_screen"
@@ -170,8 +163,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                                           fontWeight: FontWeight.bold,
                                                           onTap: () async {
                                                             if (con.isLogin)  {
-                                                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                                              _analytics.logEvent(
+                                                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                                              analytics.logEvent(
                                                                   name: 'request_loan_button',
                                                                   parameters: <String,Object>{
                                                                     "title" :"request_loan_button"
@@ -282,7 +275,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                     //   ),
                     // ) : Container(),
                     (con.homeResponse?.offers != null &&
-                        con.homeResponse!.offers.length != 0) ? OffersWidget(con: con) : Container(),
+                        con.homeResponse!.offers.isNotEmpty) ? OffersWidget(con: con) : Container(),
                     (con.homeResponse?.products != null &&
                         con.homeResponse!.products.isNotEmpty) ? ProductsWidget(con: con,) : Container(),
                     SizedBox(

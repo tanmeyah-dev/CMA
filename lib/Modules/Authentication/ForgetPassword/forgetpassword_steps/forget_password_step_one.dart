@@ -15,7 +15,7 @@ import '../../../../Widgets/custom_textfield_widget.dart';
 
 class ForgetPasswordStepOne extends StatefulWidget {
   ForgetPasswordController con;
-   ForgetPasswordStepOne({required this.con,Key? key}) : super(key: key);
+   ForgetPasswordStepOne({required this.con,super.key});
 
   @override
   State<ForgetPasswordStepOne> createState() => _ForgetPasswordStepOneState();

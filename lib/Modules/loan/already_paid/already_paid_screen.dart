@@ -14,7 +14,7 @@ import 'package:iconsax/iconsax.dart'; // <------------ import iconsax
 class AlreadyPaidScreen extends StatefulWidget {
   static const String routeName = "/alreadyPaidScreen";
 
-  const AlreadyPaidScreen({Key? key}) : super(key: key);
+  const AlreadyPaidScreen({super.key});
 
   @override
   _AlreadyPaidScreenState createState() => _AlreadyPaidScreenState();
@@ -29,8 +29,8 @@ class _AlreadyPaidScreenState extends StateMVC<AlreadyPaidScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_already_paid_screen',
         parameters: <String,Object>{
           "title" :"open_already_paid_screen"

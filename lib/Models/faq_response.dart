@@ -2,7 +2,7 @@ class FAQResponse {
   List<Faqs>? faqs;
   bool? isSuccess;
   String? code;
-  Null? message;
+  Null message;
 
   FAQResponse({this.faqs, this.isSuccess, this.code, this.message});
 
@@ -10,7 +10,7 @@ class FAQResponse {
     if (json['faqs'] != null) {
       faqs = <Faqs>[];
       json['faqs'].forEach((v) {
-        faqs!.add(new Faqs.fromJson(v));
+        faqs!.add(Faqs.fromJson(v));
       });
     }
     isSuccess = json['isSuccess'];
@@ -19,13 +19,13 @@ class FAQResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.faqs != null) {
-      data['faqs'] = this.faqs!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (faqs != null) {
+      data['faqs'] = faqs!.map((v) => v.toJson()).toList();
     }
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -42,9 +42,9 @@ class Faqs {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['question'] = this.question;
-    data['answer'] = this.answer;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['question'] = question;
+    data['answer'] = answer;
     return data;
   }
 }

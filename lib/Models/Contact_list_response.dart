@@ -11,7 +11,7 @@ class ContactListResponse {
     if (json['contactUsLookups'] != null) {
       contactUsLookups = <ContactUsLookups>[];
       json['contactUsLookups'].forEach((v) {
-        contactUsLookups!.add(new ContactUsLookups.fromJson(v));
+        contactUsLookups!.add(ContactUsLookups.fromJson(v));
       });
     }
     isSuccess = json['isSuccess'];
@@ -20,14 +20,14 @@ class ContactListResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.contactUsLookups != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (contactUsLookups != null) {
       data['contactUsLookups'] =
-          this.contactUsLookups!.map((v) => v.toJson()).toList();
+          contactUsLookups!.map((v) => v.toJson()).toList();
     }
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -44,9 +44,9 @@ class ContactUsLookups {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['text'] = this.text;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['text'] = text;
     return data;
   }
 }

@@ -16,7 +16,7 @@ class BillerServicesResponse {
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
-        services!.add(new Services.fromJson(v));
+        services!.add(Services.fromJson(v));
       });
     }
     perviousBillingAccounts = json['perviousBillingAccounts'].cast<String>();
@@ -26,14 +26,14 @@ class BillerServicesResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.services != null) {
-      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (services != null) {
+      data['services'] = services!.map((v) => v.toJson()).toList();
     }
-    data['perviousBillingAccounts'] = this.perviousBillingAccounts;
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['perviousBillingAccounts'] = perviousBillingAccounts;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -106,7 +106,7 @@ class Services {
     allowRcptReprint = json['allowRcptReprint'];
     otpEnabled = json['otpEnabled'];
     validationEnabled = json['validationEnabled'];
-    timeout = json['timeout'] != null ? json['timeout'] : null;
+    timeout = json['timeout'];
     pmtType = json['pmtType'];
     otpRequired = json['otpRequired'];
     serviceType = json['serviceType'];
@@ -122,7 +122,7 @@ class Services {
     if (json['fees'] != null) {
       fees = <Fees>[];
       json['fees'].forEach((v) {
-        fees!.add(new Fees.fromJson(v));
+        fees!.add(Fees.fromJson(v));
       });
     }
     // if (json['billTypeExtraRefKeys'] != null) {
@@ -134,33 +134,33 @@ class Services {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['serviceName'] = this.serviceName;
-    data['billTypeCode'] = this.billTypeCode;
-    data['billTypeAcctLabel'] = this.billTypeAcctLabel;
-    data['billTypeDescription'] = this.billTypeDescription;
-    data['isHidden'] = this.isHidden;
-    data['billRefType'] = this.billRefType;
-    data['receiptFooter'] = this.receiptFooter;
-    data['allowRcptReprint'] = this.allowRcptReprint;
-    data['otpEnabled'] = this.otpEnabled;
-    data['validationEnabled'] = this.validationEnabled;
-    data['timeout'] = this.timeout;
-    data['pmtType'] = this.pmtType;
-    data['otpRequired'] = this.otpRequired;
-    data['serviceType'] = this.serviceType;
-    data['isBAConfRequired'] = this.isBAConfRequired;
-    data['isTermsConditionReq'] = this.isTermsConditionReq;
-    data['isInQrQr'] = this.isInQrQr;
-    data['isMobNtfy'] = this.isMobNtfy;
-    data['isFracAcpt'] = this.isFracAcpt;
-    data['isPrtAcpt'] = this.isPrtAcpt;
-    data['isOvrAcpt'] = this.isOvrAcpt;
-    data['isAdvAcpt'] = this.isAdvAcpt;
-    data['isAcptCardPmt'] = this.isAcptCardPmt;
-    if (this.fees != null) {
-      data['fees'] = this.fees!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['serviceName'] = serviceName;
+    data['billTypeCode'] = billTypeCode;
+    data['billTypeAcctLabel'] = billTypeAcctLabel;
+    data['billTypeDescription'] = billTypeDescription;
+    data['isHidden'] = isHidden;
+    data['billRefType'] = billRefType;
+    data['receiptFooter'] = receiptFooter;
+    data['allowRcptReprint'] = allowRcptReprint;
+    data['otpEnabled'] = otpEnabled;
+    data['validationEnabled'] = validationEnabled;
+    data['timeout'] = timeout;
+    data['pmtType'] = pmtType;
+    data['otpRequired'] = otpRequired;
+    data['serviceType'] = serviceType;
+    data['isBAConfRequired'] = isBAConfRequired;
+    data['isTermsConditionReq'] = isTermsConditionReq;
+    data['isInQrQr'] = isInQrQr;
+    data['isMobNtfy'] = isMobNtfy;
+    data['isFracAcpt'] = isFracAcpt;
+    data['isPrtAcpt'] = isPrtAcpt;
+    data['isOvrAcpt'] = isOvrAcpt;
+    data['isAdvAcpt'] = isAdvAcpt;
+    data['isAcptCardPmt'] = isAcptCardPmt;
+    if (fees != null) {
+      data['fees'] = fees!.map((v) => v.toJson()).toList();
     }
     // if (this.billTypeExtraRefKeys != null) {
     //   data['billTypeExtraRefKeys'] =
@@ -187,18 +187,18 @@ class Fees {
   Fees.fromJson(Map<String, dynamic> json) {
     lowerAmt = json['lowerAmt'].toDouble();
     upperAmt = json['upperAmt'].toDouble();
-    fixedAmt = json['fixedAmt'] != null ? json['fixedAmt'].toDouble() : null;
+    fixedAmt = json['fixedAmt']?.toDouble();
     curCode = json['curCode'];
     isEmbeddedFees = json['isEmbeddedFees'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lowerAmt'] = this.lowerAmt;
-    data['upperAmt'] = this.upperAmt;
-    data['fixedAmt'] = this.fixedAmt;
-    data['curCode'] = this.curCode;
-    data['isEmbeddedFees'] = this.isEmbeddedFees;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lowerAmt'] = lowerAmt;
+    data['upperAmt'] = upperAmt;
+    data['fixedAmt'] = fixedAmt;
+    data['curCode'] = curCode;
+    data['isEmbeddedFees'] = isEmbeddedFees;
     return data;
   }
 }

@@ -62,13 +62,13 @@ class OfferModel {
   factory OfferModel.fromJson(Map<String, dynamic> json) => OfferModel(
     id: json["id"],
     nameAr: json["nameAr"],
-    nameEn: json["nameEn"] != null ? json["nameEn"] : null,
+    nameEn: json["nameEn"],
     descriptionAr: json["descriptionAr"],
-    descriptionEn: json["descriptionEn"] != null ? json["descriptionEn"] : null,
+    descriptionEn: json["descriptionEn"],
     startDate: DateTime.parse(json["startDate"]),
     endDate: DateTime.parse(json["endDate"]),
-    imageUrl: json["imageUrl"] != null ?  json["imageUrl"] : null ,
-    title: json["title"] != null ? json["title"] : null,
+    imageUrl: json["imageUrl"] ,
+    title: json["title"],
   );
 
   Map<String, dynamic> toJson() => {

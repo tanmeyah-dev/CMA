@@ -14,7 +14,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class ConditionsScreen extends StatefulWidget {
   static const String routeName = "/conditionsScreen";
 
-  const ConditionsScreen({Key? key}) : super(key: key);
+  const ConditionsScreen({super.key});
 
   @override
   _ConditionsScreenState createState() => _ConditionsScreenState();
@@ -29,8 +29,8 @@ class _ConditionsScreenState extends StateMVC<ConditionsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_conditions_screen',
         parameters: <String,Object>{
           "title" : "open_conditions_screen"

@@ -1,23 +1,16 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Models/loan_checkout_model.dart';
-import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_screen.dart';
-import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
-import 'package:Tanmeyah/Widgets/custom_textfield_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
-import '../../../../Utilities/Validator.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
-import '../../../Billers/checkout/checkout_screen.dart';
 import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
 import 'loan_vlens_sdk_screen.dart';
@@ -26,7 +19,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class LoanRequestAmountScreen extends StatefulWidget {
   static const String routeName = "/loanAmountScreen";
 
-  const LoanRequestAmountScreen({Key? key}) : super(key: key);
+  const LoanRequestAmountScreen({super.key});
 
   @override
   _LoanAmountScreenState createState() => _LoanAmountScreenState();
@@ -57,8 +50,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_loan_amount_screen',
         parameters: <String, Object>{"title": "open_loan_amount_screen"});
     super.initState();
@@ -275,8 +268,7 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                         width: 385.w,
                                         title: "next".tr,
                                         onTap: () {
-                                          print("SELECTED " +
-                                              con.selectedValue.toString());
+                                          print("SELECTED ${con.selectedValue}");
                                           if (con.currentPosition == null) {
                                             con.checkLocation(
                                                 context: context,

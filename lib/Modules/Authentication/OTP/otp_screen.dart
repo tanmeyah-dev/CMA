@@ -77,6 +77,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
+    final horizontalPadding = 30.w;
     final buttonWidth = 1.sw - 60.w;
 
     return LoadingScreen(
@@ -85,37 +87,46 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           backgroundColor: ThemeClass.whiteColor,
+          resizeToAvoidBottomInset: false,
           appBar: BaseAppBar.main(enableNotification: false),
-          body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: ThemeClass.whiteColor,
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.w),
-              child: Form(
-                key: con.formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      image(),
-                      SizedBox(height: 16.h),
-                      otpDes(),
-                      SizedBox(height: 40.h),
-                      PinCodeWidget(
-                        controller: con.codeController,
-                        length: OtpController.otpLength,
-                        onChangeOTP: _onOtpChanged,
-                      ),
-                      SizedBox(height: 35.h),
-                      timer(),
-                      SizedBox(height: 85.h),
-                      confirmBtn(buttonWidth),
-                    ],
+          body: Form(
+            key: con.formKey,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: horizontalPadding),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 24.h),
+                        image(keyboardVisible: keyboardInset > 0),
+                        SizedBox(height: 16.h),
+                        otpDes(),
+                        SizedBox(height: 40.h),
+                        PinCodeWidget(
+                          controller: con.codeController,
+                          length: OtpController.otpLength,
+                          onChangeOTP: _onOtpChanged,
+                        ),
+                        SizedBox(height: 35.h),
+                        timer(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    horizontalPadding,
+                    16.h,
+                    horizontalPadding,
+                    keyboardInset > 0 ? keyboardInset + 12.h : 20.h,
+                  ),
+                  child: confirmBtn(buttonWidth),
+                ),
+              ],
             ),
           ),
         ),
@@ -123,12 +134,16 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
     );
   }
 
-  Widget image() {
-    return Image.asset(
-      AppAssets.IMG_OTP,
-      height: 320.h,
-      width: 320.w,
-      fit: BoxFit.fill,
+  Widget image({required bool keyboardVisible}) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      height: keyboardVisible ? 219.h : 320.h,
+      width: keyboardVisible ? 211.w : 320.w,
+      child: Image.asset(
+        AppAssets.IMG_OTP,
+        fit: BoxFit.fill,
+      ),
     );
   }
 

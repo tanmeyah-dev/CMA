@@ -10,7 +10,7 @@ import '../../../../Theme/themeclass.dart';
 class LogoutAlertWidget extends StatelessWidget {
   Function() onOkPressed;
   String message;
-  LogoutAlertWidget({ required this.onOkPressed,required this.message , Key? key}) : super(key: key);
+  LogoutAlertWidget({ required this.onOkPressed,required this.message , super.key});
 
   @override
   Widget build(BuildContext context) {

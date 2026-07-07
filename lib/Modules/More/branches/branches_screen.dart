@@ -18,7 +18,7 @@ import 'package:iconsax/iconsax.dart';
 class BranchesScreen extends StatefulWidget {
   static const String routeName = "/branchesScreen";
 
-  const BranchesScreen({Key? key}) : super(key: key);
+  const BranchesScreen({super.key});
 
   @override
   _BranchesScreenState createState() => _BranchesScreenState();
@@ -32,8 +32,8 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
   late BranchesController con;
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_branches_screen',
         parameters: <String,Object>{
           "title" :"open_branches_screen"
@@ -109,7 +109,7 @@ class _BranchesScreenState extends StateMVC<BranchesScreen> {
               SizedBox(height: 8.h,),
               SizedBox(
                 height: 730.h,
-                child: (con.branchList != null && con.branchList.isNotEmpty)
+                child: (con.branchList.isNotEmpty)
                     ? SmartRefresher(
                   enablePullDown: true,
                   enablePullUp: true,

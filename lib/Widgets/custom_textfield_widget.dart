@@ -104,11 +104,9 @@ class CustomTextFieldWidget extends StatelessWidget {
           fillColor: backGroundColor,
           filled: backGroundColor != null,
           hintText: hint,
-          prefixIcon: prefixIcon == null
-              ? SizedBox(
+          prefixIcon: prefixIcon ?? SizedBox(
                   width: 10.w,
-                )
-              : prefixIcon,
+                ),
           suffixIcon: suffixIcon == null
               ? SizedBox(
                   width: 5.w,

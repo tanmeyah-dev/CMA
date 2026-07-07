@@ -70,7 +70,7 @@ class UserModel {
     email: json["email"] != null ? json["email"]: null,
     isActive: json["isActive"],
     token: json["token"] != null ? json["token"] : null,
-    governmentId: json["governorateId"] != null ? json["governorateId"].toString() : null,
+    governmentId: json["governorateId"]?.toString(),
   );
 
   Map<String, dynamic> toJson() => {

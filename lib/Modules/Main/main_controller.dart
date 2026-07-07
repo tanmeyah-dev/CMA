@@ -29,12 +29,8 @@ class CustomNavBarWidget extends StatelessWidget {
               data: IconThemeData(
                   size: 26.0,
                   color: isSelected
-                      ? (item.activeColorSecondary == null
-                      ? item.activeColorPrimary
-                      : item.activeColorSecondary)
-                      : item.inactiveColorPrimary == null
-                      ? item.activeColorPrimary
-                      : item.inactiveColorPrimary),
+                      ? (item.activeColorSecondary ?? item.activeColorPrimary)
+                      : item.inactiveColorPrimary ?? item.activeColorPrimary),
               child: item.icon,
             ),
           ),

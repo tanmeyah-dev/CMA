@@ -22,7 +22,7 @@ class LoanCityScreen extends StatefulWidget {
 
   final LoanCheckoutModel loanCheckoutModel;
 
-  LoanCityScreen({required this.loanCheckoutModel,Key? key}) : super(key: key);
+  const LoanCityScreen({required this.loanCheckoutModel,super.key});
 
   @override
   _LoanCityScreenState createState() => _LoanCityScreenState();
@@ -80,42 +80,53 @@ class _LoanCityScreenState extends StateMVC<LoanCityScreen>
                             AppTextRegular(title: "nearest_branch".tr,fontSize: 20.sp,),
                             SizedBox(height: 4.h,),
                             Divider(),
-                            AppTextRegular(title: "choose_gov".tr,fontSize: 16.sp,),
-                            SizedBox(height: 8.h,),
-                            CustomDropDownWidget<String>(
-                              hint: "choose_gov".tr,
-                              selected: con.governoratesList?.any((item) => item.id.toString() == con.selectedGovernmentId) ?? false
-                                  ? con.selectedGovernmentId
-                                  : null,
-                              onChange: (String? selectedId) {
-                                if (selectedId != null) {
-                                  con.selectedGovernmentId = selectedId;
-                                  final selectedItem = con.governoratesList?.firstWhere(
-                                        (item) => item.id.toString() == selectedId,
-                                      orElse: () => Governorates(id: null, name: null),
-                                  );
-                                  if (selectedItem != null && selectedItem.id != null) {
-                                    con.governmentTitle = selectedItem.name ?? "";
-                                    con.getCityByGovernment(governmentId: selectedId);
-                                  }
-                                  setState(() {});
-                                }
-                              },
-                              borderColor: Colors.grey,
-                              items: con.governoratesList?.map((item) {
-                                return DropdownMenuItem<String>(
-                                  value: item.id?.toString(),
-                                  child: Text(item.name ?? "",
-                                      style: TextStyle(fontSize: 16.sp, height: -0.2)),
-                                );
-                              }).toList() ?? [],
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.only(left: 10.w),
-                                child: Icon(
-                                  Iconsax.arrow_down5,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppTextRegular(
+                                  title: "government".tr,
                                   color: ThemeClass.secondaryColor,
                                 ),
-                              ),
+                                SizedBox(height: 10.h),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: CustomDropDownWidget<String>(
+                                    hint: "choose_gov".tr,
+                                    selected: con.governoratesList?.any((item) => item.id.toString() == con.selectedGovernmentId) ?? false
+                                        ? con.selectedGovernmentId
+                                        : null,
+                                    onChange: (String? selectedId) {
+                                      if (selectedId != null) {
+                                        con.selectedGovernmentId = selectedId;
+                                        final selectedItem = con.governoratesList?.firstWhere(
+                                              (item) => item.id.toString() == selectedId,
+                                            orElse: () => Governorates(id: null, name: null),
+                                        );
+                                        if (selectedItem != null && selectedItem.id != null) {
+                                          con.governmentTitle = selectedItem.name ?? "";
+                                          con.getCityByGovernment(governmentId: selectedId);
+                                        }
+                                        setState(() {});
+                                      }
+                                    },
+                                    borderColor: Colors.grey,
+                                    items: con.governoratesList?.map((item) {
+                                      return DropdownMenuItem<String>(
+                                        value: item.id?.toString(),
+                                        child: Text(item.name ?? "",
+                                            style: TextStyle(fontSize: 16.sp, height: -0.2)),
+                                      );
+                                    }).toList() ?? [],
+                                    prefixIcon: Padding(
+                                      padding: EdgeInsets.only(left: 10.w),
+                                      child: Icon(
+                                        Iconsax.arrow_down5,
+                                        color: ThemeClass.secondaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 16.h,),
                             AppTextRegular(title: "choose_branch".tr,fontSize: 16.sp,),

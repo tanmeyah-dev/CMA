@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
-import 'package:Tanmeyah/Modules/loan/previous_loans/previous_loan_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-import '../../../Models/home_response.dart';
 import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Widgets/animated_alert.dart';
@@ -25,7 +23,7 @@ class AllServiceTypesScreen extends StatefulWidget {
   static const String routeName = "/allServiceTypesScreen";
 
 
-  AllServiceTypesScreen({Key? key}) : super(key: key);
+  const AllServiceTypesScreen({super.key});
 
   @override
   _AllBillersScreenState createState() => _AllBillersScreenState();
@@ -40,8 +38,8 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_all_billers_screen',
         parameters: <String,Object>{
           "title" :"open_all_billers_screen"
@@ -82,8 +80,8 @@ class _AllBillersScreenState extends StateMVC<AllServiceTypesScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                        _analytics.logEvent(
+                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                        analytics.logEvent(
                             name: 'request_service',
                             parameters: <String,Object>{
                               "title" :"request_service_with  ${con.getAllServicesResponse?.serviceTypes![index].serviceTypeName}"

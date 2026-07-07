@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:solar_icons/solar_icons.dart';
 import '../../../Shared/shared_prefirences.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Theme/themeclass.dart';
@@ -111,29 +112,50 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
   Widget build(BuildContext context) {
     final buttonWidth = 1.sw - 44.w;
     final topPadding = MediaQuery.paddingOf(context).top + kToolbarHeight;
+    final view = View.of(context);
+    final screenHeight = view.physicalSize.height / view.devicePixelRatio;
+    final screenWidth = view.physicalSize.width / view.devicePixelRatio;
+    final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
 
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
+            resizeToAvoidBottomInset: false,
             extendBodyBehindAppBar: true,
             appBar: _buildRegisterAppBar(),
             body: LoadingScreen(
               loading: con.loading,
               child: GestureDetector(
                   onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-                  child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      alignment: Alignment.topCenter,
-                      padding: EdgeInsets.symmetric(horizontal: 22.w),
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AppAssets.IMG_LOGIN_BACK),
-                          fit: BoxFit.fill,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.topCenter,
+                    children: [
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        width: screenWidth,
+                        height: screenHeight,
+                        child: IgnorePointer(
+                          child: DecoratedBox(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(AppAssets.IMG_LOGIN_BACK),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      child: SingleChildScrollView(
+                      SingleChildScrollView(
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          padding: EdgeInsets.only(
+                            left: 22.w,
+                            right: 22.w,
+                            bottom: keyboardInset,
+                          ),
                           child: Form(
                               key: con.formKey,
                               child: Column(
@@ -165,8 +187,10 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                                       ? SizedBox(height: 30.h)
                                       : Container()
                                 ],
-                              ))))),
-            )));
+                              ))),
+                    ],
+                  ))),
+            ));
   }
 
   Widget fullNameTxtField() {
@@ -395,7 +419,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               setState(() {});
             },
             child: Icon(
-              con.showPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+              con.showPassword ? SolarIconsBold.eyeClosed : SolarIconsBold.eyeClosed,
               color: con.passwordController.text == ""
                   ? ThemeClass.hintColor
                   : ThemeClass.secondaryColor,
@@ -420,7 +444,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
         SizedBox(
           width: double.infinity,
           child: CustomDropDownWidget<String>(
-            hint: "المحافظه",
+            hint: "choose_gov".tr,
             selected: con.selectedValue,
             onChange: (v) {
               con.selectedValue = v!;
@@ -471,7 +495,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
               setState(() {});
             },
             child: Icon(
-              con.showConfirmPassword ? Iconsax.eye4 : Iconsax.eye_slash5,
+              con.showConfirmPassword ? SolarIconsBold.eyeClosed : SolarIconsBold.eyeClosed,
               color: con.confirmPasswordController.text == ""
                   ? ThemeClass.hintColor
                   : ThemeClass.secondaryColor,

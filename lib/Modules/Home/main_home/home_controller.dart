@@ -8,9 +8,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Shared/shared_prefirences.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../Utilities/general_toast.dart';
 import 'package:retry/retry.dart';
-import 'package:http/http.dart' as http;
 
 
 
@@ -71,11 +69,11 @@ class HomeController extends ControllerMVC {
     homeResponse = await HomeApi.getHomeData(nationalId: userModel?.nationalId ?? "");
     if(SharedPref.getUserObg() != null) {isLogin = true;} else
       {isLogin = false;}
-    print("<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>" + SharedPref.getCanRequestLoan().toString());
+    print("<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>${SharedPref.getCanRequestLoan()}");
     if(homeResponse?.canRequestLoan == false){
       await SharedPref.setCanRequestLoan(value: false);
-    } else { await SharedPref.setCanRequestLoan(value: true);};
-    print("<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>" + SharedPref.getCanRequestLoan().toString());
+    } else { await SharedPref.setCanRequestLoan(value: true);}
+    print("<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>${SharedPref.getCanRequestLoan()}");
     loading = false;
     setState(() {});
 }

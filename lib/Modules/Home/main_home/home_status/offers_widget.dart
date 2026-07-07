@@ -3,7 +3,6 @@
 import 'package:Tanmeyah/Modules/Home/main_home/home_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -16,7 +15,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class OffersWidget extends StatelessWidget {
   HomeController con;
-  OffersWidget({Key? key,required this.con}) : super(key: key);
+  OffersWidget({super.key,required this.con});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +33,8 @@ class OffersWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                    _analytics.logEvent(
+                    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                    analytics.logEvent(
                         name: 'request_view_all_offers',
                         parameters: <String,Object>{
                           "title" :"request_view_all_offers"
@@ -73,8 +72,8 @@ class OffersWidget extends StatelessWidget {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'open_offer_detail',
                           parameters: <String,Object>{
                             "title" :"open_offer_detail  ${i.nameAr}"

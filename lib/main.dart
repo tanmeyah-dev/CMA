@@ -2,25 +2,17 @@
 
 import 'dart:io';
 
-import 'package:Tanmeyah/Modules/Home/request_loan/loan_checkout/loan_checkout_screen.dart';
-import 'package:Tanmeyah/Modules/Home/request_loan/loan_city/loan_city_screen.dart';
-import 'package:Tanmeyah/Modules/Home/request_loan/loan_request_amount/loan_request_amount_screen.dart';
-import 'package:Tanmeyah/Modules/More/main_more/more_screen.dart';
-import 'package:Tanmeyah/Utilities/update_app.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
 import 'Cache/app_languages.dart';
 import 'Cache/shared_data_provider.dart';
 import 'Cache/locales.dart';
-import 'Modules/Authentication/Login/local_auth/local_auth_screen.dart';
 import 'Modules/Authentication/Splash/splash_screen.dart';
-import 'Modules/Home/request_loan/loan_request_success/loan_request_success_screen.dart';
 import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Utilities/routing.dart';
@@ -28,7 +20,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:dart_ping_ios/dart_ping_ios.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:bot_toast/bot_toast.dart';
 
 
@@ -96,7 +87,7 @@ Future<void> main() async {
 }
 
 class EntryPoint extends StatefulWidget {
-  const EntryPoint({Key? key}) : super(key: key);
+  const EntryPoint({super.key});
 
   @override
   State<EntryPoint> createState() => _EntryPointState();
@@ -114,7 +105,7 @@ class _EntryPointState extends State<EntryPoint>  {
   @override
   Widget build(BuildContext context) {
     final botToastBuilder = BotToastInit();  //1. call BotToastInit
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
     final appLan = Provider.of<AppLanguage>(context);
     appLan.fetchLocale();
     SystemChrome.setPreferredOrientations([
@@ -138,7 +129,7 @@ class _EntryPointState extends State<EntryPoint>  {
               ? 'تنميه'
               : "Tanmeyah",
           navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: _analytics),
+            FirebaseAnalyticsObserver(analytics: analytics),
             BotToastNavigatorObserver()
           ],
           initialRoute: SplashScreen.routeName,

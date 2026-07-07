@@ -1,5 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api, depend_on_referenced_packages, prefer_const_constructors
-import 'package:Tanmeyah/Modules/Account/account_screen.dart';
 import 'package:Tanmeyah/Modules/More/main_more/more_screen.dart';
 import 'package:flutter/material.dart';
 import '../../Theme/themeclass.dart';
@@ -15,7 +14,7 @@ class MainScreen extends StatefulWidget {
   static const String routeName = "/mainScreen";
 
   int? index;
-  MainScreen({Key? key,this.index}) : super(key: key);
+  MainScreen({super.key,this.index});
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -23,7 +22,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     MainLoanScreen(),
     BillersAndServicesScreen(),
@@ -33,8 +32,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     _selectedIndex = widget.index??0;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_landing_screen',
         parameters: <String,Object>{
           "title" :"open_landing_screen"

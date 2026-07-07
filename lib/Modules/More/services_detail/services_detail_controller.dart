@@ -27,7 +27,7 @@ class ServicesDetailController extends ControllerMVC {
 
   @override
   void initState() async {
-    canRequestLoan = await SharedPref.getCanRequestLoan();
+    canRequestLoan = SharedPref.getCanRequestLoan();
     getServiceDetail();
     super.initState();
   }

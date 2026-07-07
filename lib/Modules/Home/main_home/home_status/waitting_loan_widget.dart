@@ -77,7 +77,7 @@ class WaitingLoanWidget extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 8.h,left: 24.w,right: 12.w,bottom: 12.h),
                       decoration: BoxDecoration(
-                        color: Color(0xFF1D1D1D29),
+                        color: Color(0xff1d1d1d29),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(

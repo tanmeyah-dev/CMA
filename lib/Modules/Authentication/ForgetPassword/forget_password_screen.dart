@@ -19,7 +19,7 @@ import 'forgetpassword_steps/forget_password_step_one.dart';import 'package:fire
 class ForgetPasswordScreen extends StatefulWidget {
   static const String routeName = "/forgetPassword";
 
-  const ForgetPasswordScreen({Key? key}) : super(key: key);
+  const ForgetPasswordScreen({super.key});
 
   @override
   _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
@@ -35,8 +35,8 @@ class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_forget_password_screen',
         parameters: <String,Object>{
           "title" :"open_forget_password_screen"

@@ -12,7 +12,7 @@ import '../../../../Widgets/custom_textfield_widget.dart';import 'package:iconsa
 
 class ForgetPasswordStepThree extends StatefulWidget {
   ForgetPasswordController con;
-   ForgetPasswordStepThree({required this.con,Key? key}) : super(key: key);
+   ForgetPasswordStepThree({required this.con,super.key});
 
   @override
   State<ForgetPasswordStepThree> createState() => _ForgetPasswordStepThreeState();

@@ -81,13 +81,13 @@ class ServiceDetailModel {
       id: json["id"],
       nameAr: json["nameAr"],
       title: json["title"],
-      nameEn: json["nameEn"] != null ? json["nameEn"] : null,
+      nameEn: json["nameEn"],
       descriptionAr: json["descriptionAr"],
       descriptionEn:
-          json["descriptionEn"] != null ? json["descriptionEn"] : null,
-      imageUrl: json["imageUrl"] != null ? json["imageUrl"] : null,
-       logo: json["logo"] != null ? json["logo"] : null,
-       titleImg: json["titleImg"] != null ? json["titleImg"] : null,
+          json["descriptionEn"],
+      imageUrl: json["imageUrl"],
+       logo: json["logo"],
+       titleImg: json["titleImg"],
       info: json["info"] != null
           ? List<Info>.from(json["info"].map((x) => Info.fromJson(x)))
           : null,
@@ -123,8 +123,8 @@ class Info {
 
   factory Info.fromJson(Map<String, dynamic> json) => Info(
         productId: json["productId"],
-        infoKey: json["infoKey"] != null ? json["infoKey"] : null,
-        infoValue: json["infoValue"] != null ? json["infoValue"] : null,
+        infoKey: json["infoKey"],
+        infoValue: json["infoValue"],
         imageUrl: json["imageUrl"],
   );
 

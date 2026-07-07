@@ -13,7 +13,7 @@ class MoreItemWidget extends StatelessWidget {
    String title;
    bool hint;
    Function() onTap;
-   MoreItemWidget({required this.image, required this.title,required this.hint,required this.onTap,Key? key}) : super(key: key);
+   MoreItemWidget({required this.image, required this.title,required this.hint,required this.onTap,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class MoreItemWidget extends StatelessWidget {
           children: [
             Image.asset(
               image,
-              color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xFF6A4B4C80) : ThemeClass.fontColor,
+              color: image == AppAssets.IMG_MORE_ABOUT ? ThemeClass.primaryColor :  hint ? const Color(0xff6a4b4c80) : ThemeClass.fontColor,
               width: 24.w,
               height: 24.h,
             ),

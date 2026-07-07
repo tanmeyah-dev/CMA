@@ -8,7 +8,7 @@ import '../../../../Widgets/custom_text.dart';
 class BillWidget extends StatelessWidget {
     String? imageURL;
     String title;
-    BillWidget({required this.title , this.imageURL , Key? key}) : super(key: key);
+    BillWidget({required this.title , this.imageURL , super.key});
 
 
   @override

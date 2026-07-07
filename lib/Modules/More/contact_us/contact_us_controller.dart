@@ -24,7 +24,7 @@ class ContactUsController extends ControllerMVC {
   String? phone;
 
   ContactListResponse? contactListResponse;
-  String? selectChoose = null; // Explicitly initialize as null to show hint
+  String? selectChoose; // Explicitly initialize as null to show hint
 
   bool loading = false,
       autoValidate = false,editPhone = false;
@@ -96,8 +96,8 @@ class ContactUsController extends ControllerMVC {
     loading = false;
     setState(() {});
     if (contactUsResponse?.isSuccess == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'submit_contact_us_successfully',
           parameters: <String,Object>{
             "title" :"submit_contact_us_successfully"

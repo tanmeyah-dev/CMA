@@ -16,7 +16,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class OnBoardingScreen extends StatefulWidget {
   static const String routeName = "/onBoardingScreen";
 
-  const OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({super.key});
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -29,8 +29,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-     _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+     analytics.logEvent(
         name: 'open_onboarding_screen',
         parameters: <String,Object>{
           "title" : "open_onboarding_screen"
@@ -64,8 +64,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   left: 10.w,
                   child: SkipButton(
                     onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'skip_onboarding_screen',
                           parameters: <String,Object>{
                             "title" : "skip_onboarding_screen"
@@ -153,8 +153,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onTap: () async {
                 if (currentIndex == contents.length - 1) {
                   await SharedPref.saveWatchIntro();
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'complete_onboarding_screen',
                       parameters: <String,Object>{
                         "title" : "complete_onboarding_screen"

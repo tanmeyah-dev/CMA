@@ -5,13 +5,11 @@ import 'package:Tanmeyah/Models/due_installment_response.dart';
 import 'package:Tanmeyah/Models/loan_checkout_model.dart';
 import 'package:Tanmeyah/Models/loan_checkout_response.dart';
 import 'package:Tanmeyah/Models/previous_loan_model.dart';
-import 'package:Tanmeyah/Models/request_loan_response.dart';
 import 'package:Tanmeyah/Models/services_model.dart';
 import 'package:Tanmeyah/Network/network_methods.dart';
 import 'package:flutter/cupertino.dart';
 import '../Models/loan_detail_response.dart';
 import '../Models/paid_installment_response.dart';
-import '../Models/submit_loan_response.dart';
 import '../Utilities/general_toast.dart';
 import 'api.dart';
 

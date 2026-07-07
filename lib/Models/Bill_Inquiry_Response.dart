@@ -9,7 +9,7 @@ class BillInquiryResponse {
 
   BillInquiryResponse.fromJson(Map<String, dynamic> json) {
     billInqRs = json['billInqRs'] != null
-        ? new BillInqRs.fromJson(json['billInqRs'])
+        ? BillInqRs.fromJson(json['billInqRs'])
         : null;
     isSuccess = json['isSuccess'];
     code = json['code'];
@@ -17,13 +17,13 @@ class BillInquiryResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.billInqRs != null) {
-      data['billInqRs'] = this.billInqRs!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (billInqRs != null) {
+      data['billInqRs'] = billInqRs!.toJson();
     }
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -37,15 +37,15 @@ class BillInqRs {
     if (json['billRec'] != null) {
       billRec = <BillRec>[];
       json['billRec'].forEach((v) {
-        billRec!.add(new BillRec.fromJson(v));
+        billRec!.add(BillRec.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.billRec != null) {
-      data['billRec'] = this.billRec!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (billRec != null) {
+      data['billRec'] = billRec!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -73,21 +73,21 @@ class BillRec {
     billTypeCode = json['billTypeCode'];
     billRefNumber = json['billRefNumber'];
     billInfo = json['billInfo'] != null
-        ? new BillInfo.fromJson(json['billInfo'])
+        ? BillInfo.fromJson(json['billInfo'])
         : null;
     billStatus = json['billStatus'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['billingAcct'] = this.billingAcct;
-    data['billerId'] = this.billerId;
-    data['billTypeCode'] = this.billTypeCode;
-    data['billRefNumber'] = this.billRefNumber;
-    if (this.billInfo != null) {
-      data['billInfo'] = this.billInfo!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['billingAcct'] = billingAcct;
+    data['billerId'] = billerId;
+    data['billTypeCode'] = billTypeCode;
+    data['billRefNumber'] = billRefNumber;
+    if (billInfo != null) {
+      data['billInfo'] = billInfo!.toJson();
     }
-    data['billStatus'] = this.billStatus;
+    data['billStatus'] = billStatus;
     return data;
   }
 }
@@ -108,13 +108,13 @@ class BillInfo {
     if (json['billSummAmt'] != null) {
       billSummAmt = <BillSummAmt>[];
       json['billSummAmt'].forEach((v) {
-        billSummAmt!.add(new BillSummAmt.fromJson(v));
+        billSummAmt!.add(BillSummAmt.fromJson(v));
       });
     }
     if (json['paymentRange'] != null) {
       paymentRange = <PaymentRange>[];
       json['paymentRange'].forEach((v) {
-        paymentRange!.add(new PaymentRange.fromJson(v));
+        paymentRange!.add(PaymentRange.fromJson(v));
       });
     }
     rulesAwareness = json['rulesAwareness'];
@@ -122,15 +122,15 @@ class BillInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.billSummAmt != null) {
-      data['billSummAmt'] = this.billSummAmt!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (billSummAmt != null) {
+      data['billSummAmt'] = billSummAmt!.map((v) => v.toJson()).toList();
     }
-    if (this.paymentRange != null) {
-      data['paymentRange'] = this.paymentRange!.map((v) => v.toJson()).toList();
+    if (paymentRange != null) {
+      data['paymentRange'] = paymentRange!.map((v) => v.toJson()).toList();
     }
-    data['rulesAwareness'] = this.rulesAwareness;
-    data['extraBillInfo'] = this.extraBillInfo;
+    data['rulesAwareness'] = rulesAwareness;
+    data['extraBillInfo'] = extraBillInfo;
     return data;
   }
 }
@@ -144,14 +144,14 @@ class BillSummAmt {
   BillSummAmt.fromJson(Map<String, dynamic> json) {
     billSummAmtCode = json['billSummAmtCode'];
     curAmt =
-    json['curAmt'] != null ? new CurAmt.fromJson(json['curAmt']) : null;
+    json['curAmt'] != null ? CurAmt.fromJson(json['curAmt']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['billSummAmtCode'] = this.billSummAmtCode;
-    if (this.curAmt != null) {
-      data['curAmt'] = this.curAmt!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['billSummAmtCode'] = billSummAmtCode;
+    if (curAmt != null) {
+      data['curAmt'] = curAmt!.toJson();
     }
     return data;
   }
@@ -169,9 +169,9 @@ class CurAmt {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['amt'] = this.amt;
-    data['curCode'] = this.curCode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['amt'] = amt;
+    data['curCode'] = curCode;
     return data;
   }
 }
@@ -183,17 +183,17 @@ class PaymentRange {
   PaymentRange({this.lower, this.upper});
 
   PaymentRange.fromJson(Map<String, dynamic> json) {
-    lower = json['lower'] != null ? new CurAmt.fromJson(json['lower']) : null;
-    upper = json['upper'] != null ? new CurAmt.fromJson(json['upper']) : null;
+    lower = json['lower'] != null ? CurAmt.fromJson(json['lower']) : null;
+    upper = json['upper'] != null ? CurAmt.fromJson(json['upper']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.lower != null) {
-      data['lower'] = this.lower!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (lower != null) {
+      data['lower'] = lower!.toJson();
     }
-    if (this.upper != null) {
-      data['upper'] = this.upper!.toJson();
+    if (upper != null) {
+      data['upper'] = upper!.toJson();
     }
     return data;
   }

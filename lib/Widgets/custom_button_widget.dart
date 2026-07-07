@@ -7,7 +7,7 @@ import '../Theme/themeclass.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
-      {Key? key,
+      {super.key,
       required this.title,
       this.width = 348,
       this.height = 52,
@@ -23,8 +23,7 @@ class CustomButton extends StatelessWidget {
       this.fontSize,
       this.iconWidget,
       this.fontWeight
-      })
-      : super(key: key);
+      });
   final Function onTap;
   final String title;
   final double width, height;

@@ -18,7 +18,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class MainServicesScreen extends StatefulWidget {
   static const String routeName = "/mainServicesScreen";
 
-  const MainServicesScreen({Key? key}) : super(key: key);
+  const MainServicesScreen({super.key});
 
   @override
   _MainServicesScreenState createState() => _MainServicesScreenState();
@@ -36,8 +36,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_main_services_screen',
         parameters: <String,Object>{
           "title" :"open_main_services_screen"
@@ -82,8 +82,8 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
+                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              analytics.logEvent(
                                   name: 'Open_Product_Detail',
                                   parameters: <String,Object>{
                                     "product_name": con.servicesResponse?.products![index].nameAr ?? '',

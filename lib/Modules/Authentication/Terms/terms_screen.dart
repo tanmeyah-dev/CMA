@@ -13,7 +13,7 @@ import '../../../Theme/themeclass.dart';import 'package:firebase_analytics/fireb
 class TermsScreen extends StatefulWidget {
   static String routeName = "/termsScreen";
 
-  const TermsScreen({Key? key}) : super(key: key);
+  const TermsScreen({super.key});
 
   @override
   _TermsScreenState createState() => _TermsScreenState();
@@ -30,8 +30,8 @@ class _TermsScreenState extends StateMVC<TermsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_terms_screen',
         parameters: <String,Object>{
           "title" : "open_terms_screen"

@@ -15,7 +15,7 @@ import 'package:iconsax/iconsax.dart';
 
 class ActiveLoanWidget extends StatelessWidget {
   HomeController con;
-   ActiveLoanWidget({Key? key,required this.con}) : super(key: key);
+   ActiveLoanWidget({super.key,required this.con});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class ActiveLoanWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  Container(
+                  SizedBox(
                     width: 50.w,
                     height: 50.h,
                     child: Icon( Iconsax.arrow_square_left ,color: ThemeClass.whiteColor,),

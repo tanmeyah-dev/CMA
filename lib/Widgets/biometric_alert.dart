@@ -10,7 +10,7 @@ import '../Theme/themeclass.dart';
 
 class BiometricAlert extends StatelessWidget {
   Function() onOkPressed;
-  BiometricAlert({ required this.onOkPressed , Key? key}) : super(key: key);
+  BiometricAlert({ required this.onOkPressed , super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,7 @@ class AppTextBold extends StatelessWidget {
   final int? maxLines;
 
   const AppTextBold(
-      {Key? key,
+      {super.key,
       required this.title,
       this.fontWeight,
       this.fontSize,
@@ -22,8 +22,7 @@ class AppTextBold extends StatelessWidget {
       this.textAlign,
         this.textDecoration,
         this.maxLines,
-      })
-      : super(key: key);
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +49,12 @@ class AppTextMedium extends StatelessWidget {
 
 
   const AppTextMedium(
-      {Key? key,
+      {super.key,
       required this.title,
       this.fontWeight,
       this.fontSize,
         this.textAlign,
-      this.color})
-      : super(key: key);
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +77,11 @@ class AppTextRegular extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
   const AppTextRegular(
-      {Key? key,
+      {super.key,
       required this.title,
       this.fontWeight,
       this.fontSize,
-      this.color, this.textAlign,this.maxLines})
-      : super(key: key);
+      this.color, this.textAlign,this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +92,7 @@ class AppTextRegular extends StatelessWidget {
           fontWeight: fontWeight??  FontWeight.w400,
           color: color ?? ThemeClass.fontColor,
       ),
-      maxLines: maxLines?? null,
+      maxLines: maxLines,
       textAlign: textAlign?? TextAlign.center,
     );
   }
@@ -109,14 +106,13 @@ class AppTextHint extends StatelessWidget {
   final TextAlign? textAlign;
 
   const AppTextHint(
-      {Key? key,
+      {super.key,
       required this.title,
       this.fontWeight,
       this.fontSize,
       this.color,
       this.textAlign,
-      })
-      : super(key: key);
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +135,7 @@ class AppTextUnderline extends StatelessWidget {
   final double? fontSize;
 
 
-  const AppTextUnderline({Key? key, required this.title, required this.onTap, this.color, this.fontWeight, this.fontSize}) : super(key: key);
+  const AppTextUnderline({super.key, required this.title, required this.onTap, this.color, this.fontWeight, this.fontSize});
 
   @override
   Widget build(BuildContext context) {

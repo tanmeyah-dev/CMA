@@ -9,7 +9,7 @@ import '../Theme/themeclass.dart';
 
 class ServicesAlert extends StatelessWidget {
   Function() onLoginTaped;
-  ServicesAlert({ required this.onLoginTaped , Key? key}) : super(key: key);
+  ServicesAlert({ required this.onLoginTaped , super.key});
 
   @override
   Widget build(BuildContext context) {

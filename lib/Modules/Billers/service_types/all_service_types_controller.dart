@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, unnecessary_overrides
 import 'package:Tanmeyah/Models/get_all_services_response.dart';
-import 'package:Tanmeyah/Models/previous_loan_model.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Network/mobile_billers_api.dart';
 

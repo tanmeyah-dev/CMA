@@ -83,10 +83,6 @@ class RegisterController extends ControllerMVC {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   void setupSession({String? phoneNumberArg}) {
     final phoneArg = phoneNumberArg?.toString().trim() ?? '';

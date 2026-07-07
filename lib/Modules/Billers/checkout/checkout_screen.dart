@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
-import 'package:Tanmeyah/Modules/Billers/billers_services/billers_services_screen.dart';
 import 'package:Tanmeyah/Modules/Billers/service_billers/service_billers_controller.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
@@ -10,7 +9,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../Models/Bill_Inquiry_Response.dart';
@@ -23,7 +21,7 @@ class CheckoutScreen extends StatefulWidget {
   static const String routeName = "/checkoutScreen";
   BillInquiryResponse billInquiryResponse;
   Billers billers;
-  CheckoutScreen({required this.billInquiryResponse,required this.billers,Key? key}) : super(key: key);
+  CheckoutScreen({required this.billInquiryResponse,required this.billers,super.key});
 
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
@@ -103,9 +101,9 @@ class _CheckoutScreenState extends StateMVC<CheckoutScreen> {
                       Column(
                         children: [
                           SizedBox(height: 12.h,),
-                          info(title: "date_time".tr, data: "${dateForm}"),
-                          info(title: "receipt_value".tr, data: "${amount} ج م "),
-                          info(title: "fees".tr, data: "${fees} ج م "),
+                          info(title: "date_time".tr, data: dateForm),
+                          info(title: "receipt_value".tr, data: "$amount ج م "),
+                          info(title: "fees".tr, data: "$fees ج م "),
                           SizedBox(height: 20.h,),
                         ],
                       ),

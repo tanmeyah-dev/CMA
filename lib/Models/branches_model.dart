@@ -65,7 +65,7 @@ class BranchModel {
   BranchModel.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
     nameAr = json['nameAr'];
-    nameEn = json['nameEn'] != null ? json['nameEn'] : null;
+    nameEn = json['nameEn'];
     address = json['address'];
     latitude = json['latitude'];
     longitude = json['longitude'];
