@@ -20,7 +20,6 @@ import '../../../../Utilities/loading_screen.dart';
 import '../../../Billers/checkout/checkout_screen.dart';
 import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
-import 'loan_vlens_sdk_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class LoanRequestAmountScreen extends StatefulWidget {
@@ -136,40 +135,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: con.loanProductsResponse!
-                                          .loanRequestProducts!.length +
-                                      1,
+                                      .loanRequestProducts!.length,
                                   itemBuilder: (context, index) {
-                                    final products = con
-                                        .loanProductsResponse!
-                                        .loanRequestProducts!;
-                                    if (index == products.length) {
-                                      return Padding(
-                                        padding: EdgeInsets.only(
-                                          top: 8.h,
-                                          left: 8.r,
-                                          right: 8.r,
-                                        ),
-                                        child: CustomButton(
-                                          width: 385.w,
-                                          title: 'Vlens SDK',
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute<void>(
-                                                builder: (_) =>
-                                                    const LoanVlensSdkScreen(),
-                                              ),
-                                            );
-                                          },
-                                          color: ThemeClass
-                                              .textFieldBackgroundColor,
-                                          borderColor: ThemeClass
-                                              .textFieldBackgroundColor,
-                                          textColor: ThemeClass.whiteColor,
-                                          backgroundColor:
-                                              ThemeClass.primaryColor,
-                                        ),
-                                      );
-                                    }
                                     return GestureDetector(
                                             onTap: () {
                                               setState(() {
