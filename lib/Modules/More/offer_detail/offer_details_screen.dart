@@ -15,7 +15,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class OfferDetailScreen extends StatefulWidget {
   static const String routeName = "/offerDetailScreen";
   final int offerID;
-  const OfferDetailScreen({Key? key, required this.offerID}) : super(key: key);
+  const OfferDetailScreen({super.key, required this.offerID});
 
   @override
   _OfferDetailScreenState createState() => _OfferDetailScreenState();
@@ -31,8 +31,8 @@ class _OfferDetailScreenState extends StateMVC<OfferDetailScreen> {
   @override
   void initState() {
     con.offerId = widget.offerID;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_offer_detail_screen',
         parameters: <String,Object>{
           "title" :"open_offer_detail_screen ${con.offerModel?.nameAr}"

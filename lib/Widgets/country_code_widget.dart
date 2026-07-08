@@ -6,7 +6,7 @@ import '../Theme/app_assets.dart';
 import '../Theme/themeclass.dart';
 
 class CountryCodeWidget extends StatelessWidget {
-  const CountryCodeWidget({Key? key}) : super(key: key);
+  const CountryCodeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

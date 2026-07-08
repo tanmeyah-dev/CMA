@@ -7,9 +7,9 @@ buildscript {
 
     configurations.all {
         resolutionStrategy {
-            force 'com.android.tools.build:gradle:8.6.0'
-            force 'com.android.tools.build:builder:8.6.0'
-            force 'com.android.tools.build:bundletool:1.17.2'
+            force 'com.android.tools.build:gradle:8.9.1'
+            force 'com.android.tools.build:builder:8.9.1'
+            force 'com.android.tools.build:bundletool:1.18.3'
         }
     }
 
@@ -29,7 +29,7 @@ allprojects {
     
     configurations.all {
         resolutionStrategy {
-            force 'com.android.tools.build:gradle:8.6.0'
+            force 'com.android.tools.build:gradle:8.9.1'
         }
     }
 }
@@ -38,8 +38,8 @@ rootProject.buildDir = '../build'
 
 // Define Flutter properties for subprojects that expect them.
 def flutterProperties = [
-    compileSdkVersion: 35,
-    minSdkVersion    : 23,
+    compileSdkVersion: 36,
+    minSdkVersion    : 24,
     targetSdkVersion : 34
 ]
 
@@ -53,9 +53,9 @@ gradle.beforeProject { proj ->
     try {
         proj.buildscript.configurations.all {
             resolutionStrategy {
-                force 'com.android.tools.build:gradle:8.6.0'
-                force 'com.android.tools.build:builder:8.6.0'
-                force 'com.android.tools.build:bundletool:1.17.2'
+                force 'com.android.tools.build:gradle:8.9.1'
+                force 'com.android.tools.build:builder:8.9.1'
+                force 'com.android.tools.build:bundletool:1.18.3'
             }
         }
     } catch (ignored) {
@@ -67,9 +67,9 @@ gradle.allprojects { proj ->
     // Force AGP version for all projects including plugins
     proj.buildscript.configurations.all {
         resolutionStrategy {
-            force 'com.android.tools.build:gradle:8.6.0'
-            force 'com.android.tools.build:builder:8.6.0'
-            force 'com.android.tools.build:bundletool:1.17.2'
+            force 'com.android.tools.build:gradle:8.9.1'
+            force 'com.android.tools.build:builder:8.9.1'
+            force 'com.android.tools.build:bundletool:1.18.3'
         }
     }
     
@@ -107,15 +107,30 @@ gradle.allprojects { proj ->
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
     
-    // Force all subprojects to use the newer AGP version
+    // Force all subprojects to use the newer AGP version and Java 17
     afterEvaluate { project ->
         if (project.hasProperty('android')) {
+            project.android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
+            }
             project.configurations.all {
                 resolutionStrategy {
-                    force 'com.android.tools.build:gradle:8.6.0'
-                    force 'com.android.tools.build:builder:8.6.0'
-                    force 'com.android.tools.build:bundletool:1.17.2'
+                    force 'com.android.tools.build:gradle:8.9.1'
+                    force 'com.android.tools.build:builder:8.9.1'
+                    force 'com.android.tools.build:bundletool:1.18.3'
                 }
+            }
+        }
+        project.tasks.withType(JavaCompile).configureEach {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions {
+                jvmTarget = "17"
             }
         }
     }

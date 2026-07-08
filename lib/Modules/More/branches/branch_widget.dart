@@ -12,14 +12,14 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 class BranchWidget extends StatelessWidget {
   BranchModel branchModel;
-  BranchWidget({required this.branchModel,Key? key}) : super(key: key);
+  BranchWidget({required this.branchModel,super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-        _analytics.logEvent(
+        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+        analytics.logEvent(
             name: 'open_branch_direction',
             parameters: <String,Object>{
               "title" :"open_branch_name  ${branchModel.nameAr}"

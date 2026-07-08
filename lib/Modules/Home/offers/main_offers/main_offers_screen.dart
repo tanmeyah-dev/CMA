@@ -16,7 +16,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class MainOffersScreen extends StatefulWidget {
   static const String routeName = "/mainOffersScreen";
 
-  const MainOffersScreen({Key? key}) : super(key: key);
+  const MainOffersScreen({super.key});
 
   @override
   _MainOffersScreenState createState() => _MainOffersScreenState();
@@ -32,8 +32,8 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_offers_screen',
         parameters: <String,Object>{
           "title" :"open_offers_screen"
@@ -68,8 +68,8 @@ class _MainOffersScreenState extends StateMVC<MainOffersScreen> {
                       itemBuilder: (_, index) {
                         return  GestureDetector(
                             onTap: () {
-                              final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                              _analytics.logEvent(
+                              final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                              analytics.logEvent(
                                   name: 'open_offers_detail',
                                   parameters: <String,Object>{
                                     "title" :"open_offers_detail ${con.offersResponse?.offers[index].nameAr}"

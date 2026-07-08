@@ -13,7 +13,7 @@ class RegistrationError extends StatelessWidget {
   static const routeName = "/registrationErrorScreen";
 
   String phoneNumber;
-  RegistrationError({required this.phoneNumber,Key? key}) : super(key: key);
+  RegistrationError({required this.phoneNumber,super.key});
 
   @override
   Widget build(BuildContext context) {

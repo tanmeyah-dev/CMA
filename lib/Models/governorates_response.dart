@@ -11,7 +11,7 @@ class GovernmentResponse {
     if (json['governorates'] != null) {
       governorates = <Governorates>[];
       json['governorates'].forEach((v) {
-        governorates!.add(new Governorates.fromJson(v));
+        governorates!.add(Governorates.fromJson(v));
       });
     }
     isSuccess = json['isSuccess'];
@@ -20,13 +20,13 @@ class GovernmentResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.governorates != null) {
-      data['governorates'] = this.governorates!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (governorates != null) {
+      data['governorates'] = governorates!.map((v) => v.toJson()).toList();
     }
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -43,9 +43,9 @@ class Governorates {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 

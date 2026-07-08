@@ -9,7 +9,7 @@ import '../Theme/themeclass.dart';
 
 class LocalAuthAlert extends StatelessWidget {
   Function() onLogoutPress;
-  LocalAuthAlert({ required this.onLogoutPress , Key? key}) : super(key: key);
+  LocalAuthAlert({ required this.onLogoutPress , super.key});
 
   @override
   Widget build(BuildContext context) {

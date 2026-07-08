@@ -41,7 +41,7 @@ class MainRequestLoanController extends ControllerMVC {
   }
 
   Future getLoan() async {
-    print(">>>>>>>><<<<<<< GAMAL IS HERE" + SharedPref.getCanRequestLoan().toString());
+    print(">>>>>>>><<<<<<< GAMAL IS HERE${SharedPref.getCanRequestLoan()}");
     if(SharedPref.getCanRequestLoan() == true){
       print("GAMAL IS HERE AND YES ");
       canRequestLoan = true;

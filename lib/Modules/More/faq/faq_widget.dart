@@ -1,16 +1,14 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 
-import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_text.dart';
-import 'package:iconsax/iconsax.dart';
 
 class FAQWidget extends StatelessWidget {
   String title;
   Function() onTap;
-  FAQWidget({required this.title,required this.onTap,Key? key}) : super(key: key);
+  FAQWidget({required this.title,required this.onTap,super.key});
 
   @override
   Widget build(BuildContext context) {

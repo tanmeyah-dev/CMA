@@ -77,10 +77,8 @@ class BranchesController extends ControllerMVC {
     List<BranchModel> paginatedBranchList = [];
     pageNumber += 1;
     paginatedBranchList = await BranchApi.getBranches(pageNumber: pageNumber.toString(),branchName: searchController.text,latitude: currentLatitude,longitude: currentLongitude);
-    if(paginatedBranchList != null) {
-       branchList.addAll(paginatedBranchList);
-    }
-    refreshController?.loadComplete();
+     branchList.addAll(paginatedBranchList);
+      refreshController?.loadComplete();
     refreshController?.refreshCompleted();
     setState(() { });
   }

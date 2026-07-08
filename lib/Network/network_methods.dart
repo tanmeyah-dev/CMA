@@ -176,10 +176,10 @@ class NetworkMethods {
 
 class MultipartRequest extends http.MultipartRequest {
   MultipartRequest(
-    String method,
-    Uri url, {
+    super.method,
+    super.url, {
     required this.onProgress,
-  }) : super(method, url);
+  });
   final void Function(int bytes, int totalBytes) onProgress;
 
   @override

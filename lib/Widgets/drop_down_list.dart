@@ -18,7 +18,7 @@ class CustomDropDownWidget<T> extends StatelessWidget {
   final OutlineInputBorder? outlineInputBorder;
 
   const CustomDropDownWidget(
-      {Key? key,
+      {super.key,
       this.prefixIcon,
       this.selected,
       required this.onChange,
@@ -27,8 +27,7 @@ class CustomDropDownWidget<T> extends StatelessWidget {
       required this.items,
       required this.borderColor,
       this.width,
-      this.outlineInputBorder})
-      : super(key: key);
+      this.outlineInputBorder});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class CustomDropDownWidget<T> extends StatelessWidget {
       child: DropdownButtonFormField<T>(
         validator: validate,
         iconSize: 0.0,
-        value: validSelected,
+        initialValue: validSelected,
         decoration: InputDecoration(
           errorStyle: const TextStyle(height: 0),
           contentPadding:

@@ -14,7 +14,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class PaymentNeededScreen extends StatefulWidget {
   static const String routeName = "/paymentNeeded";
 
-  const PaymentNeededScreen({Key? key}) : super(key: key);
+  const PaymentNeededScreen({super.key});
 
   @override
   _PaymentNeededScreenState createState() => _PaymentNeededScreenState();
@@ -29,8 +29,8 @@ class _PaymentNeededScreenState extends StateMVC<PaymentNeededScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_payment_needed_screen',
         parameters: <String,Object>{
           "title" :"open_payment_needed_screen"

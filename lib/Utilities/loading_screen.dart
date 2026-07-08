@@ -10,7 +10,7 @@ import '../Theme/themeclass.dart';
 class LoadingScreen extends StatelessWidget {
   final Widget child;
   final bool loading;
-  const LoadingScreen({Key? key, required this.child,this.loading = false}) : super(key: key);
+  const LoadingScreen({super.key, required this.child,this.loading = false});
 
   @override
   Widget build(BuildContext context) {

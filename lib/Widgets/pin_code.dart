@@ -12,8 +12,7 @@ class PinCodeWidget extends StatelessWidget {
   final Function(String) onChangeOTP;
 
   const PinCodeWidget(
-      {Key? key, required this.controller, this.length = 5, this.size, required this.onChangeOTP})
-      : super(key: key);
+      {super.key, required this.controller, this.length = 5, this.size, required this.onChangeOTP});
 
   @override
   Widget build(BuildContext context) {

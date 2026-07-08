@@ -18,7 +18,7 @@ import 'local_auth_controller.dart';import 'package:iconsax/iconsax.dart';import
 class LocalAuthScreen extends StatefulWidget {
   static String routeName = "/localAuthScreen";
 
-  const LocalAuthScreen({Key? key}) : super(key: key);
+  const LocalAuthScreen({super.key});
 
   @override
   _LocalAuthScreenState createState() => _LocalAuthScreenState();
@@ -155,8 +155,8 @@ class _LocalAuthScreenState extends StateMVC<LocalAuthScreen> {
         title: "confirm".tr,
         onTap: () {
           if (con.formKey.currentState!.validate()) {
-            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-            _analytics.logEvent(
+            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+            analytics.logEvent(
                 name: 'submit_biometric_login_screen',
                 parameters: <String,Object>{
                   "title" :"submit_biometric_login_screen"

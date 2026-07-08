@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Modules/More/faq/faq_controller.dart';
-import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/loading_screen.dart';
 import '../../../Theme/themeclass.dart';
-import '../../../Widgets/custom_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'faq_widget.dart';
 
 
 class FAQScreen extends StatefulWidget {
   static const String routeName = "/faqScreen";
-  const FAQScreen({Key? key}) : super(key: key);
+  const FAQScreen({super.key});
 
   @override
   _FAQScreenState createState() => _FAQScreenState();

@@ -81,16 +81,16 @@ class UserApi {
     }
     final body = decodeHttpBodyBytes(response.bodyBytes, response.headers);
     var result = json.decode(body);
-    print("<<<<<<<<<<<>>>>>>>>>>" + result.toString());
+    print("<<<<<<<<<<<>>>>>>>>>>$result");
     if( result["isSuccess"] == true  && result["code"] == "200") {
       Map<String, String> headers = response.headers;
       UserModel? userModel;
       String headerValue = headers['authorization'] ?? '';
-      print("NEEEEEEEE===>>>   ${headerValue}");
+      print("NEEEEEEEE===>>>   $headerValue");
       print("NEEEEEEEE===>>>   ${result["user"]["token"]}");
 
       userModel = UserModel.fromJson(result["user"]);
-      userModel..token = "Bearer $headerValue";
+      userModel.token = "Bearer $headerValue";
       SharedPref.saveUserObj(userModel: userModel);
       return true;
     } else {

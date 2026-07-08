@@ -24,8 +24,7 @@ class ServicesDetailScreen extends StatefulWidget {
   static const String routeName = "/servicesDetailScreen";
   final ServiceDetailModel serviceDetailModel;
 
-  const ServicesDetailScreen({Key? key, required this.serviceDetailModel})
-      : super(key: key);
+  const ServicesDetailScreen({super.key, required this.serviceDetailModel});
 
   @override
   _ServicesDetailScreenState createState() => _ServicesDetailScreenState();
@@ -40,8 +39,8 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_services_detail_screen',
         parameters: <String,Object>{
           "title" :"open_services_detail_screen ${con.serviceDetailModel?.nameAr}"

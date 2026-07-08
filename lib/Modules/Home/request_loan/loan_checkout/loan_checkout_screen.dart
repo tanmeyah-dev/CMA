@@ -17,7 +17,7 @@ import '../../../../Utilities/loading_screen.dart';
 class LoanCheckoutScreen extends StatefulWidget {
   static const String routeName = "/loanCheckoutScreen";
   final LoanCheckoutModel loanCheckoutModel;
-  LoanCheckoutScreen({required this.loanCheckoutModel,Key? key}) : super(key: key);
+  const LoanCheckoutScreen({required this.loanCheckoutModel,super.key});
 
   @override
   _LoanCheckoutScreenState createState() => _LoanCheckoutScreenState();

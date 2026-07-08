@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, use_build_context_synchronously, must_be_immutable
-import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_textfield_widget.dart';
@@ -9,10 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Theme/app_assets.dart';
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/Validator.dart';
-import '../../../Utilities/encreption.dart';
 import '../../../Utilities/helper.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import '../../../Widgets/country_code_widget.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/custom_text.dart';
 import '../../../Widgets/skip_button.dart';
@@ -30,7 +27,7 @@ class LoginScreen extends StatefulWidget {
   static const String routeName = "/loginScreen";
   String phoneNumber;
 
-  LoginScreen({required this.phoneNumber, Key? key}) : super(key: key);
+  LoginScreen({required this.phoneNumber, super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -47,8 +44,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
   @override
   void initState() {
     checkAvailable();
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_login_screen',
         parameters: <String,Object>{
           "title" :"open_login_screen"
@@ -73,9 +70,9 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
       });
     });
 
-    print("<<<<<<<<!!!!" + con.hasFaceId.toString());
-    print("<<<<<<<<!!!!" + con.hasFingerPrint.toString());
-    print("<<<<<<<<!!!!" + con.hasFingerPrintForIOS.toString());
+    print("<<<<<<<<!!!!${con.hasFaceId}");
+    print("<<<<<<<<!!!!${con.hasFingerPrint}");
+    print("<<<<<<<<!!!!${con.hasFingerPrintForIOS}");
 
 
     if (widget.phoneNumber != "") {
@@ -98,8 +95,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       padding: EdgeInsetsDirectional.only(top: 16.h, end: 30.w),
                       child: SkipButton(
                           onTap: () {
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
+                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            analytics.logEvent(
                                 name: 'skip_login_screen',
                                 parameters: <String,Object>{
                                   "title" :"skip_login_screen"
@@ -255,8 +252,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             alignment: AlignmentDirectional.centerEnd,
             child: AppTextUnderline(
               onTap: () {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                 _analytics.logEvent(
+                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                 analytics.logEvent(
                     name: 'request_forget_password',
                     parameters: <String,Object>{
                       "title" :"request_forget_password"
@@ -276,8 +273,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
             title: "login".tr,
             onTap: () async {
               if (_formKey.currentState!.validate()) {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                 _analytics.logEvent(
+                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                 analytics.logEvent(
                     name: 'submit_login_screen',
                     parameters: <String,Object>{
                       "title" :"submit_login_screen"
@@ -309,8 +306,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
               (con.hasFingerPrint || con.hasFingerPrintForIOS)
                   ? GestureDetector(
                       onTap: () async {
-                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                        _analytics.logEvent(
+                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                        analytics.logEvent(
                             name: 'request_biometric_login_screen',
                             parameters: <String,Object>{
                               "title" :"request_biometric_login_screen"
@@ -329,8 +326,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               con.passwordController.text =
                                   con.encryptedPassword!;
                             });
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
+                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            analytics.logEvent(
                                 name: 'submit_biometric_login_screen',
                                 parameters: <String,Object>{
                                   "title" :"submit_biometric_login_screen"
@@ -358,8 +355,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                       )):
               (con.hasFaceId || con.hasOldFaceVersion) ? GestureDetector(
                       onTap: () async {
-                        final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                        _analytics.logEvent(
+                        final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                        analytics.logEvent(
                             name: 'request_biometric_login_screen',
                             parameters: <String,Object>{
                               "title" :"request_biometric_login_screen"
@@ -378,8 +375,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                               con.passwordController.text =
                                   con.encryptedPassword!;
                             });
-                            final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                            _analytics.logEvent(
+                            final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                            analytics.logEvent(
                                 name: 'submit_biometric_login_screen',
                                 parameters: <String,Object>{
                                   "title" :"submit_biometric_login_screen"
@@ -418,8 +415,8 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
           AppTextUnderline(
               title: "create_account".tr,
               onTap: () {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
+                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                analytics.logEvent(
                     name: 'request_registration_screen',
                     parameters: <String,Object>{
                       "title" :"request_registration_screen"

@@ -24,19 +24,19 @@ class LoanCheckoutResponse {
         ? BranchModel.fromJson(json["loanRequestBranch"])
         : null;
     loanRequest = json['loanRequest'] != null
-        ? new LoanRequestModel.fromJson(json['loanRequest'])
+        ? LoanRequestModel.fromJson(json['loanRequest'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
-    if (this.loanRequest != null) {
-      data['loanRequest'] = this.loanRequest!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
+    if (loanRequest != null) {
+      data['loanRequest'] = loanRequest!.toJson();
     }
-    data['loanRequestBranch'] = this.loanRequestBranch;
+    data['loanRequestBranch'] = loanRequestBranch;
     return data;
   }
 }

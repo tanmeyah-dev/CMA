@@ -168,8 +168,8 @@ class ForgetPasswordController extends ControllerMVC {
       loading = false;
     });
     if (result) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'success_reset_password_screen',
           parameters: <String,Object>{
             "title" :"success_reset_password_screen"

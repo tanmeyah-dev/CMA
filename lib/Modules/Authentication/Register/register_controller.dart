@@ -2,15 +2,13 @@
 import 'package:Tanmeyah/Models/government_model.dart';
 import 'package:Tanmeyah/Modules/Authentication/OTP/otp_screen.dart';
 import 'package:Tanmeyah/Modules/Authentication/Register/registeration_error.dart';
-import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Models/registeration_form.dart';
 import '../../../Models/registeration_response.dart';
 import '../../../Models/verify_otp_model.dart';
 import '../../../Network/user_api.dart';
-import '../../../Theme/themeclass.dart';
-import '../Login/login_screen.dart';import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class RegisterController extends ControllerMVC {
@@ -150,8 +148,8 @@ class RegisterController extends ControllerMVC {
 
 
     if (result?.isSuccess == true && result?.user?.isActive == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'success_registration_screen',
           parameters: <String,Object>{
             "title" : "success_registration_screen"
@@ -166,8 +164,8 @@ class RegisterController extends ControllerMVC {
     } else if (result?.isAlreadyMobileNumberExist == true ){
       print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
 
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'error_registration_screen',
           parameters: <String,Object>{
             "title" : "error_registration_screen"

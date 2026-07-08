@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/Validator.dart';
-import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
 import 'package:Tanmeyah/Widgets/custom_textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class ValidateUserScreen extends StatefulWidget {
   static const String routeName = "/validateUser";
 
-  const ValidateUserScreen({Key? key}) : super(key: key);
+  const ValidateUserScreen({super.key});
 
   @override
   _ValidateUserScreenState createState() => _ValidateUserScreenState();
@@ -36,8 +35,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_phone_number_screen',
         parameters: <String,Object>{
           "title" : "open_phone_number_screen"
@@ -149,8 +148,8 @@ class _ValidateUserScreenState extends StateMVC<ValidateUserScreen> {
                     width: 300,
                     title: "continue".tr,
                     onTap: () async {
-                      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                      _analytics.logEvent(
+                      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                      analytics.logEvent(
                           name: 'submit_phone_number_screen',
                           parameters: <String,Object>{
                             "title" : "submit_phone_number_screen"

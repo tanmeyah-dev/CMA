@@ -17,12 +17,12 @@ class ValidateUserResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['otp'] = this.otp;
-    data['isReviewerUser'] = this.isReviewerUser;
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['otp'] = otp;
+    data['isReviewerUser'] = isReviewerUser;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }

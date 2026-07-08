@@ -2,7 +2,6 @@ import 'package:Tanmeyah/Models/Contact_list_response.dart';
 import 'package:Tanmeyah/Models/Contact_us_model.dart';
 import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:flutter/cupertino.dart';
-import '../Models/offers_model.dart';
 import 'api.dart';
 import 'network_methods.dart';
 

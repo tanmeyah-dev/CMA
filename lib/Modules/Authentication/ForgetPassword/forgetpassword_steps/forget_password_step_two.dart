@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Widgets/custom_button_widget.dart';
-import '../../../../Widgets/custom_text.dart';
 import '../../../../Widgets/pin_code.dart';
 
 class ForgetPasswordStepTwo extends StatefulWidget {
   ForgetPasswordController con;
-  ForgetPasswordStepTwo({required this.con,Key? key}) : super(key: key);
+  ForgetPasswordStepTwo({required this.con,super.key});
 
   @override
   State<ForgetPasswordStepTwo> createState() => _ForgetPasswordStepTwoState();

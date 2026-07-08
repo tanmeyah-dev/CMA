@@ -21,8 +21,7 @@ class OtpScreen extends StatefulWidget {
   final String? phoneNumber;
   final Function(String)? onConfirm;
 
-  const OtpScreen({Key? key, this.phoneNumber, this.onConfirm})
-      : super(key: key);
+  const OtpScreen({super.key, this.phoneNumber, this.onConfirm});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -40,8 +39,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
   void initState() {
     con.onConfirm = widget.onConfirm;
     con.phoneNumber = widget.phoneNumber;
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_send_otp_screen',
         parameters: <String,Object>{
           "title" : "open_send_otp_screen"
@@ -138,8 +137,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
           InkWell(
               onTap: () {
                 if (con.activeResend == true) {
-                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                  _analytics.logEvent(
+                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                  analytics.logEvent(
                       name: 'request_resend_otp_screen',
                       parameters: <String,Object>{
                         "title" : "request_resend_otp_screen"
@@ -178,8 +177,8 @@ class _OtpScreenState extends StateMVC<OtpScreen> {
             title: "confirm".tr,
             onTap: () {
               if (con.formKey.currentState!.validate()) {
-                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                _analytics.logEvent(
+                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                analytics.logEvent(
                     name: 'submit_otp_screen',
                     parameters: <String,Object>{
                       "title" : "submit_otp_screen"

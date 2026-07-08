@@ -28,11 +28,9 @@ class PreviousLoanResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['haveHostoricalLoan'] = haveHostoricalLoan;
-    if (historicalDataBodies != null) {
-      data['historicalDataBodies'] =
-          historicalDataBodies.map((v) => v.toJson()).toList();
-    }
-    data['isSuccess'] = isSuccess;
+    data['historicalDataBodies'] =
+        historicalDataBodies.map((v) => v.toJson()).toList();
+      data['isSuccess'] = isSuccess;
     data['code'] = code;
     data['message'] = message;
     return data;

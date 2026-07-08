@@ -7,7 +7,7 @@ import '../../../Widgets/custom_text.dart';
 class UserDataWidget extends StatelessWidget {
   String title;
   String data;
-  UserDataWidget({required this.title,required this.data,Key? key}) : super(key: key);
+  UserDataWidget({required this.title,required this.data,super.key});
 
   @override
   Widget build(BuildContext context) {

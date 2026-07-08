@@ -1,6 +1,4 @@
 import 'package:Tanmeyah/Models/home_response.dart';
-import 'package:Tanmeyah/Utilities/general_toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'api.dart';
 import 'network_methods.dart';
 

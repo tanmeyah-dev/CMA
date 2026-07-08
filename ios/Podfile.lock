@@ -162,6 +162,8 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - objective_c (0.0.1):
+    - Flutter
   - package_info_plus (0.4.5):
     - Flutter
   - permission_handler_apple (9.4.8):
@@ -204,6 +206,7 @@ DEPENDENCIES:
   - just_audio (from `.symlinks/plugins/just_audio/darwin`)
   - local_auth_darwin (from `.symlinks/plugins/local_auth_darwin/darwin`)
   - location (from `.symlinks/plugins/location/ios`)
+  - objective_c (from `.symlinks/plugins/objective_c/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -269,6 +272,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/local_auth_darwin/darwin"
   location:
     :path: ".symlinks/plugins/location/ios"
+  objective_c:
+    :path: ".symlinks/plugins/objective_c/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   permission_handler_apple:
@@ -320,6 +325,7 @@ SPEC CHECKSUMS:
   local_auth_darwin: 63c73d6d28cc3e239be2b6aa460ea6e317cd5100
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  objective_c: 77e887b5ba1827970907e10e832eec1683f3431d
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   permission_handler_apple: ee2fe0fd04551b304eb002714ff067c371c822ed
   PromisesObjC: 752c3227f599e3467650e47ea36f433eeb10c273

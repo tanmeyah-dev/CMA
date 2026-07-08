@@ -9,8 +9,8 @@ class ShowImagesWidget extends StatelessWidget {
   final List<String> images;
   final ImageProvider? image;
   final int currentIndex;
-  ShowImagesWidget({Key? key, required this.images,this.currentIndex = 0,this.image}):
-        pageController = PageController(initialPage: currentIndex), super(key: key);
+  ShowImagesWidget({super.key, required this.images,this.currentIndex = 0,this.image}):
+        pageController = PageController(initialPage: currentIndex);
 
   final PageController pageController;
   @override

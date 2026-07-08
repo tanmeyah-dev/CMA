@@ -9,7 +9,7 @@ import '../Theme/themeclass.dart';
 
 class LocationAlert extends StatelessWidget {
   Function() onLocationTapped;
-  LocationAlert({ required this.onLocationTapped , Key? key}) : super(key: key);
+  LocationAlert({ required this.onLocationTapped , super.key});
 
   @override
   Widget build(BuildContext context) {

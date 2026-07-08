@@ -79,8 +79,8 @@ class ValidateUserController extends ControllerMVC {
       loading = false;
     });
     if (result?.alreadyExists == true && result?.isSuccess == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'success_phone_number_screen',
           parameters: <String,Object>{
             "title" : "success_phone_number_screen"
@@ -89,8 +89,8 @@ class ValidateUserController extends ControllerMVC {
       Navigator.pushNamed(
           context, LoginScreen.routeName, arguments: phoneController.text);
     } else if (result?.alreadyExists == false && result?.isSuccess == true) {
-      final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-      _analytics.logEvent(
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(
           name: 'success_phone_number_screen',
           parameters: <String,Object>{
             "title" : "success_phone_number_screen"

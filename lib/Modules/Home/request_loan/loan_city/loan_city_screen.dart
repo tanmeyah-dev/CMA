@@ -22,7 +22,7 @@ class LoanCityScreen extends StatefulWidget {
 
   final LoanCheckoutModel loanCheckoutModel;
 
-  LoanCityScreen({required this.loanCheckoutModel,Key? key}) : super(key: key);
+  const LoanCityScreen({required this.loanCheckoutModel,super.key});
 
   @override
   _LoanCityScreenState createState() => _LoanCityScreenState();

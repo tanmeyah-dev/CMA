@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, deprecated_member_use
-import 'package:Tanmeyah/Models/user_model.dart';
 import 'package:Tanmeyah/Modules/Account/account_controller.dart';
 import 'package:Tanmeyah/Modules/Account/widget/user_data.dart';
 import 'package:Tanmeyah/Modules/Account/widget/user_data_withedit.dart';
@@ -8,7 +7,6 @@ import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../Models/government_model.dart';
 import '../../Theme/app_assets.dart';
 import '../../Theme/themeclass.dart';
 import '../../Utilities/loading_screen.dart';
@@ -24,7 +22,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 class AccountScreen extends StatefulWidget {
   static const String routeName = "/accountScreen";
 
-  const AccountScreen({Key? key}) : super(key: key);
+  const AccountScreen({super.key});
 
   @override
   _AccountScreenState createState() => _AccountScreenState();
@@ -100,8 +98,8 @@ class _AccountScreenState extends StateMVC<AccountScreen> {
                               textColor: ThemeClass.primaryColor,
                               borderColor: ThemeClass.primaryColor,
                               onTap: () {
-                                final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                _analytics.logEvent(
+                                final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                analytics.logEvent(
                                     name: 'request_deactivate_account',
                                     parameters: <String,Object>{
                                       "title" :"request_deactivate_account"

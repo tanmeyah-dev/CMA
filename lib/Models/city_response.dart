@@ -12,7 +12,7 @@ class CityResponse {
     if (json['branches'] != null) {
       branches = <BranchModel>[];
       json['branches'].forEach((v) {
-        branches!.add(new BranchModel.fromJson(v));
+        branches!.add(BranchModel.fromJson(v));
       });
     }
     isSuccess = json['isSuccess'];
@@ -21,13 +21,13 @@ class CityResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.branches != null) {
-      data['branches'] = this.branches!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (branches != null) {
+      data['branches'] = branches!.map((v) => v.toJson()).toList();
     }
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }

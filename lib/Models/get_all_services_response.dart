@@ -10,7 +10,7 @@ class GetAllServicesResponse {
     if (json['serviceTypes'] != null) {
       serviceTypes = <ServiceTypes>[];
       json['serviceTypes'].forEach((v) {
-        serviceTypes!.add(new ServiceTypes.fromJson(v));
+        serviceTypes!.add(ServiceTypes.fromJson(v));
       });
     }
     isSuccess = json['isSuccess'];
@@ -19,13 +19,13 @@ class GetAllServicesResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.serviceTypes != null) {
-      data['serviceTypes'] = this.serviceTypes!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (serviceTypes != null) {
+      data['serviceTypes'] = serviceTypes!.map((v) => v.toJson()).toList();
     }
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -47,11 +47,11 @@ class ServiceTypes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['serviceTypeName'] = this.serviceTypeName;
-    data['serviceTypeShortName'] = this.serviceTypeShortName;
-    data['logoUrl'] = this.logoUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['serviceTypeName'] = serviceTypeName;
+    data['serviceTypeShortName'] = serviceTypeShortName;
+    data['logoUrl'] = logoUrl;
     return data;
   }
 }

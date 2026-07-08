@@ -24,7 +24,7 @@ import 'package:url_launcher/url_launcher.dart';
 class ContactUsScreen extends StatefulWidget {
   static const String routeName = "/contactUsScreen";
 
-  const ContactUsScreen({Key? key}) : super(key: key);
+  const ContactUsScreen({super.key});
 
   @override
   _ContactUsScreenState createState() => _ContactUsScreenState();
@@ -39,8 +39,8 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_contact_us_screen',
         parameters: <String, Object>{"title": "open_contact_us_screen"});
     super.initState();
@@ -240,9 +240,9 @@ class _ContactUsScreenState extends StateMVC<ContactUsScreen> {
                           CustomButton(
                               title: "send".tr,
                               onTap: () {
-                                final FirebaseAnalytics _analytics =
+                                final FirebaseAnalytics analytics =
                                     FirebaseAnalytics.instance;
-                                _analytics.logEvent(
+                                analytics.logEvent(
                                     name: 'submit_contact_us',
                                     parameters: <String, Object>{
                                       "title": "submit_contact_us"

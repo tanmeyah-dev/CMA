@@ -29,7 +29,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   final double? suffixWidth;
 
   const CustomTextFieldWidget({
-    Key? key,
+    super.key,
     this.isDense,
     this.style,
     this.onchange,
@@ -55,7 +55,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.onTap,
     this.formatter,
     this.suffixWidth = 30,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

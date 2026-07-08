@@ -16,20 +16,20 @@ class LoanProductsResponse {
     if (json['loanRequestProducts'] != null) {
       loanRequestProducts = <LoanRequestProducts>[];
       json['loanRequestProducts'].forEach((v) {
-        loanRequestProducts!.add(new LoanRequestProducts.fromJson(v));
+        loanRequestProducts!.add(LoanRequestProducts.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isSuccess'] = this.isSuccess;
-    data['code'] = this.code;
-    data['message'] = this.message;
-    data['title'] = this.title;
-    if (this.loanRequestProducts != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['isSuccess'] = isSuccess;
+    data['code'] = code;
+    data['message'] = message;
+    data['title'] = title;
+    if (loanRequestProducts != null) {
       data['loanRequestProducts'] =
-          this.loanRequestProducts!.map((v) => v.toJson()).toList();
+          loanRequestProducts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -47,9 +47,9 @@ class LoanRequestProducts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }

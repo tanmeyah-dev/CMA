@@ -9,7 +9,7 @@ import '../../../../Widgets/custom_text.dart';
 class OfferWidget extends StatelessWidget {
   final OfferModel offerModel;
 
-  const OfferWidget({Key? key, required this.offerModel}) : super(key: key);
+  const OfferWidget({super.key, required this.offerModel});
 
   @override
   Widget build(BuildContext context) {

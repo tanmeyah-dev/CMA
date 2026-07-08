@@ -6,9 +6,7 @@ import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
 import 'package:Tanmeyah/Widgets/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Utilities/loading_screen.dart';
@@ -24,7 +22,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';import 'package:icon
 class MainLoanScreen extends StatefulWidget {
   static const String routeName = "/mainLoanScreen";
 
-  MainLoanScreen({Key? key}) : super(key: key);
+  const MainLoanScreen({super.key});
 
   @override
   _LoanScreenState createState() => _LoanScreenState();
@@ -40,8 +38,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
 
   @override
   void initState() {
-    final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-    _analytics.logEvent(
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
         name: 'open_main_loan_screen',
         parameters: <String,Object>{
           "title" :"open_main_loan_screen"
@@ -119,7 +117,7 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                                     )
                                   ],
                                 ),
-                                Container(
+                                SizedBox(
                                   width: 50.w,
                                   height: 50.h,
                                   child: Icon( _isExpanded ?  Iconsax.arrow_square_up : Iconsax.arrow_square_down,color: ThemeClass.whiteColor,),
@@ -455,8 +453,8 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                               child: CustomButton(
                                 title: "previous_loan".tr,
                                 onTap: (){
-                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                  _analytics.logEvent(
+                                  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+                                  analytics.logEvent(
                                       name: 'request_previous_loans',
                                       parameters: <String,Object>{
                                         "title" :"request_previous_loans"

@@ -11,7 +11,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_success_controller.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +21,7 @@ class LoanSuccessRequestScreen extends StatefulWidget {
   static const String routeName = "/loanSuccessRequestScreen";
 
   LoanCheckoutResponse loanCheckoutResponse;
-  LoanSuccessRequestScreen({required this.loanCheckoutResponse,Key? key}) : super(key: key);
+  LoanSuccessRequestScreen({required this.loanCheckoutResponse,super.key});
 
   @override
   _LoanSuccessRequestScreenState createState() => _LoanSuccessRequestScreenState();
