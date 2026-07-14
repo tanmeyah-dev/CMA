@@ -1,36 +1,50 @@
-import 'package:Tanmeyah/Models/user_model.dart';
+class RegistrationData {
+  RegistrationData({this.active});
+
+  bool? active;
+
+  factory RegistrationData.fromJson(Map<String, dynamic> json) =>
+      RegistrationData(active: json['active']);
+
+  Map<String, dynamic> toJson() => {
+        'active': active,
+      };
+}
 
 class RegistrationResponse {
-  bool? isSuccess;
-  String? code;
+  RegistrationResponse({
+    this.success,
+    this.message,
+    this.data,
+    this.timestamp,
+    this.isAlreadyMobileNumberExist,
+  });
+
+  bool? success;
   String? message;
+  RegistrationData? data;
+  String? timestamp;
   bool? isAlreadyMobileNumberExist;
-  UserModel? user;
 
-  RegistrationResponse(
-      {this.isSuccess,
-        this.code,
-        this.message,
-        this.isAlreadyMobileNumberExist,
-        this.user});
+  bool get isSuccess => success == true;
+  bool? get active => data?.active;
 
-  RegistrationResponse.fromJson(Map<String, dynamic> json) {
-    isAlreadyMobileNumberExist = json['isAlreadyMobileNumberExist'];
-    user = json['user'] != null ? UserModel.fromJson(json['user']) : null;
-    isSuccess = json['isSuccess'];
-    code = json['code'];
-    message = json['message'];
-  }
+  factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
+      RegistrationResponse(
+        success: json['success'] ?? json['isSuccess'],
+        message: json['message'],
+        data: json['data'] != null
+            ? RegistrationData.fromJson(json['data'] as Map<String, dynamic>)
+            : null,
+        timestamp: json['timestamp']?.toString(),
+        isAlreadyMobileNumberExist: json['isAlreadyMobileNumberExist'],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['isSuccess'] = isSuccess;
-    data['code'] = code;
-    data['message'] = message;
-    data['isAlreadyMobileNumberExist'] = isAlreadyMobileNumberExist;
-    if (user != null) {
-      data['user'] = user!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        'success': success,
+        'message': message,
+        'data': data?.toJson(),
+        'timestamp': timestamp,
+        'isAlreadyMobileNumberExist': isAlreadyMobileNumberExist,
+      };
 }

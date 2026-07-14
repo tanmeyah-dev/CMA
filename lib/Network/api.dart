@@ -7,14 +7,15 @@ class API{
          static const String baseURL = "$JavaBaseServerURL/cma/api/";
 
   //=========================== api parameters ====================================
+  static const String token = "auth/guest-token";
   static const String validateUser = "auth/otp/request";
   static const String verifyOtp = "auth/otp/verify";
   static const String deactivateUser = "Identity/DeactiveUser";
   static const String otpForgetPassword = "Identity/VerifyPhoneNumber";
-  static const String login = "Identity/Login";
+  static const String login = "auth/login";
   static const String forgetPassword = "Identity/ForgotPassword";
   static const String resetPassword = "Identity/ResetPassword";
-  static const String register = "Identity/Register";
+  static const String register = "auth/register";
   static const String terms = "TermsAndConditions/Terms";
   static const String conditions = "TermsAndConditions/Conditions";
   static const String home = "Identity/Home";

@@ -1,8 +1,7 @@
 
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
-
+import 'package:Tanmeyah/Models/guest_token_response.dart';
 import 'package:Tanmeyah/Models/login_form.dart';
 import 'package:Tanmeyah/Models/registeration_form.dart';
 import 'package:Tanmeyah/Models/registeration_response.dart';
@@ -18,12 +17,31 @@ import '../Utilities/general_toast.dart';
 import '../Utilities/device_id_helper.dart';
 import 'api.dart';
 import 'network_methods.dart';
-import 'package:http/http.dart' as http;
-import 'package:bot_toast/bot_toast.dart';
-import 'response_body_decoder.dart';
 
 
 class UserApi {
+
+
+  static Future<GuestTokenResponse?> fetchGuestToken() async {
+    final deviceId = await DeviceIdHelper.getDeviceId();
+    final response = await NetworkMethods.postRequestAsRow(
+      url: API.token,
+      body: {"deviceId": deviceId},
+      suppressAuthRedirect: true,
+      skipAuthHeader: true,
+    );
+    if (response == null) return null;
+
+    final guestTokenResponse = GuestTokenResponse.fromJson(response);
+    final token = guestTokenResponse.data?.token;
+    if (guestTokenResponse.isSuccess && token != null && token.isNotEmpty) {
+      await SharedPref.saveGuestToken(token: "Bearer $token");
+    }
+    return guestTokenResponse;
+  }
+
+
+
   static Future<ValidateUserResponse?> validateUser(BuildContext context,{required String phone}) async {
     var response = await NetworkMethods.postRequestAsRow(
       url: API.validateUser,
@@ -43,61 +61,53 @@ class UserApi {
   }
 
 
-  static Future<bool> loginWithInginex(BuildContext context,{required LoginForm loginForm}) async {
-    // Get device ID
-    String deviceId = await DeviceIdHelper.getDeviceId();
-    
-    Map<String, String>? headers = {};
-    headers.addAll({
-      'Content-Type': 'application/json',
-      "Accept": "application/json",
-      "Authorization": SharedPref.getUserObg()?.token ?? "",
-      "Device-Id": deviceId,
-    });
-    var response = await http.post(Uri.parse("${API.JavaBaseServerURL}/api/v1/Identity/Login"), headers: headers,
-        body: jsonEncode(loginForm.toJson()));
-    if (response.statusCode == 429) {
-      BotToast.showText(
-          text: "لقد استنفذت الحد الاقصي من المحاولات .. برجاء المحاوله لاحقا");
-      return false;
-    }
-    final body = decodeHttpBodyBytes(response.bodyBytes, response.headers);
-    var result = json.decode(body);
-    print("<<<<<<<<<<<>>>>>>>>>>$result");
-    if( result["isSuccess"] == true  && result["code"] == "200") {
-      Map<String, String> headers = response.headers;
-      UserModel? userModel;
-      String headerValue = headers['authorization'] ?? '';
-      print("NEEEEEEEE===>>>   $headerValue");
-      print("NEEEEEEEE===>>>   ${result["user"]["token"]}");
-
-      userModel = UserModel.fromJson(result["user"]);
-      userModel.token = "Bearer $headerValue";
-      SharedPref.saveUserObj(userModel: userModel);
-      return true;
-    } else {
-      ToastHelper.showError(context, message: result["message"]);
-      return false;
-    }
+  static Future<bool> login(BuildContext context,
+      {required LoginForm loginForm}) async {
+    return false;
+    // final response = await NetworkMethods.postRequestAsRow(
+    //   url: API.login,
+    //   body: loginForm.toJson(),
+    // );
+    // if (response == null) return false;
+    // debugPrint(response.toString());
+    // if (response["success"] == true) {
+    //   ToastHelper.showSuccess(context , message: response["message"]);
+    //   return VerifyOtpModel.fromJson(response);
+    // } else {
+    //   ToastHelper.showError(context ,message: response["message"]);
+    //   return null;
+    // }
+    //
+    // final isSuccess = response["success"] == true;
+    // if (!isSuccess) {
+    //   ToastHelper.showError(context, message: response["message"]);
+    //   return false;
+    // }
+    //
+    // final rawData = response["data"] ?? response["user"];
+    // if (rawData is! Map) {
+    //   ToastHelper.showError(context, message: response["message"]);
+    //   return false;
+    // }
+    //
+    // final Map<String, dynamic> data = Map<String, dynamic>.from(rawData);
+    // final Map<String, dynamic> userJson = data["user"] is Map
+    //     ? Map<String, dynamic>.from(data["user"] as Map)
+    //     : data;
+    //
+    // if (userJson["isDeactivated"] == true) {
+    //   ToastHelper.showError(context, message: response["message"]);
+    //   return false;
+    // }
+    //
+    // final userModel = UserModel.fromJson(userJson);
+    // final token = (data["token"] ?? userJson["token"])?.toString();
+    // if (token != null && token.isNotEmpty) {
+    //   userModel.token = token.startsWith("Bearer ") ? token : "Bearer $token";
+    // }
+    // await SharedPref.saveUserObj(userModel: userModel);
+    // return true;
   }
-  // static Future<bool> login(BuildContext context,{required LoginForm loginForm}) async {
-  //   var response = await NetworkMethods.postRequestAsRow(
-  //     url: API.login,
-  //     body: loginForm.toJson(),
-  //   );
-  //     if (response == null) return false;
-  //     if (response["isSuccess"] == true && response["user"]["isDeactivated"] == true) {
-  //     ToastHelper.showError(context, message: response["message"]);
-  //     return false;
-  //   } else if (response["isSuccess"] == true && response["code"] == "200") {
-  //     UserModel userModel = UserModel.fromJson(response["user"]);
-  //     SharedPref.saveUserObj(userModel: userModel);
-  //     return true;
-  //   } else {
-  //     ToastHelper.showError(context , message: response["message"]);
-  //     return false;
-  //   }
-  // }
 
 
   static Future<VerifyOtpModel?> otpForgetPassword(
@@ -150,7 +160,8 @@ class UserApi {
     );
      if (response == null) return null;
     debugPrint(response.toString());
-    if (response["isSuccess"] == true) {
+    final isSuccess = response["success"] == true || response["isSuccess"] == true;
+    if (isSuccess) {
       await SharedPref.saveAlreadyExist();
       ToastHelper.showSuccess(context,message: response["message"]);
       return RegistrationResponse.fromJson(response);

@@ -4,6 +4,7 @@ import '../Models/user_model.dart';
 
 class SharedPref {
   static const String _userObj = "userObj";
+  static const String _guestToken = "guest_token";
   static const String _language = "language_code";
   static const String _intro = "intro";
   static const String _alreadyExist = "_alreadyExist";
@@ -15,6 +16,22 @@ class SharedPref {
     return await SharedObj()
         .prefs
         ?.setString(_userObj, jsonEncode(userModel.toJson()));
+  }
+
+  static Future<void> saveGuestToken({required String token}) async {
+    await SharedObj().prefs?.setString(_guestToken, token);
+  }
+
+  static String? getGuestToken() {
+    return SharedObj().prefs?.getString(_guestToken);
+  }
+
+  static String? getAuthToken() {
+    final userToken = getUserObg()?.token;
+    if (userToken != null && userToken.isNotEmpty) {
+      return userToken;
+    }
+    return getGuestToken();
   }
 
   static UserModel? getUserObg() {

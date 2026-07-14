@@ -136,7 +136,7 @@ class LoginController extends ControllerMVC {
         password: passwordController.text,
       );
       final result =
-          await UserApi.loginWithInginex(context, loginForm: loginForm);
+          await UserApi.login(context, loginForm: loginForm);
       if (!context.mounted) return;
 
       if (result) {

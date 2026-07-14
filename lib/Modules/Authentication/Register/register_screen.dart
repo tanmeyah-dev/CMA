@@ -39,14 +39,40 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
   }
 
   late RegisterController con;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     con.setupSession(phoneNumberArg: widget.phoneNumber);
+    FocusManager.instance.addListener(_onFocusChange);
     FirebaseAnalytics.instance.logEvent(
       name: 'open_registration_screen',
       parameters: <String, Object>{'title': 'open_registration_screen'},
+    );
+  }
+
+  @override
+  void dispose() {
+    FocusManager.instance.removeListener(_onFocusChange);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (!(FocusManager.instance.primaryFocus?.hasFocus ?? false)) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToFocusedField());
+  }
+
+  void _scrollToFocusedField() {
+    final focusContext = FocusManager.instance.primaryFocus?.context;
+    if (focusContext == null) return;
+
+    Scrollable.ensureVisible(
+      focusContext,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
+      alignment: 0.2,
     );
   }
 
@@ -121,7 +147,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
         onWillPop: () async => false,
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             extendBodyBehindAppBar: true,
             appBar: _buildRegisterAppBar(),
             body: LoadingScreen(
@@ -130,7 +156,6 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                   onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
                   child: Stack(
                     clipBehavior: Clip.none,
-                    alignment: Alignment.topCenter,
                     children: [
                       Positioned(
                         top: 0,
@@ -148,13 +173,16 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                           ),
                         ),
                       ),
-                      SingleChildScrollView(
+                      Positioned.fill(
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          physics: const AlwaysScrollableScrollPhysics(),
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           padding: EdgeInsets.only(
                             left: 22.w,
                             right: 22.w,
-                            bottom: keyboardInset,
+                            bottom: keyboardInset > 0 ? keyboardInset + 24.h : 24.h,
                           ),
                           child: Form(
                               key: con.formKey,
@@ -187,7 +215,9 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
                                       ? SizedBox(height: 30.h)
                                       : Container()
                                 ],
-                              ))),
+                              )),
+                        ),
+                      ),
                     ],
                   ))),
             ));

@@ -29,6 +29,9 @@ class CustomTextFieldWidget extends StatelessWidget {
   final double? suffixWidth;
   final BoxConstraints? prefixIconConstraints;
   final TextAlign? textAlign;
+  final TextCapitalization textCapitalization;
+  final bool autocorrect;
+  final bool enableSuggestions;
 
   const CustomTextFieldWidget({
     super.key,
@@ -59,6 +62,9 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.suffixWidth = 30,
     this.prefixIconConstraints,
     this.textAlign,
+    this.textCapitalization = TextCapitalization.words,
+    this.autocorrect = true,
+    this.enableSuggestions = true,
   });
 
   @override
@@ -125,7 +131,9 @@ class CustomTextFieldWidget extends StatelessWidget {
               ),
         ),
         onChanged: onchange,
-        textCapitalization: TextCapitalization.words,
+        textCapitalization: textCapitalization,
+        autocorrect: autocorrect,
+        enableSuggestions: enableSuggestions,
         maxLines: maxLine ?? 1,
         keyboardType: textInputType,
         textAlign: textAlign ?? TextAlign.start,

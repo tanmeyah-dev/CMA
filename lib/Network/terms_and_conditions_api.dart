@@ -10,17 +10,23 @@ import 'package:bot_toast/bot_toast.dart';
 
 class TermsAndConditionsApi{
 
-  static Future getTermsData() async {
-    // Get device ID
-    String deviceId = await DeviceIdHelper.getDeviceId();
-    
-    var url = Uri.parse(API.baseURL + API.terms);
-    http.Response response = await http.get(url,headers: {
+  static Map<String, String> _buildHeaders(String deviceId) {
+    final headers = <String, String>{
       'Content-Type': 'application/json',
-      "Accept" : "application/json",
-      "Authorization" : SharedPref.getUserObg()?.token ?? "",
+      "Accept": "application/json",
       "Device-Id": deviceId,
-    });
+    };
+    final authToken = SharedPref.getAuthToken();
+    if (authToken != null && authToken.isNotEmpty) {
+      headers['Authorization'] = authToken;
+    }
+    return headers;
+  }
+
+  static Future getTermsData() async {
+    String deviceId = await DeviceIdHelper.getDeviceId();
+    var url = Uri.parse(API.baseURL + API.terms);
+    http.Response response = await http.get(url, headers: _buildHeaders(deviceId));
     if(response.statusCode == 429){
       BotToast.showText(text:"لقد استنفذت الحد الاقصي من المحاولات .. برجاء المحاوله لاحقا");
       return 'failed';
@@ -35,21 +41,12 @@ class TermsAndConditionsApi{
     } catch (e) {
       return 'failed';
     }
-
   }
-
 
   static Future getConditionsData() async {
-    // Get device ID
     String deviceId = await DeviceIdHelper.getDeviceId();
-    
     var url = Uri.parse(API.baseURL + API.conditions);
-    http.Response response = await http.get(url,headers: {
-      'Content-Type': 'application/json',
-      "Accept" : "application/json",
-      "Authorization" : SharedPref.getUserObg()?.token ?? "",
-      "Device-Id": deviceId,
-    });
+    http.Response response = await http.get(url, headers: _buildHeaders(deviceId));
     if(response.statusCode == 429){
       BotToast.showText(text:"لقد استنفذت الحد الاقصي من المحاولات .. برجاء المحاوله لاحقا");
       return 'failed';
@@ -64,9 +61,5 @@ class TermsAndConditionsApi{
     } catch (e) {
       return 'failed';
     }
-
   }
-
-
-
 }

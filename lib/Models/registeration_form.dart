@@ -23,10 +23,11 @@ class RegistrationForm {
     Map<String, String> body = {
       "fullName": fullName,
       "nationalId": nationalId,
-      "birthDate": dateOfBirth,
+      "dateOfBirth": dateOfBirth,
       "mobileNumber" : phoneNumber,
       "email" : email??"",
       "password" : password,
+      "confirmPassword" : confirmPassword,
       "governorateId" :governmentId,
     };
     return body;

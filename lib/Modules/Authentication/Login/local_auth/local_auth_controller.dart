@@ -42,7 +42,7 @@ class LocalAuthController extends ControllerMVC {
     setState(() {
       loading = true;
     });
-    bool result = await UserApi.loginWithInginex(context , loginForm: loginForm);
+    bool result = await UserApi.login(context , loginForm: loginForm);
     setState(() {
       loading = false;
     });

@@ -37,30 +37,30 @@ class RegisterController extends ControllerMVC {
 
   List<GovernmentModel> governmentsIds = [
     GovernmentModel(id: '1', title: 'القاهرة'),
-    GovernmentModel(id: '2', title: 'الفيوم'),
-    GovernmentModel(id: '61', title: 'كفر الشيخ'),
-    GovernmentModel(id: '62', title: 'الاسكندرية'),
-    GovernmentModel(id: '63', title: 'بني سويف'),
-    GovernmentModel(id: '64', title: 'الغربية'),
-    GovernmentModel(id: '65', title: 'الدقهلية'),
-    GovernmentModel(id: '66', title: 'الشرقية'),
-    GovernmentModel(id: '67', title: 'البحيرة'),
-    GovernmentModel(id: '68', title: 'الوادي الجديد'),
-    GovernmentModel(id: '69', title: 'البحر الاحمر'),
-    GovernmentModel(id: '70', title: 'سوهاج'),
-    GovernmentModel(id: '71', title: 'اسوان'),
-    GovernmentModel(id: '72', title: 'اسيوط'),
-    GovernmentModel(id: '73', title: 'قنا'),
-    GovernmentModel(id: '74', title: 'المنيا'),
-    GovernmentModel(id: '75', title: 'الجيزه'),
-    GovernmentModel(id: '76', title: 'مرسي مطروح'),
-    GovernmentModel(id: '79', title: 'دمياط'),
-    GovernmentModel(id: '81', title: 'القليوبيه'),
-    GovernmentModel(id: '101', title: 'المنوفيه'),
-    GovernmentModel(id: '121', title: 'السويس'),
-    GovernmentModel(id: '141', title: 'بورسعيد'),
-    GovernmentModel(id: '161', title: 'الاسماعليه'),
-    GovernmentModel(id: '162', title: 'الاقصر'),
+    GovernmentModel(id: '23', title: 'الفيوم'),
+    GovernmentModel(id: '15', title: 'كفر الشيخ'),
+    GovernmentModel(id: '2', title: 'الاسكندرية'),
+    GovernmentModel(id: '22', title: 'بني سويف'),
+    GovernmentModel(id: '16', title: 'الغربية'),
+    GovernmentModel(id: '12', title: 'الدقهلية'),
+    GovernmentModel(id: '13', title: 'الشرقية'),
+    GovernmentModel(id: '18', title: 'البحيرة'),
+    GovernmentModel(id: '32', title: 'الوادي الجديد'),
+    GovernmentModel(id: '31', title: 'البحر الاحمر'),
+    GovernmentModel(id: '26', title: 'سوهاج'),
+    GovernmentModel(id: '28', title: 'اسوان'),
+    GovernmentModel(id: '25', title: 'اسيوط'),
+    GovernmentModel(id: '27', title: 'قنا'),
+    GovernmentModel(id: '24', title: 'المنيا'),
+    GovernmentModel(id: '21', title: 'الجيزه'),
+    GovernmentModel(id: '33', title: 'مرسي مطروح'),
+    GovernmentModel(id: '11', title: 'دمياط'),
+    GovernmentModel(id: '14', title: 'القليوبيه'),
+    GovernmentModel(id: '17', title: 'المنوفيه'),
+    GovernmentModel(id: '4', title: 'السويس'),
+    GovernmentModel(id: '3', title: 'بورسعيد'),
+    GovernmentModel(id: '19', title: 'الاسماعليه'),
+    GovernmentModel(id: '29', title: 'الاقصر'),
   ];
 
   late TextEditingController fullNameController,
@@ -138,11 +138,6 @@ class RegisterController extends ControllerMVC {
     return dateOfBirth;
   }
 
-  String _birthDateFromNationalId(String nationalId) {
-    final century = nationalId.startsWith('2') ? '19' : '20';
-    return '$century${nationalId.substring(1, 3)}${nationalId.substring(3, 5)}${nationalId.substring(5, 7)}';
-  }
-
   void _logAnalytics(String name) {
     FirebaseAnalytics.instance.logEvent(
       name: name,
@@ -157,10 +152,13 @@ class RegisterController extends ControllerMVC {
         editPhone ? _normalizePhone(phone!) : _normalizePhone(numberController.text);
     newMobile = phoneNumber;
 
+    final nationalId = nationalIdController.text.trim();
+    calc(nationalId: nationalId);
+
     final registrationForm = RegistrationForm(
       fullName: fullNameController.text.trim(),
-      nationalId: nationalIdController.text.trim(),
-      dateOfBirth: _birthDateFromNationalId(nationalIdController.text.trim()),
+      nationalId: nationalId,
+      dateOfBirth: dateOfBirth!,
       phoneNumber: phoneNumber!,
       email: emailController.text.trim(),
       password: passwordController.text,
@@ -176,15 +174,14 @@ class RegisterController extends ControllerMVC {
           await UserApi.registration(context, registrationForm: registrationForm);
       if (!context.mounted) return;
 
-      if (result?.isSuccess == true && result?.user?.isActive == true) {
+      if (result?.isSuccess == true && result?.active == true) {
         _logAnalytics('success_registration_screen');
         Navigator.of(context).pushNamedAndRemoveUntil(
           '/loginScreen',
           (Route<dynamic> route) => false,
           arguments: phoneNumber,
         );
-      } else if (result?.user?.isActive == false &&
-          result?.isAlreadyMobileNumberExist == false) {
+      } else if (result?.isSuccess == true && result?.active == false) {
         Navigator.pushNamed(
           context,
           OtpScreen.routeName,

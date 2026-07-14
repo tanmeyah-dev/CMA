@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks, depend_on_referenced_packages
 
 import 'package:Tanmeyah/Network/splash_api.dart';
+import 'package:Tanmeyah/Network/user_api.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:geolocator/geolocator.dart';
@@ -71,7 +72,9 @@ class SplashController extends ControllerMVC {
     return result;
   }
 
+
   Future<bool> getAppVersion() async {
+    await UserApi.fetchGuestToken();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     bool? forcedUpdateRequired = await SplashApi.sendVersion(version);
@@ -86,4 +89,5 @@ class SplashController extends ControllerMVC {
       return true; // Continue with normal flow
     }
   }
+
 }

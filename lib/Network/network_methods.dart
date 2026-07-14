@@ -14,13 +14,31 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:bot_toast/bot_toast.dart';
 
 class NetworkMethods {
+  static void _applyAuthHeader(
+    Map<String, String> headers, {
+    bool skipAuthHeader = false,
+  }) {
+    if (skipAuthHeader) return;
+
+    final hasAuthHeader = headers.keys.any(
+      (key) => key.toLowerCase() == 'authorization',
+    );
+    if (hasAuthHeader) return;
+
+    final token = SharedPref.getAuthToken();
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = token;
+    }
+  }
+
   static Future postRequestAsRow(
       {required String url,
       String? customUrl,
       required Map body,
       Map<String, String>? headers,
       BuildContext? context,
-      bool suppressAuthRedirect = false}) async {
+      bool suppressAuthRedirect = false,
+      bool skipAuthHeader = false}) async {
     final checkConnection = await Connectivity().checkConnectivity();
     final hasConnection = checkConnection
         .any((result) => result != ConnectivityResult.none);
@@ -43,11 +61,11 @@ class NetworkMethods {
       headers.addAll({
         'Content-Type': 'application/json',
         "Accept": "application/json",
-        "Authorization": SharedPref.getUserObg()?.token ?? "",
       });
 
       // Add device ID last to ensure it's always present (even if custom headers try to override)
-       headers["Device-Id"] = deviceId;
+      headers["Device-Id"] = deviceId;
+      _applyAuthHeader(headers, skipAuthHeader: skipAuthHeader);
 
       debugPrint(headers.toString());
       request.headers.addAll(headers);
@@ -103,6 +121,7 @@ class NetworkMethods {
     required String url,
     Map<String, String>? headers,
     bool suppressAuthRedirect = false,
+    bool skipAuthHeader = false,
   }) async {
     final checkConnection = await Connectivity().checkConnectivity();
     final hasConnection = checkConnection
@@ -118,14 +137,14 @@ class NetworkMethods {
       request.headers.addAll({
         'Content-Type': 'application/json',
         "Accept": "application/json",
-        "Authorization": SharedPref.getUserObg()?.token ?? "",
       });
 
-      // Add custom headers if provided
-      if (headers != null) request.headers.addAll(headers);
+      headers ??= {};
+      request.headers.addAll(headers);
 
       // Add device ID last to ensure it's always present (even if custom headers try to override)
       request.headers["Device-Id"] = deviceId;
+      _applyAuthHeader(request.headers, skipAuthHeader: skipAuthHeader);
       http.StreamedResponse response;
       try {
         response = await request.send().timeout(const Duration(seconds: 10));

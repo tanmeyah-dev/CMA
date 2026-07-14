@@ -65,10 +65,10 @@ class UserModel {
     id: json["id"],
     fullName: json["fullName"],
     nationalId: json["nationalId"],
-    birthDate: json["birthDate"],
+    birthDate: json["dateOfBirth"],
     mobileNumber: json["mobileNumber"],
     email: json["email"] != null ? json["email"]: null,
-    isActive: json["isActive"],
+    isActive: json["isActive"] ?? json["active"] ?? false,
     token: json["token"] != null ? json["token"] : null,
     governmentId: json["governorateId"]?.toString(),
   );
@@ -87,6 +87,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, fullName: $fullName ,nationalId:$nationalId ,birthDate: $birthDate,mobileNumber : $mobileNumber, email:$email,isActive: $isActive, token : $token  )';
+    return 'UserModel(id: $id, fullName: $fullName ,nationalId:$nationalId ,dateOfBirth: $birthDate,mobileNumber : $mobileNumber, email:$email,isActive: $isActive, token : $token  )';
   }
 }
