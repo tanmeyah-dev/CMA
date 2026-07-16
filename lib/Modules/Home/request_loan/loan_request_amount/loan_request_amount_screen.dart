@@ -14,6 +14,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:tan_sdk/tan_sdk_entry.dart';
 
 class LoanRequestAmountScreen extends StatefulWidget {
@@ -319,8 +320,11 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   }
 
   void _openYouthFinanceSdk() {
+    final phoneNumber = SharedPref.getUserObg()?.mobileNumber;
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const TanSdkEntry()),
+      MaterialPageRoute(
+        builder: (_) => TanSdkEntry(phoneNumber: phoneNumber),
+      ),
     );
   }
 
