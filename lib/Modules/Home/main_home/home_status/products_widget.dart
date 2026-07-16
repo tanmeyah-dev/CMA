@@ -102,11 +102,20 @@ class ProductsWidget extends StatelessWidget {
                                 .products[index]
                                 .logo !=
                                 null
-                                ? Image.network(con
-                                .homeResponse!
-                                .products[index]
-                                .logo ??
-                                "",width: 50.w,height: 50.h,)
+                                ? Image.network(
+                                    con.homeResponse!.products[index]
+                                            .logo ??
+                                        "",
+                                    width: 50.w,
+                                    height: 50.h,
+                                    errorBuilder: (_, __, ___) =>
+                                        Image.asset(
+                                      AppAssets.IMG_SERVICES_PLACEHOLDER,
+                                      width: 30.w,
+                                      color: Color(con.homeResponse!
+                                          .products[index].color!),
+                                    ),
+                                  )
                                 : Image.asset(
                               AppAssets
                                   .IMG_SERVICES_PLACEHOLDER,
@@ -135,16 +144,26 @@ class ProductsWidget extends StatelessWidget {
                                 .products[index]
                                 .titleImg !=
                                 null
-                                ? Image.network(con
-                                .homeResponse!
-                                .products[index]
-                                .titleImg ??
-                                "",width: 140.w,height: 32.h,fit: BoxFit.fill,)
+                                ? Image.network(
+                                    con.homeResponse!.products[index]
+                                            .titleImg ??
+                                        "",
+                                    width: 140.w,
+                                    height: 32.h,
+                                    fit: BoxFit.fill,
+                                    errorBuilder: (_, __, ___) =>
+                                        Image.asset(
+                                      AppAssets.IMG_SERVICES_PLACEHOLDER,
+                                      width: 140.w,
+                                      height: 32.h,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
                                 : Image.asset(
                               AppAssets
                                   .IMG_SERVICES_PLACEHOLDER,
                               width: 140.w,height: 32.h,fit: BoxFit.fill,),
-                            ),
+                          ),
                         ],
                       ),
                     ),

@@ -14,6 +14,7 @@ import '../../../../Utilities/loading_screen.dart';
 import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:tan_sdk/tan_sdk_entry.dart';
 
 class LoanRequestAmountScreen extends StatefulWidget {
   static const String routeName = "/loanAmountScreen";
@@ -45,6 +46,7 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
   // }
 
   int? _selectedIndex;
+  static const int _youthFinanceIndex = -1;
 
   @override
   void initState() {
@@ -228,98 +230,200 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 16.h),
-                      child: _selectedIndex != null
-                          ? Column(
-                                    children: [
-                                      CustomButton(
-                                        width: 385.w,
-                                        title: "next".tr,
-                                        onTap: () {
-                                          print("SELECTED ${con.selectedValue}");
-                                          if (con.currentPosition == null) {
-                                            con.checkLocation(
-                                                context: context,
-                                                isInitLocation: true);
-                                          } else {
-                                            LoanCheckoutModel?
-                                                loanCheckoutModel =
-                                                LoanCheckoutModel();
-                                            loanCheckoutModel.latitude = con
-                                                .currentPosition?.latitude
-                                                .toString();
-                                            loanCheckoutModel.longitude = con
-                                                .currentPosition?.longitude
-                                                .toString();
-                                            loanCheckoutModel.amount =
-                                                con.selectedValue;
-                                            loanCheckoutModel.amountTitle =
-                                                con.selectedTitle;
-                                            loanCheckoutModel.branchTitle =
-                                                con.selectedTitle;
-                                            Navigator.pushNamed(context,
-                                                LoanCityScreen.routeName,
-                                                arguments: loanCheckoutModel);
-                                            // con.applyForLoan(context);
-                                          }
-                                        },
-                                        color:
-                                            ThemeClass.textFieldBackgroundColor,
-                                        borderColor:
-                                            ThemeClass.textFieldBackgroundColor,
-                                        textColor: ThemeClass.whiteColor,
-                                        backgroundColor:
-                                            ThemeClass.primaryColor,
-                                      ),
-                                      SizedBox(
-                                        height: 16.h,
-                                      ),
-                                    ],
-                                  )
-                                : Column(
-                                    children: [
-                                      CustomButton(
-                                        width: 385.w,
-                                        title: "next".tr,
-                                        backgroundColor:
-                                            ThemeClass.buttonNotActiveColor,
-                                        borderColor:
-                                            ThemeClass.buttonNotActiveColor,
-                                        onTap: () {
-                                          if (con.formKey.currentState!
-                                              .validate()) {
-                                            if (con.loanAmount.text
-                                                    .isNotEmpty &&
-                                                con.loanAmount.text.length >
-                                                    3) {
-                                              if (con.currentPosition == null) {
-                                                con.checkLocation(
-                                                    context: context,
-                                                    isInitLocation: true);
-                                              } else {
-                                                con.applyForLoan(context);
-                                              }
-                                            } else {
-                                              ToastHelper.showError(context,
-                                                  message: "enter_amount".tr);
-                                            }
-                                          } else {
-                                            setState(() {
-                                              con.autoValidate = true;
-                                            });
-                                          }
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height: 16.h,
-                                      ),
-                                    ],
-                                  ),
+                      child: Column(
+                        children: [
+                          _buildYouthFinanceOption(),
+                          SizedBox(height: 16.h),
+                          _selectedIndex != null
+                              ? CustomButton(
+                                  width: 385.w,
+                                  title: "next".tr,
+                                  onTap: () {
+                                    if (_selectedIndex == _youthFinanceIndex) {
+                                      _openYouthFinanceSdk();
+                                      return;
+                                    }
+                                    print("SELECTED ${con.selectedValue}");
+                                    if (con.currentPosition == null) {
+                                      con.checkLocation(
+                                          context: context,
+                                          isInitLocation: true);
+                                    } else {
+                                      LoanCheckoutModel? loanCheckoutModel =
+                                          LoanCheckoutModel();
+                                      loanCheckoutModel.latitude = con
+                                          .currentPosition?.latitude
+                                          .toString();
+                                      loanCheckoutModel.longitude = con
+                                          .currentPosition?.longitude
+                                          .toString();
+                                      loanCheckoutModel.amount =
+                                          con.selectedValue;
+                                      loanCheckoutModel.amountTitle =
+                                          con.selectedTitle;
+                                      loanCheckoutModel.branchTitle =
+                                          con.selectedTitle;
+                                      Navigator.pushNamed(
+                                          context, LoanCityScreen.routeName,
+                                          arguments: loanCheckoutModel);
+                                      // con.applyForLoan(context);
+                                    }
+                                  },
+                                  color: ThemeClass.textFieldBackgroundColor,
+                                  borderColor:
+                                      ThemeClass.textFieldBackgroundColor,
+                                  textColor: ThemeClass.whiteColor,
+                                  backgroundColor: ThemeClass.primaryColor,
+                                )
+                              : CustomButton(
+                                  width: 385.w,
+                                  title: "next".tr,
+                                  backgroundColor:
+                                      ThemeClass.buttonNotActiveColor,
+                                  borderColor:
+                                      ThemeClass.buttonNotActiveColor,
+                                  onTap: () {
+                                    if (con.formKey.currentState!.validate()) {
+                                      if (con.loanAmount.text.isNotEmpty &&
+                                          con.loanAmount.text.length > 3) {
+                                        if (con.currentPosition == null) {
+                                          con.checkLocation(
+                                              context: context,
+                                              isInitLocation: true);
+                                        } else {
+                                          con.applyForLoan(context);
+                                        }
+                                      } else {
+                                        ToastHelper.showError(context,
+                                            message: "enter_amount".tr);
+                                      }
+                                    } else {
+                                      setState(() {
+                                        con.autoValidate = true;
+                                      });
+                                    }
+                                  },
+                                ),
+                          SizedBox(height: 16.h),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void _openYouthFinanceSdk() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const TanSdkEntry()),
+    );
+  }
+
+  Widget _buildYouthFinanceOption() {
+    final bool isSelected = _selectedIndex == _youthFinanceIndex;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedIndex = _youthFinanceIndex;
+          con.selectedTitle = "youth_finance".tr;
+          final youthProduct = con.loanProductsResponse?.loanRequestProducts
+              ?.where((product) =>
+                  product.name?.contains("شباب") == true ||
+                  product.name?.toLowerCase().contains("youth") == true)
+              .toList();
+          con.selectedValue = youthProduct != null && youthProduct.isNotEmpty
+              ? youthProduct.first.id
+              : null;
+        });
+        _openYouthFinanceSdk();
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8.w),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? ThemeClass.selectBackground
+              : ThemeClass.containerBackground,
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(1.w),
+              width: 24.w,
+              height: 24.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: ThemeClass.borderColor,
+                  width: 2.w,
+                ),
+              ),
+              child: isSelected
+                  ? Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ThemeClass.profileContainer,
+                      ),
+                    )
+                  : null,
+            ),
+            SizedBox(width: 8.w),
+            AppTextRegular(
+              title: "youth_finance".tr,
+              color: isSelected
+                  ? ThemeClass.profileContainer
+                  : ThemeClass.blackColor,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
+              fontSize: 16.sp,
+            ),
+            SizedBox(width: 8.w),
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF4E8),
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(
+                      color: ThemeClass.monthColor,
+                      width: 1.w,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.info,
+                        size: 14.sp,
+                        color: ThemeClass.monthColor,
+                      ),
+                      SizedBox(width: 4.w),
+                      Flexible(
+                        child: Text(
+                          "complete_request_via_tanmeyah_app".tr,
+                          style: TextStyle(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w500,
+                            color: ThemeClass.monthColor,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

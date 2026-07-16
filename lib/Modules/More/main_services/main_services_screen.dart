@@ -126,6 +126,13 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                             width: 40.w,
                                             height: 40.h,
                                             fit: BoxFit.fill,
+                                            errorBuilder: (_, __, ___) =>
+                                                Image.asset(
+                                              AppAssets.IMG_SERVICES_PLACEHOLDER,
+                                              width: 40.w,
+                                              height: 40.h,
+                                              fit: BoxFit.fill,
+                                            ),
                                         )
                                             : Image.asset(
                                           AppAssets
@@ -156,6 +163,13 @@ class _MainServicesScreenState extends StateMVC<MainServicesScreen> {
                                           width: 85.w,
                                           height: 20.h,
                                           fit: BoxFit.fill,
+                                          errorBuilder: (_, __, ___) =>
+                                              Image.asset(
+                                            AppAssets.IMG_SERVICES_PLACEHOLDER,
+                                            width: 85.w,
+                                            height: 20.h,
+                                            fit: BoxFit.fill,
+                                          ),
                                         )
                                             : Image.asset(
                                           AppAssets

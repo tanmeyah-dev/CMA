@@ -88,6 +88,11 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
                                   widget.serviceDetailModel.logo!,
                                   width: 40.w,
                                   height: 40.h,
+                                  errorBuilder: (_, __, ___) => Image.asset(
+                                    AppAssets.IMG_SERVICES_PLACEHOLDER,
+                                    width: 40.w,
+                                    height: 40.h,
+                                  ),
                                 )
                               : Image.asset(
                                   AppAssets.IMG_SERVICES_PLACEHOLDER,
@@ -101,6 +106,11 @@ class _ServicesDetailScreenState extends StateMVC<ServicesDetailScreen> {
                             width: 140.w,
                             height: 40.h,
                             fit: BoxFit.fill,
+                            errorBuilder: (_, __, ___) => Image.asset(
+                              AppAssets.IMG_SERVICES_PLACEHOLDER,
+                              width: 140.w,
+                              height: 40.h,
+                            ),
                           )
                               : Image.asset(
                             AppAssets.IMG_SERVICES_PLACEHOLDER,
