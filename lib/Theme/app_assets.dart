@@ -23,7 +23,7 @@ class AppAssets {
 
   static const IMG_FLAG = "assets/images/auth/egypt.png";
 
-  static const IMG_FORGETPASSWORD = "assets/images/auth/forget_password.gif";
+  static const IMG_FORGETPASSWORD = "assets/images/auth/forget_password.png";
 
   static const IMG_SUCCESS = "assets/images/auth/success.gif";
 

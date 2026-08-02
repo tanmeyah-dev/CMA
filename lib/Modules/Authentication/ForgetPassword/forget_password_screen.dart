@@ -1,23 +1,24 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/forgetpassword_steps/forget_password_step_three.dart';
 import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/forgetpassword_steps/forget_password_step_two.dart';
-import 'package:Tanmeyah/Modules/Authentication/ForgetPassword/stepper.dart';
 import 'package:Tanmeyah/Theme/app_assets.dart';
 import 'package:Tanmeyah/Utilities/loading_screen.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+
 import '../../../Theme/themeclass.dart';
 import '../../../Utilities/helper.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../Widgets/custom_button_widget.dart';
 import '../../../Widgets/custom_text.dart';
+import '../Login/login_screen.dart';
 import 'forget_password_controller.dart';
-import 'forgetpassword_steps/forget_password_step_one.dart';import 'package:firebase_analytics/firebase_analytics.dart';
-
+import 'forgetpassword_steps/forget_password_step_one.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
-  static const String routeName = "/forgetPassword";
+  static const String routeName = '/forgetPassword';
 
   const ForgetPasswordScreen({super.key});
 
@@ -25,443 +26,267 @@ class ForgetPasswordScreen extends StatefulWidget {
   _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen>
-    with TickerProviderStateMixin {
+class _ForgetPasswordScreenState extends StateMVC<ForgetPasswordScreen> {
   _ForgetPasswordScreenState() : super(ForgetPasswordController()) {
-    con = ForgetPasswordController();
+    con = controller as ForgetPasswordController;
   }
 
   late ForgetPasswordController con;
 
   @override
   void initState() {
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    analytics.logEvent(
-        name: 'open_forget_password_screen',
-        parameters: <String,Object>{
-          "title" :"open_forget_password_screen"
-        }
-    );
     super.initState();
+    con.resetForm();
+    _logAnalytics('open_forget_password_screen');
   }
 
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: ThemeClass.whiteColor,
-        appBar: BaseAppBar.main(
-          title: "reset_password".tr,
-          isBackButtonVisible: con.stepThreeSuccess ? false : true,
-        ),
-        body: LoadingScreen(
-          loading: con.loading,
-          child: GestureDetector(
-              onTap: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  width: double.infinity,
-                  height: double.infinity,
-                  alignment: Alignment.center,
-                  child: SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      SizedBox(height: 16.h),
-                     StepperWidget(con: con),
-                      SizedBox(height: 16.h),
-                      image(),
-                          SizedBox(height: 20.h,),
-                          con.stepOne ? ForgetPasswordStepOne(con : con) : Container(),
-                          con.stepTwo ? ForgetPasswordStepTwo(con: con) : Container(),
-                          con.stepThree ? ForgetPasswordStepThree(con: con) : Container(),
-                          con.stepThreeSuccess ? successChangePassword() : Container(),
-                    ]),
-                  ))),
-        ));
+  void _logAnalytics(String name) {
+    FirebaseAnalytics.instance.logEvent(
+      name: name,
+      parameters: <String, Object>{'title': name},
+    );
   }
 
-  Widget image() {
-    return  Image.asset(
-            con.stepThreeSuccess
-                ? AppAssets.IMG_SUCCESS
-                : AppAssets.IMG_FORGETPASSWORD,
-            height: 300.h,
-            width: 300.w,
-            fit: BoxFit.fill);
+  bool get _canSubmit {
+    switch (con.currentStep) {
+      case ForgetPasswordStep.identity:
+        return con.canSubmitIdentity;
+      case ForgetPasswordStep.otp:
+        return con.canSubmitOtp;
+      case ForgetPasswordStep.newPassword:
+        return true;
+      case ForgetPasswordStep.success:
+        return true;
+    }
   }
 
-  // Widget stepOne() {
-  //   return Form(
-  //       key: con.formKey,
-  //       child: SizedBox(
-  //           height: 330.h,
-  //           child: Column(children: [
-  //             Expanded(
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   FadeIn(
-  //                     delay: 1.5,
-  //                     from: SlideFrom.TOP,
-  //                     child: AppTextRegular(
-  //                       title: "id_num".tr,
-  //                       color: ThemeClass.secondaryColor,
-  //                     ),
-  //                   ),
-  //                   SizedBox(
-  //                     height: 12.h,
-  //                   ),
-  //                   FadeIn(
-  //                       delay: 1.5,
-  //                       from: SlideFrom.TOP,
-  //                       child: CustomTextFieldWidget(
-  //                           controller: con.nationalIdController,
-  //                           hint: "id_num".tr,
-  //                           onchange: (value) {
-  //                             if (value.length == 14) {
-  //                               con.activeBtn1 = true;
-  //                             } else {
-  //                               con.activeBtn1 = false;
-  //                             }
-  //                             setState(() {});
-  //                           },
-  //                           textInputType: TextInputType.phone,
-  //                           validator: (value) =>
-  //                               Validator.validateNationalId(context,value!),
-  //                           formatter: [LengthLimitingTextInputFormatter(14)])),
-  //                   SizedBox(height: 10.h),
-  //                   FadeIn(
-  //                     delay: 2,
-  //                     from: SlideFrom.TOP,
-  //                     child: AppTextRegular(
-  //                       title: "phone_number".tr,
-  //                       color: ThemeClass.secondaryColor,
-  //                     ),
-  //                   ),
-  //                   SizedBox(
-  //                     height: 10.h,
-  //                   ),
-  //                   Row(
-  //                     children: [
-  //                       FadeIn(
-  //                           delay: 2,
-  //                           from: SlideFrom.TOP,
-  //                           child: CustomTextFieldWidget(
-  //                               width: 215.w,
-  //                               controller: con.phoneController,
-  //                               hint: "phone_number".tr,
-  //                               textInputType: TextInputType.phone,
-  //                               onchange: (value) {
-  //                                 if (value.length == 11) {
-  //                                   con.activeBtn12 = true;
-  //                                 } else {
-  //                                   con.activeBtn12 = false;
-  //                                 }
-  //                                 setState(() {});
-  //                               },
-  //                               validator: (value) =>
-  //                                   Validator.validatePhone(context,value!),
-  //                               formatter: [
-  //                                 LengthLimitingTextInputFormatter(11)
-  //                               ])),
-  //                       SizedBox(
-  //                         width: 8.w,
-  //                       ),
-  //                       const FadeIn(
-  //                           delay: 2,
-  //                           from: SlideFrom.TOP,
-  //                           child: CountryCodeWidget()),
-  //                     ],
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //             // SizedBox(height: 100.h),
-  //             Align(
-  //                 alignment: Alignment.bottomCenter,
-  //                 child: Column(
-  //                   children: [
-  //                     FadeIn(
-  //                         delay: 2,
-  //                         from: SlideFrom.BOTTOM,
-  //                         child: Column(
-  //                           children: [
-  //                             (con.activeBtn1 == true &&
-  //                                 con.activeBtn12 == true)
-  //                                 ? CustomButton(
-  //                                 width: 200.w,
-  //                                 title: "continue".tr,
-  //                                 onTap: () async {
-  //                                   if (con.formKey.currentState!.validate()) {
-  //                                     con.firstStep(context);
-  //                                   }
-  //                                 })
-  //                                 : CustomButton(
-  //                               width: 200.w,
-  //                               title: "continue".tr,
-  //                               onTap: () async {},
-  //                               color: ThemeClass.textFieldBackgroundColor,
-  //                               borderColor:
-  //                               ThemeClass.textFieldBackgroundColor,
-  //                               textColor: ThemeClass.hintColor,
-  //                               backgroundColor:
-  //                               ThemeClass.buttonNotActiveColor,
-  //                             ),
-  //                             SizedBox(height: 30.h,),
-  //                           ],
-  //                         )),
-  //                     SizedBox(height:10.h,)
-  //                   ],
-  //                 ))
-  //           ])));
-  // }
+  String get _actionTitle {
+    switch (con.currentStep) {
+      case ForgetPasswordStep.identity:
+        return 'continue'.tr;
+      case ForgetPasswordStep.otp:
+        return 'confirm'.tr;
+      case ForgetPasswordStep.newPassword:
+        return 'reset'.tr;
+      case ForgetPasswordStep.success:
+        return 'login'.tr;
+    }
+  }
 
-  // Widget stepTwo() {
-  //   return Form(
-  //     key: con.formKey2,
-  //     child: SizedBox(
-  //       height: 330.h,
-  //       child: Column(
-  //         children: [
-  //           Expanded(child: Column(
-  //             children: [
-  //               FadeIn(
-  //                 delay: 2,
-  //                 from: SlideFrom.LEFT,
-  //                 child: AppTextMedium(
-  //                   title: "confirm_number".tr,
-  //                 ),
-  //               ),
-  //               SizedBox(height: 8.h),
-  //               RichText(
-  //                 textAlign: TextAlign.center,
-  //                 text: TextSpan(
-  //                   style: TextStyle(
-  //                     fontSize: 14.sp,
-  //                     color: Colors.black,
-  //                   ),
-  //                   children: <TextSpan>[
-  //                     TextSpan(text: "otp_des".tr),
-  //                     TextSpan(text: "  ${con.phoneController.text.substring(9)}**", style: const TextStyle(fontWeight: FontWeight.bold)),
-  //                   ],
-  //                 ),
-  //               ),
-  //               SizedBox(height: 10.h),
-  //               FadeIn(
-  //                   delay: 2,
-  //                   from: SlideFrom.LEFT,
-  //                   child: PinCodeWidget(
-  //                     controller: con.codeController,
-  //                     onChangeOTP: (value) {
-  //                       if (value.length == 5) {
-  //                         con.activeBtn2 = true;
-  //                         setState(() {});
-  //                       } else {
-  //                         con.activeBtn2 = false;
-  //                         setState(() {});
-  //                       }
-  //                     },
-  //                   )),
-  //               SizedBox(height: 20.h),
-  //               FadeIn(
-  //                   delay: 1.0,
-  //                   from: SlideFrom.LEFT,
-  //                   child:
-  //                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-  //                     InkWell(
-  //                         onTap: () {
-  //                           if (con.activeResend == true) {
-  //                             con.onResendCode(context);
-  //                           }
-  //                         },
-  //                         child: Text("send_again".tr,
-  //                             style: TextStyle(
-  //                                 decoration: TextDecoration.underline,
-  //                                 fontWeight: con.activeResend
-  //                                     ? FontWeight.w600
-  //                                     : FontWeight.w400,
-  //                                 fontSize: 16.sp,
-  //                                 color: con.activeResend
-  //                                     ? ThemeClass.blackColor
-  //                                     : ThemeClass.fontColor))),
-  //                     Text(" ${con.start} ${"seconds".tr}",
-  //                         style: TextStyle(
-  //                             fontWeight: FontWeight.w600,
-  //                             fontSize: 14.sp,
-  //                             color: ThemeClass.blackColor))
-  //                   ])),
-  //             ],
-  //           )),
-  //           FadeIn(
-  //               delay: 1.5,
-  //               from: SlideFrom.LEFT,
-  //               child: Column(
-  //                 children: [
-  //                   con.activeBtn2
-  //                       ? CustomButton(
-  //                       width: 200.w,
-  //                       title: "confirm".tr,
-  //                       onTap: () {
-  //                         con.secondStep(context);
-  //                       })
-  //                       : CustomButton(
-  //                     width: 200.w,
-  //                     title: "confirm".tr,
-  //                     onTap: () {},
-  //                     color: ThemeClass.textFieldBackgroundColor,
-  //                     borderColor: ThemeClass.textFieldBackgroundColor,
-  //                     textColor: ThemeClass.hintColor,
-  //                     backgroundColor: ThemeClass.buttonNotActiveColor,
-  //                   ),
-  //                   SizedBox(height: 40.h,)
-  //                 ],
-  //               ))
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
+  Future<void> _onAction() async {
+    FocusManager.instance.primaryFocus?.unfocus();
 
-  // Widget stepThree() {
-  //   return Form(
-  //       key: con.formKey3,
-  //       child: SizedBox(
-  //         height: 330.h,
-  //         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-  //           Expanded(child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               FadeIn(
-  //                 delay: 1,
-  //                 from: SlideFrom.LEFT,
-  //                 child: AppTextRegular(
-  //                   title: "new_password".tr,
-  //                   color: ThemeClass.secondaryColor,
-  //                 ),
-  //               ),
-  //               SizedBox(height: 10.h),
-  //               FadeIn(
-  //                   delay: 0.5,
-  //                   from: SlideFrom.LEFT,
-  //                   child: CustomTextFieldWidget(
-  //                       onchange: (value) {
-  //                         if (value.length > 8) {
-  //                           con.activeBtn31 = true;
-  //                         } else {
-  //                           con.activeBtn31 = false;
-  //                         }
-  //                       },
-  //                       obscure: con.showNewPassword,
-  //                       controller: con.newPasswordController,
-  //                       hint: "new_password".tr,
-  //                       textInputType: TextInputType.text,
-  //                       validator: (value) => Validator.validatePassword(context,value!))),
-  //               SizedBox(height: 10.h),
-  //               FadeIn(
-  //                 delay: 1,
-  //                 from: SlideFrom.LEFT,
-  //                 child: AppTextRegular(
-  //                   title: "confirm_new_password".tr,
-  //                   color: ThemeClass.secondaryColor,
-  //                 ),
-  //               ),
-  //               SizedBox(height: 10.h),
-  //               FadeIn(
-  //                   delay: 1,
-  //                   from: SlideFrom.LEFT,
-  //                   child: CustomTextFieldWidget(
-  //                       obscure: con.showConfirmPassword,
-  //                       controller: con.confirmNewPasswordController,
-  //                       hint: "confirm_new_password".tr,
-  //                       textInputType: TextInputType.text,
-  //                       onchange: (value) {
-  //                         if (value.length > 8) {
-  //                           con.activeBtn32 = true;
-  //                         } else {
-  //                           con.activeBtn32 = false;
-  //                         }
-  //                       },
-  //                       validator: (value) => Validator.matchPasswords(context,
-  //                           con.newPasswordController.text,
-  //                           con.confirmNewPasswordController.text))),
-  //           ],),),
-  //           FadeIn(
-  //               delay: 1.5,
-  //               from: SlideFrom.BOTTOM,
-  //               child: Align(
-  //                 alignment: Alignment.bottomCenter,
-  //                 child: Column(
-  //                   children: [
-  //                      // (con.activeBtn32 == true) ?
-  //                     CustomButton(
-  //                       width: 200.w,
-  //                       title: "reset".tr,
-  //                       onTap: () async {
-  //                         if (con.formKey3.currentState!.validate()) {
-  //                           con.thirdStep(context);
-  //                         }
-  //                       },
-  //                     ),
-  //                     //     :
-  //                     // CustomButton(
-  //                     //   width: 200.w,
-  //                     //   title: "reset".tr,
-  //                     //   onTap: () {},
-  //                     //   color: ThemeClass.textFieldBackgroundColor,
-  //                     //   borderColor: ThemeClass.textFieldBackgroundColor,
-  //                     //   textColor: ThemeClass.hintColor,
-  //                     //   backgroundColor: ThemeClass.buttonNotActiveColor,
-  //                     // ),
-  //                     SizedBox(height: 40.h,),
-  //                   ],
-  //                 ),
-  //               )
-  //           ),
-  //          ]),
-  //       ));
-  // }
+    switch (con.currentStep) {
+      case ForgetPasswordStep.identity:
+        if (con.formKey.currentState?.validate() == true) {
+          await con.firstStep(context);
+        }
+        break;
+      case ForgetPasswordStep.otp:
+        await con.secondStep(context);
+        break;
+      case ForgetPasswordStep.newPassword:
+        if (con.formKey3.currentState?.validate() == true) {
+          await con.thirdStep(context);
+        }
+        break;
+      case ForgetPasswordStep.success:
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          LoginScreen.routeName,
+          (Route<dynamic> route) => false,
+          arguments: '',
+        );
+        break;
+    }
+  }
 
-  Widget successChangePassword() {
-    return Column(
-      children: [
-        AppTextBold(
-              title: "done".tr,
+  Widget _headerImage({required bool keyboardVisible}) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      height: keyboardVisible ? 180.h : 300.h,
+      width: keyboardVisible ? 180.w : 300.w,
+      child: Image.asset(
+        con.isSuccess ? AppAssets.IMG_SUCCESS : AppAssets.IMG_FORGETPASSWORD,
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+
+  Widget _description() {
+    switch (con.currentStep) {
+      case ForgetPasswordStep.identity:
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: Text(
+            'forget_password_des'.tr,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: ThemeClass.borderColor,
+              fontFamily: 'DINNextLTArabic-Regular',
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w400,
+              height: 1.6,
+            ),
+          ),
+        );
+      case ForgetPasswordStep.otp:
+        return RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: '${'otp_des'.tr} ',
+                style: TextStyle(
+                  color: ThemeClass.borderColor,
+                  fontFamily: 'DINNextLTArabic-Regular',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
+                ),
+              ),
+              TextSpan(
+                text: con.maskedPhoneSuffix,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: ThemeClass.blackColor,
+                  fontFamily: 'DINNextLTArabic-Regular',
+                  fontSize: 16.sp,
+                  height: 1.5,
+                ),
+              ),
+            ],
+          ),
+        );
+      case ForgetPasswordStep.newPassword:
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: Text(
+            'forget_password_new_des'.tr,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: ThemeClass.borderColor,
+              fontFamily: 'DINNextLTArabic-Regular',
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w400,
+              height: 1.6,
+            ),
+          ),
+        );
+      case ForgetPasswordStep.success:
+        return Column(
+          children: [
+            AppTextBold(
+              title: 'done'.tr,
               color: ThemeClass.secondaryColor,
               fontSize: 24.sp,
             ),
-        SizedBox(
-          height: 30.h,
-        ),
-       AppTextRegular(
-              title: "success_des".tr,
-              fontSize: 20.sp,
+            SizedBox(height: 16.h),
+            AppTextRegular(
+              title: 'success_des'.tr,
+              fontSize: 18.sp,
               color: ThemeClass.primaryColor,
             ),
-        SizedBox(
-          height: 30.h,
-        ),
-        Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
-              child: AppTextHint(
-                title: "success_des_2".tr,
+            SizedBox(height: 12.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: AppTextHint(title: 'success_des_2'.tr),
+            ),
+          ],
+        );
+    }
+  }
+
+  Widget _currentStepFields() {
+    switch (con.currentStep) {
+      case ForgetPasswordStep.identity:
+        return ForgetPasswordStepOne(
+          con: con,
+          onChanged: () => setState(() {}),
+        );
+      case ForgetPasswordStep.otp:
+        return ForgetPasswordStepTwo(
+          con: con,
+          onChanged: () => setState(() {}),
+        );
+      case ForgetPasswordStep.newPassword:
+        return ForgetPasswordStepThree(
+          con: con,
+          onChanged: () => setState(() {}),
+        );
+      case ForgetPasswordStep.success:
+        return const SizedBox.shrink();
+    }
+  }
+
+  Widget _actionButton(double buttonWidth) {
+    return CustomButton(
+      width: buttonWidth,
+      title: _actionTitle,
+      onTap: _canSubmit ? _onAction : () {},
+      color: _canSubmit ? null : ThemeClass.textFieldBackgroundColor,
+      borderColor: _canSubmit ? null : ThemeClass.textFieldBackgroundColor,
+      textColor: _canSubmit ? null : ThemeClass.hintColor,
+      backgroundColor: _canSubmit ? null : ThemeClass.buttonNotActiveColor,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
+    final keyboardVisible = keyboardInset > 0;
+    final horizontalPadding = 30.w;
+    final buttonWidth = 1.sw - 60.w;
+
+    return LoadingScreen(
+      loading: con.loading,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          backgroundColor: ThemeClass.whiteColor,
+          resizeToAvoidBottomInset: false,
+          appBar: BaseAppBar.main(
+            title: 'reset_password'.tr,
+            isBackButtonVisible: !con.isSuccess,
+            context: context,
+            enableNotification: false,
+            centerTitle: false,
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 24.h),
+                      _headerImage(keyboardVisible: keyboardVisible),
+                      SizedBox(height: 20.h),
+                      _description(),
+                      if (!con.isSuccess) ...[
+                        SizedBox(height: 32.h),
+                        _currentStepFields(),
+                      ],
+                      SizedBox(height: 24.h),
+                    ],
+                  ),
+                ),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  horizontalPadding,
+                  16.h,
+                  horizontalPadding,
+                  keyboardVisible ? keyboardInset + 12.h : 20.h,
+                ),
+                child: _actionButton(buttonWidth),
+              ),
+            ],
+          ),
         ),
-        SizedBox(
-          height: 50.h,
-        ),
-         CustomButton(
-              width: 216.w,
-              title: "login".tr,
-              onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/loginScreen', (Route<dynamic> route) => false,
-                    arguments: "");
-              }),
-      ],
+      ),
     );
   }
 }

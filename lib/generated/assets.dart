@@ -6,7 +6,7 @@ class Assets {
   static const String authCheckUser = 'assets/images/auth/check_user.png';
   static const String authEgypt = 'assets/images/auth/egypt.png';
   static const String authFaceId = 'assets/images/auth/face_id.png';
-  static const String authForgetPassword = 'assets/images/auth/forget_password.gif';
+  static const String authForgetPassword = 'assets/images/auth/forget_password.png';
   static const String authLocatoin = 'assets/images/auth/locatoin.png';
   static const String authLoginBack = 'assets/images/auth/login_back.png';
   static const String authLogout = 'assets/images/auth/logout.png';

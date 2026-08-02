@@ -28,6 +28,8 @@
   "or" : "Or",
   "no_account" : "Don't have an account?",
   "reset_password" : "Reset Password",
+  "forget_password_des" : "Enter your National ID (14 digits) and your mobile phone number to reset your password.",
+  "forget_password_new_des" : "Enter your new password and confirm it to reset.",
   "reset" : "Reset",
   "new_password" :  "New Password",
   "confirm_new_password" : "Confirm New Password",

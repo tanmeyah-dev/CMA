@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tan_sdk/presenter/splash/scene/splash_scene.dart';
 import 'package:tan_sdk/tan_sdk.dart';
 
 /// Full-screen host for the Tan Vlens SDK flow.
