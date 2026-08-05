@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '310544200746',
     projectId: 'tanmeyahapp',
     storageBucket: 'tanmeyahapp.appspot.com',
-    iosClientId: '310544200746-90kn3nj17q05h1irpscrlb5hujaoqb2d.apps.googleusercontent.com',
+    iosClientId: '310544200746-ipahem5reva3j927ppjdjmlt4htjhoq2.apps.googleusercontent.com',
     iosBundleId: 'com.tanmeyah.customerApp',
   );
 

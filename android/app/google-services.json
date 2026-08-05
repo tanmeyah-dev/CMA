@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "310544200746-7p5d6c9arnml28ifvum06ci9hvsm77bt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tanmeyah.app",
+            "certificate_hash": "1c4b3aba37b96639c0fbb4e80f7f7b963ba32179"
+          }
+        },
+        {
+          "client_id": "310544200746-7p5d6c9arnml28ifvum06ci9hvsm77bt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tanmeyah.app",
+            "certificate_hash": "f188fd811040e6c0880d7a1f44006daedf6e10db"
+          }
+        },
+        {
           "client_id": "310544200746-8e6c8cn1jo72o9gdvatfrrcfp2g0o42j.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -31,7 +47,7 @@
               "client_type": 3
             },
             {
-              "client_id": "310544200746-90kn3nj17q05h1irpscrlb5hujaoqb2d.apps.googleusercontent.com",
+              "client_id": "310544200746-ipahem5reva3j927ppjdjmlt4htjhoq2.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.tanmeyah.customerApp",

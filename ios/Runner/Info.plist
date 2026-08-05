@@ -7,12 +7,19 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb142136432254883</string>
+				<string>com.googleusercontent.apps.310544200746-ipahem5reva3j927ppjdjmlt4htjhoq2</string>
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>310544200746-ipahem5reva3j927ppjdjmlt4htjhoq2.apps.googleusercontent.com</string>
+	<key>GIDServerClientID</key>
+	<string>310544200746-ipahem5reva3j927ppjdjmlt4htjhoq2.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
 	<string>142136432254883</string>
 	<key>FacebookClientToken</key>
