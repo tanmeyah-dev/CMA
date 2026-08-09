@@ -30,6 +30,7 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             force 'com.android.tools.build:gradle:8.9.1'
+            force 'androidx.concurrent:concurrent-futures:1.2.0'
         }
     }
 }
@@ -121,7 +122,12 @@ subprojects {
                     force 'com.android.tools.build:gradle:8.9.1'
                     force 'com.android.tools.build:builder:8.9.1'
                     force 'com.android.tools.build:bundletool:1.18.3'
+                    force 'androidx.concurrent:concurrent-futures:1.2.0'
                 }
+            }
+            // Ensure CameraX / ML Kit plugin modules can resolve Futures adapters.
+            project.dependencies {
+                add('implementation', 'androidx.concurrent:concurrent-futures:1.2.0')
             }
         }
         project.tasks.withType(JavaCompile).configureEach {

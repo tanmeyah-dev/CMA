@@ -90,6 +90,9 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     namespace 'com.tanmeyah.app'
@@ -99,11 +102,19 @@ flutter {
     source '../..'
 }
 
+// google_mlkit_object_detection (via vlens) transitively pulls deprecated
+// firebase-iid, which duplicates classes already in firebase-messaging 24+.
+configurations.configureEach {
+    exclude group: 'com.google.firebase', module: 'firebase-iid'
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:2.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:17.0.0'
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+    // Required by CameraX / ML Kit when compiling with newer JDKs.
+    implementation 'androidx.concurrent:concurrent-futures:1.2.0'
 //    implementation("com.fawry.fawrypay:sdk:0.1.76") {
 //        exclude group: 'com.android.installreferrer', module: 'installreferrer'
 //    }

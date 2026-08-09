@@ -65,71 +65,76 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
               child: Column(
                 children: [
                   Expanded(
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(height: 30.h),
-                             bannerWidget(
-                                  title: "loan_term_1".tr,
-                                  imageUrl: AppAssets.IMG_TERMS1
-                            ),
-                            SizedBox(height: 10.h),
-                            bannerWidget(
-                                  title: "loan_term_2".tr,
-                                  imageUrl: AppAssets.IMG_TERMS2),
-                            SizedBox(height: 10.h),
-                           bannerWidget(
-                                  title: "loan_term_3".tr,
-                                  imageUrl: AppAssets.IMG_TERMS3),
-                            SizedBox(height: 10.h),
-                           bannerWidget(
-                                  title: "loan_term_4".tr,
-                                  imageUrl: AppAssets.IMG_TERMS4),
-                            SizedBox(height: 16.h,),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Checkbox(
-                                    shape: const CircleBorder(),
-                                    value: con.accept,
-                                    onChanged: (value) {
-                                      con.accept = !con.accept;
-                                      setState(() {});
-                                    },
-                                    activeColor: ThemeClass.primaryColor,
-                                  ),
-                                  AppTextRegular(title: "accept_terms".tr),
-                                ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 50.h,),
-                        Column(
-                          children: [
-                           bannerWidget(
-                                title: "loan_term_5".tr,
-                                imageUrl: AppAssets.IMG_TERMS5,
-                            ),
-                            SizedBox(height: 16.h,),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Checkbox(
-                                    shape: const CircleBorder(),
-                                    value: con.accept2,
-                                    onChanged: (value) {
-                                      con.accept2 = !con.accept2;
-                                      setState(() {});
-                                    },
-                                    activeColor: ThemeClass.primaryColor,
-                                  ),
-                                  AppTextRegular(title: "نعم لدي مشروع قائم منذ ٦ اشهر"),
-                                ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 30.h),
+                          bannerWidget(
+                            title: "loan_term_1".tr,
+                            imageUrl: AppAssets.IMG_TERMS1,
+                          ),
+                          SizedBox(height: 10.h),
+                          bannerWidget(
+                            title: "loan_term_2".tr,
+                            imageUrl: AppAssets.IMG_TERMS2,
+                          ),
+                          SizedBox(height: 10.h),
+                          bannerWidget(
+                            title: "loan_term_3".tr,
+                            imageUrl: AppAssets.IMG_TERMS3,
+                          ),
+                          SizedBox(height: 10.h),
+                          bannerWidget(
+                            title: "loan_term_4".tr,
+                            imageUrl: AppAssets.IMG_TERMS4,
+                          ),
+                          SizedBox(height: 16.h),
+                          Row(
+                            children: [
+                              Checkbox(
+                                shape: const CircleBorder(),
+                                value: con.accept,
+                                onChanged: (value) {
+                                  con.accept = !con.accept;
+                                  setState(() {});
+                                },
+                                activeColor: ThemeClass.primaryColor,
                               ),
-                          ],
-                        ),
-                      ],
+                              Expanded(
+                                child: AppTextRegular(
+                                  title: "accept_terms".tr,
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 50.h),
+                          bannerWidget(
+                            title: "loan_term_5".tr,
+                            imageUrl: AppAssets.IMG_TERMS5,
+                          ),
+                          SizedBox(height: 16.h),
+                          Row(
+                            children: [
+                              Checkbox(
+                                shape: const CircleBorder(),
+                                value: con.accept2,
+                                onChanged: (value) {
+                                  con.accept2 = !con.accept2;
+                                  setState(() {});
+                                },
+                                activeColor: ThemeClass.primaryColor,
+                              ),
+                              Expanded(
+                                child: AppTextRegular(
+                                  title: "نعم لدي مشروع قائم منذ ٦ اشهر",
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Align(
