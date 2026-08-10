@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
-import 'package:Tanmeyah/Models/loan_checkout_model.dart';
 import 'package:Tanmeyah/Utilities/helper.dart';
 import 'package:Tanmeyah/Widgets/base_appbar.dart';
 import 'package:Tanmeyah/Widgets/custom_button_widget.dart';
@@ -11,7 +10,6 @@ import '../../../../Theme/app_assets.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
-import '../loan_city/loan_city_screen.dart';
 import 'loan_request_amount_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
@@ -245,30 +243,7 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                                       return;
                                     }
                                     print("SELECTED ${con.selectedValue}");
-                                    if (con.currentPosition == null) {
-                                      con.checkLocation(
-                                          context: context,
-                                          isInitLocation: true);
-                                    } else {
-                                      LoanCheckoutModel? loanCheckoutModel =
-                                          LoanCheckoutModel();
-                                      loanCheckoutModel.latitude = con
-                                          .currentPosition?.latitude
-                                          .toString();
-                                      loanCheckoutModel.longitude = con
-                                          .currentPosition?.longitude
-                                          .toString();
-                                      loanCheckoutModel.amount =
-                                          con.selectedValue;
-                                      loanCheckoutModel.amountTitle =
-                                          con.selectedTitle;
-                                      loanCheckoutModel.branchTitle =
-                                          con.selectedTitle;
-                                      Navigator.pushNamed(
-                                          context, LoanCityScreen.routeName,
-                                          arguments: loanCheckoutModel);
-                                      // con.applyForLoan(context);
-                                    }
+                                    con.proceedWithSelectedProduct(context);
                                   },
                                   color: ThemeClass.textFieldBackgroundColor,
                                   borderColor:
