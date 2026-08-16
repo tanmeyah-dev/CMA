@@ -67,11 +67,13 @@ dependencies:
   bot_toast: ^4.1.3
   tan_sdk:
     path: ../tanmeyah-vlens-sdk
+  # Must be a regular dependency: Flutter omits dev_dependency plugins from
+  # release Android builds, but GeneratedPluginRegistrant still references them.
+  flutter_native_splash: ^2.2.9
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.2.9
   change_app_package_name: ^1.1.0
   flutter_lints: ^5.0.0
 

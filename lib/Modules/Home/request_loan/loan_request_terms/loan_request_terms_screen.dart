@@ -90,6 +90,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                           ),
                           SizedBox(height: 16.h),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Checkbox(
                                 shape: const CircleBorder(),
@@ -100,10 +101,10 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                                 },
                                 activeColor: ThemeClass.primaryColor,
                               ),
-                              Expanded(
+                              Flexible(
                                 child: AppTextRegular(
                                   title: "accept_terms".tr,
-                                  textAlign: TextAlign.start,
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ],
@@ -115,6 +116,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                           ),
                           SizedBox(height: 16.h),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Checkbox(
                                 shape: const CircleBorder(),
@@ -125,10 +127,10 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                                 },
                                 activeColor: ThemeClass.primaryColor,
                               ),
-                              Expanded(
+                              Flexible(
                                 child: AppTextRegular(
-                                  title: "نعم لدي مشروع قائم منذ ٦ اشهر",
-                                  textAlign: TextAlign.start,
+                                  title: "نعم لدي مشروع قائم منذ ٦ شهور",
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ],

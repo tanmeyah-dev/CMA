@@ -319,7 +319,6 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
               ? youthProduct.first.id
               : null;
         });
-        _openYouthFinanceSdk();
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 8.w),
