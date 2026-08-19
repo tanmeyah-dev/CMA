@@ -16,53 +16,77 @@ String homeResponseToJson(HomeResponse data) => json.encode(data.toJson());
 
 class HomeResponse {
   HomeResponse({
-    required this.loanRequest,
-    required this.offers,
-    required this.products,
-    required this.activeCustomer,
-    required this.isSuccess,
+    this.loanRequest,
+    this.offers,
+    this.products,
+    this.activeCustomer,
+    this.isSuccess,
     this.code,
     this.message,
-    required this.canRequestLoan,
+    this.canRequestLoan,
     this.branchModel,
     this.waitingMessage,
+    this.vlenseStatus,
+    this.vlenseMessage,
   });
 
   LoanRequestModel? loanRequest;
-  List<OfferModel> offers;
-  List<ServiceDetailModel> products;
+  List<OfferModel>? offers;
+  List<ServiceDetailModel>? products;
   String? waitingMessage;
-  bool activeCustomer;
-  bool isSuccess;
-  bool canRequestLoan;
+  bool? activeCustomer;
+  bool? isSuccess;
+  bool? canRequestLoan;
   BranchModel? branchModel;
   String? code;
   String? message;
+  String? vlenseStatus;
+  String? vlenseMessage;
 
   factory HomeResponse.fromJson(Map<String, dynamic> json) => HomeResponse(
-    loanRequest: json["loanRequest"] != null ? LoanRequestModel.fromJson(json["loanRequest"]) : null,
-        offers: List<OfferModel>.from(json["offers"].map((x) => OfferModel.fromJson(x))),
-        products: List<ServiceDetailModel>.from(
-            json["products"].map((x) => ServiceDetailModel.fromJson(x))),
+        loanRequest: json["loanRequest"] != null ? LoanRequestModel.fromJson(json["loanRequest"]) : null,
+        offers: json["offers"] != null
+            ? List<OfferModel>.from(json["offers"].map((x) => OfferModel.fromJson(x)))
+            : null,
+        products: json["products"] != null
+            ? List<ServiceDetailModel>.from(json["products"].map((x) => ServiceDetailModel.fromJson(x)))
+            : null,
         activeCustomer: json["activeCustomer"],
         isSuccess: json["isSuccess"],
         code: json["code"],
         waitingMessage: json["waitingMessage"],
-        branchModel: json["loanRequestBranch"] != null ? BranchModel.fromJson(json["loanRequestBranch"]): null,
+        branchModel: json["loanRequestBranch"] != null ? BranchModel.fromJson(json["loanRequestBranch"]) : null,
         message: json["message"],
         canRequestLoan: json["canRequestLoan"],
+        vlenseStatus: json["vlenseStatus"]?.toString(),
+        vlenseMessage: json["vlenseMessage"]?.toString(),
       );
+
+  String? get vlenseStatusCode {
+    final value = vlenseStatus?.trim();
+    if (value == null || value.isEmpty || value.toLowerCase() == 'null') {
+      return null;
+    }
+    return value;
+  }
+
+  bool get isVlenseCompleteData => vlenseStatusCode == '200';
+
+  bool get isVlenseWaiting => vlenseStatusCode == '300';
 
   Map<String, dynamic> toJson() => {
         "loanRequest": loanRequest,
-        "offers": List<dynamic>.from(offers.map((x) => x.toJson())),
-        "products": List<dynamic>.from(products.map((x) => x.toJson())),
+        "offers": offers != null ? List<dynamic>.from(offers!.map((x) => x.toJson())) : null,
+        "products": products != null ? List<dynamic>.from(products!.map((x) => x.toJson())) : null,
         "activeCustomer": activeCustomer,
         "isSuccess": isSuccess,
         "loanRequestBranch": branchModel,
         "code": code,
         "message": message,
-        "canRequestLoan" : canRequestLoan,
+        "canRequestLoan": canRequestLoan,
+        "waitingMessage": waitingMessage,
+        "vlenseStatus": vlenseStatus,
+        "vlenseMessage": vlenseMessage,
       };
 }
 

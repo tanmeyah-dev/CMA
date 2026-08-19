@@ -85,7 +85,7 @@ class ServiceDetailModel {
       descriptionAr: json["descriptionAr"],
       descriptionEn:
           json["descriptionEn"],
-      imageUrl: json["imageUrl"],
+      imageUrl: json["image"] ?? json["imageUrl"],
        logo: json["logo"],
        titleImg: json["titleImg"],
       info: json["info"] != null

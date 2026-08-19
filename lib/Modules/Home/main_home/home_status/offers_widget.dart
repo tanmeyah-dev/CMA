@@ -67,7 +67,7 @@ class OffersWidget extends StatelessWidget {
                 height: 130.h,
                 autoPlay: true,
                 viewportFraction: 0.9),
-            items: con.homeResponse!.offers.map((i) {
+            items: con.homeResponse!.offers!.map((i) {
               return Builder(
                 builder: (BuildContext context) {
                   return GestureDetector(

@@ -54,7 +54,7 @@ class ProductsWidget extends StatelessWidget {
           child: MasonryGridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: con.homeResponse!.products.length < 4 ? con.homeResponse?.products.length : 4,
+            itemCount: con.homeResponse!.products!.length < 4 ? con.homeResponse!.products!.length : 4,
             crossAxisCount: 2,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
@@ -65,13 +65,13 @@ class ProductsWidget extends StatelessWidget {
                   analytics.logEvent(
                       name: 'request_service',
                       parameters: <String,Object>{
-                        "title" :"request_service_with  ${con.homeResponse?.products[index].nameAr}"
+                        "title" :"request_service_with  ${con.homeResponse?.products?[index].nameAr}"
                       }
                   );
                   Navigator.pushNamed(context,
                       ServicesDetailScreen.routeName,
                       arguments: con
-                          .homeResponse!.products[index]);
+                          .homeResponse!.products![index]);
                 },
                 child:Container(
                     width: 354.w,
@@ -99,11 +99,11 @@ class ProductsWidget extends StatelessWidget {
                             BorderRadius.circular(16.w),
                             child: con
                                 .homeResponse!
-                                .products[index]
+                                .products![index]
                                 .logo !=
                                 null
                                 ? Image.network(
-                                    con.homeResponse!.products[index]
+                                    con.homeResponse!.products![index]
                                             .logo ??
                                         "",
                                     width: 50.w,
@@ -113,7 +113,7 @@ class ProductsWidget extends StatelessWidget {
                                       AppAssets.IMG_SERVICES_PLACEHOLDER,
                                       width: 30.w,
                                       color: Color(con.homeResponse!
-                                          .products[index].color!),
+                                          .products![index].color!),
                                     ),
                                   )
                                 : Image.asset(
@@ -122,7 +122,7 @@ class ProductsWidget extends StatelessWidget {
                               width: 30.w,
                               color: Color(con
                                   .homeResponse!
-                                  .products[index]
+                                  .products![index]
                                   .color!),
                             ),
                           ),
@@ -141,11 +141,11 @@ class ProductsWidget extends StatelessWidget {
                             BorderRadius.circular(16.w),
                             child: con
                                 .homeResponse!
-                                .products[index]
+                                .products![index]
                                 .titleImg !=
                                 null
                                 ? Image.network(
-                                    con.homeResponse!.products[index]
+                                    con.homeResponse!.products![index]
                                             .titleImg ??
                                         "",
                                     width: 140.w,
