@@ -90,6 +90,7 @@
   "///////////////////// Start Home": "////////////////////////// Start Home",
   "hello" : "Hello",
   "ask_loan" : "Ask Loan",
+  "re_ask_loan" : "Re-request Loan",
   "our_offers" : "Our Offers",
   "logout_des" : "Do you want to log out?",
   "best_offers" : "Best Offers",

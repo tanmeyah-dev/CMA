@@ -28,6 +28,7 @@ class HomeResponse {
     this.waitingMessage,
     this.vlenseStatus,
     this.vlenseMessage,
+    this.vlenseRejectionReason,
   });
 
   LoanRequestModel? loanRequest;
@@ -42,6 +43,7 @@ class HomeResponse {
   String? message;
   String? vlenseStatus;
   String? vlenseMessage;
+  String? vlenseRejectionReason;
 
   factory HomeResponse.fromJson(Map<String, dynamic> json) => HomeResponse(
         loanRequest: json["loanRequest"] != null ? LoanRequestModel.fromJson(json["loanRequest"]) : null,
@@ -60,6 +62,7 @@ class HomeResponse {
         canRequestLoan: json["canRequestLoan"],
         vlenseStatus: json["vlenseStatus"]?.toString(),
         vlenseMessage: json["vlenseMessage"]?.toString(),
+        vlenseRejectionReason: json["vlenseRejectionReason"]?.toString(),
       );
 
   String? get vlenseStatusCode {
@@ -74,6 +77,8 @@ class HomeResponse {
 
   bool get isVlenseWaiting => vlenseStatusCode == '300';
 
+  bool get isVlenseRejected => vlenseStatusCode == '600';
+
   Map<String, dynamic> toJson() => {
         "loanRequest": loanRequest,
         "offers": offers != null ? List<dynamic>.from(offers!.map((x) => x.toJson())) : null,
@@ -87,6 +92,7 @@ class HomeResponse {
         "waitingMessage": waitingMessage,
         "vlenseStatus": vlenseStatus,
         "vlenseMessage": vlenseMessage,
+        "vlenseRejectionReason": vlenseRejectionReason,
       };
 }
 

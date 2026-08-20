@@ -187,6 +187,9 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
     if (con.homeResponse?.loanRequest != null) {
       return ActiveLoanWidget(con: con);
     }
+    if (con.homeResponse?.isVlenseRejected == true) {
+      return _buildCanRequestLoanSection(context, con);
+    }
     if (con.homeResponse?.isVlenseCompleteData == true ||
         con.homeResponse?.isVlenseWaiting == true) {
       return WaitingLoanWidget(con: con);
@@ -198,6 +201,10 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
   }
 
   Widget _buildCanRequestLoanSection(BuildContext context, HomeController con) {
+    final isVlenseRejected = con.homeResponse?.isVlenseRejected == true;
+    final rejectionReason =
+        con.homeResponse?.vlenseRejectionReason?.trim() ?? '';
+
     return Stack(
       children: [
         Container(
@@ -242,27 +249,46 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                       vertical: 16.h,
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 12.h),
                         SizedBox(
-                          width: 120.w,
+                          width: isVlenseRejected ? 180.w : 120.w,
                           child: AppTextRegular(
-                            title: """اطلب
+                            title: isVlenseRejected
+                                ? (con.homeResponse?.vlenseMessage ?? '')
+                                : """اطلب
 تمويل مشروعك
 بكل سهولة
                                                           """,
                             color: ThemeClass.whiteColor,
                             textAlign: TextAlign.start,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500,
+                            fontSize: isVlenseRejected ? 20.sp : 18.sp,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
+                        if (isVlenseRejected && rejectionReason.isNotEmpty) ...[
+                          SizedBox(height: 8.h),
+                          SizedBox(
+                            width: 180.w,
+                            child: AppTextRegular(
+                              title: rejectionReason,
+                              color: ThemeClass.whiteColor,
+                              textAlign: TextAlign.start,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                        SizedBox(height: isVlenseRejected ? 12.h : 0),
                         CustomButton(
-                          width: 135,
-                          fontSize: 20.sp,
+                          width: isVlenseRejected ? 170 : 135,
+                          fontSize: isVlenseRejected ? 16.sp : 20.sp,
                           backgroundColor: ThemeClass.whiteColor,
                           textColor: ThemeClass.primaryColor,
-                          title: "ask_loan".tr,
+                          title: isVlenseRejected
+                              ? "re_ask_loan".tr
+                              : "ask_loan".tr,
                           fontWeight: FontWeight.bold,
                           onTap: () async {
                             if (con.isLogin) {
