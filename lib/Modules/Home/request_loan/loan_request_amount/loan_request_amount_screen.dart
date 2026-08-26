@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../../Theme/app_assets.dart';
+import '../../../../Theme/colors.dart';
 import '../../../../Theme/themeclass.dart';
 import '../../../../Utilities/general_toast.dart';
 import '../../../../Utilities/loading_screen.dart';
@@ -232,6 +233,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
                       padding: EdgeInsets.only(bottom: 16.h),
                       child: Column(
                         children: [
+                          _buildOrDivider(),
+                          SizedBox(height: 16.h),
                           _buildYouthFinanceOption(),
                           SizedBox(height: 16.h),
                           _selectedIndex != null
@@ -308,6 +311,33 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildOrDivider() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+              height: 1.h,
+              color: kColorLightGrey,
+            ),
+          ),
+          AppTextRegular(
+            title: " ${"or".tr} ",
+            color: kColorLightGrey,
+          ),
+          Expanded(
+            child: Container(
+              height: 1.h,
+              color: kColorLightGrey,
+            ),
+          ),
+        ],
       ),
     );
   }

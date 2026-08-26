@@ -22,7 +22,8 @@ class CustomButton extends StatelessWidget {
       this.edgeInsets,
       this.fontSize,
       this.iconWidget,
-      this.fontWeight
+      this.fontWeight,
+      this.shrinkWrap = false,
       });
   final Function onTap;
   final String title;
@@ -38,48 +39,58 @@ class CustomButton extends StatelessWidget {
   final EdgeInsets? edgeInsets;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final bool shrinkWrap;
 
   @override
   Widget build(BuildContext context) {
+    final buttonChild = iconWidget != null
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                title,
+                style: style ??
+                    TextStyle(color: Colors.white, fontSize: 18.sp),
+              ),
+              iconWidget!
+            ],
+          )
+        : Text(
+            title,
+            style: style ??
+                TextStyle(
+                    color: textColor ?? ThemeClass.whiteColor,
+                    fontSize: fontSize ?? 20.sp,
+                    fontWeight: fontWeight ?? FontWeight.w500),
+          );
+
+    Widget button = Container(
+      alignment: Alignment.center,
+      height: shrinkWrap ? null : height.h,
+      width: shrinkWrap ? null : width.w,
+      padding: edgeInsets ?? EdgeInsets.only(bottom: 8.h),
+      decoration: decoration ??
+          BoxDecoration(
+            borderRadius: radius == null
+                ? BorderRadius.circular(14.w)
+                : BorderRadius.circular(radius!.w),
+            border: Border.all(color: borderColor ?? ThemeClass.primaryColor),
+            color: backgroundColor ?? ThemeClass.primaryColor,
+          ),
+      child: buttonChild,
+    );
+
+    if (shrinkWrap) {
+      button = IntrinsicWidth(child: button);
+    }
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         onTap();
       },
-      child: Container(
-        alignment: Alignment.center,
-        height: height.h,
-        width: width.w,
-        padding: edgeInsets ?? EdgeInsets.only(bottom: 8.h),
-        decoration: decoration ??
-            BoxDecoration(
-              borderRadius: radius == null
-                  ? BorderRadius.circular(14.w)
-                  : BorderRadius.circular(radius!.w),
-              border: Border.all(color: borderColor ?? ThemeClass.primaryColor),
-              color: backgroundColor ?? ThemeClass.primaryColor,
-            ),
-        child: iconWidget != null
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    title,
-                    style: style ??
-                        TextStyle(color: Colors.white, fontSize: 18.sp),
-                  ),
-                  iconWidget!
-                ],
-              )
-            : Text(
-                title,
-                style: style ??
-                    TextStyle(
-                        color: textColor ?? ThemeClass.whiteColor,
-                        fontSize: fontSize ?? 20.sp,
-                        fontWeight: fontWeight ?? FontWeight.w500),
-              ),
-      ),
+      child: button,
     );
   }
 }

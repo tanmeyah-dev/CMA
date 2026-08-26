@@ -50,22 +50,131 @@ class WaitingLoanWidget extends StatelessWidget {
     );
   }
 
+  Widget _buildVlense200Card(BuildContext context) {
+    return SizedBox(
+      width: 400.w,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 400.w,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xFF8B1A1A),
+                  Color(0xFFF44336),
+                ],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+              ),
+              borderRadius: BorderRadius.circular(24.w),
+            ),
+            padding: EdgeInsets.only(
+              left: 160.w,
+              right: 16.w,
+              top: 20.h,
+              bottom: 20.h,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: AppTextRegular(
+                    title: _containerMessage,
+                    color: ThemeClass.whiteColor,
+                    textAlign: TextAlign.start,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18.sp,
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                CustomButton(
+                  shrinkWrap: true,
+                  radius: 12,
+                  edgeInsets: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 14.w,
+                  ),
+                  fontSize: 18.sp,
+                  backgroundColor: ThemeClass.whiteColor,
+                  borderColor: ThemeClass.whiteColor,
+                  textColor: ThemeClass.primaryColor,
+                  title: "عقد التمويل",
+                  fontWeight: FontWeight.bold,
+                  onTap: () => _openVlenseSdk(context),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 4.w,
+            bottom: 38.h,
+            child: Transform.rotate(
+              angle: -0.08,
+              child: Image.asset(
+                AppAssets.IMG_CONTRACT,
+                width: 180.w,
+                height: 199.h,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVlense300Card() {
+    return SizedBox(
+      width: 400.w,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 400.w,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xFF8B1A1A),
+                  Color(0xFFF44336),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: BorderRadius.circular(24.w),
+            ),
+            padding: EdgeInsets.only(
+              left: 160.w,
+              right: 16.w,
+              top: 20.h,
+              bottom: 20.h,
+            ),
+            child: AppTextRegular(
+              title: _containerMessage,
+              color: ThemeClass.whiteColor,
+              textAlign: TextAlign.right,
+              fontWeight: FontWeight.w400,
+              fontSize: 18.sp,
+            ),
+          ),
+          Positioned(
+            left: 4.w,
+            bottom: 20.h,
+            child: Image.asset(
+              AppAssets.IMG_CLOCK,
+              width: 172.w,
+              height: 172.h,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildBottomSlot(BuildContext context) {
-    if (_isVlense200) {
-      return Align(
-        alignment: AlignmentDirectional.centerStart,
-        child: CustomButton(
-          width: 180,
-          height: 48,
-          fontSize: 18.sp,
-          backgroundColor: ThemeClass.whiteColor,
-          textColor: ThemeClass.primaryColor,
-          title: "اكمل البيانات",
-          fontWeight: FontWeight.bold,
-          onTap: () => _openVlenseSdk(context),
-        ),
-      );
-    }
     if (!_showBranch) {
       return const SizedBox.shrink();
     }
@@ -117,27 +226,38 @@ class WaitingLoanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 2.w),
+          child: SharedPref.getUserObg() != null
+              ? AppTextBold(
+                  title: SharedPref.getUserObg()!.fullName,
+                  color: ThemeClass.secondaryColor,
+                  textAlign: TextAlign.start,
+                )
+              : AppTextBold(
+                  title: "عميل تنميه المميز",
+                  color: ThemeClass.secondaryColor,
+                  textAlign: TextAlign.start,
+                ),
+        ),
+        SizedBox(height: 10.h),
+        if (_isVlense300)
+          _buildVlense300Card()
+        else if (_isVlense200)
+          _buildVlense200Card(context)
+        else
+          _buildDefaultWaitingCard(context),
+      ],
+    );
+  }
+
+  Widget _buildDefaultWaitingCard(BuildContext context) {
     return Stack(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.w),
-              child: SharedPref.getUserObg() != null
-                  ? AppTextBold(
-                      title: SharedPref.getUserObg()!.fullName,
-                      color: ThemeClass.secondaryColor,
-                      textAlign: TextAlign.start,
-                    )
-                  : AppTextBold(
-                      title: "عميل تنميه المميز",
-                      color: ThemeClass.secondaryColor,
-                      textAlign: TextAlign.start,
-                    ),
-            ),
-            SizedBox(height: 10.h),
-            Container(
+        Container(
               width: 400.w,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -221,8 +341,6 @@ class WaitingLoanWidget extends StatelessWidget {
                       ],
                     ),
             ),
-          ],
-        ),
         if (!_centerMessageInColumn)
           Positioned(
             left: 2.w,
