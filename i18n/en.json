@@ -115,6 +115,8 @@
   "alert_accept_terms" : "You must agree to all terms",
   "enter_amount" : "Please enter amount",
   "youth_finance" : "Youth Finance",
+  "youth_finance_data_consent" : "By entering the app, you explicitly agree to the processing of your data and the credit inquiry",
+  "youth_finance_location_notice" : "Please make sure you are at your business location",
   "complete_request_via_tanmeyah_app" : "Complete the application via Tanmeyah app",
   "success_loan_des" : "Congratulations, your request has been sent, and one of our representatives will contact you to complete the rest of the procedures",
   "oky" : "Oky",

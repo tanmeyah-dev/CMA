@@ -129,7 +129,7 @@ class _LoanTermsScreenState extends StateMVC<LoanRequestTermsScreen> {
                               ),
                               Flexible(
                                 child: AppTextRegular(
-                                  title: "نعم لدي مشروع قائم منذ ٦ شهور",
+                                  title: "نعم لدي مشروع قائم",
                                   textAlign: TextAlign.center,
                                 ),
                               ),

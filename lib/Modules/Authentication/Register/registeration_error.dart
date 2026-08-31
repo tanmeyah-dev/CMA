@@ -38,7 +38,7 @@ class RegistrationError extends StatelessWidget {
                 SizedBox(height: 20.h,),
                 AppTextRegular(title: "رقم الهاتف المحمول \n غير صحيح",fontWeight: FontWeight.w500,fontSize: 20.sp,color: ThemeClass.primaryColor,),
                 SizedBox(height: 16.h,),
-                AppTextRegular(title: " برجاء اعادة التسجيل برقم المحمول الخاص بكم المسجل لدينا في تنميه المنتهي بـ ${phoneNumber.substring(phoneNumber.length - 2)} او زيارة احد فروعنا لتحديث رقم المحمول",fontSize: 14.sp,fontWeight: FontWeight.w300,color: ThemeClass.fontColor,),
+                AppTextRegular(title: " برجاء اعادة التسجيل برقم المحمول الخاص بكم المسجل لدينا في تنميه المنتهي بـ ${phoneNumber.length >= 2 ? phoneNumber.substring(phoneNumber.length - 2) : phoneNumber} او زيارة احد فروعنا لتحديث رقم المحمول",fontSize: 14.sp,fontWeight: FontWeight.w300,color: ThemeClass.fontColor,),
                 SizedBox(height: 24.h,),
                 CustomButton(title: "اعادة التسجيل",
                     width: 216.w,

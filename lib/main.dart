@@ -92,22 +92,29 @@ class EntryPoint extends StatefulWidget {
   @override
   State<EntryPoint> createState() => _EntryPointState();
 }
-//with WidgetsBindingObserver
-class _EntryPointState extends State<EntryPoint>  {
 
-
+class _EntryPointState extends State<EntryPoint> {
+  // Must be created once — recreating BotToastInit on rebuild causes
+  // GlobalKey conflicts with Modular's Navigator (esp. after hot restart).
+  final TransitionBuilder _botToastBuilder = BotToastInit();
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  late final List<NavigatorObserver> _navigatorObservers = [
+    FirebaseAnalyticsObserver(analytics: _analytics),
+    BotToastNavigatorObserver(),
+  ];
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      Provider.of<AppLanguage>(context, listen: false).fetchLocale();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final botToastBuilder = BotToastInit();  //1. call BotToastInit
-    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
     final appLan = Provider.of<AppLanguage>(context);
-    appLan.fetchLocale();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown
@@ -118,22 +125,18 @@ class _EntryPointState extends State<EntryPoint>  {
     return ScreenUtilInit(
       designSize: const Size(430, 932),
       builder: (_, __) {
-        // FlutterNativeSplash.remove();
-        return  MaterialApp(
+        return MaterialApp(
           theme: ThemeData(fontFamily: 'DINNextLTArabic-Regular'),
-          navigatorKey: SharedObj.navigatorKey,
-          scaffoldMessengerKey:SharedObj.rootScaffoldMessengerKey ,
+          // Modular's .modular() owns the navigator via RouterDelegate;
+          // do not pass a separate navigatorKey (causes duplicate GlobalKey).
+          scaffoldMessengerKey: SharedObj.rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
-          builder: BotToastInit(),
+          builder: (context, child) => _botToastBuilder(context, child),
           title: appLan.appLanguage == Languages.ar
               ? 'تنميه'
               : "Tanmeyah",
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
-            BotToastNavigatorObserver()
-          ],
+          navigatorObservers: _navigatorObservers,
           initialRoute: SplashScreen.routeName,
-          // locale: appLan.appLocal,
           locale: appLan.appLocal,
           supportedLocales: Languages.values.map((e) => Locale(e.name)).toList(),
           localizationsDelegates: const [

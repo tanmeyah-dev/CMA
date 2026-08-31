@@ -59,7 +59,7 @@ class AppModule extends Module {
         routeName: ValidateUserScreen.routeName,
         child: const ValidateUserScreen()),
     ChildRoute(RegistrationError.routeName,
-        child: (_, args) => RegistrationError( phoneNumber: args.data,),
+        child: (_, args) => RegistrationError(phoneNumber: args.data as String? ?? ""),
         transition: TransitionType.downToUp,
         duration: const Duration(milliseconds: 300)),
     defaultRoute(

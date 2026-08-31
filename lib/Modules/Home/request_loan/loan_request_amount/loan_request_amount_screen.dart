@@ -89,6 +89,8 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
         backgroundColor: ThemeClass.whiteColor,
         appBar: BaseAppBar.main(
           title: "ask_loan".tr,
+          backgroundColor: ThemeClass.whiteColor,
+          context: context,
         ),
         body: GestureDetector(
           onTap: () {
@@ -101,198 +103,157 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
               child: Form(
                 key: con.formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                          Image.asset(
-                            AppAssets.IMG_AMOUNT,
-                            width: 366.w,
-                            height: 320.h,
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25.w),
-                            child: AppTextMedium(
-                              title: con.loanProductsResponse?.title ?? "",
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          (con.loanProductsResponse?.loanRequestProducts !=
-                                      null &&
-                                  con.loanProductsResponse!.loanRequestProducts!
-                                      .isNotEmpty)
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: con.loanProductsResponse!
-                                      .loanRequestProducts!.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                if (_selectedIndex == index) {
-                                                  _selectedIndex = null;
-                                                } else {
-                                                  _selectedIndex = index;
-                                                  con.selectedValue = con
-                                                      .loanProductsResponse!
-                                                      .loanRequestProducts![
-                                                          index]
-                                                      .id;
-                                                  con.selectedTitle = con
-                                                      .loanProductsResponse!
-                                                      .loanRequestProducts![
-                                                          index]
-                                                      .name;
-                                                }
-                                              });
-                                            },
-                                            child: Container(
-                                              margin: EdgeInsets.all(8.r),
-                                              padding: EdgeInsets.all(16.r),
-                                              decoration: BoxDecoration(
-                                                color: _selectedIndex == index
-                                                    ? ThemeClass
-                                                        .selectBackground
-                                                    : ThemeClass.whiteColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.r),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(width: 16.w),
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.all(1.w),
-                                                    width: 24.w,
-                                                    height: 24.h,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                        color: con.accept
-                                                            ? ThemeClass
-                                                                .profileContainer
-                                                            : Colors
-                                                                .grey, // border color
-                                                        width: 2.w,
-                                                      ),
-                                                    ),
-                                                    child:
-                                                        _selectedIndex == index
-                                                            ? Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: ThemeClass
-                                                                      .profileContainer,
-                                                                ),
-                                                              )
-                                                            : null,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5.w,
-                                                  ),
-                                                  AppTextRegular(
-                                                    title: con
-                                                            .loanProductsResponse!
-                                                            .loanRequestProducts![
-                                                                index]
-                                                            .name ??
-                                                        "",
-                                                    color: _selectedIndex ==
-                                                            index
-                                                        ? ThemeClass
-                                                            .profileContainer
-                                                        : ThemeClass.blackColor,
-                                                    fontWeight:
-                                                        _selectedIndex == index
-                                                            ? FontWeight.w700
-                                                            : FontWeight.w400,
-                                                  ),
-                                                ],
-                                              ),
-                                            ));
-                                  },
-                                )
-                              : Container(),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          ],
-                        ),
+                      child: Image.asset(
+                        AppAssets.IMG_AMOUNT,
+                        width: double.infinity,
+                        fit: BoxFit.contain,
                       ),
                     ),
+                    SizedBox(height: 8.h),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 16.h),
-                      child: Column(
-                        children: [
-                          _buildOrDivider(),
-                          SizedBox(height: 16.h),
-                          _buildYouthFinanceOption(),
-                          SizedBox(height: 16.h),
-                          _selectedIndex != null
-                              ? CustomButton(
-                                  width: 385.w,
-                                  title: "next".tr,
-                                  onTap: () {
-                                    if (_selectedIndex == _youthFinanceIndex) {
-                                      _openYouthFinanceSdk();
-                                      return;
-                                    }
-                                    print("SELECTED ${con.selectedValue}");
-                                    con.proceedWithSelectedProduct(context);
-                                  },
-                                  color: ThemeClass.textFieldBackgroundColor,
-                                  borderColor:
-                                      ThemeClass.textFieldBackgroundColor,
-                                  textColor: ThemeClass.whiteColor,
-                                  backgroundColor: ThemeClass.primaryColor,
-                                )
-                              : CustomButton(
-                                  width: 385.w,
-                                  title: "next".tr,
-                                  backgroundColor:
-                                      ThemeClass.buttonNotActiveColor,
-                                  borderColor:
-                                      ThemeClass.buttonNotActiveColor,
-                                  onTap: () {
-                                    if (con.formKey.currentState!.validate()) {
-                                      if (con.loanAmount.text.isNotEmpty &&
-                                          con.loanAmount.text.length > 3) {
-                                        if (con.currentPosition == null) {
-                                          con.checkLocation(
-                                              context: context,
-                                              isInitLocation: true);
-                                        } else {
-                                          con.applyForLoan(context);
-                                        }
-                                      } else {
-                                        ToastHelper.showError(context,
-                                            message: "enter_amount".tr);
-                                      }
-                                    } else {
-                                      setState(() {
-                                        con.autoValidate = true;
-                                      });
-                                    }
-                                  },
-                                ),
-                          SizedBox(height: 16.h),
-                        ],
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      child: AppTextMedium(
+                        title: con.loanProductsResponse?.title ?? "",
+                        fontSize: 18.sp,
                       ),
                     ),
+                    SizedBox(height: 8.h),
+                    if (con.loanProductsResponse?.loanRequestProducts != null &&
+                        con.loanProductsResponse!.loanRequestProducts!
+                            .isNotEmpty)
+                      ...List.generate(
+                        con.loanProductsResponse!.loanRequestProducts!.length,
+                        (index) => _buildProductOption(index),
+                      ),
+                    SizedBox(height: 8.h),
+                    _buildOrDivider(),
+                    SizedBox(height: 8.h),
+                    _buildYouthFinanceOption(),
+                    SizedBox(height: 8.h),
+                    _selectedIndex != null
+                        ? CustomButton(
+                            width: 385.w,
+                            title: "next".tr,
+                            onTap: () {
+                              if (_selectedIndex == _youthFinanceIndex) {
+                                _openYouthFinanceSdk();
+                                return;
+                              }
+                              print("SELECTED ${con.selectedValue}");
+                              con.proceedWithSelectedProduct(context);
+                            },
+                            color: ThemeClass.textFieldBackgroundColor,
+                            borderColor:
+                                ThemeClass.textFieldBackgroundColor,
+                            textColor: ThemeClass.whiteColor,
+                            backgroundColor: ThemeClass.primaryColor,
+                          )
+                        : CustomButton(
+                            width: 385.w,
+                            title: "next".tr,
+                            backgroundColor:
+                                ThemeClass.buttonNotActiveColor,
+                            borderColor: ThemeClass.buttonNotActiveColor,
+                            onTap: () {
+                              if (con.formKey.currentState!.validate()) {
+                                if (con.loanAmount.text.isNotEmpty &&
+                                    con.loanAmount.text.length > 3) {
+                                  if (con.currentPosition == null) {
+                                    con.checkLocation(
+                                        context: context,
+                                        isInitLocation: true);
+                                  } else {
+                                    con.applyForLoan(context);
+                                  }
+                                } else {
+                                  ToastHelper.showError(context,
+                                      message: "enter_amount".tr);
+                                }
+                              } else {
+                                setState(() {
+                                  con.autoValidate = true;
+                                });
+                              }
+                            },
+                          ),
+                    SizedBox(height: 8.h),
                   ],
                 ),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProductOption(int index) {
+    final bool isSelected = _selectedIndex == index;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (_selectedIndex == index) {
+            _selectedIndex = null;
+          } else {
+            _selectedIndex = index;
+            con.selectedValue =
+                con.loanProductsResponse!.loanRequestProducts![index].id;
+            con.selectedTitle =
+                con.loanProductsResponse!.loanRequestProducts![index].name;
+          }
+        });
+      },
+      child: Container(
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 8.w),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? ThemeClass.selectBackground
+              : ThemeClass.whiteColor,
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(1.w),
+              width: 22.w,
+              height: 22.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: con.accept
+                      ? ThemeClass.profileContainer
+                      : Colors.grey,
+                  width: 2.w,
+                ),
+              ),
+              child: isSelected
+                  ? Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ThemeClass.profileContainer,
+                      ),
+                    )
+                  : null,
+            ),
+            SizedBox(width: 8.w),
+            Expanded(
+              child: AppTextRegular(
+                title: con.loanProductsResponse!.loanRequestProducts![index]
+                        .name ??
+                    "",
+                color: isSelected
+                    ? ThemeClass.profileContainer
+                    : ThemeClass.blackColor,
+                fontWeight:
+                    isSelected ? FontWeight.w700 : FontWeight.w400,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -344,105 +305,137 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
 
   Widget _buildYouthFinanceOption() {
     final bool isSelected = _selectedIndex == _youthFinanceIndex;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedIndex = _youthFinanceIndex;
-          con.selectedTitle = "youth_finance".tr;
-          final youthProduct = con.loanProductsResponse?.loanRequestProducts
-              ?.where((product) =>
-                  product.name?.contains("شباب") == true ||
-                  product.name?.toLowerCase().contains("youth") == true)
-              .toList();
-          con.selectedValue = youthProduct != null && youthProduct.isNotEmpty
-              ? youthProduct.first.id
-              : null;
-        });
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8.w),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? ThemeClass.selectBackground
-              : ThemeClass.containerBackground,
-          borderRadius: BorderRadius.circular(8.r),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.all(1.w),
-              width: 24.w,
-              height: 24.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: ThemeClass.borderColor,
-                  width: 2.w,
-                ),
-              ),
-              child: isSelected
-                  ? Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ThemeClass.profileContainer,
-                      ),
-                    )
-                  : null,
-            ),
-            SizedBox(width: 8.w),
-            AppTextRegular(
-              title: "youth_finance".tr,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _selectedIndex = _youthFinanceIndex;
+              con.selectedTitle = "youth_finance".tr;
+              final youthProduct = con.loanProductsResponse?.loanRequestProducts
+                  ?.where((product) =>
+                      product.name?.contains("شباب") == true ||
+                      product.name?.toLowerCase().contains("youth") == true)
+                  .toList();
+              con.selectedValue =
+                  youthProduct != null && youthProduct.isNotEmpty
+                      ? youthProduct.first.id
+                      : null;
+            });
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            decoration: BoxDecoration(
               color: isSelected
-                  ? ThemeClass.profileContainer
-                  : ThemeClass.blackColor,
-              fontWeight: isSelected ? FontWeight.w700 : FontWeight.  w400,
-              fontSize: 16.sp,
+                  ? ThemeClass.selectBackground
+                  : ThemeClass.containerBackground,
+              borderRadius: BorderRadius.circular(8.r),
             ),
-            SizedBox(width: 8.w),
-            Expanded(
-              child: Align(
-                alignment: AlignmentDirectional.centerEnd,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(1.w),
+                  width: 24.w,
+                  height: 24.h,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFF4E8),
-                    borderRadius: BorderRadius.circular(20.r),
+                    shape: BoxShape.circle,
                     border: Border.all(
-                      color: ThemeClass.monthColor,
-                      width: 1.w,
+                      color: ThemeClass.borderColor,
+                      width: 2.w,
                     ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.info,
-                        size: 14.sp,
-                        color: ThemeClass.monthColor,
-                      ),
-                      SizedBox(width: 4.w),
-                      Flexible(
-                        child: Text(
-                          "complete_request_via_tanmeyah_app".tr,
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.w500,
-                            color: ThemeClass.monthColor,
+                  child: isSelected
+                      ? Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ThemeClass.profileContainer,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        )
+                      : null,
+                ),
+                SizedBox(width: 8.w),
+                AppTextRegular(
+                  title: "youth_finance".tr,
+                  color: isSelected
+                      ? ThemeClass.profileContainer
+                      : ThemeClass.blackColor,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
+                  fontSize: 16.sp,
+                ),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 8.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFF4E8),
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(
+                          color: ThemeClass.monthColor,
+                          width: 1.w,
                         ),
                       ),
-                    ],
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.info,
+                            size: 14.sp,
+                            color: ThemeClass.monthColor,
+                          ),
+                          SizedBox(width: 4.w),
+                          Flexible(
+                            child: Text(
+                              "complete_request_via_tanmeyah_app".tr,
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w500,
+                                color: ThemeClass.monthColor,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(height: 6.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: SizedBox(
+            width: double.infinity,
+            child: AppTextRegular(
+              title: "youth_finance_data_consent".tr,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              textAlign: TextAlign.start,
+            ),
+          ),
+        ),
+        SizedBox(height: 4.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: SizedBox(
+            width: double.infinity,
+            child: AppTextRegular(
+              title: "youth_finance_location_notice".tr,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              textAlign: TextAlign.start,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

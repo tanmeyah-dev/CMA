@@ -95,15 +95,17 @@ class RegisterController extends ControllerMVC {
   }
 
 
-  String? calc({required String nationalId}){
-      if(nationalId.substring(0,1) == "2"){
-        dateOfBirth =  "19${nationalIdController.text.substring(1,3)}-${nationalIdController.text.substring(3,5)}-${nationalIdController.text.substring(5,7)}";
-        setState(() { });
-      } else {
-        dateOfBirth =  "20${nationalIdController.text.substring(1,3)}-${nationalIdController.text.substring(3,5)}-${nationalIdController.text.substring(5,7)}";
-        setState(() { });
-
-      }
+  String? calc({required String nationalId}) {
+    // Egyptian NID: century (1) + YYMMDD (6) — need at least 7 digits before parsing DOB
+    if (nationalId.length < 7) {
+      dateOfBirth = null;
+      setState(() {});
+      return dateOfBirth;
+    }
+    final century = nationalId.substring(0, 1) == "2" ? "19" : "20";
+    dateOfBirth =
+        "$century${nationalId.substring(1, 3)}-${nationalId.substring(3, 5)}-${nationalId.substring(5, 7)}";
+    setState(() {});
     return dateOfBirth;
   }
 
@@ -162,7 +164,8 @@ class RegisterController extends ControllerMVC {
             (code) => onConfirm(code, context)
       ]);
     } else if (result?.isAlreadyMobileNumberExist == true ){
-      print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
+      final String errorPhone = editPhone ? (newMobile ?? "") : (phoneNumber ?? "");
+      print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $errorPhone");
 
       final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
       analytics.logEvent(
@@ -171,8 +174,7 @@ class RegisterController extends ControllerMVC {
             "title" : "error_registration_screen"
           }
       );
-      print(">>>>>>>>>>>>>>>>>>phoneNumber From REgister Screen : $newMobile");
-      Navigator.pushNamed(context, RegistrationError.routeName,arguments: newMobile);
+      Navigator.pushNamed(context, RegistrationError.routeName, arguments: errorPhone);
     }
   }
 

@@ -60,6 +60,8 @@ class BaseAppBar extends PreferredSize {
                         : actions,
                     centerTitle: centerTitle,
                     backgroundColor: backgroundColor,
+                    surfaceTintColor: backgroundColor,
+                    scrolledUnderElevation: 0,
                     automaticallyImplyLeading: isBackButtonVisible,
                     leading: isBackButtonVisible
                         ? GestureDetector(
