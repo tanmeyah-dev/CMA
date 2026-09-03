@@ -14,7 +14,6 @@ import '../../../../Utilities/loading_screen.dart';
 import 'loan_request_amount_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
-import 'package:Tanmeyah/Modules/Main/main_screen.dart';
 import 'package:tan_sdk/tan_sdk_entry.dart';
 
 class LoanRequestAmountScreen extends StatefulWidget {
@@ -266,10 +265,9 @@ class _LoanAmountScreenState extends StateMVC<LoanRequestAmountScreen>
         builder: (_) => TanSdkEntry(
           phoneNumber: phoneNumber,
           onCompleted: () {
-            Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(
-              MainScreen.routeName,
-              (Route<dynamic> route) => false,
-            );
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+            }
           },
         ),
       ),
