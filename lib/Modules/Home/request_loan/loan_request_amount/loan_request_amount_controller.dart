@@ -3,8 +3,6 @@
 import 'package:Tanmeyah/Models/loan_checkout_model.dart';
 import 'package:Tanmeyah/Models/loan_products_response.dart';
 import 'package:Tanmeyah/Models/request_loan_response.dart';
-import 'package:Tanmeyah/Models/services_model.dart';
-import 'package:Tanmeyah/Network/request_loan_api.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:flutter/material.dart';
@@ -158,9 +156,6 @@ class LoanRequestAmountController extends ControllerMVC {
     setState(() {});
   }
 
-  /// Builds checkout data from Product/Details info fields:
-  /// - amount ← قيمه التمويل
-  /// - installments ← مده التمويل
   Future<void> proceedWithSelectedProduct(BuildContext context) async {
     if (selectedValue == null) {
       ToastHelper.showError(context, message: "برجاء اختيار نوع المنتج");
@@ -172,46 +167,8 @@ class LoanRequestAmountController extends ControllerMVC {
       if (currentPosition == null) return;
     }
 
-    loading = true;
-    setState(() {});
-
-    final ServiceDetailModel? productDetails =
-        await RequestLoanApi.getServiceDetail(id: selectedValue.toString());
-
-    loading = false;
-    setState(() {});
-
-    if (productDetails == null) {
-      ToastHelper.showError(context, message: "تعذر تحميل بيانات المنتج");
-      return;
-    }
-
-    final int? amount =
-        _readInfoAsInt(productDetails.info, const ["قيمه التمويل", "قيمة التمويل"],
-            joinAllDigits: true);
-    final int? installments =
-        _readInfoAsInt(productDetails.info, const ["مده التمويل", "مدة التمويل"],
-            joinAllDigits: false);
-
-    debugPrint(
-        "Loan fields → amount: $amount, installments: $installments, productId: $selectedValue");
-    debugPrint(
-        "Product info keys: ${productDetails.info?.map((e) => e.infoKey).toList()}");
-
-    if (amount == null || installments == null) {
-      ToastHelper.showError(
-        context,
-        message:
-            "بيانات القرض غير مكتملة. برجاء إدخال نوع المنتج والمبلغ وعدد الأقساط",
-      );
-      return;
-    }
-
     final LoanCheckoutModel loanCheckoutModel = LoanCheckoutModel(
       productId: selectedValue,
-      amount: amount,
-      installments: installments,
-      amountTitle: amount.toString(),
       latitude: currentPosition?.latitude.toString(),
       longitude: currentPosition?.longitude.toString(),
     );
@@ -221,46 +178,6 @@ class LoanRequestAmountController extends ControllerMVC {
       LoanCityScreen.routeName,
       arguments: loanCheckoutModel,
     );
-  }
-
-  int? _readInfoAsInt(List<Info>? info, List<String> keys,
-      {bool joinAllDigits = true}) {
-    final String? raw = _findInfoValue(info, keys);
-    if (raw == null || raw.trim().isEmpty) return null;
-
-    // Strip HTML then parse digits (e.g. "50,000 جنيه" / "<p>12 شهر</p>")
-    final String withoutHtml = raw.replaceAll(RegExp(r"<[^>]*>"), " ");
-    if (joinAllDigits) {
-      final String digits = withoutHtml.replaceAll(RegExp(r"[^\d]"), "");
-      if (digits.isEmpty) return null;
-      return int.tryParse(digits);
-    }
-    final Match? match = RegExp(r"\d+").firstMatch(withoutHtml);
-    if (match == null) return null;
-    return int.tryParse(match.group(0)!);
-  }
-
-  String? _findInfoValue(List<Info>? info, List<String> keys) {
-    if (info == null) return null;
-    for (final item in info) {
-      final String key = _normalizeArabic(item.infoKey ?? "");
-      for (final candidate in keys) {
-        if (key.contains(_normalizeArabic(candidate))) {
-          return item.infoValue;
-        }
-      }
-    }
-    return null;
-  }
-
-  String _normalizeArabic(String value) {
-    return value
-        .trim()
-        .replaceAll("ة", "ه")
-        .replaceAll("أ", "ا")
-        .replaceAll("إ", "ا")
-        .replaceAll("آ", "ا")
-        .replaceAll(RegExp(r"\s+"), " ");
   }
 
   applyForLoan(BuildContext context) async {

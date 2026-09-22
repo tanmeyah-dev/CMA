@@ -80,9 +80,16 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Tanmeyah does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Tanmeyah requires access to the photo library.</string>
+	<string>Tanmeyah needs access to your photo library so you can upload documents such as the lease contract and utility receipt.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Tanmeyah needs access to your photo library so you can upload documents such as the lease contract and utility receipt.</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Tanmeyah needs access to your local network for debugging and development purposes.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartVmService._tcp</string>
+		<string>_dartobservatory._tcp</string>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

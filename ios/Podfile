@@ -46,6 +46,11 @@ post_install do |installer|
            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.5'
            config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
            config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+           # Enable photo-library permission APIs used by permission_handler.
+           config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+             '$(inherited)',
+             'PERMISSION_PHOTOS=1',
+           ]
            if target.name == 'facebook_app_events'
              # FBSDKCoreKit exposes appID/setDataProcessingOptions only when
              # NonescapableTypes is enabled in the consuming Swift compiler.
