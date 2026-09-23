@@ -219,11 +219,19 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                             ),
                           ),
                           con.guestMood
-                            ? Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 16.h),
-                                    child: CustomButton(
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                  // Overlay nav: positioned 2.h + margin 14.h + height 64.h
+                                  bottom: 12 +
+                                      (2.h +
+                                              14.h +
+                                              64.h -
+                                              MediaQuery.of(context).padding.bottom)
+                                          .clamp(0.0, double.infinity),
+                                ),
+                                child: Column(
+                                  children: [
+                                    CustomButton(
                                       width: 216,
                                       title: "login".tr,
                                       onTap: () {
@@ -232,21 +240,24 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                             arguments: "");
                                       },
                                     ),
-                                  ),
-                                  SizedBox(height: 8.h),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context).padding.bottom + 90.h,
-                                    ),
-                                    child: AppTextHint(title: "App Version 2.0.0"),
-                                  ),
-                                ],
+                                    SizedBox(height: 8.h),
+                                    AppTextHint(title: "App Version 2.0.0"),
+                                  ],
+                                ),
                               )
-                            : Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 16.h),
-                                    child: GestureDetector(
+                            : Padding(
+                                padding: EdgeInsets.only(
+                                  // Overlay nav: positioned 2.h + margin 14.h + height 64.h
+                                  bottom: 12 +
+                                      (2.h +
+                                              14.h +
+                                              64.h -
+                                              MediaQuery.of(context).padding.bottom)
+                                          .clamp(0.0, double.infinity),
+                                ),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
                                       onTap: (){
                                         AnimatedAlertDialog(context,
                                             LogoutAlertWidget(message : "logout_alert".tr , onOkPressed: () {
@@ -269,15 +280,10 @@ class _MoreScreenState extends StateMVC<MoreScreen> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height: 8.h),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context).padding.bottom + 90.h,
-                                    ),
-                                    child: AppTextHint(title: "App Version 2.0.0"),
-                                  ),
-                                ],
+                                    SizedBox(height: 8.h),
+                                    AppTextHint(title: "App Version 2.0.0"),
+                                  ],
+                                ),
                               ),
                         ],
                       ),

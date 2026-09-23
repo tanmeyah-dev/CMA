@@ -38,9 +38,9 @@ rootProject.buildDir = '../build'
 
 // Define Flutter properties for subprojects that expect them.
 def flutterProperties = [
-    compileSdkVersion: 35,
+    compileSdkVersion: 36,
     minSdkVersion    : 23,
-    targetSdkVersion : 34
+    targetSdkVersion : 36
 ]
 
 rootProject.ext.flutter = flutterProperties

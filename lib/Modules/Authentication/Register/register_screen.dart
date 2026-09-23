@@ -200,7 +200,7 @@ class _RegisterScreenState extends StateMVC<RegisterScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              con.nationalIdController.text.length > 7
+              con.nationalIdController.text.length >= 7
                   ? AppTextRegular(
                       title: con.dateOfBirth ?? "",
                     )

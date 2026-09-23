@@ -129,7 +129,15 @@ class _EntryPointState extends State<EntryPoint>  {
       builder: (_, __) {
         // FlutterNativeSplash.remove();
         return  MaterialApp(
-          theme: ThemeData(fontFamily: 'DINNextLTArabic-Regular'),
+          theme: ThemeData(
+            fontFamily: 'DINNextLTArabic-Regular',
+            appBarTheme: const AppBarTheme(
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              surfaceTintColor: Colors.transparent,
+              backgroundColor: Colors.white,
+            ),
+          ),
           navigatorKey: SharedObj.navigatorKey,
           scaffoldMessengerKey:SharedObj.rootScaffoldMessengerKey ,
           debugShowCheckedModeBanner: false,

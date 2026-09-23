@@ -409,93 +409,109 @@ class _LoanScreenState extends StateMVC<MainLoanScreen> {
                     : Column(
                         children: [
                           Expanded(
-                            child: LayoutBuilder(
-                              builder: (context, constraints) {
-                                return SingleChildScrollView(
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      minHeight: constraints.maxHeight,
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 16.w),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Image.asset(
-                                              AppAssets.IMG_NO_LOAN,
-                                              fit: BoxFit.fill,
-                                              width: 320.w,
-                                              height: 320.h,
-                                          ),
-                                          SizedBox(height: 40.h,),
-                                          AppTextRegular(title: "empty_loans".tr,fontSize: 20.sp,fontWeight: FontWeight.w500,color: ThemeClass.primaryColor,),
-                                          SizedBox(height: 160.h,),
-                                          (con.canRequestLoan == true) ? CustomButton(title: "start_ask_loan".tr, onTap: (){
-                                            Navigator.pushNamed(context, LoanRequestTermsScreen.routeName);
-                                          },fontWeight : FontWeight.w600,width: 318.w,backgroundColor: Color(0xFFF9E2E1), textColor: ThemeClass.primaryColor,borderColor: Colors.transparent,) : Container(),
-                                          SizedBox(height: 20.h,),
-                                        ],
-                                      ),
-                                    ),
+                            child: SingleChildScrollView(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    AppAssets.IMG_NO_LOAN,
+                                    fit: BoxFit.fitWidth,
+                                    width: double.infinity,
                                   ),
-                                );
-                              },
+                                  const SizedBox(height: 16),
+                                  AppTextRegular(
+                                    title: "empty_loans".tr,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: ThemeClass.primaryColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          if (con.activeLoanModel?.havePreviousLoan == true)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                bottom: MediaQuery.of(context).padding.bottom + 90.h, 
-                                left: 16.w, 
-                                right: 16.w
-                              ),
-                              child: CustomButton(
-                                title: "previous_loan".tr,
-                                onTap: (){
-                                  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-                                  _analytics.logEvent(
-                                      name: 'request_previous_loans',
-                                      parameters: <String,dynamic>{
-                                        "title" :"request_previous_loans"
-                                      }
-                                  );
-                                  Navigator.pushNamed(context, PreviousLoanScreen.routeName);
-                                },
-                                width: 318.w,
-                                backgroundColor: Colors.transparent,
-                                textColor: ThemeClass.primaryColor,
-                              ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 16.w,
+                              right: 16.w,
+                              bottom: 12 +
+                                  (2.h +
+                                          14.h +
+                                          64.h -
+                                          MediaQuery.of(context).padding.bottom)
+                                      .clamp(0.0, double.infinity),
                             ),
+                            child: Column(
+                              children: [
+                                if (con.canRequestLoan == true)
+                                  CustomButton(
+                                    title: "start_ask_loan".tr,
+                                    onTap: () {
+                                      Navigator.pushNamed(context,
+                                          LoanRequestTermsScreen.routeName);
+                                    },
+                                    fontWeight: FontWeight.w600,
+                                    width: 318.w,
+                                    backgroundColor: const Color(0xFFF9E2E1),
+                                    textColor: ThemeClass.primaryColor,
+                                    borderColor: Colors.transparent,
+                                  ),
+                                if (con.activeLoanModel?.havePreviousLoan ==
+                                    true) ...[
+                                  if (con.canRequestLoan == true)
+                                    SizedBox(height: 8.h),
+                                  CustomButton(
+                                    title: "previous_loan".tr,
+                                    onTap: () {
+                                      final FirebaseAnalytics _analytics =
+                                          FirebaseAnalytics.instance;
+                                      _analytics.logEvent(
+                                          name: 'request_previous_loans',
+                                          parameters: <String, dynamic>{
+                                            "title": "request_previous_loans"
+                                          });
+                                      Navigator.pushNamed(
+                                          context, PreviousLoanScreen.routeName);
+                                    },
+                                    width: 318.w,
+                                    backgroundColor: Colors.transparent,
+                                    textColor: ThemeClass.primaryColor,
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
                         ],
                       ))
                 : Column(
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(16),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.all(16.w),
-                                child: Image.asset(AppAssets.IMG_EMPTY_LOAN,fit: BoxFit.fill,height: 319.h,width: 360.w,)),
-                              SizedBox(
-                                height: 16.h,
+                              Image.asset(
+                                AppAssets.IMG_EMPTY_LOAN,
+                                fit: BoxFit.fitWidth,
+                                width: double.infinity,
                               ),
+                              const SizedBox(height: 16),
                               AppTextMedium(
-                                  title: "empty_loan".tr,
-                                ),
+                                title: "empty_loan".tr,
+                              ),
                             ],
                           ),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).padding.bottom + 90.h, 
-                          top: 16.h
+                          // Overlay nav: positioned 2.h + margin 14.h + height 64.h
+                          bottom: 12 +
+                              (2.h +
+                                      14.h +
+                                      64.h -
+                                      MediaQuery.of(context).padding.bottom)
+                                  .clamp(0.0, double.infinity),
                         ),
                         child: CustomButton(
                           width: 216,

@@ -85,6 +85,8 @@ class BaseAppBar extends PreferredSize {
                       ),
                     ),
                     elevation: elevation,
+                    scrolledUnderElevation: 0,
+                    surfaceTintColor: Colors.transparent,
                   ),
                 if (enableSearch)
                   Container(
@@ -107,6 +109,8 @@ class BaseAppBar extends PreferredSize {
                               ),
                             ),
                             elevation: elevation,
+                            scrolledUnderElevation: 0,
+                            surfaceTintColor: Colors.transparent,
                           ),
                         Container(
                           margin: EdgeInsets.only(

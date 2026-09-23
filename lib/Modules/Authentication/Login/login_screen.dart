@@ -90,6 +90,7 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
         child: Scaffold(
             backgroundColor: ThemeClass.whiteColor,
             extendBodyBehindAppBar: true,
+            resizeToAvoidBottomInset: false,
             appBar: BaseAppBar.main(
                 isBackButtonVisible: false,
                 backgroundColor: Colors.transparent,
@@ -120,16 +121,20 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                   onTap: () {
                     FocusManager.instance.primaryFocus?.unfocus();
                   },
-                  child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 32.w),
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AppAssets.IMG_LOGIN_BACK,),fit: BoxFit.fill
-                        )
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        AppAssets.IMG_LOGIN_BACK,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
                       ),
-                      child: SingleChildScrollView(
+                      SingleChildScrollView(
+                          padding: EdgeInsets.only(
+                            left: 32.w,
+                            right: 32.w,
+                            bottom: MediaQuery.viewInsetsOf(context).bottom,
+                          ),
                           child: Form(
                               key: _formKey,
                               child: Column(
@@ -187,7 +192,9 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                                       height: 35.h,
                                     ),
                                     registerTxt(),
-                                  ]))))),
+                                  ]))),
+                    ],
+                  )),
             )));
   }
 
