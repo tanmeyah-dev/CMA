@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '2.1.0'
+    ext.kotlin_version = '2.1.10'
     repositories {
         google()
         mavenCentral()
@@ -7,9 +7,9 @@ buildscript {
 
     configurations.all {
         resolutionStrategy {
-            force 'com.android.tools.build:gradle:8.6.0'
-            force 'com.android.tools.build:builder:8.6.0'
-            force 'com.android.tools.build:bundletool:1.17.2'
+            force 'com.android.tools.build:gradle:8.11.1'
+            force 'com.android.tools.build:builder:8.11.1'
+            force 'com.android.tools.build:bundletool:1.18.1'
         }
     }
 
@@ -29,7 +29,7 @@ allprojects {
     
     configurations.all {
         resolutionStrategy {
-            force 'com.android.tools.build:gradle:8.6.0'
+            force 'com.android.tools.build:gradle:8.11.1'
         }
     }
 }
@@ -53,9 +53,9 @@ gradle.beforeProject { proj ->
     try {
         proj.buildscript.configurations.all {
             resolutionStrategy {
-                force 'com.android.tools.build:gradle:8.6.0'
-                force 'com.android.tools.build:builder:8.6.0'
-                force 'com.android.tools.build:bundletool:1.17.2'
+                force 'com.android.tools.build:gradle:8.11.1'
+                force 'com.android.tools.build:builder:8.11.1'
+                force 'com.android.tools.build:bundletool:1.18.1'
             }
         }
     } catch (ignored) {
@@ -67,9 +67,9 @@ gradle.allprojects { proj ->
     // Force AGP version for all projects including plugins
     proj.buildscript.configurations.all {
         resolutionStrategy {
-            force 'com.android.tools.build:gradle:8.6.0'
-            force 'com.android.tools.build:builder:8.6.0'
-            force 'com.android.tools.build:bundletool:1.17.2'
+            force 'com.android.tools.build:gradle:8.11.1'
+            force 'com.android.tools.build:builder:8.11.1'
+            force 'com.android.tools.build:bundletool:1.18.1'
         }
     }
     
@@ -107,14 +107,26 @@ gradle.allprojects { proj ->
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
     
-    // Force all subprojects to use the newer AGP version
+    // Force all subprojects to use the newer AGP version and compile against API 36.
     afterEvaluate { project ->
-        if (project.hasProperty('android')) {
+        def androidExt = project.extensions.findByName('android')
+        if (androidExt != null) {
+            try {
+                androidExt.compileSdkVersion 36
+            } catch (ignored) {
+                try {
+                    androidExt.compileSdk = 36
+                } catch (allIgnored) {}
+            }
+            try {
+                androidExt.ndkVersion = "28.2.13676358"
+            } catch (ignored) {}
+
             project.configurations.all {
                 resolutionStrategy {
-                    force 'com.android.tools.build:gradle:8.6.0'
-                    force 'com.android.tools.build:builder:8.6.0'
-                    force 'com.android.tools.build:bundletool:1.17.2'
+                    force 'com.android.tools.build:gradle:8.11.1'
+                    force 'com.android.tools.build:builder:8.11.1'
+                    force 'com.android.tools.build:bundletool:1.18.1'
                 }
             }
         }

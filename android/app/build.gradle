@@ -48,7 +48,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 36
-    ndkVersion "26.1.10909125"
+    ndkVersion "28.2.13676358"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -101,7 +101,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:17.0.0'
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
 //    implementation("com.fawry.fawrypay:sdk:0.1.76") {
