@@ -25,23 +25,9 @@ import 'response_body_decoder.dart';
 
 
 class UserApi {
-  static const String _guestTokenUserName =
-      String.fromEnvironment('GUEST_TOKEN_USERNAME');
-  static const String _guestTokenPassword =
-      String.fromEnvironment('GUEST_TOKEN_PASSWORD');
-
   static Future<SessionToken?> getToken() async {
-    if (_guestTokenUserName.isEmpty || _guestTokenPassword.isEmpty) {
-      debugPrint(
-          'Guest token credentials are not set. Pass --dart-define-from-file=config/guest_token.json');
-      return null;
-    }
     var response = await NetworkMethods.postRequestAsRow(
-      url: API.token,
-      body: {
-        "UserName": _guestTokenUserName,
-        "Password": _guestTokenPassword,
-      }
+      url: API.token, body: {},
     );
     if (response == null) return null;
     if (response["isSuccess"] == true) {

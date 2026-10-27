@@ -147,7 +147,17 @@ class _EntryPointState extends State<EntryPoint> {
           // do not pass a separate navigatorKey (causes duplicate GlobalKey).
           scaffoldMessengerKey: SharedObj.rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
-          builder: (context, child) => _botToastBuilder(context, child),
+          builder: (context, child) {
+            // Flutter 3.47 asserts when a rebuild mounts a second iOS system
+            // text menu. Keep the Flutter selection toolbar instead.
+            final mediaQuery = MediaQuery.of(context).copyWith(
+              supportsShowingSystemContextMenu: false,
+            );
+            return MediaQuery(
+              data: mediaQuery,
+              child: _botToastBuilder(context, child),
+            );
+          },
           title: appLan.appLanguage == Languages.ar
               ? 'تنميه'
               : "Tanmeyah",
