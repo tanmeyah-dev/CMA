@@ -3,9 +3,10 @@ class ResetPasswordModel {
   String mobileNumber;
   String password;
   String confirmPassword;
+  String otp;
   String? salt;
 
-  ResetPasswordModel({required this.mobileNumber,required this.password,required this.confirmPassword, this.salt});
+  ResetPasswordModel({required this.mobileNumber,required this.password,required this.confirmPassword, required this.otp, this.salt});
 
 
   Map<String, String> toJson() {
@@ -13,6 +14,7 @@ class ResetPasswordModel {
       "mobileNumber": mobileNumber,
       "password": password,
       "confirmPassword": confirmPassword,
+      "otp": otp,
     };
     return body;
   }

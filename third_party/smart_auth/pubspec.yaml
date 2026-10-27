@@ -1,0 +1,49 @@
+name: smart_auth
+description: Wrapper of Android SMS User Consent API, SMS Retriever API to read one time sms code, get/save/delete user phone number, OTP, OTC, sms autofill, android autofill
+homepage: https://github.com/Tkko/flutter_smart_auth
+repository: https://github.com/Tkko/flutter_smart_auth
+topics:
+  - otp
+  - sms-autofill
+  - sms-user-consent-api
+  - sms-retriever-api
+  - smart-lock
+version: 1.1.1
+publish_to: 'none'
+# Local copy of smart_auth 1.1.1 with an iOS Package.swift.
+# pinput 2.3 calls the 1.x API, and upstream 1.x has no Swift package.
+
+
+environment:
+  sdk: ">=2.16.1 <4.0.0"
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: fman.ge.smart_auth
+        pluginClass: SmartAuthPlugin
+      ios:
+        pluginClass: SmartAuthPlugin
+      linux:
+        pluginClass: SmartAuthPlugin
+      macos:
+        pluginClass: SmartAuthPlugin
+      windows:
+        pluginClass: SmartAuthPlugin
+      web:
+        pluginClass: SmartAuthWeb
+        fileName: smart_auth_web.dart

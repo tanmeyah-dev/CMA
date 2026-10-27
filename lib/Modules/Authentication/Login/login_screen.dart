@@ -104,10 +104,6 @@ class _LoginScreenState extends StateMVC<LoginScreen> {
                             );
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/mainScreen', (Route<dynamic> route) => false);
-
-                            // EncryptionDecryption.encryptAES("Mohamed");
-
-                              // EncryptionDecryption.decryptAES("9kVLhLuDOIRK+xlZOkFTUg==");
                           }
                       ))
                 ]),

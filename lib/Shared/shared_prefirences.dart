@@ -1,10 +1,19 @@
 import 'dart:convert';
+
 import 'package:Tanmeyah/Shared/shard_obj.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import '../Models/user_model.dart';
 
 class SharedPref {
+  // v10 migrates legacy EncryptedSharedPreferences on first read.
+  static const FlutterSecureStorage _secure = FlutterSecureStorage();
+
   static const String _guestToken = "guestToken";
   static const String _userObj = "userObj";
+  static String? _guestTokenCache;
+  static UserModel? _userCache;
   static const String _language = "language_code";
   static const String _intro = "intro";
   static const String _alreadyExist = "_alreadyExist";
@@ -12,37 +21,83 @@ class SharedPref {
   static const String longitude = "longitude";
   static const String canRequestLoan = "canRequestLoan";
 
-  static Future<bool?> saveToken({required String sessionToken}) async {
-    return await SharedObj()
-        .prefs
-        ?.setString(_guestToken, jsonEncode(sessionToken));
+  /// Loads tokens into memory and moves any copy still in SharedPreferences
+  /// into secure storage. Call this after [SharedObj.init].
+  static Future<void> loadSession() async {
+    try {
+      _guestTokenCache = await _secure.read(key: _guestToken);
+      final storedUser = await _secure.read(key: _userObj);
+      if (storedUser != null && storedUser.isNotEmpty) {
+        try {
+          _userCache = UserModel.fromJson(jsonDecode(storedUser));
+        } catch (_) {
+          await _secure.delete(key: _userObj);
+        }
+      }
+      await _migratePlaintextSession();
+    } catch (e) {
+      debugPrint('Session storage could not be read');
+    }
   }
 
+  static Future<void> _migratePlaintextSession() async {
+    final prefs = SharedObj().prefs;
+    if (prefs == null) return;
+
+    final plainGuest = prefs.getString(_guestToken);
+    if (_guestTokenCache == null && plainGuest != null) {
+      try {
+        final decoded = jsonDecode(plainGuest);
+        _guestTokenCache = decoded is String ? decoded : plainGuest;
+      } catch (_) {
+        _guestTokenCache = plainGuest;
+      }
+      if (_guestTokenCache != null) {
+        await _secure.write(key: _guestToken, value: _guestTokenCache);
+      }
+    }
+
+    final plainUser = prefs.getString(_userObj);
+    if (_userCache == null && plainUser != null) {
+      try {
+        _userCache = UserModel.fromJson(jsonDecode(plainUser));
+        await _secure.write(key: _userObj, value: plainUser);
+      } catch (_) {
+        _userCache = null;
+      }
+    }
+
+    await prefs.remove(_guestToken);
+    await prefs.remove(_userObj);
+  }
+
+  static Future<bool?> saveToken({required String sessionToken}) async {
+    _guestTokenCache = sessionToken;
+    await _secure.write(key: _guestToken, value: sessionToken);
+    return true;
+  }
 
   static String? getGuestToken() {
-    String? guestToken = SharedObj().prefs?.getString(_guestToken);
-    if (guestToken == null) return null;
-    return jsonDecode(guestToken);
+    return _guestTokenCache;
   }
 
-
   static Future<bool?> saveUserObj({required UserModel userModel}) async {
-    return await SharedObj()
-        .prefs
-        ?.setString(_userObj, jsonEncode(userModel.toJson()));
+    _userCache = userModel;
+    await _secure.write(key: _userObj, value: jsonEncode(userModel.toJson()));
+    return true;
   }
 
   static UserModel? getUserObg() {
-    String? userStringData = SharedObj().prefs?.getString(_userObj);
-    if (userStringData == null) return null;
-    return UserModel.fromJson(jsonDecode(userStringData));
+    return _userCache;
   }
 
   static bool isUserLogIn() {
-    return SharedObj().prefs?.getString(_userObj) != null;
+    return _userCache != null;
   }
 
   static Future<void> logOut() async {
+    _userCache = null;
+    await _secure.delete(key: _userObj);
     await SharedObj().prefs?.remove(_userObj);
   }
 

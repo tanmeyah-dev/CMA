@@ -1,9 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import '../Shared/shared_prefirences.dart';
 import '../Utilities/general_toast.dart';
@@ -22,8 +23,9 @@ class NetworkMethods {
       BuildContext? context}) async {
     var checkConnection = await Connectivity().checkConnectivity();
     if (checkConnection != ConnectivityResult.none) {
-      debugPrint(body.toString());
-      debugPrint(customUrl ?? "${API.baseURL}$url");
+      if (kDebugMode) {
+        debugPrint(customUrl ?? "${API.baseURL}$url");
+      }
 
       var request = http.Request(
         'POST',
@@ -48,14 +50,14 @@ class NetworkMethods {
       // Add device ID last to ensure it's always present (even if custom headers try to override)
        headers["Device-Id"] = deviceId;
 
-      debugPrint(headers.toString());
       request.headers.addAll(headers);
       try {
         http.StreamedResponse response =
             await request.send().timeout(const Duration(seconds: 100));
         String result = await response.stream.bytesToString();
-        log(response.statusCode.toString());
-        log("api response >>>>>>>>>>>>>>>>>>>>>>>>:${result.toString()}");
+        if (kDebugMode) {
+          debugPrint('${response.statusCode}');
+        }
         if (response.statusCode == 401) {
           await SharedPref.logOut();
           Modular.to.pushNamedAndRemoveUntil(
@@ -71,11 +73,11 @@ class NetworkMethods {
         try {
           return json.decode(result);
         } catch (e) {
-          log("cccccccccsdsdsdsdsd$e");
+          debugPrint('Response was not JSON');
           return null;
         }
       } on TimeoutException catch (_) {
-        log("⏰ Request timed out");
+        debugPrint('Request timed out');
         if (context != null) {
           return ToastHelper.showError(context,
               message: "Request timed out. Please try again.");
@@ -103,7 +105,9 @@ class NetworkMethods {
   }) async {
     var checkConnection = await Connectivity().checkConnectivity();
     if (checkConnection != ConnectivityResult.none) {
-      debugPrint('${API.baseURL}$url');
+      if (kDebugMode) {
+        debugPrint('${API.baseURL}$url');
+      }
       var request = http.Request('GET', Uri.parse('${API.baseURL}$url'));
 
       // Get device ID - ensure it's always included
@@ -127,8 +131,9 @@ class NetworkMethods {
       try {
         response = await request.send().timeout(const Duration(seconds: 10));
         String result = await response.stream.bytesToString();
-        log(response.statusCode.toString());
-        log(result.toString());
+        if (kDebugMode) {
+          debugPrint('${response.statusCode}');
+        }
         if (response.statusCode == 401) {
           await SharedPref.logOut();
           Modular.to.pushNamedAndRemoveUntil(
@@ -144,24 +149,24 @@ class NetworkMethods {
         try {
           return json.decode(result);
         } catch (e) {
-          log("❌ JSON decoding error: $e");
+          debugPrint('Response was not JSON');
           return null;
         }
       } on TimeoutException catch (_) {
-        log("⏰ Request timed out");
+        debugPrint('Request timed out');
         // if (context != null) {
         //   ToastHelper.showError(context, message: "Request timed out. Please try again.");
         // }
         return null;
       } on SocketException catch (_) {
-        log("❌ Socket/network error");
+        debugPrint('Socket or network error');
         BotToast.showText(text: "برجاء التحقق من الاتصال بالانترنت");
         // if (context != null) {
         //   ToastHelper.showError(context, message: "Network error. Please check your connection.");
         // }
         return null;
       } catch (e) {
-        log("❌ Unexpected error: $e");
+        debugPrint('Unexpected request error');
         // if (context != null) {
         //   ToastHelper.showError(context, message: "An unexpected error occurred.");
         // }

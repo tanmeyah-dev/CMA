@@ -25,17 +25,27 @@ import 'response_body_decoder.dart';
 
 
 class UserApi {
+  static const String _guestTokenUserName =
+      String.fromEnvironment('GUEST_TOKEN_USERNAME');
+  static const String _guestTokenPassword =
+      String.fromEnvironment('GUEST_TOKEN_PASSWORD');
+
   static Future<SessionToken?> getToken() async {
+    if (_guestTokenUserName.isEmpty || _guestTokenPassword.isEmpty) {
+      debugPrint(
+          'Guest token credentials are not set. Pass --dart-define-from-file=config/guest_token.json');
+      return null;
+    }
     var response = await NetworkMethods.postRequestAsRow(
       url: API.token,
       body: {
-          "UserName": "\$2a\$10\$oCBmRosDIQOW3JCyddMOnexv0BW85s.7Ao3XfvxP..0QngN4FupES",
-          "Password": "\$2a\$10\$jzDQNjvTVyD07xvJ5bGNyOIMcZiQCOvoxNgwq89WNtrzwEqny6G6m"
+        "UserName": _guestTokenUserName,
+        "Password": _guestTokenPassword,
       }
     );
     if (response == null) return null;
     if (response["isSuccess"] == true) {
-      SharedPref.saveToken(sessionToken: response["token"]);
+      await SharedPref.saveToken(sessionToken: response["token"]);
       return SessionToken.fromJson(response);
     } else {
       //ToastHelper.showError(context , message: response["message"]);
@@ -81,17 +91,14 @@ class UserApi {
     }
     final body = decodeHttpBodyBytes(response.bodyBytes, response.headers);
     var result = json.decode(body);
-    print("<<<<<<<<<<<>>>>>>>>>>$result");
     if( result["isSuccess"] == true  && result["code"] == "200") {
       Map<String, String> headers = response.headers;
       UserModel? userModel;
       String headerValue = headers['authorization'] ?? '';
-      print("NEEEEEEEE===>>>   $headerValue");
-      print("NEEEEEEEE===>>>   ${result["user"]["token"]}");
 
       userModel = UserModel.fromJson(result["user"]);
       userModel.token = "Bearer $headerValue";
-      SharedPref.saveUserObj(userModel: userModel);
+      await SharedPref.saveUserObj(userModel: userModel);
       return true;
     } else {
       ToastHelper.showError(context, message: result["message"]);
@@ -128,7 +135,6 @@ class UserApi {
       },
     );
     if (response == null) return null;
-    debugPrint(response.toString());
     if (response["isSuccess"] == true) {
       ToastHelper.showSuccess(context , message: response["message"]);
       return VerifyOtpModel.fromJson(response);
@@ -148,7 +154,6 @@ class UserApi {
       },
     );
     if (response == null) return null;
-    debugPrint(response.toString());
     if (response["isSuccess"] == true && response["alreadyExists"] == true) {
       return VerifyOtpModel.fromJson(response);
     } else if (response["isSuccess"] == true) {
@@ -169,7 +174,6 @@ class UserApi {
       body: registrationForm.toJson(),
     );
      if (response == null) return null;
-    debugPrint(response.toString());
     if (response["isSuccess"] == true) {
       await SharedPref.saveAlreadyExist();
       ToastHelper.showSuccess(context,message: response["message"]);
@@ -190,7 +194,6 @@ class UserApi {
       },
     );
     if (response == null) return null;
-    debugPrint(response.toString());
     if (response["isSuccess"] == true && response["isDeactivated"] == true) {
       ToastHelper.showError(context, message: response["message"]);
       return null;
@@ -212,7 +215,6 @@ class UserApi {
       body: resetPasswordModel.toJson(),
     );
     if (response == null) return false;
-    debugPrint(response.toString());
     if (response["isSuccess"] == true) {
       ToastHelper.showSuccess(context,message: response["message"]);
       return true;
@@ -258,7 +260,6 @@ class UserApi {
       },
     );
     if (response == null) return null;
-    debugPrint(response.toString());
     if (response["isSuccess"] == true) {
        ToastHelper.showSuccess(context , message: response["message"]);
       return true;

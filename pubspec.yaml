@@ -20,7 +20,6 @@ dependencies:
   firebase_analytics: ^11.3.0
   http: ^1.4.0
   enough_convert: ^1.6.0
-  fluttertoast: ^8.2.0
   lottie: ^3.3.3
   mvc_pattern: ^8.12.0
   shared_preferences: ^2.2.3
@@ -37,7 +36,9 @@ dependencies:
   flutter_modular: ^3.4.1+1
   photo_view: ^0.14.0
   local_auth: ^2.1.6
-  flutter_secure_storage: ^9.2.4
+  # Stay on 10.x so Android encryptedSharedPreferences data migrates.
+  # 11.x drops that migration and would make existing secrets unreadable.
+  flutter_secure_storage: '>=10.3.4 <11.0.0'
   animations: ^2.0.7
   connectivity_plus: ^6.1.4
   flutter_widget_from_html: ^0.16.0
@@ -51,18 +52,15 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   shimmer: ^3.0.0
   awesome_snackbar_content: ^0.1.0
-  package_info_plus: ^8.3.0
-  encrypt: ^5.0.0
+  package_info_plus: ^10.2.2
   cryptography: ^2.5.0
   flutter_styled_toast: ^2.1.3
   retry: ^3.1.1
   dart_ping: ^9.0.1
   dart_ping_ios: ^4.0.2
-  location: ^7.0.1
   sizer: ^3.0.5
   flutter_cache_manager: ^3.3.1
   facebook_app_events: ^0.30.2
-  adjust_sdk: ^4.38.0
   uuid: ^4.5.2
   bot_toast: ^4.1.3
   tan_sdk:
@@ -70,6 +68,7 @@ dependencies:
   # Must be a regular dependency: Flutter omits dev_dependency plugins from
   # release Android builds, but GeneratedPluginRegistrant still references them.
   flutter_native_splash: ^2.2.9
+  freerasp: ^8.2.4
 
 dev_dependencies:
   flutter_test:
@@ -79,8 +78,13 @@ dev_dependencies:
 
 dependency_overrides:
   intl: ^0.19.0
-  objective_c: 9.1.0
-  win32: ^5.10.0
+  # tan_sdk still constrains device_info_plus 10.x, which has no iOS package.
+  device_info_plus: 13.3.0
+  # Upstream 3.1.3 and 1.1.1 have no iOS Package.swift.
+  flutter_icmp_ping:
+    path: third_party/flutter_icmp_ping
+  smart_auth:
+    path: third_party/smart_auth
   webview_flutter: ^4.13.1
   webview_flutter_android: ^4.7.0
   webview_flutter_wkwebview: ^3.25.1

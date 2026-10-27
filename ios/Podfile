@@ -31,11 +31,9 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  # Pin FBSDKCoreKit to 18.0.x — 18.1.0 removes Settings.shared.appID and
-  # setDataProcessingOptions, and 18.0.2+ breaks facebook_app_events < 0.22.
-  # See: https://github.com/oddbit/flutter_facebook_app_events/issues/451
-  pod 'FBSDKCoreKit', '18.0.0'
-
+  # facebook_app_events already depends on facebook-ios-sdk through Swift
+  # Package Manager. A CocoaPods FBSDKCoreKit pin embeds the same frameworks
+  # a second time and Xcode fails with "Multiple commands produce".
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
@@ -44,23 +42,61 @@ post_install do |installer|
     flutter_additional_ios_build_settings(target)
     target.build_configurations.each do |config|
            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.5'
-           config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
            config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
            # Enable photo-library permission APIs used by permission_handler.
            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
              '$(inherited)',
              'PERMISSION_PHOTOS=1',
            ]
-           if target.name == 'facebook_app_events'
-             # FBSDKCoreKit exposes appID/setDataProcessingOptions only when
-             # NonescapableTypes is enabled in the consuming Swift compiler.
-             config.build_settings['OTHER_SWIFT_FLAGS'] ||= '$(inherited)'
-             config.build_settings['OTHER_SWIFT_FLAGS'] += ' -enable-upcoming-feature NonescapableTypes'
-           end
            xcconfig_path = config.base_configuration_reference.real_path
            xcconfig = File.read(xcconfig_path)
            xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
            File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
     end
+  end
+
+  # Firebase and Google Sign-In already link these statically through Swift
+  # Package Manager, into Runner.debug.dylib. CocoaPods also embeds them as
+  # dynamic frameworks for ML Kit. Both copies register the same ObjC classes.
+  # Keep the pods so ML Kit can build, but do not link or embed the second copy.
+  # The SPM static libraries satisfy ML Kit's undefined symbols.
+  duplicated_frameworks = %w[
+    GoogleUtilities
+    GoogleDataTransport
+    GTMSessionFetcher
+    FBLPromises
+  ]
+  framework_flag = /-framework "(?:#{duplicated_frameworks.join('|')})"\s*/
+
+  Dir.glob(File.join(__dir__, 'Pods', 'Target Support Files', 'Pods-Runner', '*.xcconfig')).each do |xcconfig_path|
+    contents = File.read(xcconfig_path)
+    stripped = contents.gsub(framework_flag, '')
+    File.write(xcconfig_path, stripped) if stripped != contents
+  end
+
+  support_files = File.join(__dir__, 'Pods', 'Target Support Files', 'Pods-Runner')
+  frameworks_script = File.join(support_files, 'Pods-Runner-frameworks.sh')
+  if File.exist?(frameworks_script)
+    contents = File.read(frameworks_script)
+    stripped = contents.gsub(/^(\s*)install_framework "\$\{BUILT_PRODUCTS_DIR\}\/[^"]*(?:#{duplicated_frameworks.join('|')})\.framework"\n/, '')
+    File.write(frameworks_script, stripped) if stripped != contents
+  end
+end
+
+# CocoaPods writes the embed file lists during user-project integration,
+# after post_install. Strip them here or Xcode still expects those frameworks
+# to be copied into the app.
+post_integrate do |_installer|
+  duplicated_frameworks = %w[
+    GoogleUtilities
+    GoogleDataTransport
+    GTMSessionFetcher
+    FBLPromises
+  ]
+  support_files = File.join(__dir__, 'Pods', 'Target Support Files', 'Pods-Runner')
+  Dir.glob(File.join(support_files, 'Pods-Runner-frameworks-*-*.xcfilelist')).each do |list_path|
+    lines = File.readlines(list_path)
+    kept = lines.reject { |line| duplicated_frameworks.any? { |name| line.include?(name) } }
+    File.write(list_path, kept.join) if kept != lines
   end
 end

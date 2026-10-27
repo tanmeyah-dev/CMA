@@ -531,3 +531,5 @@ Dependencies/
 
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,android,kotlin,java,swift,objective-c
+# Local guest-token credentials. Copy config/guest_token.example.json.
+/config/guest_token.json

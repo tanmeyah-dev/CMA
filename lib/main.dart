@@ -1,7 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:io';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +11,12 @@ import 'Cache/app_languages.dart';
 import 'Cache/shared_data_provider.dart';
 import 'Cache/locales.dart';
 import 'Modules/Authentication/Splash/splash_screen.dart';
+import 'Shared/shared_prefirences.dart';
 import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Utilities/debug_tls.dart';
 import 'Utilities/routing.dart';
+import 'Utilities/runtime_protection.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
@@ -30,6 +31,7 @@ Future<void> main() async {
 
   try {
     await SharedObj().init();
+    await SharedPref.loadSession();
   } catch (e) {
     debugPrint('Error initializing SharedObj: $e');
   }
@@ -64,7 +66,9 @@ Future<void> main() async {
     // Continue app initialization even if ping fails
   }
 
-  HttpOverrides.global = MyHttpOverrides();
+  installDebugTlsOverride();
+
+  await startRuntimeProtection();
 
   try {
     await Firebase.initializeApp();
@@ -114,6 +118,18 @@ class _EntryPointState extends State<EntryPoint> {
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: runtimeProtectionBlocked,
+      builder: (context, blocked, _) {
+        if (blocked) {
+          return const RuntimeProtectionBlock();
+        }
+        return _buildApp(context);
+      },
+    );
+  }
+
+  Widget _buildApp(BuildContext context) {
     final appLan = Provider.of<AppLanguage>(context);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -152,12 +168,4 @@ class _EntryPointState extends State<EntryPoint> {
   }
 }
 
-
-class MyHttpOverrides extends HttpOverrides{
-  @override
-  HttpClient createHttpClient(SecurityContext? context){
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
-  }
-}
 

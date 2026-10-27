@@ -159,7 +159,12 @@ class ForgetPasswordController extends ControllerMVC {
     }
 
 
-    ResetPasswordModel resetPasswordModel = ResetPasswordModel(mobileNumber: phoneNumber!, password: newPasswordController.text, confirmPassword: confirmNewPasswordController.text,);
+    ResetPasswordModel resetPasswordModel = ResetPasswordModel(
+      mobileNumber: phoneNumber!,
+      password: newPasswordController.text,
+      confirmPassword: confirmNewPasswordController.text,
+      otp: codeController.text,
+    );
     setState(() {
       loading = true;
     });
