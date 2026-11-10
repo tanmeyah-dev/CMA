@@ -16,7 +16,6 @@ import 'Shared/shard_obj.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Utilities/debug_tls.dart';
 import 'Utilities/routing.dart';
-import 'Utilities/runtime_protection.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dart_ping/dart_ping.dart';
@@ -68,8 +67,6 @@ Future<void> main() async {
 
   installDebugTlsOverride();
 
-  await startRuntimeProtection();
-
   try {
     await Firebase.initializeApp();
   } catch (e) {
@@ -118,18 +115,6 @@ class _EntryPointState extends State<EntryPoint> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: runtimeProtectionBlocked,
-      builder: (context, blocked, _) {
-        if (blocked) {
-          return const RuntimeProtectionBlock();
-        }
-        return _buildApp(context);
-      },
-    );
-  }
-
-  Widget _buildApp(BuildContext context) {
     final appLan = Provider.of<AppLanguage>(context);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

@@ -68,7 +68,6 @@ dependencies:
   # Must be a regular dependency: Flutter omits dev_dependency plugins from
   # release Android builds, but GeneratedPluginRegistrant still references them.
   flutter_native_splash: ^2.2.9
-  freerasp: ^8.2.4
 
 dev_dependencies:
   flutter_test:

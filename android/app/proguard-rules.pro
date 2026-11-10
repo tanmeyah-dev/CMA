@@ -32,12 +32,6 @@
 -dontwarn com.google.android.play.core.tasks.Task
 -dontwarn com.google.android.play.core.**
 
-# Talsec freeRASP. Keep the SDK so release shrinking does not remove it.
--keep class com.aheaditec.talsec.** { *; }
--keep class com.aheaditec.freerasp.** { *; }
--dontwarn com.aheaditec.talsec.**
--dontwarn com.aheaditec.freerasp.**
-
 # Flutter / plugins commonly needed with minify enabled.
 -keep class io.flutter.app.** { *; }
 -keep class io.flutter.plugin.** { *; }
