@@ -32,6 +32,12 @@
 -dontwarn com.google.android.play.core.tasks.Task
 -dontwarn com.google.android.play.core.**
 
+# Talsec freeRASP. Keep the SDK so release shrinking does not remove it.
+-keep class com.aheaditec.talsec.** { *; }
+-keep class com.aheaditec.freerasp.** { *; }
+-dontwarn com.aheaditec.talsec.**
+-dontwarn com.aheaditec.freerasp.**
+
 # Flutter / plugins commonly needed with minify enabled.
 -keep class io.flutter.app.** { *; }
 -keep class io.flutter.plugin.** { *; }
@@ -43,6 +49,13 @@
 # Firebase
 -keep class com.google.firebase.** { *; }
 -keep class com.google.android.gms.** { *; }
+
+# Google Sign-In uses Credential Manager. Release shrinking removes these
+# classes and the sign-in call fails while debug (no minify) still works.
+-keep class androidx.credentials.** { *; }
+-keep class com.google.android.libraries.identity.googleid.** { *; }
+-dontwarn androidx.credentials.**
+-dontwarn com.google.android.libraries.identity.googleid.**
 
 # ML Kit (vlens)
 -keep class com.google.mlkit.** { *; }

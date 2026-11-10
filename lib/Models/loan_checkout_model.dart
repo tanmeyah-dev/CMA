@@ -29,8 +29,6 @@ class LoanCheckoutModel {
     return {
       "userId": userId,
       "productId": productId,
-      "amount": amount,
-      "numberOfInstallments": installments, // عدد الأقساط ← مده التمويل
       "latitude": latitude,
       "longitude": longitude,
       "govId": govId,

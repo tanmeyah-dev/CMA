@@ -95,12 +95,17 @@ class RequestLoanApi {
       url: API.servicesDetail,
       body: {"productId": id},
     );
-    if (response == null) return null;
-    if (response["isSuccess"] == true) {
-      return ServiceDetailModel.fromJson(response["product"]);
-    } else {
-      //ToastHelper.showError(message: response["message"]);
-      return null;
+    if (response is! Map) return null;
+    final Map<String, dynamic> body = Map<String, dynamic>.from(response);
+    if (body["isSuccess"] != true) return null;
+
+    final dynamic product = body["product"] ?? body["Product"] ?? body["data"];
+    if (product is Map) {
+      return ServiceDetailModel.fromJson(Map<String, dynamic>.from(product));
     }
+    if (body["info"] is List || body["id"] != null) {
+      return ServiceDetailModel.fromJson(body);
+    }
+    return null;
   }
 }

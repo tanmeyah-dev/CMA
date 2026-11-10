@@ -76,20 +76,21 @@ class ServiceDetailModel {
 
   factory ServiceDetailModel.fromJson(Map<String, dynamic> json) =>
      ServiceDetailModel(
-      // productColor:  list,
-       color: json["color"] == null ? int.parse("0xFF092076")  : int.parse(json["color"]),
-      id: json["id"],
-      nameAr: json["nameAr"],
-      title: json["title"],
-      nameEn: json["nameEn"],
-      descriptionAr: json["descriptionAr"],
-      descriptionEn:
-          json["descriptionEn"],
-      imageUrl: json["image"] ?? json["imageUrl"],
-       logo: json["logo"],
-       titleImg: json["titleImg"],
-      info: json["info"] != null
-          ? List<Info>.from(json["info"].map((x) => Info.fromJson(x)))
+       color: _asInt(json["color"]) ?? int.parse("0xFF092076"),
+      id: _asInt(json["id"]) ?? 0,
+      nameAr: json["nameAr"]?.toString(),
+      title: json["title"]?.toString(),
+      nameEn: json["nameEn"]?.toString() ?? "",
+      descriptionAr: json["descriptionAr"]?.toString() ?? "",
+      descriptionEn: json["descriptionEn"]?.toString() ?? "",
+      imageUrl: (json["image"] ?? json["imageUrl"])?.toString() ?? "",
+       logo: json["logo"]?.toString(),
+       titleImg: json["titleImg"]?.toString(),
+      info: json["info"] is List
+          ? (json["info"] as List)
+              .whereType<Map>()
+              .map((x) => Info.fromJson(Map<String, dynamic>.from(x)))
+              .toList()
           : null,
       );
 
@@ -108,6 +109,12 @@ class ServiceDetailModel {
       };
 }
 
+int? _asInt(dynamic value) {
+  if (value is int) return value;
+  if (value is num) return value.toInt();
+  return int.tryParse(value?.toString() ?? "");
+}
+
 class Info {
   Info({
     required this.productId,
@@ -122,10 +129,10 @@ class Info {
   String? imageUrl;
 
   factory Info.fromJson(Map<String, dynamic> json) => Info(
-        productId: json["productId"],
-        infoKey: json["infoKey"],
-        infoValue: json["infoValue"],
-        imageUrl: json["imageUrl"],
+        productId: _asInt(json["productId"]) ?? 0,
+        infoKey: json["infoKey"]?.toString(),
+        infoValue: json["infoValue"]?.toString() ?? "",
+        imageUrl: json["imageUrl"]?.toString() ?? "",
   );
 
   Map<String, dynamic> toJson() => {

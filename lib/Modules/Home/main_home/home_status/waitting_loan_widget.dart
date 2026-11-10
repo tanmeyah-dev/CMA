@@ -19,17 +19,23 @@ class WaitingLoanWidget extends StatelessWidget {
 
   bool get _isVlense200 => con.homeResponse?.isVlenseCompleteData == true;
 
-  bool get _showBranch => !_isVlense300;
+  bool get _showBranch => !_isVlense300 && _hasBranch;
+
+  bool get _hasBranch {
+    final branch = con.homeResponse?.branchModel;
+    if (branch == null) return false;
+    final governorate = branch.governorateName?.trim() ?? '';
+    final name = branch.nameAr?.trim() ?? '';
+    return governorate.isNotEmpty || name.isNotEmpty;
+  }
 
   String get _containerMessage {
     if (_isVlense200 || _isVlense300) {
-      return con.homeResponse?.vlenseMessage ?? '';
+      return con.homeResponse?.vlenseMessage?.trim() ?? '';
     }
-    return con.homeResponse?.message ?? '';
-  }
-
-  bool get _centerMessageInColumn {
-    return _containerMessage.trim() == 'الطلب في سير العمل';
+    final waiting = con.homeResponse?.waitingMessage?.trim() ?? '';
+    if (waiting.isNotEmpty) return waiting;
+    return con.homeResponse?.message?.trim() ?? '';
   }
 
   void _openVlenseSdk(BuildContext context) {
@@ -50,44 +56,56 @@ class WaitingLoanWidget extends StatelessWidget {
     );
   }
 
+  BoxDecoration _cardDecoration(List<Color> colors, {List<double>? stops}) {
+    return BoxDecoration(
+      gradient: LinearGradient(
+        colors: colors,
+        stops: stops,
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      ),
+      borderRadius: BorderRadius.circular(24.r),
+      boxShadow: [
+        BoxShadow(
+          color: colors.last.withOpacity(0.22),
+          blurRadius: 16,
+          offset: const Offset(0, 8),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGreeting() {
+    final name = SharedPref.getUserObg()?.fullName;
+    return AppTextBold(
+      title: (name != null && name.trim().isNotEmpty) ? name : "عميل تنميه المميز",
+      color: ThemeClass.secondaryColor,
+      textAlign: TextAlign.start,
+    );
+  }
+
   Widget _buildVlense200Card(BuildContext context) {
-    return SizedBox(
-      width: 400.w,
-      child: Stack(
-        clipBehavior: Clip.none,
+    return Container(
+      width: double.infinity,
+      decoration: _cardDecoration(const [
+        Color(0xFF8B1A1A),
+        Color(0xFFF44336),
+      ]),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: 400.w,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF8B1A1A),
-                  Color(0xFFF44336),
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-              ),
-              borderRadius: BorderRadius.circular(24.w),
-            ),
-            padding: EdgeInsets.only(
-              left: 160.w,
-              right: 16.w,
-              top: 20.h,
-              bottom: 20.h,
-            ),
+          Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: AppTextRegular(
-                    title: _containerMessage,
-                    color: ThemeClass.whiteColor,
-                    textAlign: TextAlign.start,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18.sp,
-                  ),
+                AppTextRegular(
+                  title: _containerMessage,
+                  color: ThemeClass.whiteColor,
+                  textAlign: TextAlign.start,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.sp,
                 ),
                 SizedBox(height: 16.h),
                 CustomButton(
@@ -108,18 +126,12 @@ class WaitingLoanWidget extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            left: 4.w,
-            bottom: 38.h,
-            child: Transform.rotate(
-              angle: -0.08,
-              child: Image.asset(
-                AppAssets.IMG_CONTRACT,
-                width: 180.w,
-                height: 199.h,
-                fit: BoxFit.contain,
-              ),
-            ),
+          SizedBox(width: 8.w),
+          Image.asset(
+            AppAssets.IMG_CONTRACT,
+            width: 120.w,
+            height: 132.w,
+            fit: BoxFit.contain,
           ),
         ],
       ),
@@ -127,47 +139,31 @@ class WaitingLoanWidget extends StatelessWidget {
   }
 
   Widget _buildVlense300Card() {
-    return SizedBox(
-      width: 400.w,
-      child: Stack(
-        clipBehavior: Clip.none,
+    return Container(
+      width: double.infinity,
+      decoration: _cardDecoration(const [
+        Color(0xFF8B1A1A),
+        Color(0xFFF44336),
+      ]),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: 400.w,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF8B1A1A),
-                  Color(0xFFF44336),
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(24.w),
-            ),
-            padding: EdgeInsets.only(
-              left: 160.w,
-              right: 16.w,
-              top: 20.h,
-              bottom: 20.h,
-            ),
+          Expanded(
             child: AppTextRegular(
               title: _containerMessage,
               color: ThemeClass.whiteColor,
-              textAlign: TextAlign.right,
-              fontWeight: FontWeight.w400,
+              textAlign: TextAlign.start,
+              fontWeight: FontWeight.w500,
               fontSize: 18.sp,
             ),
           ),
-          Positioned(
-            left: 4.w,
-            bottom: 20.h,
-            child: Image.asset(
-              AppAssets.IMG_CLOCK,
-              width: 172.w,
-              height: 172.h,
-              fit: BoxFit.contain,
-            ),
+          SizedBox(width: 8.w),
+          Image.asset(
+            AppAssets.IMG_CLOCK,
+            width: 120.w,
+            height: 120.w,
+            fit: BoxFit.contain,
           ),
         ],
       ),
@@ -175,48 +171,66 @@ class WaitingLoanWidget extends StatelessWidget {
   }
 
   Widget _buildBottomSlot(BuildContext context) {
-    if (!_showBranch) {
-      return const SizedBox.shrink();
-    }
+    if (!_showBranch) return const SizedBox.shrink();
+    final branch = con.homeResponse!.branchModel!;
+    final governorate = branch.governorateName?.trim() ?? '';
+    final name = branch.nameAr?.trim() ?? '';
+    final distance = branch.distanceText?.trim() ?? '';
+
     return GestureDetector(
       onTap: () {
         openMap(
-          con.homeResponse?.branchModel?.latitude ?? 0.0,
-          con.homeResponse?.branchModel?.longitude ?? 0.0,
+          _asDouble(branch.latitude),
+          _asDouble(branch.longitude),
         );
       },
       child: Container(
-        padding: EdgeInsets.only(
-          top: 8.h,
-          left: 24.w,
-          right: 12.w,
-          bottom: 12.h,
-        ),
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: const Color(0xff1d1d1d29),
-          borderRadius: BorderRadius.circular(8.r),
+          color: Colors.white.withOpacity(0.16),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppTextRegular(
-                  title: con.homeResponse?.branchModel?.governorateName ?? "",
-                  color: ThemeClass.whiteColor,
-                  fontWeight: FontWeight.w600,
-                ),
-                AppTextRegular(
-                  title: con.homeResponse?.branchModel?.nameAr ?? "",
-                  color: ThemeClass.whiteColor,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (governorate.isNotEmpty)
+                    AppTextRegular(
+                      title: governorate,
+                      color: ThemeClass.whiteColor,
+                      textAlign: TextAlign.start,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.sp,
+                    ),
+                  if (name.isNotEmpty) ...[
+                    SizedBox(height: 2.h),
+                    AppTextRegular(
+                      title: name,
+                      color: ThemeClass.whiteColor,
+                      textAlign: TextAlign.start,
+                      fontSize: 14.sp,
+                    ),
+                  ],
+                  if (distance.isNotEmpty && branch.distance != 0) ...[
+                    SizedBox(height: 2.h),
+                    AppTextRegular(
+                      title: distance,
+                      color: ThemeClass.whiteColor.withOpacity(0.85),
+                      textAlign: TextAlign.start,
+                      fontSize: 12.sp,
+                    ),
+                  ],
+                ],
+              ),
             ),
+            SizedBox(width: 8.w),
             Icon(
               Iconsax.arrow_square5,
               color: ThemeClass.whiteColor,
+              size: 22.sp,
             ),
           ],
         ),
@@ -226,143 +240,81 @@ class WaitingLoanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2.w),
-          child: SharedPref.getUserObg() != null
-              ? AppTextBold(
-                  title: SharedPref.getUserObg()!.fullName,
-                  color: ThemeClass.secondaryColor,
-                  textAlign: TextAlign.start,
-                )
-              : AppTextBold(
-                  title: "عميل تنميه المميز",
-                  color: ThemeClass.secondaryColor,
-                  textAlign: TextAlign.start,
-                ),
-        ),
-        SizedBox(height: 10.h),
-        if (_isVlense300)
-          _buildVlense300Card()
-        else if (_isVlense200)
-          _buildVlense200Card(context)
-        else
-          _buildDefaultWaitingCard(context),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildGreeting(),
+          SizedBox(height: 10.h),
+          if (_isVlense300)
+            _buildVlense300Card()
+          else if (_isVlense200)
+            _buildVlense200Card(context)
+          else
+            _buildDefaultWaitingCard(context),
+        ],
+      ),
     );
   }
 
   Widget _buildDefaultWaitingCard(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-              width: 400.w,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFF384471),
-                    Color(0xFFEF3C3B),
-                  ],
-                  stops: [0.009, 0.3],
-                  begin: FractionalOffset.bottomLeft,
-                  end: FractionalOffset.topRight,
+    return Container(
+      width: double.infinity,
+      constraints: BoxConstraints(minHeight: 168.h),
+      decoration: _cardDecoration(
+        const [
+          Color(0xFF384471),
+          Color(0xFFEF3C3B),
+        ],
+        stops: const [0.05, 0.85],
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: AppTextRegular(
+                  title: _containerMessage,
+                  color: ThemeClass.whiteColor,
+                  textAlign: TextAlign.start,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 22.sp,
                 ),
-                borderRadius: BorderRadius.circular(24.w),
               ),
-              constraints: BoxConstraints(minHeight: 168.h),
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              alignment: Alignment.center,
-              child: _centerMessageInColumn
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 16.h,
-                      ),
-                      child: Row(
-                        textDirection: TextDirection.ltr,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.only(end: 8.w),
-                            child: Image.asset(
-                              AppAssets.IMG_CLOCK,
-                              width: 96.w,
-                              height: 96.h,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              child: AppTextRegular(
-                                title: _containerMessage,
-                                color: ThemeClass.whiteColor,
-                                textAlign: TextAlign.right,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 26.sp,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment:
-                          con.homeResponse?.vlenseMessage != null
-                              ? CrossAxisAlignment.start
-                              : CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 140.w, right: 8.w),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: AppTextRegular(
-                              title: _containerMessage,
-                              color: ThemeClass.whiteColor,
-                              textAlign:
-                                  con.homeResponse?.vlenseMessage != null
-                                      ? TextAlign.start
-                                      : TextAlign.center,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 26.sp,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20.h),
-                        SizedBox(
-                          height: 72.h,
-                          width: double.infinity,
-                          child: _buildBottomSlot(context),
-                        ),
-                      ],
-                    ),
-            ),
-        if (!_centerMessageInColumn)
-          Positioned(
-            left: 2.w,
-            bottom: 90.h,
-            child: Image.asset(
-              AppAssets.IMG_CLOCK,
-              width: 150.w,
-              height: 150.h,
-              fit: BoxFit.fill,
-            ),
+              SizedBox(width: 8.w),
+              Image.asset(
+                AppAssets.IMG_CLOCK,
+                width: 108.w,
+                height: 108.w,
+                fit: BoxFit.contain,
+              ),
+            ],
           ),
-      ],
+          if (_showBranch) ...[
+            SizedBox(height: 14.h),
+            _buildBottomSlot(context),
+          ],
+        ],
+      ),
     );
   }
 
+  static double _asDouble(dynamic value) {
+    if (value is num) return value.toDouble();
+    return double.tryParse(value?.toString() ?? '') ?? 0;
+  }
+
   static Future<void> openMap(double latitude, double longitude) async {
-    String googleUrl =
+    if (latitude == 0 && longitude == 0) return;
+    final String googleUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude&mode=d';
-    if (await canLaunchUrl(Uri.parse(googleUrl))) {
-      await launchUrl(Uri.parse(googleUrl));
-    } else {
-      throw 'Could not open the map.';
+    final uri = Uri.parse(googleUrl);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     }
   }
 }

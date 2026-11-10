@@ -91,9 +91,10 @@ class _LoanCheckoutScreenState extends StateMVC<LoanCheckoutScreen>
                           SizedBox(height: 16.h,),
                           Divider(),
                           SizedBox(height: 16.h,),
-                          info(title: "loan_amount_checkout".tr, data:  widget.loanCheckoutModel.amount?.toString() ?? widget.loanCheckoutModel.amountTitle ?? "",),
-                          SizedBox(height: 6.h,),
-                          info(title: "installments".tr, data: widget.loanCheckoutModel.installments?.toString() ?? "",),
+                          info(
+                            title: "loan_amount_checkout".tr,
+                            data: _financingValue(widget.loanCheckoutModel),
+                          ),
                           SizedBox(height: 6.h,),
                           info(title: "government".tr, data: widget.loanCheckoutModel.govTitle??"",),
                           SizedBox(height: 6.h,),
@@ -117,6 +118,12 @@ class _LoanCheckoutScreenState extends StateMVC<LoanCheckoutScreen>
       ),
     );
   }
+  String _financingValue(LoanCheckoutModel model) {
+    final String title = model.amountTitle?.trim() ?? "";
+    if (title.isNotEmpty) return title;
+    return model.amount?.toString() ?? "";
+  }
+
   Widget info({required String title,required String data}){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

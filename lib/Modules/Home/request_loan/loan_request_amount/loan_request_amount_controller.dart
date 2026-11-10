@@ -3,6 +3,8 @@
 import 'package:Tanmeyah/Models/loan_checkout_model.dart';
 import 'package:Tanmeyah/Models/loan_products_response.dart';
 import 'package:Tanmeyah/Models/request_loan_response.dart';
+import 'package:Tanmeyah/Models/services_model.dart';
+import 'package:Tanmeyah/Network/request_loan_api.dart';
 import 'package:Tanmeyah/Shared/shared_prefirences.dart';
 import 'package:Tanmeyah/Utilities/general_toast.dart';
 import 'package:flutter/material.dart';
@@ -167,8 +169,29 @@ class LoanRequestAmountController extends ControllerMVC {
       if (currentPosition == null) return;
     }
 
+    loading = true;
+    setState(() {});
+
+    final ServiceDetailModel? productDetails =
+        await RequestLoanApi.getServiceDetail(id: selectedValue.toString());
+
+    loading = false;
+    setState(() {});
+
+    final String? amountText = _readInfoText(
+      productDetails?.info,
+      const ["قيمه التمويل", "قيمة التمويل"],
+    );
+    final int? installments = _readInfoAsInt(
+      productDetails?.info,
+      const ["مده التمويل", "مدة التمويل"],
+      joinAllDigits: false,
+    );
+
     final LoanCheckoutModel loanCheckoutModel = LoanCheckoutModel(
       productId: selectedValue,
+      installments: installments,
+      amountTitle: amountText ?? selectedTitle,
       latitude: currentPosition?.latitude.toString(),
       longitude: currentPosition?.longitude.toString(),
     );
@@ -178,6 +201,55 @@ class LoanRequestAmountController extends ControllerMVC {
       LoanCityScreen.routeName,
       arguments: loanCheckoutModel,
     );
+  }
+
+  String? _readInfoText(List<Info>? info, List<String> keys) {
+    final String? raw = _findInfoValue(info, keys);
+    if (raw == null) return null;
+    final String text = raw
+        .replaceAll(RegExp(r"<[^>]*>"), " ")
+        .replaceAll(RegExp(r"\s+"), " ")
+        .trim();
+    return text.isEmpty ? null : text;
+  }
+
+  int? _readInfoAsInt(List<Info>? info, List<String> keys,
+      {bool joinAllDigits = true}) {
+    final String? raw = _findInfoValue(info, keys);
+    if (raw == null || raw.trim().isEmpty) return null;
+
+    final String withoutHtml = raw.replaceAll(RegExp(r"<[^>]*>"), " ");
+    if (joinAllDigits) {
+      final String digits = withoutHtml.replaceAll(RegExp(r"[^\d]"), "");
+      if (digits.isEmpty) return null;
+      return int.tryParse(digits);
+    }
+    final Match? match = RegExp(r"\d+").firstMatch(withoutHtml);
+    if (match == null) return null;
+    return int.tryParse(match.group(0)!);
+  }
+
+  String? _findInfoValue(List<Info>? info, List<String> keys) {
+    if (info == null) return null;
+    for (final item in info) {
+      final String key = _normalizeArabic(item.infoKey ?? "");
+      for (final candidate in keys) {
+        if (key.contains(_normalizeArabic(candidate))) {
+          return item.infoValue;
+        }
+      }
+    }
+    return null;
+  }
+
+  String _normalizeArabic(String value) {
+    return value
+        .trim()
+        .replaceAll("ة", "ه")
+        .replaceAll("أ", "ا")
+        .replaceAll("إ", "ا")
+        .replaceAll("آ", "ا")
+        .replaceAll(RegExp(r"\s+"), " ");
   }
 
   applyForLoan(BuildContext context) async {
